@@ -1,4 +1,5 @@
-﻿using PixelSpace.Models.SharedModels.Ships;
+﻿using Amazon.DynamoDBv2.DataModel;
+using PixelSpace.Models.SharedModels.Ships;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ namespace PixelSpace.Models.SharedModels
 {
     public class Room
     {
+        [DynamoDBVersion]
         public int? Version { get; set; }
         public string Id { get; set; }
         public DateTime LastResolved { get; set; }
