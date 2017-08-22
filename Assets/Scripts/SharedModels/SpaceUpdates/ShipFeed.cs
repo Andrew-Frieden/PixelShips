@@ -1,36 +1,22 @@
-﻿using System;
+﻿using Amazon.DynamoDBv2.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PixelSpace.Models.SharedModels.SpaceUpdates
 {
+    [DynamoDBTable("Feeds")]
     public class ShipFeed
     {
+        [DynamoDBVersion]
         public int? Version { get; set; }
+        [DynamoDBHashKey]
         public string Id { get; set; }
-        public List<ShipUpdate> Updates { get; set; }
+        [DynamoDBIgnore]
+        public bool Modified { get; set; }
+        public List<FeedUpdate> Updates { get; set; }   //  should actually have an AddUpdate() method that drops old ones
     }
 
-    public static partial class ShipFeedHelpers
-    {
-        public static ShipFeedDto ToDto(this ShipFeed feed)
-        {
-            return new ShipFeedDto
-            {
-                Version = feed.Version,
-                Id = feed.Id,
-                Updates = feed.Updates.Select(u => u.ToDto()).ToList()
-            };
-        }
-
-        public static ShipFeed FromDto(this ShipFeedDto dto)
-        {
-            return new ShipFeed
-            {
-                Version = dto.Version,
-                Id = dto.Id,
-                Updates = dto.Updates.Select(u => u.FromDto()).ToList()
-            };
-        }
-    }
+    // everytime client reads, keep track of update ids that have been seen in last X minutes
+    // everytime client reads, attempt to delete all seen updates. even if update fails, client will have seen feed items it has read recently
 }

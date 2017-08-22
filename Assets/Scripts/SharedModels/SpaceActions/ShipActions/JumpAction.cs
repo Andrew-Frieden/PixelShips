@@ -16,7 +16,7 @@ namespace PixelSpace.Models.SharedModels
             }
         }
 
-        public override void Execute()
+        public override IEnumerable<SpaceAction> Execute()
         {
             // add notifications to source room and target room
             // move ship to target room
@@ -25,21 +25,31 @@ namespace PixelSpace.Models.SharedModels
 
         public override bool Validate()
         {
+            var startRoom = SourceRoom;
+
+            //  make sure room being jumped to is an exit of the current room
+            if (!SourceRoom.ExitIds.Contains(TargetRoom.Id))
+            {
+                return false;
+            }
+            
+            //  check cooldown on jump
+
             //  make sure target room is an exit of source room
             //  make sure source ship has enough power
             //  make sure source ship isn't on cooldown
             throw new NotImplementedException();
         }
 
-        protected override void BuildFromContext(SpaceActionDto dto)
+        protected override void BuildFromContext(SpaceActionDbi dbi)
         {
-            base.BuildFromContext(dto);
-            TargetRoom = Context.Rooms.Single(r => r.Id == dto.TargetId);
+            base.BuildFromContext(dbi);
+            TargetRoom = State.Rooms.Single(r => r.Id == dbi.TargetId);
         }
 
-        public override SpaceActionDto ToDto()
+        public override SpaceActionDbi ToDbi()
         {
-            return new SpaceActionDto
+            return new SpaceActionDbi
             {
                 DateCreated = this.DateCreated,
                 Name = this.Name,
@@ -50,7 +60,7 @@ namespace PixelSpace.Models.SharedModels
             };
         }
 
-        public JumpAction(SpaceContext context, SpaceActionDto dto) : base(context, dto) { }
+        public JumpAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
         protected JumpAction() { }
 
     }

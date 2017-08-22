@@ -6,31 +6,37 @@ namespace PixelSpace.Models.SharedModels
 {
     public abstract class SpaceAction
     {
+        public string Id { get; set; }
+        public int? Version { get; set; }
+
         public abstract string Name { get; }
         public Room SourceRoom { get; set; }
         public DateTime DateCreated { get; set; }
 
-        protected SpaceContext Context { get; set; }
+        protected ISpaceState State { get; set; }
         protected SpaceAction() { }
-        public SpaceAction(SpaceContext context, SpaceActionDto dto)
+        public SpaceAction(ISpaceState state, SpaceActionDbi dbi)
         {
-            Context = context;
-            BuildFromContext(dto);
+            State = state;
+            BuildFromContext(dbi);
         }
 
-        protected virtual void BuildFromContext(SpaceActionDto dto)
+        protected virtual void BuildFromContext(SpaceActionDbi dbi)
         {
-            if (dto.Name != this.Name)
+            if (dbi.Name != this.Name)
             {
                 throw new InvalidOperationException("tried to construct the wrong kind of space action");
             }
 
-            SourceRoom = Context.Rooms.Single(r => r.Id == dto.SourceRoomId);
+            Id = dbi.Id;
+            Version = dbi.Version;
+
+            SourceRoom = State.Rooms.Single(r => r.Id == dbi.SourceRoomId);
         }
 
         public abstract bool Validate();
-        public abstract void Execute();
+        public abstract IEnumerable<SpaceAction> Execute();
 
-        public abstract SpaceActionDto ToDto();
+        public abstract SpaceActionDbi ToDbi();
     }
 }

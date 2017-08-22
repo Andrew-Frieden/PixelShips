@@ -9,13 +9,13 @@ namespace PixelSpace.Models.SharedModels
     {
         public Ship SourceShip { get; set; }
 
-        protected override void BuildFromContext(SpaceActionDto dto)
+        protected override void BuildFromContext(SpaceActionDbi dbi)
         {
-            base.BuildFromContext(dto);
-            SourceShip = Context.Ships.Single(s => s.Id == dto.TargetId);
+            base.BuildFromContext(dbi);
+            SourceShip = State.Ships.Single(s => s.Id == dbi.SourceId);
         }
 
-        public ShipAction(SpaceContext context, SpaceActionDto dto) : base(context, dto) { }
+        public ShipAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
         protected ShipAction() { }
     }
 }

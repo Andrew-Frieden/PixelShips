@@ -6,23 +6,23 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
 {
     public class SpaceActionFactory
     {
-        private SpaceContext Context { get; set; }
-        public SpaceActionFactory(SpaceContext context)
+        private ISpaceState State { get; set; }
+        public SpaceActionFactory(ISpaceState state)
         {
-            Context = context;
+            State = state;
         }        
 
-        public SpaceAction GetSpaceAction(SpaceActionDto dto)
+        public SpaceAction GetModel(SpaceActionDbi dbi)
         {
-            switch (dto.Name.ToLower())
+            switch (dbi.Name.ToLower())
             {
                 case "jump":
                     {
-                        return new JumpAction(Context, dto);
+                        return new JumpAction(State, dbi);
                     }
                 case "ping":
                     {
-                        return new PingAction(Context, dto);
+                        return new PingAction(State, dbi);
                     }
                 case "interact":
                 default:
