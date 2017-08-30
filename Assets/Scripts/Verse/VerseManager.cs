@@ -16,16 +16,16 @@ namespace PixelShips.Verse
             }
         }
 
-		private static VerseManager _instance;
-		public static VerseManager instance
-		{
-			get
-			{
-				if (_instance == null)
-					_instance = new VerseManager();
-				return _instance;
-			}
-		}
+        private static VerseManager _instance;
+        public static VerseManager instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new VerseManager();
+                return _instance;
+            }
+        }
 
         private VerseManager() { }
     }
