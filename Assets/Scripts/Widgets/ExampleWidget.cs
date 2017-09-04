@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
+using PixelShips.Verse;
 
 namespace PixelShips.Widgets
 {
     public class ExampleWidget : BaseWidget
-    {
+    {    
         // Use this for initialization
         void Start()
         {
@@ -17,8 +19,9 @@ namespace PixelShips.Widgets
 
         }
 
-        protected override void OnVerseUpdate(string data)
+        protected override void OnVerseUpdate(IGameState state)
         {
+            Debug.Log("ExampleWidget -> received verse update");
             //  update UI with something from data
         }
 

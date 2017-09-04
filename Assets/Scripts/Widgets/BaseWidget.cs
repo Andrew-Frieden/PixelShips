@@ -19,10 +19,11 @@ namespace PixelShips.Widgets
         
         protected void OnDisable()
         {
-            verseCtrl.Unsubscribe(OnVerseUpdate);
+            if (verseCtrl != null)
+                verseCtrl.Unsubscribe(OnVerseUpdate);
         }
 
-        protected virtual void OnVerseUpdate(string data)
+        protected virtual void OnVerseUpdate(IGameState state)
         {
             throw new NotImplementedException();
         }

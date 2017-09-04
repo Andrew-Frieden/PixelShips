@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 namespace PixelShips.Verse
 {
-    public class VerseManager
+    public class VerseManager : MonoBehaviour
     {
         private IVerseController _ctrl;
         public IVerseController Ctrl
@@ -21,12 +22,27 @@ namespace PixelShips.Verse
         {
             get
             {
-                if (_instance == null)
-                    _instance = new VerseManager();
+                //if (_instance == null)
+                    //throw new Exception("VerseManager not set!");
                 return _instance;
             }
         }
+        
+        void Awake()
+        {
+            if (_instance == null || _instance == this)
+            {
+                _instance = this;
+            }
+            else
+            {
+                throw new Exception("VerseManager already found!");
+            }
+        }
 
-        private VerseManager() { }
+        void Start()
+        {
+            Ctrl.StartUpdates();
+        }
     }
 }

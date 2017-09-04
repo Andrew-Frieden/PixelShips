@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PixelShips.Verse
 {
-    public delegate void VerseUpdate(string data);
+    public delegate void VerseUpdate(IGameState state);
 
     public interface IVerseController
     {
@@ -12,4 +12,6 @@ namespace PixelShips.Verse
         void StartUpdates();
         bool SubmitAction(string action);
     }
+    
+    
 }

@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
+using PixelSpace.Models.SharedModels.Ships;
 
 namespace PixelShips.Verse {
     
@@ -10,11 +12,33 @@ namespace PixelShips.Verse {
     {
         private event VerseUpdate OnUpdate;
 
+        private System.Random rng = new System.Random();
+
         public void StartUpdates()
         {
-            OnUpdate("test");
+            Debug.Log("MockVerseController -> starting updates...");
+            
+           var myTimer = new Timer();
+           myTimer.Elapsed += new ElapsedEventHandler(myEvent);
+           myTimer.Interval = 1000;
+           myTimer.Enabled = true;
+        }
+        
+        private IGameState GetMockGameState()
+        {
+            var mockShip = new Ship();
 
-            throw new NotImplementedException();
+            mockShip.Name = "Pirate Joe Swanson";
+            mockShip.MaxHull = 200;
+            mockShip.Hull = (int)((rng.NextDouble() * 180) + 10); 
+                       
+            var mockState = new GameState(mockShip);
+            return mockState;            
+        }
+        
+        private void myEvent(object source, ElapsedEventArgs e) 
+        {
+            OnUpdate(GetMockGameState());
         }
 
         public bool SubmitAction(string action)
@@ -31,6 +55,8 @@ namespace PixelShips.Verse {
         {
             OnUpdate -= updateDelegate;
         }
+        
+        
     }
 }
 
