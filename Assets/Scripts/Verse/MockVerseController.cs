@@ -8,35 +8,27 @@ using PixelSpace.Models.SharedModels.Ships;
 
 namespace PixelShips.Verse {
     
-    public class MockVerseController : IVerseController
+    public class MockVerseController : MonoBehaviour, IVerseController
     {
         private event VerseUpdate OnUpdate;
 
-        private System.Random rng = new System.Random();
-
         public void StartUpdates()
         {
-            Debug.Log("MockVerseController -> starting updates...");
-            
-           var myTimer = new Timer();
-           myTimer.Elapsed += new ElapsedEventHandler(myEvent);
-           myTimer.Interval = 1000;
-           myTimer.Enabled = true;
+           Debug.Log("MockVerseController -> starting updates...");
+           InvokeRepeating("mockUpdate", 1, 1);
         }
         
         private IGameState GetMockGameState()
         {
             var mockShip = new Ship();
-
             mockShip.Name = "Pirate Joe Swanson";
             mockShip.MaxHull = 200;
-            mockShip.Hull = (int)((rng.NextDouble() * 180) + 10); 
-                       
+            mockShip.Hull = UnityEngine.Random.Range(25, 190);
             var mockState = new GameState(mockShip);
             return mockState;            
         }
         
-        private void myEvent(object source, ElapsedEventArgs e) 
+        private void mockUpdate() 
         {
             OnUpdate(GetMockGameState());
         }

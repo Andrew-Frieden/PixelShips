@@ -6,13 +6,13 @@ namespace PixelShips.Verse
 {
     public class VerseManager : MonoBehaviour
     {
-        private IVerseController _ctrl;
+        public MockVerseController _ctrl;
         public IVerseController Ctrl
         {
             get
             {
-                if (_ctrl == null)
-                    _ctrl = new MockVerseController();
+                //if (_ctrl == null)
+                    //throw new UnityException("No VerseController connected to VerseManager");
                 return _ctrl;
             }
         }
