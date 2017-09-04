@@ -3,78 +3,111 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using PixelShips.Widgets;
+using PixelShips.Verse;
 
-public class PlayerPanelWidget : MonoBehaviour {
+public enum enumCombatStatus {
+	DANGER, CLEAR, WARNING
+}
 
-	private int pHealth;
-	private int pMaxHealth;
-	private int pShields;
-	private int pMaxShields;
-	private string pName;
-	private string pShipName;
+public class PlayerPanelWidget : BaseWidget
+{
 
-	public TextMeshProUGUI playerName;
-	public TextMeshProUGUI shipName;
-	public Slider healthBar;
-	public TextMeshProUGUI healthBarText;
-	public Slider shieldBar;
-	public TextMeshProUGUI shieldBarText;
+    private int pHealth;
+    private int pMaxHealth;
+    private int pShields;
+    private int pMaxShields;
+    private string pName;
+    private string pShipName;
+	private enumCombatStatus pStatus;
+
+    public TextMeshProUGUI playerName;
+    public TextMeshProUGUI shipName;
+    public Slider healthBar;
+    public TextMeshProUGUI healthBarText;
+    public Slider shieldBar;
+    public TextMeshProUGUI shieldBarText;
 
 
-	// Use this for initialization
-	void Start () {
-		pHealth = 50;
-		pMaxHealth = 300;
-		pShields = 100;
-		pMaxShields = 150;
-		pName = "Miles The Mighty";
-		pShipName = "HMS P. Walter Tugnut";
+    // Use this for initialization
+    void Start()
+    {
+        pHealth = 50;
+        pMaxHealth = 300;
+        pShields = 100;
+        pMaxShields = 150;
+        pName = "Miles The Mighty";
+        pShipName = "P. Walter Tugnut";
 
-		setPlayerName(pName);
-		setShipName(pShipName);
-		setMaxHealth(pMaxHealth);
-		setMaxShield(pMaxShields);
-		setCurHealth(pHealth);
-		setCurShield(pShields);
-		setHealthBarText(pHealth + "//" + pMaxHealth);
-		setShieldBarText(pShields + "//" + pMaxShields);
+        setUIValues();
 
-	}
+    }
 
-	void setHealthBarText(string text){
-		healthBarText.text =  text;
-	}
+    protected override void OnVerseUpdate(IGameState state)
+    {
+		pShipName = state.PlayerShip.Name;
+        pHealth = state.PlayerShip.Hull;
+        pMaxHealth = state.PlayerShip.MaxHull;
 
-	void setShieldBarText(string text){
-		shieldBarText.text =  text;
-	}
-	
-	void setPlayerName(string name){
-		playerName.text = name;
-	}
+        setUIValues();
+    }
 
-	void setShipName(string name){
-		shipName.text = name;
-	}
+    private void setUIValues()
+    {
+        setPlayerName(pName);
+        setShipName(pShipName);
+        setMaxHealth(pMaxHealth);
+        setMaxShield(pMaxShields);
+        setCurHealth(pHealth);
+        setCurShield(pShields);
+        setHealthBarText(pHealth,pMaxHealth);
+        setShieldBarText(pShields, pMaxShields);
+    }
 
-	void setCurHealth(int value){
-		healthBar.value = value;
-	}
 
-	void setCurShield(int value){
-		shieldBar.value = value;
-	}
+    private void setHealthBarText(int cur, int max)
+    {
+        healthBarText.text = cur + "//" + max;
+    }
 
-	void setMaxHealth(int value){
-		healthBar.maxValue = value;
-	}
+    private void setShieldBarText(int cur, int max)
+    {
+        shieldBarText.text = cur + "//" + max;
+    }
 
-	void setMaxShield(int value){
-		shieldBar.maxValue = value;
-	}
+    private void setPlayerName(string name)
+    {
+        playerName.text = "CMDR " + name;
+    }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void setShipName(string name)
+    {
+        shipName.text = "HMS " + name;
+    }
+
+    private void setCurHealth(int value)
+    {
+        healthBar.value = value;
+    }
+
+    private void setCurShield(int value)
+    {
+        shieldBar.value = value;
+    }
+
+    private void setMaxHealth(int value)
+    {
+        healthBar.maxValue = value;
+    }
+
+    private void setMaxShield(int value)
+    {
+        shieldBar.maxValue = value;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
