@@ -13,7 +13,7 @@ namespace PixelShips.Widgets
         }
 
         protected void OnEnable()
-        {
+        {   
             verseCtrl.Subscribe(OnVerseUpdate);
         }
         
@@ -24,7 +24,7 @@ namespace PixelShips.Widgets
 
         protected virtual void OnVerseUpdate(string data)
         {
-            throw  new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
