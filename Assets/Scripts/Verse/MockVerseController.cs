@@ -15,17 +15,44 @@ namespace PixelShips.Verse {
         public void StartUpdates()
         {
            Debug.Log("MockVerseController -> starting updates...");
-           InvokeRepeating("mockUpdate", 1, 1);
+           InvokeRepeating("mockUpdate", 1, 3);
         }
         
         private IGameState GetMockGameState()
         {
-            var mockShip = new Ship();
+            var mockShip = new Ship();            
             mockShip.Name = "Pirate Joe Swanson";
             mockShip.MaxHull = 200;
             mockShip.Hull = UnityEngine.Random.Range(25, 190);
-            var mockState = new GameState(mockShip);
+
+            var mockState = new GameState(mockShip, GetMockNotifications());
             return mockState;            
+        }
+
+        private IEnumerable<GameStateNotification> GetMockNotifications()
+        {
+            var notifications = new List<GameStateNotification>();
+            notifications.Add(new GameStateNotification(){ Id = "123", Text = "A <color=purple>[ship]</color> has arrived.", SourceId = "345abcd" });
+            notifications.Add(new GameStateNotification(){ Id = "345", Text = "A torpedo was launched at your ship by <color=orange>[Pirate Ship]</color>", SourceId = "345abcd" });
+            notifications.Add(new GameStateNotification(){ Id = "678", Text = "A <color=purple>[ship]</color> has begun spinning up its jump drive.", SourceId = "345abcd" });
+            notifications.Add(new GameStateNotification(){ Id = "678", Text = "A distant comet streaks across your view.", SourceId = "" });
+            notifications.Add(new GameStateNotification(){ Id = "678", Text = "A <color=orange>[Pirate Ship]</color> is warming up weapons systems!", SourceId = "" });
+            notifications.Add(new GameStateNotification(){ Id = "678", Text = "A <color=purple>[ship]</color> is idling in the sector", SourceId = "" });
+
+            var note = notifications[UnityEngine.Random.Range(0, notifications.Count)];
+            return new List<GameStateNotification>() { note };
+
+            //if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.2f)
+            //{
+            //    notifications.RemoveAt(UnityEngine.Random.Range(0,notifications.Count));
+            //}
+            
+            //if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.2f)
+            //{
+            //    notifications.RemoveAt(UnityEngine.Random.Range(0,notifications.Count));
+            //}
+            
+            //return notifications;
         }
         
         private void mockUpdate() 
@@ -49,6 +76,13 @@ namespace PixelShips.Verse {
         }
         
         
+    }
+    
+    public enum MyGameTypes
+    {
+        Alien = 1,
+        Asteroid = 2,
+        WhoKnows = 3
     }
 }
 

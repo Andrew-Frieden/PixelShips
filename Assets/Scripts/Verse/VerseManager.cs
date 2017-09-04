@@ -33,6 +33,7 @@ namespace PixelShips.Verse
             if (_instance == null || _instance == this)
             {
                 _instance = this;
+                Debug.Log("manager awake " + _ctrl);
             }
             else
             {

@@ -6,11 +6,14 @@ using PixelShips.Verse;
 namespace PixelShips.Widgets
 {
     public class ExampleWidget : BaseWidget
-    {    
+    {
+        public TextMeshProUGUI TextFeed;
+    
+    
         // Use this for initialization
-        void Start()
+        new void Start()
         {
-
+            base.Start();
         }
 
         // Update is called once per frame
@@ -22,6 +25,14 @@ namespace PixelShips.Widgets
         protected override void OnVerseUpdate(IGameState state)
         {
             Debug.Log("ExampleWidget -> received verse update");
+
+            if (TextFeed != null)
+            {
+                foreach (var note in state.Notifications)
+                {
+                    TextFeed.text += note.Text + System.Environment.NewLine;
+                }
+            }
             //  update UI with something from data
         }
 
