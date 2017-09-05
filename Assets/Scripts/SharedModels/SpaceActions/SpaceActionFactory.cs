@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixelSpace.Models.SharedModels.Ships;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,38 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        public IEnumerable<SpaceAction> GetPossibleActionsForShip(Ship ship)
+        {
+            var actions = new List<SpaceAction>();
+
+            //  get a ping action
+            var pingDbi = new SpaceActionDbi()
+            {
+                Name = "ping",
+                SourceId = ship.Id,
+                SourceType = "ship",
+                TargetId = null,
+                SourceRoomId = ship.RoomId
+            };
+            actions.Add(GetModel(pingDbi));
+
+            //  get all jump actions
+            foreach (var exit in ship.Room.ExitIds)
+            {
+                var jumpDbi = new SpaceActionDbi()
+                {
+                    Name = "jump",
+                    SourceId = ship.Id,
+                    SourceType = "ship",
+                    SourceRoomId = ship.RoomId,
+                    TargetId = exit
+                };
+                actions.Add(GetModel(jumpDbi));
+            }
+
+            return actions;
         }
     }
 }

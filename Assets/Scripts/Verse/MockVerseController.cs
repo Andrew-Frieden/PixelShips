@@ -1,10 +1,11 @@
-﻿﻿using PixelSpace.Models.SharedModels;
+﻿using PixelSpace.Models.SharedModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 using PixelSpace.Models.SharedModels.Ships;
+using PixelSpace.Models.SharedModels.SpaceUpdates;
 
 namespace PixelShips.Verse {
     
@@ -25,7 +26,7 @@ namespace PixelShips.Verse {
             mockShip.MaxHull = 200;
             mockShip.Hull = UnityEngine.Random.Range(25, 190);
 
-            var mockState = new GameState(mockShip, GetMockNotifications());
+            var mockState = new GameState(mockShip, new MockSpaceState(), GetMockNotifications());
             return mockState;            
         }
 
@@ -41,18 +42,6 @@ namespace PixelShips.Verse {
 
             var note = notifications[UnityEngine.Random.Range(0, notifications.Count)];
             return new List<GameStateNotification>() { note };
-
-            //if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.2f)
-            //{
-            //    notifications.RemoveAt(UnityEngine.Random.Range(0,notifications.Count));
-            //}
-            
-            //if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.2f)
-            //{
-            //    notifications.RemoveAt(UnityEngine.Random.Range(0,notifications.Count));
-            //}
-            
-            //return notifications;
         }
         
         private void mockUpdate() 
@@ -77,12 +66,99 @@ namespace PixelShips.Verse {
         
         
     }
-    
-    public enum MyGameTypes
+
+    public class MockSpaceState : ISpaceState
     {
-        Alien = 1,
-        Asteroid = 2,
-        WhoKnows = 3
+        public IEnumerable<SpaceAction> Actions
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IDictionary<string, ShipFeed> FeedMap
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IEnumerable<ShipFeed> Feeds
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IDictionary<string, Room> RoomMap
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IEnumerable<Room> Rooms
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IDictionary<string, Ship> ShipMap
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IEnumerable<Ship> Ships
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
 

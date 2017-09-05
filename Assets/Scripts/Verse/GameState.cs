@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
-using PixelSpace.Models.SharedModels.Ships;
+using PixelSpace.Models.SharedModels;
 using System;
 using System.Collections.Generic;
+using PixelSpace.Models.SharedModels.Ships;
 
 namespace PixelShips.Verse
 {
@@ -10,6 +11,7 @@ namespace PixelShips.Verse
     {
         Ship PlayerShip { get; }
         IEnumerable<GameStateNotification> Notifications { get; }
+        ISpaceState SpaceState { get; }
     }
 
     public class GameState : IGameState
@@ -32,10 +34,20 @@ namespace PixelShips.Verse
             }
         }
 
-        public GameState(Ship ship, IEnumerable<GameStateNotification> notifications)
+        private ISpaceState _spaceState;
+        public ISpaceState SpaceState
+        {
+            get
+            {
+                return _spaceState;
+            }
+        }
+
+        public GameState(Ship ship, ISpaceState spaceState, IEnumerable<GameStateNotification> notifications)
         {
             _playerShip = ship;
             _notifications = notifications;
+            _spaceState = spaceState;
         }
     }
 

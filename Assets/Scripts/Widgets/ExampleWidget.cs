@@ -24,8 +24,6 @@ namespace PixelShips.Widgets
 
         protected override void OnVerseUpdate(IGameState state)
         {
-            Debug.Log("ExampleWidget -> received verse update");
-
             if (TextFeed != null)
             {
                 foreach (var note in state.Notifications)
