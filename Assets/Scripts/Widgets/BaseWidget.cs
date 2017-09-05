@@ -31,7 +31,7 @@ namespace PixelShips.Widgets
 
         protected virtual void OnVerseUpdate(IGameState state)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(string.Format("{0} is missing OnVerseUpdate implementation!", this.GetType().Name));
         }
     }
 }
