@@ -64,12 +64,16 @@ public class InteractionPanelWidget :  BaseWidget{
 	}
 
 	public void handleButtonClick(Button button){
-		Debug.Log( button.ToString() + " Clicked!");
+		
 		if (button == lButton){
 			Debug.Log( generateButtonText(lButtonAction) + "!");
+		} else if (button == mlButton){
+			Debug.Log( generateButtonText(mlButtonAction) + "!");
+		} else if (button == mrButton){
+			Debug.Log( generateButtonText(mrButtonAction) + "!");
+		} else if (button == rButton){
+			Debug.Log( generateButtonText(rButtonAction) + "!");
 		}
-
-
 
 	}
 
