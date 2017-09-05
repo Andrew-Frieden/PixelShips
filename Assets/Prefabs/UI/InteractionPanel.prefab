@@ -1099,6 +1099,10 @@ MonoBehaviour:
   mrButton: {fileID: 114258554255180474}
   mlButton: {fileID: 114023543022644124}
   lButton: {fileID: 114339682530858580}
+  rButtonAction: 0
+  mrButtonAction: 0
+  mlButtonAction: 0
+  lButtonAction: 0
 --- !u!114 &114981998811292496
 MonoBehaviour:
   m_ObjectHideFlags: 1
