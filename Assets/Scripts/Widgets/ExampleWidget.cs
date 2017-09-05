@@ -9,19 +9,6 @@ namespace PixelShips.Widgets
     {
         public TextMeshProUGUI TextFeed;
     
-    
-        // Use this for initialization
-        new void Start()
-        {
-            base.Start();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         protected override void OnVerseUpdate(IGameState state)
         {
             if (TextFeed != null)
@@ -31,7 +18,6 @@ namespace PixelShips.Widgets
                     TextFeed.text += note.Text + System.Environment.NewLine;
                 }
             }
-            //  update UI with something from data
         }
 
         new void OnEnable()

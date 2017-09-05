@@ -7,43 +7,26 @@ namespace PixelShips.Widgets
 {
     public abstract class BaseWidget : MonoBehaviour
     {
-        private bool subscribed;
+        private bool _subscribed;
     
-        protected IVerseController verseCtrl
-        {
-            get 
-            {
-                if (VerseManager.instance == null)
-                    return null;
-                return VerseManager.instance.Ctrl; 
-            }
-        }
-
-        protected void Start()
-        {
-            if (!subscribed)
-            {
-                subscribed = true;
-                verseCtrl.Subscribe(OnVerseUpdate);
-            }
-        }
+        protected IVerseController verseCtrl { get { return VerseManager.instance.Ctrl; } }
 
         protected void OnEnable()
         {
-            if (verseCtrl != null && !subscribed)
-            {
-                subscribed = true;
-                verseCtrl.Subscribe(OnVerseUpdate);
-            }
+            if (_subscribed)
+                throw new UnityException("BaseWidget -> already subscribed before being enabled!");
+
+            verseCtrl.Subscribe(OnVerseUpdate);
+            _subscribed = true;
         }
-        
+
         protected void OnDisable()
         {
-            if (verseCtrl != null && subscribed)
-            {
-                verseCtrl.Unsubscribe(OnVerseUpdate);
-                subscribed = false;
-            }
+            if (!_subscribed)
+                throw new UnityException("BaseWidget -> already unsubscribed before being disabled!");
+
+            verseCtrl.Unsubscribe(OnVerseUpdate);
+            _subscribed = false;
         }
 
         protected virtual void OnVerseUpdate(IGameState state)

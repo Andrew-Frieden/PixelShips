@@ -6,13 +6,17 @@ namespace PixelShips.Verse
 {
     public class VerseManager : MonoBehaviour
     {
-        public MockVerseController _ctrl;
+        public IVerseController _ctrl;
         public IVerseController Ctrl
         {
             get
             {
-                //if (_ctrl == null)
-                    //throw new UnityException("No VerseController connected to VerseManager");
+                if (_ctrl == null)
+                {
+                    _ctrl = gameObject.GetComponent<IVerseController>();
+                    if (_ctrl == null)
+                        throw new UnityException("VerseManager -> No VerseController found!");
+                }
                 return _ctrl;
             }
         }
@@ -22,8 +26,8 @@ namespace PixelShips.Verse
         {
             get
             {
-                //if (_instance == null)
-                    //throw new Exception("VerseManager not set!");
+                if (_instance == null)
+                    throw new UnityException("VerseManager -> instance referenced too early in unity lifecycle.");
                 return _instance;
             }
         }
@@ -33,11 +37,10 @@ namespace PixelShips.Verse
             if (_instance == null || _instance == this)
             {
                 _instance = this;
-                Debug.Log("manager awake " + _ctrl);
             }
             else
             {
-                throw new Exception("VerseManager already found!");
+                throw new UnityException("VerseManager -> instance already found!");
             }
         }
 
