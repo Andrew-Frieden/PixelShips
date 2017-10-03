@@ -1,5 +1,6 @@
-﻿using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DataModel;
 using PixelSpace.Models.SharedModels.Ships;
+using PixelSpace.Models.SharedModels.SpaceUpdates;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,6 @@ namespace PixelSpace.Models.SharedModels
         [DynamoDBHashKey]
         public string Id { get; set; }
 
-        public int Zone { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public string Description { get; set; }
@@ -21,18 +21,16 @@ namespace PixelSpace.Models.SharedModels
         public List<string> ExitIds { get; set; }
         public List<string> ShipIds { get; set; }
 
-        //[DynamoDBIgnore]
-        //public List<Room> Exits { get; set; }
+        public List<FeedUpdate> Notifications { get; set; }
 
         [DynamoDBIgnore]
         public List<Ship> Ships { get; set; }
 
         [DynamoDBIgnore]
-        public bool Modified { get; set; }  //  only write models that have been modified
+        public bool IsModified { get; set; }  //  only write models that have been modified
 
         public void FromModel()
         {
-            //ExitIds = Exits.Select(exit => exit.Id).ToList();
             ShipIds = Ships.Select(ship => ship.Id).ToList();
         }
     }

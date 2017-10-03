@@ -25,6 +25,14 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
                     {
                         return new PingAction(State, dbi);
                     }
+                case "start_instant_jump":
+                    {
+                        return new StartInstantJumpAction(State, dbi);
+                    }
+                case "end_instant_jump":
+                    {
+                        return new EndInstantJumpAction(State, dbi);
+                    }
                 case "interact":
                 default:
                     throw new NotImplementedException();
@@ -36,22 +44,26 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
             var actions = new List<SpaceAction>();
 
             //  get a ping action
-            var pingDbi = new SpaceActionDbi()
-            {
-                Name = "ping",
-                SourceId = ship.Id,
-                SourceType = "ship",
-                TargetId = null,
-                SourceRoomId = ship.RoomId
-            };
-            actions.Add(GetModel(pingDbi));
+            //var pingDbi = new SpaceActionDbi()
+            //{
+            //    Name = "ping",
+            //    SourceId = ship.Id,
+            //    SourceType = "ship",
+            //    TargetId = null,
+            //    SourceRoomId = ship.RoomId
+            //};
+            //actions.Add(GetModel(pingDbi));
 
             //  get all jump actions
+
+            if (ship.Room == null)
+                throw new Exception("Ship's room collection not initialized!");
+
             foreach (var exit in ship.Room.ExitIds)
             {
                 var jumpDbi = new SpaceActionDbi()
                 {
-                    Name = "jump",
+                    Name = "start_instant_jump",
                     SourceId = ship.Id,
                     SourceType = "ship",
                     SourceRoomId = ship.RoomId,

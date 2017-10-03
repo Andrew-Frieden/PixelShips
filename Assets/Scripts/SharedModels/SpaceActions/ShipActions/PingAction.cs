@@ -8,24 +8,35 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
     //  dev action that notifies everything in the room
     public class PingAction : ShipAction
     {
-        public override IEnumerable<SpaceAction> Execute()
+        public override IEnumerable<SpaceActionDbi> Execute()
         {
-            //  ping should just add an update to all ship feeds in the room
-            //var shipIds = State.Ships.Where(s => s.Room == this.SourceRoom).Select(ship => ship.Id);
-            //var feeds = State.Feeds.Where(f => shipIds.Contains(f.Id));
+            //  create a notification for the source
+            //  and create a notification for everyone else in the room
+            var roomNotification = new FeedUpdate()
+            {
+                Id = Guid.NewGuid().ToString(),
+                UniverseTime = DateTime.UtcNow,
+                Text = string.Format("Detected a sector ping by [{0}]", this.SourceShip.Id),
+                HiddenIds = new List<string> { this.SourceShip.Id },
+                VisibleIds = new List<string>()
+            };
+            this.SourceRoom.Notifications.Add(roomNotification);
 
-            //foreach (var feed in feeds)
-            //{
-            //    var nextUpdate = new FeedUpdate
-            //    {
-            //        Text = string.Format("Detected a ping by {0}", SourceShip.Name),
-            //        UniverseTime = DateTime.UtcNow,
-            //        Id = Guid.NewGuid().ToString()
-            //    };
-            //    feed.Updates.Add(nextUpdate);
-            //}
+            if (this.SourceShip.IsUser)
+            {
+                var sourceNotification = new FeedUpdate()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UniverseTime = DateTime.UtcNow,
+                    Text = "You sent a sector ping.",
+                    HiddenIds = new List<string> (),
+                    VisibleIds = new List<string> { this.SourceShip.Id }
+                };
 
-            return Enumerable.Empty<SpaceAction>();
+                this.SourceRoom.Notifications.Add(sourceNotification);
+            }
+
+            return Enumerable.Empty<SpaceActionDbi>();
         }
 
         public override bool Validate()

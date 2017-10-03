@@ -25,8 +25,11 @@ namespace PixelShips.Widgets
             if (!_subscribed)
                 throw new UnityException("BaseWidget -> already unsubscribed before being disabled!");
 
-            verseCtrl.Unsubscribe(OnVerseUpdate);
-            _subscribed = false;
+            if (VerseManager.instance != null)
+            {
+                verseCtrl.Unsubscribe(OnVerseUpdate);
+                _subscribed = false;
+            }
         }
 
         protected virtual void OnVerseUpdate(IGameState state)

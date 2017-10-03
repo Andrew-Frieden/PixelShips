@@ -12,7 +12,22 @@ namespace PixelSpace.Models.SharedModels
         protected override void BuildFromContext(SpaceActionDbi dbi)
         {
             base.BuildFromContext(dbi);
-            SourceShip = State.Ships.Single(s => s.Id == dbi.SourceId);
+
+            //if (State.Ships == null)
+            //    throw new Exception("ship collection empty!");
+
+            //var test = State.Ships.Where(s => s.Id == dbi.SourceId);
+
+            //if (test.Count() < 1)
+            //    throw new Exception("didn't find the ship!");
+            try
+            {
+                SourceShip = State.Ships.Single(s => s.Id == dbi.SourceId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("ShipAction counldn't build from context: " + e.Message);
+            }
         }
 
         public ShipAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }

@@ -16,7 +16,7 @@ namespace PixelSpace.Models.SharedModels
             }
         }
 
-        public override IEnumerable<SpaceAction> Execute()
+        public override IEnumerable<SpaceActionDbi> Execute()
         {
             // add notifications to source room and target room
             // move ship to target room

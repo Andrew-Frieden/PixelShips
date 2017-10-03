@@ -14,8 +14,10 @@ namespace PixelSpace.Models.SharedModels.Ships
         public string Name { get; set; }
         public int Hull { get; set; }
         public int MaxHull { get; set; }
-        public DateTime LastJump { get; set; }
         public string RoomId { get; set; }
+
+        public DateTime LastJump { get; set; }
+        public string JumpRoomId { get; set; }  //  target RoomId of a jump action
 
         public bool IsUser { get; set; }
 
@@ -23,8 +25,9 @@ namespace PixelSpace.Models.SharedModels.Ships
         public Room Room { get; set; }
 
         [DynamoDBIgnore]
-        public bool Modified { get; set; }
+        public bool IsModified { get; set; }
 
+        [DynamoDBIgnore]
         public static double JUMP_COOLDOWN = 5;
         public bool CanJump
         {
@@ -36,7 +39,14 @@ namespace PixelSpace.Models.SharedModels.Ships
 
         public void FromModel()
         {
-            RoomId = Room.Id;
+            if (Room != null)
+            {
+                RoomId = Room.Id;
+            }
+            else
+            {
+                RoomId = string.Empty;
+            }
         }
     }
 }
