@@ -45,9 +45,9 @@ public class PlayerPanelWidget : BaseWidget
 
     protected override void OnVerseUpdate(IGameState state)
     {
-		pShipName = state.PlayerShip.Name;
-        pHealth = state.PlayerShip.Hull;
-        pMaxHealth = state.PlayerShip.MaxHull;
+		pShipName = state.UserShip.Name;
+        pHealth = state.UserShip.Hull;
+        pMaxHealth = state.UserShip.MaxHull;
 
         setUIValues();
     }

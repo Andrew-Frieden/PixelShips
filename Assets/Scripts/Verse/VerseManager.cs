@@ -26,8 +26,8 @@ namespace PixelShips.Verse
         {
             get
             {
-                //if (_instance == null)
-                //    throw new UnityException("VerseManager -> instance referenced too early in unity lifecycle.");
+                if (_instance == null)
+                    throw new UnityException("VerseManager -> instance referenced too early in unity lifecycle.");
                 return _instance;
             }
         }

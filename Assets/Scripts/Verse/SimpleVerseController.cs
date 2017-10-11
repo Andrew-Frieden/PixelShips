@@ -17,7 +17,7 @@ namespace Assets.Scripts.Verse
     {
         public string ShipId = "a9b0857b-7887-4ead-9664-a0c4f6973e6c";
         public const string GET_SHIPSTATE_URL = "https://h3l6swrjm3.execute-api.us-east-1.amazonaws.com/Prod/client/";
-        private const int UPDATE_INTERVAL_MS = 1000;
+        private const int UPDATE_INTERVAL_MS = 2000;
 
         private event VerseUpdate OnUpdate;
 
@@ -52,8 +52,13 @@ namespace Assets.Scripts.Verse
         {
             while (true)
             {
+                //var time = DateTime.UtcNow;
                 yield return WaitForLatestShipState();
-                yield return new WaitForSeconds(UPDATE_INTERVAL_MS / 1000);
+
+                //var updateTimeMs = (DateTime.UtcNow - time).TotalMilliseconds;
+                //var waitForSeconds = (float)(UPDATE_INTERVAL_MS - updateTimeMs) / 1000f;
+                //yield return new WaitForSeconds(waitForSeconds);
+                yield return new WaitForSeconds(UPDATE_INTERVAL_MS/1000);
             }
         }
 
@@ -62,7 +67,7 @@ namespace Assets.Scripts.Verse
             //var before = DateTime.UtcNow;
             var getStateRequest = string.Format("{0}{1}", GET_SHIPSTATE_URL, ShipId);
             var getStateWww = new WWW(getStateRequest);
-            Debug.Log(getStateRequest);
+            //Debug.Log(getStateRequest);
 
             yield return getStateWww;
             //Debug.Log("yield time: " + (DateTime.UtcNow - before).TotalMilliseconds);
@@ -73,21 +78,21 @@ namespace Assets.Scripts.Verse
             else
                 txt = getStateWww.error;  //error
 
-            Debug.Log("latest state txt: " + txt);
+            Debug.Log("ping -> " + txt);
             try
             {
 
                 var latestShipState = JsonConvert.DeserializeObject<ShipState>(txt);
-                var gameState = GetGameState(latestShipState);
+                var gameState = new SimpleGameState(latestShipState);
 
                 try
                 {
-                    RoomState rs = new RoomState(latestShipState.Room, latestShipState.Room.Ships);
-                    var actionFactory = new SpaceActionFactory(rs);
+                    //RoomState rs = new RoomState(latestShipState.Room, latestShipState.Room.Ships);
+                    var actionFactory = new SpaceActionFactory(gameState);
 
-                    var firstAction = gameState.shipState.PossibleActions.FirstOrDefault();
+                    var firstAction = gameState.UserActions.FirstOrDefault();
                     if (firstAction != null)
-                        someAction = actionFactory.GetModel(firstAction);
+                        someAction = firstAction;
                 }
                 catch
                 {
@@ -102,7 +107,7 @@ namespace Assets.Scripts.Verse
 
                 //GameState.Current = gameState;
                 OnUpdate(gameState);
-                Debug.Log("verse ping complete");
+                //Debug.Log("verse ping complete");
             }
             catch(Exception e)
             {
@@ -122,17 +127,6 @@ namespace Assets.Scripts.Verse
             {
                 Debug.Log("TestFirstAction NOTHING");
             }
-        }
-
-        private IGameState GetGameState(ShipState shipState)
-        {
-            var gameState = new SimpleGameState
-            {
-                Time = DateTime.UtcNow,
-                PlayerShip = shipState.Ship,
-                shipState = shipState
-            };
-            return gameState;
         }
 
         private IEnumerator QueueAction(SpaceActionDbi dbi)
