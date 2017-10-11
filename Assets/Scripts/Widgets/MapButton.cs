@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using PixelSpace.Models.SharedModels;
-using PixelSpace.Models.SharedModels.Helpers;
-using TMPro;
+using PixelShips.Helpers;
 
 namespace PixelShips.Widgets
 {
@@ -16,7 +15,7 @@ namespace PixelShips.Widgets
         private IEnumerable<SpaceAction> ExitActions;
         private IGameState _state;
 
-        public TMP_Text Text;
+        public TextMeshProUGUI Text;
 
         protected override void OnVerseUpdate(IGameState state)
         {
@@ -36,28 +35,18 @@ namespace PixelShips.Widgets
 
                 PrintJump(jumpAction);
             }
+
+
         }
+
 
         private void PrintJump(StartInstantJumpAction jump)
         {
             //var targetRoom = _state.Rooms.Single(r => r.Id == jump.TargetRoomId);
             var jumpLink = string.Format("[Sector {0}]", jump.TargetRoomId.Substring(0, 4));
-            jumpLink = jumpLink.AddLink(jump.TargetRoomId).AddColor("orange");
+            jumpLink = jumpLink.GetActiveRoomText(jump.TargetRoomId);
             var jumpText = string.Format("Nav point at {0}", jumpLink);
             Text.text += jumpText + Environment.NewLine;
-        }
-    }
-
-    public static class TextHelpers
-    {
-        public static string AddLink(this string text, string id)
-        {
-            return string.Format("<link={0}>{1}</link>", id, text);
-        }
-
-        public static string AddColor(this string text, string color)
-        {
-            return string.Format("<color={0}>{1}</color>", color, text);
         }
     }
 }
