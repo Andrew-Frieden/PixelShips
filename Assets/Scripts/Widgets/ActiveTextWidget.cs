@@ -14,20 +14,38 @@ namespace PixelShips.Widgets
         public TextMeshProUGUI DisplayText;
 
         private List<DateTimeGuid> ObservedNoteIds = new List<DateTimeGuid>();
+        private bool _hasUpdated;
 
         private void Start()
         {
             if (DisplayText == null)
                 DisplayText = GetComponentInChildren<TextMeshProUGUI>();
+
+            DisplayText.text = string.Empty;
+
+            AddActiveText("System initializing...");
         }
 
-        private void AddActiveText(string text)
+        public void AddActiveText(string text)
         {
             DisplayText.text += text + Environment.NewLine;
         }
 
+        private IEnumerator ConnectedSequence()
+        {
+            AddActiveText("Connected.");
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1.0f));
+            AddActiveText("Welcome CMDR");
+        }
+
         protected override void OnVerseUpdate(IGameState state)
         {
+            if (!_hasUpdated)
+            {
+                _hasUpdated = true;
+                StartCoroutine(ConnectedSequence());
+            }
+
             var notifications = state.Notifications;
 
             //  look at all the notifications in the room and show any that haven't been seen before
@@ -36,7 +54,15 @@ namespace PixelShips.Widgets
                 if (!ObservedNoteIds.Any(n => n.Id == note.Id))
                 {
                     ObservedNoteIds.Add(new DateTimeGuid(note.Id, DateTime.UtcNow));
-                    AddActiveText(note.Text);
+
+                    if (note.Text.Contains("["))
+                    {
+
+                    }
+                    else
+                    {
+                        AddActiveText(note.Text);
+                    }
                 }
             }
 

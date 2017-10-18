@@ -5,10 +5,11 @@ using PixelShips.Verse;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 namespace PixelShips.Widgets
 {
-    public class PingTimerWidget : BaseWidget
+    public class PingTimerWidget : BaseWidget, IPointerClickHandler
     {
         private float time;
         public TextMeshProUGUI text;
@@ -39,6 +40,34 @@ namespace PixelShips.Widgets
             {
                 updateCount = 0;
                 text.text = string.Format("{0:0.0}s", time);
+
+                if (_isShowingDebug)
+                {
+                    text.text += Environment.NewLine + "Debug" + Environment.NewLine;
+                    text.text += eventDebug;
+                }
+            }
+        }
+
+        private bool _isShowingDebug = true;
+        private void ToggleDebug()
+        {
+            _isShowingDebug = !_isShowingDebug;
+        }
+
+        private string eventDebug = string.Empty;
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            ToggleDebug();
+
+            eventDebug = string.Empty;
+
+            if (_isShowingDebug)
+            {
+                eventDebug += Environment.NewLine + "press: " + eventData.pressPosition;
+                eventDebug += Environment.NewLine + "pos: " + eventData.position;
+                eventDebug += Environment.NewLine + "raw: " + eventData.rawPointerPress;
+                eventDebug += Environment.NewLine + "press: " + eventData.ToString() + Environment.NewLine;
             }
         }
     }

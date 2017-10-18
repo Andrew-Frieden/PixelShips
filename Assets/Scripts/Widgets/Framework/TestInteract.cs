@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using PixelSpace.Models.SharedModels.Helpers;
+using PixelShips.Widgets;
 
 public class TestInteract : MonoBehaviour, IPointerClickHandler {
 
     private TextMeshProUGUI _text;
-
-    public TextMeshProUGUI FocusText;
+    public FocusTextWidget FocusText;
 
 	// Use this for initialization
 	void Start () {
@@ -23,16 +23,16 @@ public class TestInteract : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Pointer Click");
-
-        //var result = TMP_TextUtilities.FindIntersectingWord(_text, Input.mousePosition, Camera.current);
-        // _text.textInfo.linkInfo.ForEach(i => Debug.Log("link txt: " + i.GetLinkText() + " id: " + i.GetLinkID() + " hash: " + i.hashCode));
-        var result = TMP_TextUtilities.FindIntersectingLink(_text, Input.mousePosition, Camera.current);
+        var result = TMP_TextUtilities.FindIntersectingLink(_text, eventData.pressPosition, eventData.pressEventCamera);
         if (result >= 0)
         {
             var objectId = _text.textInfo.linkInfo[result].GetLinkID();
-            FocusText.text = string.Format("[{0}]", objectId);
-            //Debug.Log("clicked: " + _text.textInfo.linkInfo[result].GetLinkID());
+            FocusText.SetSelectedObjectId(objectId);
         }
+    }
+
+    public void Cancel()
+    {
+        FocusText.SetDefaultText();
     }
 }

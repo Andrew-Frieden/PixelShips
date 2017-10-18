@@ -16,6 +16,7 @@ namespace Assets.Scripts.Verse
     public class SimpleVerseController : MonoBehaviour, IVerseController
     {
         public string ShipId = "a9b0857b-7887-4ead-9664-a0c4f6973e6c";
+
         public const string GET_SHIPSTATE_URL = "https://h3l6swrjm3.execute-api.us-east-1.amazonaws.com/Prod/client/";
         private const int UPDATE_INTERVAL_MS = 2000;
 
@@ -78,7 +79,7 @@ namespace Assets.Scripts.Verse
             else
                 txt = getStateWww.error;  //error
 
-            Debug.Log("ping -> " + txt);
+            //Debug.Log("ping -> " + txt);
             try
             {
 

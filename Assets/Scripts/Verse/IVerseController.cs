@@ -52,7 +52,7 @@ namespace PixelShips.Verse
         public SimpleGameState(ShipState state)
         {
             UserTime = DateTime.UtcNow;
-            var rs = new RoomState(state.Room, new List<Ship>() { state.Ship });
+            var rs = new RoomState(state.Room, state.Room.Ships);
             UserShip = state.Ship;
             UserRoom = rs.Room;
             Ships = rs.Ships;

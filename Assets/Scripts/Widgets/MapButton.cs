@@ -35,10 +35,7 @@ namespace PixelShips.Widgets
 
                 PrintJump(jumpAction);
             }
-
-
         }
-
 
         private void PrintJump(StartInstantJumpAction jump)
         {

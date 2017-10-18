@@ -16,14 +16,27 @@ namespace PixelShips.Helpers
             return string.Format("<color={0}>{1}</color>", color, text);
         }
 
-        public static string GetActive(this string text, Ship ship)
+        public static string GetActiveTextTag(this Ship ship, bool includeId = false)
         {
-            return text.AddLink(ship.Id).AddColor("purple");
+            var includedIdText = includeId ? " " + ship.Id.Substring(0,4) : string.Empty;
+            var shipTag = string.Format("[{0}{1}]", ship.Name, includedIdText);
+            return shipTag.AddLink(ship.Id).AddColor("purple");
+        }
+
+        public static string GetActiveTextTage(this Room room, bool includeId = false)
+        {
+            return string.Empty;
         }
 
         public static string GetActiveRoomText(this string text, string roomId)
         {
             return text.AddLink(roomId).AddColor("orange");
+        }
+
+        public static string GetActiveRoomText(string roomId)
+        {
+            var t = string.Format("[Sector {0}]", roomId.Substring(0, 4));
+            return t.AddLink(roomId).AddColor("orange");
         }
     }
 }
