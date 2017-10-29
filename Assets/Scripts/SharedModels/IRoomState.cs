@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace PixelSpace.Models.SharedModels
 {
-    public interface ISpaceState
+    public interface IRoomState
     {
-        IEnumerable<Room> Rooms { get; set; }
-        IEnumerable<Ship> Ships { get; set; }
+        Room Room { get; }
+        IEnumerable<Ship> Ships { get; }
     }
 }

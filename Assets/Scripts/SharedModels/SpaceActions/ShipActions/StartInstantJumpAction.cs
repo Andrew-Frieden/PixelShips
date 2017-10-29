@@ -21,8 +21,8 @@ namespace PixelSpace.Models.SharedModels
         public override IEnumerable<SpaceActionDbi> Execute()
         {
             //  remove the ship from the room
-            SourceRoom.Ships.Remove(this.SourceShip);
-            SourceShip.Room = null;
+            SourceRoom.ShipIds.Remove(SourceShip.Id);
+            SourceShip.RoomId = string.Empty;
 
             //  set the target jump room on the ship
             SourceShip.JumpRoomId = TargetRoomId;
@@ -39,6 +39,7 @@ namespace PixelSpace.Models.SharedModels
             var actionNote = FeedUpdate.New();
             actionNote.HiddenIds.Add(SourceShip.Id);
             actionNote.Text = string.Format("[{0}] warped out of the room.", this.SourceShip.Id);
+
             notes.Add(actionNote);
 
             if (SourceShip.IsUser)
@@ -79,7 +80,7 @@ namespace PixelSpace.Models.SharedModels
         public override bool Validate()
         {
             //  make sure room contains the ship
-            if (!SourceRoom.Ships.Contains(this.SourceShip))
+            if (!SourceRoom.ShipIds.Contains(this.SourceShip.Id))
             {
                 return false;
             }
@@ -113,6 +114,6 @@ namespace PixelSpace.Models.SharedModels
             };
         }
 
-        public StartInstantJumpAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
+        public StartInstantJumpAction(IRoomState state, SpaceActionDbi dbi) : base(state, dbi) { }
     }
 }

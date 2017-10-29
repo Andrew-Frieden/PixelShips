@@ -44,7 +44,7 @@ namespace PixelSpace.Models.SharedModels
         protected override void BuildFromContext(SpaceActionDbi dbi)
         {
             base.BuildFromContext(dbi);
-            TargetRoom = State.Rooms.Single(r => r.Id == dbi.TargetId);
+            TargetRoom = State.Room;
         }
 
         public override SpaceActionDbi ToDbi()
@@ -60,7 +60,7 @@ namespace PixelSpace.Models.SharedModels
             };
         }
 
-        public JumpAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
+        public JumpAction(IRoomState state, SpaceActionDbi dbi) : base(state, dbi) { }
         protected JumpAction() { }
 
     }

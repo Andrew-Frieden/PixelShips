@@ -61,6 +61,6 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
 
         public override string Name { get { return "ping"; } }
 
-        public PingAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
+        public PingAction(IRoomState state, SpaceActionDbi dbi) : base(state, dbi) { }
     }
 }

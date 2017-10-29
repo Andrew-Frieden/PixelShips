@@ -19,8 +19,12 @@ namespace PixelShips.Widgets
 
         protected override void OnVerseUpdate(IGameState state)
         {
-            ExitActions = state.UserActions.Where(a => a.Name == "start_instant_jump");
             _state = state;
+
+            if (state.UserActions == null)
+                return;
+
+            ExitActions = state.UserActions.Where(a => a.Name == "start_instant_jump");
         }
 
         public void PrintExits()

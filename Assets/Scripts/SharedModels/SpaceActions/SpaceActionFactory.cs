@@ -7,8 +7,8 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
 {
     public class SpaceActionFactory
     {
-        private ISpaceState State { get; set; }
-        public SpaceActionFactory(ISpaceState state)
+        private IRoomState State { get; set; }
+        public SpaceActionFactory(IRoomState state)
         {
             State = state;
         }        
@@ -55,21 +55,23 @@ namespace PixelSpace.Models.SharedModels.SpaceActions
             //actions.Add(GetModel(pingDbi));
 
             //  get all jump actions
-
-            if (ship.Room == null)
-                throw new Exception("Ship's room collection not initialized!");
-
-            foreach (var exit in ship.Room.ExitIds)
+            if (State.Room != null)
             {
-                var jumpDbi = new SpaceActionDbi()
+                foreach (var exit in State.Room.ExitIds)
                 {
-                    Name = "start_instant_jump",
-                    SourceId = ship.Id,
-                    SourceType = "ship",
-                    SourceRoomId = ship.RoomId,
-                    TargetId = exit
-                };
-                actions.Add(GetModel(jumpDbi));
+                    var jumpDbi = new SpaceActionDbi()
+                    {
+                        Name = "start_instant_jump",
+                        SourceId = ship.Id,
+                        SourceType = "ship",
+                        SourceRoomId = ship.RoomId,
+                        TargetId = exit
+                    };
+                    actions.Add(GetModel(jumpDbi));
+                }
+            }
+            else
+            {
             }
 
             return actions;

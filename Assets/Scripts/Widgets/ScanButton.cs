@@ -45,8 +45,8 @@ namespace PixelShips.Widgets
         {
             text.AddActiveText("Scanning...");
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1.5f));
-            text.AddActiveText(scanState.UserRoom.Description);
-            text.AddActiveText(string.Format("Location: [{0},{1}]", scanState.UserRoom.X, scanState.UserRoom.Y));
+            text.AddActiveText(scanState.Room.Description);
+            text.AddActiveText(string.Format("Location: [{0},{1}]", scanState.Room.X, scanState.Room.Y));
 
             if (scanState.Ships.Count() > 1)
             {

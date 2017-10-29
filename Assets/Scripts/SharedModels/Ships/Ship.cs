@@ -1,4 +1,5 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
+using Newtonsoft.Json;
 using System;
 
 namespace PixelSpace.Models.SharedModels.Ships
@@ -21,10 +22,11 @@ namespace PixelSpace.Models.SharedModels.Ships
 
         public bool IsUser { get; set; }
 
-        [DynamoDBIgnore]
-        public Room Room { get; set; }
+        //[DynamoDBIgnore]
+        //public Room Room { get; set; }
 
         [DynamoDBIgnore]
+        [JsonIgnore]
         public bool IsModified { get; set; }
 
         [DynamoDBIgnore]
@@ -34,18 +36,6 @@ namespace PixelSpace.Models.SharedModels.Ships
             get
             {
                 return (DateTime.UtcNow - LastJump).TotalSeconds > JUMP_COOLDOWN;
-            }
-        }
-
-        public void FromModel()
-        {
-            if (Room != null)
-            {
-                RoomId = Room.Id;
-            }
-            else
-            {
-                RoomId = string.Empty;
             }
         }
     }

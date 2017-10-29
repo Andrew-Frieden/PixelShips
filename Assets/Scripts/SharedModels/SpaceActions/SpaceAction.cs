@@ -12,13 +12,12 @@ namespace PixelSpace.Models.SharedModels
         public abstract string Name { get; }
         public Room SourceRoom { get; set; }
 
-        //  does this represent the time the action was created or when it occurs in the universe?
-        //  this should probably represent the time the action was seen by the universe
+        //  this represents the time the action was seen by the universe
         public DateTime DateCreated { get; set; }
 
-        protected ISpaceState State { get; set; }
+        protected IRoomState State { get; set; }
         protected SpaceAction() { }
-        public SpaceAction(ISpaceState state, SpaceActionDbi dbi)
+        public SpaceAction(IRoomState state, SpaceActionDbi dbi)
         {
             State = state;
             BuildFromContext(dbi);
@@ -33,11 +32,12 @@ namespace PixelSpace.Models.SharedModels
                     throw new InvalidOperationException("tried to construct the wrong kind of space action");
                 }
 
+                if (State.Room.Id != dbi.SourceRoomId)
+                    throw new Exception("SpaceAction BuildFromContext State room id does not match space action's source room");
+
                 Id = dbi.Id;
                 Version = dbi.Version;
-
-
-                SourceRoom = State.Rooms.Single(r => r.Id == dbi.SourceRoomId);
+                SourceRoom = State.Room;
             }
             catch(Exception e)
             {

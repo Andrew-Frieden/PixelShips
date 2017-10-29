@@ -27,41 +27,38 @@ namespace PixelShips.Verse
     //    ShipState shipState { get; }
     //}
 
-    public interface IGameState : ISpaceState
+    public interface IGameState : IRoomState
     {
+        Ship UserShip { get; set; }
         DateTime UserTime { get; }
-        Ship UserShip { get; }
-        Room UserRoom { get; }
         IEnumerable<FeedUpdate> Notifications { get;  }
         IEnumerable<SpaceAction> UserActions { get; }
     }
 
     public class SimpleGameState : IGameState
     {
-        public Ship UserShip { get; private set; }
-        public Room UserRoom { get; private set; }
-
         public DateTime UserTime { get; private set; }
 
         public IEnumerable<FeedUpdate> Notifications { get; private set; }
         public IEnumerable<SpaceAction> UserActions { get; private set; }
 
-        public IEnumerable<Room> Rooms { get; set; }
         public IEnumerable<Ship> Ships { get; set; }
+        public Room Room { get; set; }
+        public Ship UserShip { get; set; }
 
         public SimpleGameState(ShipState state)
         {
             UserTime = DateTime.UtcNow;
-            var rs = new RoomState(state.Room, state.Room.Ships);
             UserShip = state.Ship;
-            UserRoom = rs.Room;
-            Ships = rs.Ships;
-            Rooms = rs.Rooms;
-            Notifications = UserRoom.Notifications;
-            var actions = new List<SpaceAction>();
-            var factory = new SpaceActionFactory(rs);
-            state.PossibleActions.ForEach(dbi => actions.Add(factory.GetModel(dbi)));
-            UserActions = actions;
+            Room = state.Room;
+            Ships = state.Ships;
+
+            if (Room != null)
+            {
+                Notifications = state.Room.Notifications;
+                var factory = new SpaceActionFactory(state);
+                UserActions = factory.GetPossibleActionsForShip(state.Ship);
+            }
         }
     }
 }

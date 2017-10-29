@@ -21,9 +21,9 @@ namespace PixelSpace.Models.SharedModels
         public override IEnumerable<SpaceActionDbi> Execute()
         {
             // put the ship in the target room
-            SourceRoom.Ships.Add(SourceShip);
+            SourceRoom.ShipIds.Add(SourceShip.Id);
 
-            SourceShip.Room = SourceRoom;
+            SourceShip.RoomId = SourceRoom.Id;
             SourceShip.JumpRoomId = string.Empty;
             SourceShip.IsModified = true;
 
@@ -67,7 +67,7 @@ namespace PixelSpace.Models.SharedModels
         public override bool Validate()
         {
             //  make sure ship isn't already in the room...I guess?
-            if (SourceRoom.Ships.Contains(this.SourceShip))
+            if (SourceRoom.ShipIds.Contains(this.SourceShip.Id))
             {
                 return false;
             }
@@ -78,7 +78,11 @@ namespace PixelSpace.Models.SharedModels
         protected override void BuildFromContext(SpaceActionDbi dbi)
         {
             base.BuildFromContext(dbi);
-            TargetRoom = State.Rooms.Single(r => r.Id == dbi.TargetId);
+
+            if (State.Room.Id != dbi.TargetId)
+                throw new Exception("EndInstantJumpAction BuildFromContext wrong room");
+
+            TargetRoom = State.Room;
         }
 
         public override SpaceActionDbi ToDbi()
@@ -95,6 +99,6 @@ namespace PixelSpace.Models.SharedModels
             };
         }
 
-        public EndInstantJumpAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
+        public EndInstantJumpAction(IRoomState state, SpaceActionDbi dbi) : base(state, dbi) { }
     }
 }

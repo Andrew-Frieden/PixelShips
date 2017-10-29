@@ -30,7 +30,7 @@ namespace PixelSpace.Models.SharedModels
             }
         }
 
-        public ShipAction(ISpaceState state, SpaceActionDbi dbi) : base(state, dbi) { }
+        public ShipAction(IRoomState state, SpaceActionDbi dbi) : base(state, dbi) { }
         protected ShipAction() { }
     }
 }

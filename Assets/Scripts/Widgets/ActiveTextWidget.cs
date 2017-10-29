@@ -48,6 +48,9 @@ namespace PixelShips.Widgets
 
             var notifications = state.Notifications;
 
+            if (notifications == null)
+                return;
+
             //  look at all the notifications in the room and show any that haven't been seen before
             foreach (var note in notifications)
             {

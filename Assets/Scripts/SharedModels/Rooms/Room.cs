@@ -1,4 +1,5 @@
 using Amazon.DynamoDBv2.DataModel;
+using Newtonsoft.Json;
 using PixelSpace.Models.SharedModels.Ships;
 using PixelSpace.Models.SharedModels.SpaceUpdates;
 using System.Collections.Generic;
@@ -23,15 +24,11 @@ namespace PixelSpace.Models.SharedModels
 
         public List<FeedUpdate> Notifications { get; set; }
 
-        [DynamoDBIgnore]
-        public List<Ship> Ships { get; set; }
+        //[DynamoDBIgnore]
+        //public List<Ship> Ships { get; set; }
 
         [DynamoDBIgnore]
+        [JsonIgnore]
         public bool IsModified { get; set; }  //  only write models that have been modified
-
-        public void FromModel()
-        {
-            ShipIds = Ships.Select(ship => ship.Id).ToList();
-        }
     }
 }

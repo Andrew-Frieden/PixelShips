@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using PixelShips.Verse;
 using PixelSpace.Models.SharedModels;
+using PixelSpace.Models.SharedModels.Helpers;
 using PixelSpace.Models.SharedModels.Ships;
 using PixelSpace.Models.SharedModels.SpaceActions;
+using PixelSpace.Models.SharedModels.SpaceUpdates;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +18,10 @@ namespace Assets.Scripts.Verse
     public class SimpleVerseController : MonoBehaviour, IVerseController
     {
         public string ShipId = "a9b0857b-7887-4ead-9664-a0c4f6973e6c";
+        public SimpleGameState GameState;
 
         public const string GET_SHIPSTATE_URL = "https://h3l6swrjm3.execute-api.us-east-1.amazonaws.com/Prod/client/";
-        private const int UPDATE_INTERVAL_MS = 2000;
+        private const float UPDATE_INTERVAL_MS = 200;
 
         private event VerseUpdate OnUpdate;
 
@@ -59,7 +62,7 @@ namespace Assets.Scripts.Verse
                 //var updateTimeMs = (DateTime.UtcNow - time).TotalMilliseconds;
                 //var waitForSeconds = (float)(UPDATE_INTERVAL_MS - updateTimeMs) / 1000f;
                 //yield return new WaitForSeconds(waitForSeconds);
-                yield return new WaitForSeconds(UPDATE_INTERVAL_MS/1000);
+                yield return new WaitForSeconds(UPDATE_INTERVAL_MS/1000f);
             }
         }
 
@@ -80,40 +83,51 @@ namespace Assets.Scripts.Verse
                 txt = getStateWww.error;  //error
 
             //Debug.Log("ping -> " + txt);
-            try
-            {
+            //try
+            //{
 
                 var latestShipState = JsonConvert.DeserializeObject<ShipState>(txt);
-                var gameState = new SimpleGameState(latestShipState);
+            //    Debug.Log("ss: " + latestShipState.ShipId);
+            //latestShipState.Ships.ForEach(s => Debug.Log(string.Format("ship: {0} {1}", s.Name, s.Id)));
+            //Debug.Log("ship: " + latestShipState.Ship);
+            //Debug.Log("room: " + latestShipState.Room);
 
-                try
-                {
-                    //RoomState rs = new RoomState(latestShipState.Room, latestShipState.Room.Ships);
-                    var actionFactory = new SpaceActionFactory(gameState);
 
-                    var firstAction = gameState.UserActions.FirstOrDefault();
-                    if (firstAction != null)
-                        someAction = firstAction;
-                }
-                catch
-                {
-                    someAction = null;
-                }
 
-                //foreach (var pa in gameState.shipState.PossibleActions)
-                //{
-                //    var actionModel = actionFactory.GetModel(pa);
-                //    //Debug.Log(string.Format("action: {0} [{1}]  ok: {2}", actionModel.Name, pa.TargetId, actionModel.Validate()));
-                //}
-
-                //GameState.Current = gameState;
-                OnUpdate(gameState);
-                //Debug.Log("verse ping complete");
-            }
-            catch(Exception e)
+            //  should fix this on the server side...
+            if (latestShipState.Room != null)
             {
-                Debug.Log("getlatest broke: " + e.Message);
+                if (latestShipState.Room.Notifications == null)
+                    latestShipState.Room.Notifications = new List<FeedUpdate>();
             }
+            //Debug.Log("notes: " + latestShipState.Room.Notifications);
+
+            var gameState = new SimpleGameState(latestShipState);
+            //Debug.Log("after ");
+
+            //RoomState rs = new RoomState(latestShipState.Room, latestShipState.Room.Ships);
+            //var actionFactory = new SpaceActionFactory(gameState);
+
+            //var firstAction = gameState.UserActions.FirstOrDefault();
+            //if (firstAction != null)
+            //    someAction = firstAction;
+
+
+            //foreach (var pa in gameState.shipState.PossibleActions)
+            //{
+            //    var actionModel = actionFactory.GetModel(pa);
+            //    //Debug.Log(string.Format("action: {0} [{1}]  ok: {2}", actionModel.Name, pa.TargetId, actionModel.Validate()));
+            //}
+
+            //GameState.Current = gameState;
+            GameState = gameState;
+            OnUpdate(gameState);
+                //Debug.Log("verse ping complete");
+            //}
+            //catch(Exception e)
+            //{
+            //    Debug.Log("LatestShipState error: " + e.Message + Environment.NewLine + " with response: " + txt);
+            //}
         }
 
         private SpaceAction someAction;

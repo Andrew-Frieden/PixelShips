@@ -1,4 +1,6 @@
-﻿using PixelSpace.Models.SharedModels.Ships;
+﻿using Newtonsoft.Json;
+using PixelSpace.Models.SharedModels.Rooms;
+using PixelSpace.Models.SharedModels.Ships;
 using PixelSpace.Models.SharedModels.SpaceUpdates;
 using System;
 using System.Collections.Generic;
@@ -7,22 +9,33 @@ using System.Threading.Tasks;
 
 namespace PixelSpace.Models.SharedModels
 {
-    public class ShipState
+    public class ShipState : IRoomState
     {
-        public Ship Ship { get; set; }
-		public Room Room { get; set; }
-        public IEnumerable<SpaceActionDbi> PossibleActions { get; set; }
-        //public ISpaceState SpaceState { get; set; }
+        public Room Room { get; set; }
+        public IEnumerable<Ship> Ships { get; set; }
 
-        public void ToDto()
+        [JsonIgnore]
+        public Ship Ship { get { return Ships.Single(s => s.Id == ShipId); } }
+        public string ShipId { get; set; }
+        //public IEnumerable<RoomMeta> Map { get; set; }
+
+        public ShipState(string shipId, IRoomState state)
         {
-            //  drop circular references before serializing
-            Ship.Room = null;
-
-            foreach (var ship in Room.Ships)
-            {
-                ship.Room = null;
-            }
+            ShipId = shipId;
+            Room = state.Room;
+            Ships = state.Ships;
         }
+
+        public ShipState(string shipId, Room room, IEnumerable<Ship> ships)
+        {
+            ShipId = shipId;
+            Room = room;
+            Ships = ships;
+        }
+
+        public ShipState() { }
+
+        //public IEnumerable<SpaceActionDbi> PossibleActions { get; set; }
+        //public ISpaceState SpaceState { get; set; }
     }
 }

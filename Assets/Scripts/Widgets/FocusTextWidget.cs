@@ -48,7 +48,7 @@ namespace PixelShips.Widgets
                 }
             }
 
-            foreach (var exitId in gameState.UserRoom.ExitIds)
+            foreach (var exitId in gameState.Room.ExitIds)
             {
                 if (exitId == spaceObjectId)
                 {
