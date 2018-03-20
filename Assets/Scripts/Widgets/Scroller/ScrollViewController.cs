@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScrollViewController : MonoBehaviour {
 
@@ -12,7 +13,8 @@ public class ScrollViewController : MonoBehaviour {
     
     private bool Anchored = true;
     private ScrollCell LastActiveCell;
-    private float LastCellHeight { get { return LastActiveCell.RectTransform.rect.height; }}
+
+    private ScrollRect ScrollRect;
 
     private Queue<ScrollCell> ActiveCells;
     private List<ScrollCell> CachedCells;
@@ -20,11 +22,12 @@ public class ScrollViewController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        ScrollRect = GetComponent<ScrollRect>();
+
         if (ScrollCellPrefab == null)
             throw new MissingComponentException("ScrollViewController -> no ScrollCell prefab set");
             
         BuildCache();
-        
 	}
 	
 	// Update is called once per frame
@@ -49,12 +52,15 @@ public class ScrollViewController : MonoBehaviour {
     
     public void AnchorToLatest()
     {
+        Anchored = true;
+        ScrollRect.verticalNormalizedPosition = 0f;
         //  scroll to bottom
         //  force all newly added cells to scroll view to bottom
     }
 
     public void ReleaseAnchor()
     {
+        Anchored = false;
         //  stay where you are
         //  newly added cells will pop on the bttom without moving the list
     }
@@ -63,37 +69,16 @@ public class ScrollViewController : MonoBehaviour {
     {
         var cell = GetNextRecycledCell();
 
-
         var rngText = Guid.NewGuid().ToString();
-        
         cell.SetDisplay(rngText);
 
-        var newCellHeight = cell.RectTransform.rect.height;
-        //cell.RectTransform.localPosition = Vector2.zero;
-        cell.RectTransform.anchoredPosition = Vector2.zero;
-        //cell.RectTransform.position = Vector3.zero;
-        
-        foreach (var activeCell in ActiveCells)
-        {
-            activeCell.RectTransform.localPosition += new Vector3(0, newCellHeight, 0);
-        }
-        
-        if (LastActiveCell != null)
-        {
-            //Debug.Log("last h:" + LastCellHeight);
-            //Debug.Log("last cell x: " + LastActiveCell.RectTransform.localPosition);
-            //cell.RectTransform.localPosition = new Vector2(0, LastActiveCell.RectTransform.localPosition.y + LastCellHeight);
-            
-        }
-        else
-        {
-        }
-        
+        cell.RectTransform.SetAsLastSibling();
+
+        if (Anchored)
+            ScrollRect.verticalNormalizedPosition = 0f;
+
         ActiveCells.Enqueue(cell);
         LastActiveCell = cell;
-        
-       // cell.RectTransform.localPosition = Vector2.zero;
-        
     }
     
     private ScrollCell GetNextRecycledCell()
