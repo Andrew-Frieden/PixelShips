@@ -1,23 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Ship {
-
+public class MiningDemoShip
+{
     private string name;
-    private int shipID;
+    private int shipId;
     private ShipClass shipClass;
     private string owner;
     private CargoHold cargoHold;
 
 
-    public Ship (int ID, string name, ShipClass shipClass, string owner)
+    public MiningDemoShip(int ID, string name, ShipClass shipClass, string owner)
     {
         this.name = name;
         this.shipClass = shipClass;
         this.owner = owner;
         this.cargoHold = new CargoHold(40);
-        this.shipID = ID;
+        this.shipId = ID;
+    }
+
+    public string getStringManifest()
+    {
+        string manifest = "Manifest for " + this.shipClass + " " + this.name + " under the command of " + this.owner;
+
+        manifest += this.cargoHold.getStringManifest();
+
+        return manifest;
+    }
+
+    public IEnumerable<CargoItem> getManifest()
+    {
+        return this.cargoHold.GetCargoItems();
+    }
+
+    public void addItem(CargoItem item)
+    {
+        this.cargoHold.addItem(item);
+    }
+
+    public void removeitem(CargoItem item)
+    {
+        this.cargoHold.removeItem(item.getItemId(), item.getQuantity());
     }
 }
 
@@ -27,133 +52,135 @@ public class CargoHold
     private int cargoCapacity;
     private int currentCapacity;
 
-    public CargoHold (int capacity)
+    public CargoHold(int capacity)
     {
         this.cargoCapacity = capacity;
         this.cargoItems = new List<CargoItem>();
         this.currentCapacity = 0;
     }
 
-    //public Dictionary
 
-    public void addItem(CargoItem item, int quantity) 
+    public void addItem(CargoItem item)
     {
-        bool addError = false;
-
-        for (int i = 0; i < quantity; i++)
+        if (this.canAdditem(item))
         {
-            if (item.size + this.currentCapacity >= this.cargoCapacity)
+
+            CargoItem foundItem = getItem(item.getItemId());
+            if (foundItem != null)
             {
-                addError = true;
+                foundItem.updateQuantity(item.getQuantity());
+
             }
             else
             {
                 this.cargoItems.Add(item);
-                this.currentCapacity += item.size;
+
             }
+            this.currentCapacity += item.getTotalWeight();
+
+            Debug.Log("Added " + item.getName() + " with total weight " + item.getTotalWeight() + " to ship inventory");
+
+            Debug.Log("Ship current capacity: " + this.currentCapacity + "/" + this.cargoCapacity);
         }
-        if (addError)
+        else
         {
-            //throw new IllegalArgumentException("Could not add some items to inventory, not enough space");
+            Debug.LogWarning("Could not add " + item.getName() + " to inventory, not enough space");
         }
+
+    }
+
+    private bool canAdditem(CargoItem item)
+    {
+        if (item.getTotalWeight() + this.currentCapacity > this.cargoCapacity)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void removeItem(int itemId, int quantity)
     {
-        bool removeError = false;
 
-        List<CargoItem> tempList = this.cargoItems.
-            
-            (x => x.getItemId() == itemId);
-
-        if (temoList)
+        CargoItem item = getItem(itemId);
+        if (item != null)
         {
+            if (item.getQuantity() >= quantity)
+            {
+                item.updateQuantity(quantity * -1);
+            }
+            else
+            {
+                Debug.LogError("Item: " + item.getName() + " itemId: " + itemId + " does not have a quantity great than requested" + quantity);
+            }
+
+            Debug.Log("Removed " + item.getName() + " with total weight " + (item.getUnitWeight() * quantity) + " from ship inventory");
+
+            Debug.Log("Ship current capacity: " + this.currentCapacity + "/" + this.cargoCapacity);
 
         }
- 
-        if (addError)
+        else
         {
-           // throw new IllegalArgumentException("Could not remove some items to inventory, none exist");
+            Debug.LogError("Item: " + item.getName() + " itemId: " + itemId + " was not found and cannot be removed");
         }
 
+    }
+
+    public bool hasItem(int itemId)
+    {
+        IEnumerable<CargoItem> query = from s in this.cargoItems
+                                       where s.getItemId() == itemId
+                                       select s;
+
+        var e = query.FirstOrDefault();
+
+        return (e != null);
+    }
+
+    public CargoItem getItem(int itemId)
+    {
+        IEnumerable<CargoItem> query = from s in this.cargoItems
+                                       where s.getItemId() == itemId
+                                       select s;
+
+        return query.FirstOrDefault();
+    }
+
+    public string getStringManifest()
+    {
+        string manifest = "\nITEM:\t\t\tQUANTITY\t\tTOTAL WEIGHT";
+
+        foreach (var item in cargoItems)
+        {
+            manifest += "\n" + item.getName() + "\t\t\t" + item.getQuantity() + "\t\t" + item.getTotalWeight();
+        }
+
+        manifest += "\nTotal ship capacity: " + this.currentCapacity + "/" + this.cargoCapacity;
+
+        return manifest;
+    }
+
+    public IEnumerable<CargoItem> GetCargoItems()
+    {
+        IEnumerable<CargoItem> items = this.cargoItems;
+
+        return items;
+    }
+
+    public int getCurrentCapacity()
+    {
+        return this.currentCapacity;
+    }
+
+    public int getCargoCapacity()
+    {
+        return this.cargoCapacity;
     }
 
 }
-
-public class CargoItem
-{
-    private string name;
-    private int quantity;
-    private int itemId;
-    private int unitWeight;
-
-    public CargoItem(int itemId, int quantity, int unitWeight, string name)
-    {
-        this.itemId = itemId;
-        this.name = name;
-
-        if (quantity > 0)
-        {
-            this.quantity = quantity;
-        } else
-        {
-           // throw new IllegalArgumentException("Item: " + name + " itemId: " + itemId+ " may not have a quantity less than 1");
-            this.quantity = 1;
-        }
-
-        if (unitWeight >= 0)
-        {
-            this.unitWeight = unitWeight;
-        } else
-        {
-           // throw new IllegalArgumentException("Item: " + name + " itemId: " + itemId + " may not have a weight less than or equal to 0");
-            this.quantity = 1;
-        }
-    }
-
-    public int getItemId()
-    {
-        return this.itemId;
-    }
-
-    public string getName()
-    {
-        return this.name;
-    }
-
-    public int getQuantity()
-    {
-        return this.quantity;
-    }
-
-    public int getUnitWeight()
-    {
-        return this.unitWeight;
-    }
-
-    public void updateQuantity(int changeInQuantity)
-    {
-        int sum = this.quantity + changeInQuantity;
-            
-
-        if (sum >= 0)
-        {
-            this.quantity = sum;
-        } else
-        {
-           // throw new IllegalArgumentException("Item: " + this.name + " itemId: " + this.itemId + " may not have a quantity less than 1");
-        }
-
-    }
-
-
-}
-
-
-
 
 
 public enum ShipClass
 {
-    CAPITAL,FRIGGATE,YACHT
+    CAPITAL, FRIGGATE, YACHT
 }
