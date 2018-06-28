@@ -1,0 +1,246 @@
+{
+	"Rooms": [{
+		"ID": 0,
+		"Exits": [1, 2, 3, 6],
+		"X": 5.5,
+		"Y": -1.3,
+		"Name": "Q;4.2",
+		"Description": "A Planetary sector fortified by Corporate forces.",
+		"Density": "Planetary",
+		"Faction": "Corporate"
+	}, {
+		"ID": 1,
+		"Exits": [0, 4, 12],
+		"X": -1.2,
+		"Y": 24.5,
+		"Name": "Q;23.3",
+		"Description": "A Inner sector held by Federal forces.",
+		"Density": "Inner",
+		"Faction": "Federal"
+	}, {
+		"ID": 2,
+		"Exits": [0, 5, 6, 8],
+		"X": 2.7,
+		"Y": -23.2,
+		"Name": "Q;-20.5",
+		"Description": "A Planetary sector scoured by Corporate forces.",
+		"Density": "Planetary",
+		"Faction": "Corporate"
+	}, {
+		"ID": 3,
+		"Exits": [0],
+		"X": 11.1,
+		"Y": 7.5,
+		"Name": "Q;18.6",
+		"Description": "A Planetary sector held by Federal forces.",
+		"Density": "Planetary",
+		"Faction": "Federal"
+	}, {
+		"ID": 4,
+		"Exits": [1, 7, 12],
+		"X": -7.3,
+		"Y": 46.7,
+		"Name": "Q;39.4",
+		"Description": "A Inner sector captured by Syndicate forces.",
+		"Density": "Inner",
+		"Faction": "Syndicate"
+	}, {
+		"ID": 5,
+		"Exits": [2, 10, 13, 14, 15],
+		"X": -18.5,
+		"Y": -40.3,
+		"Name": "Q;-58.8",
+		"Description": "A Inner sector fortified by Scavenger forces.",
+		"Density": "Inner",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 6,
+		"Exits": [2, 0, 8, 9],
+		"X": 16.4,
+		"Y": -17.9,
+		"Name": "Q;-1.5",
+		"Description": "A Planetary sector watched over by Corporate forces.",
+		"Density": "Planetary",
+		"Faction": "Corporate"
+	}, {
+		"ID": 7,
+		"Exits": [4, 16, 17, 21],
+		"X": -13.9,
+		"Y": 69.4,
+		"Name": "Q;55.5",
+		"Description": "A Inner sector held by Xenos forces.",
+		"Density": "Inner",
+		"Faction": "Xenos"
+	}, {
+		"ID": 8,
+		"Exits": [2, 6, 9, 11],
+		"X": 21.8,
+		"Y": -26.8,
+		"Name": "Q;-5",
+		"Description": "A Planetary sector fortified by Corporate forces.",
+		"Density": "Planetary",
+		"Faction": "Corporate"
+	}, {
+		"ID": 9,
+		"Exits": [6, 8, 11, 23, 24],
+		"X": 33.6,
+		"Y": -27.8,
+		"Name": "Q;5.8",
+		"Description": "A Cluster sector watched over by Corporate forces.",
+		"Density": "Cluster",
+		"Faction": "Corporate"
+	}, {
+		"ID": 10,
+		"Exits": [5, 14, 18],
+		"X": -29.1,
+		"Y": -55,
+		"Name": "Q;-84.1",
+		"Description": "A Inner sector patrolled by Scavenger forces.",
+		"Density": "Inner",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 11,
+		"Exits": [8, 9, 23, 24],
+		"X": 37.9,
+		"Y": -32.3,
+		"Name": "Q;5.6",
+		"Description": "A Cluster sector scoured by Corporate forces.",
+		"Density": "Cluster",
+		"Faction": "Corporate"
+	}, {
+		"ID": 12,
+		"Exits": [4, 1],
+		"X": -4,
+		"Y": 36.7,
+		"Name": "Q;32.7",
+		"Description": "A Inner sector ravaged by Syndicate forces.",
+		"Density": "Inner",
+		"Faction": "Syndicate"
+	}, {
+		"ID": 13,
+		"Exits": [5],
+		"X": -14.8,
+		"Y": -51.7,
+		"Name": "Q;-66.5",
+		"Description": "A Inner sector watched over by Scavenger forces.",
+		"Density": "Inner",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 14,
+		"Exits": [5, 10, 15, 22],
+		"X": -32.2,
+		"Y": -46.2,
+		"Name": "Q;-78.4",
+		"Description": "A Inner sector scoured by Scavenger forces.",
+		"Density": "Inner",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 15,
+		"Exits": [14, 5, 22],
+		"X": -33.4,
+		"Y": -39.7,
+		"Name": "Q;-73.1",
+		"Description": "A Inner sector held by Scavenger forces.",
+		"Density": "Inner",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 16,
+		"Exits": [7, 19, 20, 21],
+		"X": -22.9,
+		"Y": 86.5,
+		"Name": "Q;63.6",
+		"Description": "A Inner sector captured by Eldritch forces.",
+		"Density": "Inner",
+		"Faction": "Eldritch"
+	}, {
+		"ID": 17,
+		"Exits": [7],
+		"X": -5.6,
+		"Y": 78.2,
+		"Name": "Q;72.6",
+		"Description": "A Inner sector scoured by Eldritch forces.",
+		"Density": "Inner",
+		"Faction": "Eldritch"
+	}, {
+		"ID": 18,
+		"Exits": [10],
+		"X": -36.3,
+		"Y": -67.5,
+		"Name": "Q;-103.8",
+		"Description": "A Fringe sector held by Scavenger forces.",
+		"Density": "Fringe",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 19,
+		"Exits": [16],
+		"X": -33.4,
+		"Y": 94.5,
+		"Name": "Q;61.1",
+		"Description": "A Inner sector captured by Eldritch forces.",
+		"Density": "Inner",
+		"Faction": "Eldritch"
+	}, {
+		"ID": 20,
+		"Exits": [16],
+		"X": -23.2,
+		"Y": 100,
+		"Name": "Q;76.8",
+		"Description": "A Inner sector fortified by Eldritch forces.",
+		"Density": "Inner",
+		"Faction": "Eldritch"
+	}, {
+		"ID": 21,
+		"Exits": [16, 7],
+		"X": -20.6,
+		"Y": 78.5,
+		"Name": "Q;57.9",
+		"Description": "A Inner sector captured by Eldritch forces.",
+		"Density": "Inner",
+		"Faction": "Eldritch"
+	}, {
+		"ID": 22,
+		"Exits": [14, 15],
+		"X": -43.4,
+		"Y": -44.1,
+		"Name": "Q;-87.5",
+		"Description": "A Fringe sector ravaged by Scavenger forces.",
+		"Density": "Fringe",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 23,
+		"Exits": [11, 9, 26],
+		"X": 49.3,
+		"Y": -28.6,
+		"Name": "Q;20.7",
+		"Description": "A Cluster sector held by Corporate forces.",
+		"Density": "Cluster",
+		"Faction": "Corporate"
+	}, {
+		"ID": 24,
+		"Exits": [11, 9, 25],
+		"X": 44.3,
+		"Y": -40.6,
+		"Name": "Q;3.7",
+		"Description": "A Cluster sector watched over by Scavenger forces.",
+		"Density": "Cluster",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 25,
+		"Exits": [24],
+		"X": 53.8,
+		"Y": -51.2,
+		"Name": "Q;2.59999999999999",
+		"Description": "A Outer sector captured by Scavenger forces.",
+		"Density": "Outer",
+		"Faction": "Scavenger"
+	}, {
+		"ID": 26,
+		"Exits": [23],
+		"X": 63.5,
+		"Y": -28.2,
+		"Name": "Q;35.3",
+		"Description": "A Outer sector patrolled by Corporate forces.",
+		"Density": "Outer",
+		"Faction": "Corporate"
+	}]
+}
