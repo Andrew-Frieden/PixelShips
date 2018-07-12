@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ScrollViewController : MonoBehaviour {
 
-    public int CellCount = 20;
+    public int CellCount = 50;
     public GameObject ScrollCellPrefab;
     public GameObject CellHolder;
     
@@ -69,18 +69,45 @@ public class ScrollViewController : MonoBehaviour {
     {
         var cell = GetNextRecycledCell();
 
-        var rngText = Guid.NewGuid().ToString();
-        cell.SetDisplay(rngText);
+        //var rngText = Guid.NewGuid().ToString();
+
+        //if (UnityEngine.Random.Range(0f,1f) > 0.3f)
+        //    rngText += Guid.NewGuid().ToString();
+
+        //if (UnityEngine.Random.Range(0f, 1f) > 0.3f)
+        //    rngText += Guid.NewGuid().ToString();
+
+
+        //if (UnityEngine.Random.Range(0f, 1f) > 0.3f)
+        //    rngText += Guid.NewGuid().ToString();
+
+
+        //if (UnityEngine.Random.Range(0f, 1f) > 0.3f)
+        //    rngText += Guid.NewGuid().ToString();
+
+        //cell.SetDisplay(rngText);
+
+
+        cell.SetupTest();
 
         cell.RectTransform.SetAsLastSibling();
 
-        if (Anchored)
-            ScrollRect.verticalNormalizedPosition = 0f;
+        //cell.RectTransform.sizeDelta = new Vector2(cell.RectTransform.sizeDelta.x, cell.RectTransform.sizeDelta.y * 2.0f);
+
+
+        //if (Anchored)
+        //    ScrollRect.verticalNormalizedPosition = 0f;
 
         ActiveCells.Enqueue(cell);
         LastActiveCell = cell;
+
+        Debug.Log("============");
+        Debug.Log("textBounds_size: " + cell.textBounds_size);
+        Debug.Log("textBounds_center: " + cell.textBounds_center);
+        Debug.Log("rectTransform_anchoredPostion: " + cell.rectTransform_anchoredPostion);
+        Debug.Log("RectTransform.sizeDelta: " + cell.RectTransform.sizeDelta);
     }
-    
+
     private ScrollCell GetNextRecycledCell()
     {
         if (CachedCells.Any())
