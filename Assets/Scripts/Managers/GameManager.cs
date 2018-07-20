@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
 	public enum GameState
 	{
+		BOOT,
 		PREGAME,
 		MISSION,
 		ENCOUNTER,
@@ -14,10 +15,15 @@ public class GameManager : Singleton<GameManager>
 
 	public EventGameState OnGameStateChanged;
 
-	private GameState _currentGameState = GameState.PREGAME;
+	private GameState _currentGameState = GameState.BOOT;
 	public GameState CurrentGameState => _currentGameState;
 
-	void UpdateState(GameState state)
+	private void Start()
+	{
+		StartGame();
+	}
+
+	private void UpdateState(GameState state)
 	{
 		var previousGameState = _currentGameState;
 		_currentGameState = state;
@@ -42,5 +48,15 @@ public class GameManager : Singleton<GameManager>
 		//To listen to this
 		//GameManager.Instance.OnGameStateChanged.AddListener(MyGameStateChangedHandler);
 		//void MyGameStateChangedHandler(GameManager.GameState currentState, GmaeManager.GameState previous) { ... }
+	}
+
+	private void StartGame()
+	{
+		UpdateState(GameState.PREGAME);
+	}
+	
+	public void StartMission()
+	{
+		UpdateState(GameState.MISSION);
 	}
 }
