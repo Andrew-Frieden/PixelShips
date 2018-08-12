@@ -22,6 +22,8 @@ ExportedObj/
 *.pdb
 *.opendb
 
+/.vs/
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
