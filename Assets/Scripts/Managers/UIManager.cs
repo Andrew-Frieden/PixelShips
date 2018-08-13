@@ -23,10 +23,8 @@ public class UIManager : Singleton<UIManager>
         switch (currentState)
         {
             case GameManager.GameState.PREGAME:
-                MainMenu.gameObject.SetActive(true);
                 break;
             case GameManager.GameState.MISSION:
-                MainMenu.gameObject.SetActive(false);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);

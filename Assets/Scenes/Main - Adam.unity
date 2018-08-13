@@ -1786,7 +1786,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[Console]'
+  m_Text: '[Base Stats]'
 --- !u!222 &1495068412
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2028,7 +2028,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[Console]'
+  m_Text: '[Ship Stats]'
 --- !u!222 &1584224065
 CanvasRenderer:
   m_ObjectHideFlags: 0
