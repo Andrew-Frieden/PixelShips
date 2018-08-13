@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Models;
 
 public interface IRoomAction
 {
-    List<string> Execute(CmdState s);
+    IEnumerable<string> Execute(IRoom room);
 }

@@ -3,24 +3,23 @@ using UnityEngine;
 
 namespace Models
 {
-    [CreateAssetMenu]
-    public class Ship : ScriptableObject, IShip
+    public class Ship : IShip
     {
         public int Hull { get; set; }
-        public int Gathering { get; set; }
-        public int Transport { get; set; }
-        public int Intelligence { get; set; }
-        public int Combat { get; set; }
-        public int Speed { get; set; }
+        public int Gathering { get; }
+        public int Transport { get; }
+        public int Intelligence { get; }
+        public int Combat { get; }
+        public int Speed { get; }
         
-        public Ship(int hull, int gathing, int transport, int intelligence, int combat, int speed)
+        public Ship(int gathing, int transport, int intelligence, int combat, int speed, int hull)
         {
-            Hull = hull;
             Gathering = gathing;
             Transport = transport;
             Intelligence = intelligence;
             Combat = combat;
             Speed = speed;
+            Hull = hull;
         }
     } 
 }

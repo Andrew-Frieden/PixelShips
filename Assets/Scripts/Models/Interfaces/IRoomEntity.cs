@@ -1,10 +1,12 @@
-﻿public interface IRoomEntity
+﻿using Actions;
+
+namespace Models
 {
-    string Id { get; }
+    public interface IRoomEntity : ITextEntity
+    {
+        string GetLookText();
 
-    string GetLookText();
-    string GetLinkText();
-
-    ABDialogueContent GetInteraction(CmdState s);
-    IRoomAction GetNextAction(CmdState s);
+        ABDialogueContent GetInteraction(IRoom s);
+        IRoomAction GetNextAction(IRoom s);
+    }
 }
