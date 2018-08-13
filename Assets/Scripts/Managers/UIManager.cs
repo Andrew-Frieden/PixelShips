@@ -28,10 +28,6 @@ public class UIManager : Singleton<UIManager>
             case GameManager.GameState.MISSION:
                 MainMenu.gameObject.SetActive(false);
                 break;
-            case GameManager.GameState.ENCOUNTER:
-                break;
-            case GameManager.GameState.SPACESTATION:
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
         }

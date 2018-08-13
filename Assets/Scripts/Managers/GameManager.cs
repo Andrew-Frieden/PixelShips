@@ -8,9 +8,7 @@ public class GameManager : Singleton<GameManager>
 	{
 		BOOT,
 		PREGAME,
-		MISSION,
-		ENCOUNTER,
-		SPACESTATION
+		MISSION
 	}
 
 	public EventGameState OnGameStateChanged;
@@ -33,10 +31,6 @@ public class GameManager : Singleton<GameManager>
 			case GameState.PREGAME:
 				break;
 			case GameState.MISSION:
-				break;
-			case GameState.ENCOUNTER:
-				break;
-			case GameState.SPACESTATION:
 				break;
 			default:
 				Debug.Log("Invalid Game State");
