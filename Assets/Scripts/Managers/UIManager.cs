@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private MainMenu MainMenu;
+    [SerializeField] private TripleView TripleView;
     
     protected override void Awake()
     {
@@ -23,8 +24,12 @@ public class UIManager : Singleton<UIManager>
         switch (currentState)
         {
             case GameManager.GameState.PREGAME:
+                MainMenu.gameObject.SetActive(true);
+                TripleView.gameObject.SetActive(false);
                 break;
             case GameManager.GameState.MISSION:
+                MainMenu.gameObject.SetActive(false);
+                TripleView.gameObject.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);

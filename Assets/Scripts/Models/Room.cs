@@ -6,12 +6,12 @@ namespace Models
 {
     public class Room : IRoom
     {
-        public Ship PlayerShip { get; }
+        public CommandShip PlayerShip { get; }
         public string Description { get; }
         public RoomFlavor Flavor { get; }
         public List<IRoomEntity> Entities { get; }
 
-        public Room(Ship ship, List<IRoomEntity> roomEntities)
+        public Room(CommandShip ship, List<IRoomEntity> roomEntities)
         {
             PlayerShip = ship;
             Entities = roomEntities;

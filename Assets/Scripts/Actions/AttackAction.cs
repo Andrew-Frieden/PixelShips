@@ -8,21 +8,21 @@ namespace Actions
     public class AttackAction : IRoomAction
     {
         private int Damage { get; }
-        private ICombatEntity source;
-        private ICombatEntity target;
+        private ICombatEntity Source;
+        private ICombatEntity Target;
         
         public AttackAction(ICombatEntity source, ICombatEntity target)
         {
+            Source = source;
+            Target = target;
             Damage = 5;
         }
 
         public IEnumerable<string> Execute(IRoom room)
         {
-            target.Hull -= Damage;
+            Target.Hull -= Damage;
 
-            var targetEntity = RoomHelper.FindTextEntityByGuid(room, target.Id);
-
-            return new List<string>() {targetEntity.GetLinkText() + " took " + Damage + " damage."};
+            return new List<string>() {room.FindTextEntityByGuid(Target.Id).GetLinkText() + " took " + Damage + " damage."};
         }
     }
 }

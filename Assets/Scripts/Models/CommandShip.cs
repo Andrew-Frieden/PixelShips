@@ -11,7 +11,7 @@ namespace Models
             throw new System.NotImplementedException();
         }
 
-        public CommandShip(int gathing, int transport, int intelligence, int combat, int speed, int hull, string id) : base(gathing, transport, intelligence, combat, speed, hull)
+        public CommandShip(int gathing, int transport, int intelligence, int combat, int speed, int hull) : base(gathing, transport, intelligence, combat, speed, hull)
         {
             Id = Guid.NewGuid().ToString();
         }
