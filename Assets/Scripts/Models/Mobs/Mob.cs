@@ -1,12 +1,22 @@
-﻿using Actions;
+﻿using System;
+using Actions;
+using UnityEditor;
 
 namespace Models
 {
-    public abstract class Mob : IRoomEntity, ICombatEntity
+    public class Mob : IRoomEntity, ICombatEntity
     {
         public string Id { get; }
         public int Hull { get; set; }
-        
+        public string Description { get; }
+
+        public Mob(string description, int hull)
+        {
+            Id = Guid.NewGuid().ToString();
+            Description = description;
+            Hull = hull;
+        }
+
         public string GetLookText()
         {
             throw new System.NotImplementedException();
@@ -24,7 +34,7 @@ namespace Models
 
         public IRoomAction GetNextAction(IRoom s)
         {
-            throw new System.NotImplementedException();
+            return new AttackAction(this, s.PlayerShip);
         }
 
         public ABDialogueContent GetInteraction(CmdState s)

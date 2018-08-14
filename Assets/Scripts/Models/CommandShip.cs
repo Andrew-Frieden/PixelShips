@@ -5,7 +5,7 @@ namespace Models
     public class CommandShip : Ship, ICombatEntity, ITextEntity
     {
         public string Id { get; }
-        
+
         public string GetLinkText()
         {
             throw new System.NotImplementedException();
