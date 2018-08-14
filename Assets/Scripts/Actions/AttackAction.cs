@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Helpers;
 using Models;
 
 namespace Actions
@@ -19,7 +20,7 @@ namespace Actions
         {
             target.Hull -= Damage;
 
-            var targetEntity = room.Entities.Single(entity => entity.Id == target.Id);
+            var targetEntity = RoomHelper.FindTextEntityByGuid(room, target.Id);
 
             return new List<string>() {targetEntity.GetLinkText() + " took " + Damage + " damage."};
         }
