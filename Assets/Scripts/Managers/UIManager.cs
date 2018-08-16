@@ -8,6 +8,8 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private MainMenu MainMenu;
     [SerializeField] private TripleView TripleView;
+
+    public Camera UICamera;
     
     protected override void Awake()
     {
