@@ -1,6 +1,4 @@
-﻿using UnityEngine.XR.WSA.Persistence;
-
-namespace Models
+﻿namespace Models
 {
     public interface ITextEntity
     {
