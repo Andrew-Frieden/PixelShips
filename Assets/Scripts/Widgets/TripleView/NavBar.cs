@@ -33,7 +33,7 @@ public class NavBar : MonoBehaviour {
         startPosition = ViewBase.transform.position;
         targetPosition = startPosition;
     }
-
+        
     void Update()
     {
         ViewBase.anchoredPosition = Vector3.Lerp(ViewBase.anchoredPosition, targetPosition, Time.deltaTime * smoothFactor);

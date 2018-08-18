@@ -6,3 +6,10 @@
     public IRoomAction OptionAAction;
     public IRoomAction OptionBAction;
 }
+
+public enum ABDialogueMode
+{
+    AB,
+    A,
+    Forced
+}

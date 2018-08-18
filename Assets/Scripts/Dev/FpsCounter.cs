@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class FpsCounter : MonoBehaviour
 {
-
-    public UnityEngine.UI.Text displayText;
+    public TextMeshProUGUI displayText;
 
     public double updatesPerSecond = 4.0;
     private double updateInterval { get { return 1.0 / updatesPerSecond; } }
@@ -20,7 +20,7 @@ public class FpsCounter : MonoBehaviour
         if (timeSinceLastUpdate > updateInterval)
         {
             displayFps = frameCount / timeSinceLastUpdate;
-            displayText.text = string.Format("{0:f2}", displayFps);
+            displayText.text = $"{displayFps:f1}";
 
             frameCount = 0;
             timeSinceLastUpdate -= updateInterval;

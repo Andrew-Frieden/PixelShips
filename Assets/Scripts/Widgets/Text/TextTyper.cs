@@ -4,10 +4,20 @@ using TMPro;
 
 public class TextTyper : MonoBehaviour
 {
-    [SerializeField] private float TimeToWrite;
+    [SerializeField] private float TimeToWrite = 2.0f;
     [SerializeField] private TextMeshProUGUI textMesh;
 
-    public void Type()
+    public void HideText()
+    {
+        textMesh.maxVisibleCharacters = 0;
+    }
+
+    public void ShowText()
+    {
+        textMesh.maxVisibleCharacters = textMesh.textInfo.characterCount;
+    }
+
+    public void TypeText()
     {
         StartCoroutine(ShowCharacters());
     }
@@ -29,7 +39,8 @@ public class TextTyper : MonoBehaviour
 
             if (visibleCount >= totalCharacters)
             {
-                yield break;
+                yield return new WaitForSeconds(5);
+                //yield break;
             }
 
             counter += 1;
