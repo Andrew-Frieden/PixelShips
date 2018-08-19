@@ -8,11 +8,16 @@ using UnityEngine.EventSystems;
 
 namespace Controller
 {
-    public class CommandViewController : MonoBehaviour, IPointerClickHandler
-    {
-        [SerializeField] private TextMeshProUGUI ZoneText;
-        [SerializeField] private TextMeshProUGUI MobText;
+    public class CommandViewController : MonoBehaviour
+    {   
+        [SerializeField] private ScrollViewController scrollView;
+        
         private IRoom _room;
+
+        private void Start()
+        {
+            ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
+        }
         
         private void Awake()
         {
@@ -30,36 +35,20 @@ namespace Controller
             
             Debug.Log("Room look text: " + _room.GetLookText());
             
-            ZoneText.SetText(_room.GetLookText().ToString());
-            MobText.SetText(mob.GetLookText().ToString());
+            scrollView.AddCell(_room);
+            scrollView.AddCell(_room.Entities[0]);
         }
 
-        public void OnPlayerChoseAction(IRoomAction action)
+        private void HandleLinkTouchedEvent(ITextEntity textEntity)
         {
-            //Debug.Log("Player chose action.");
-            
-            //_room.ResolveNext(action);
-            
-            //Debug.Log("Room resolved.");
+            Debug.Log("Clicked link for entity with Id: " +  textEntity.Id);
         }
-        
-        public void OnPointerClick(PointerEventData eventData)
+
+        public void OnPlayerChoseAction()
         {
-            var result = TMP_TextUtilities.FindIntersectingLink(ZoneText, eventData.position, UIManager.Instance.UICamera);
-            if (result >= 0)
-            {
-                var objectId = ZoneText.textInfo.linkInfo[result].GetLinkID();
-                Debug.Log("Clicked link for entity with Id: " + objectId);
-                return;
-            }
+            var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2);
             
-            result = TMP_TextUtilities.FindIntersectingLink(MobText, eventData.position, UIManager.Instance.UICamera);
-            if (result >= 0)
-            {
-                var objectId = MobText.textInfo.linkInfo[result].GetLinkID();
-                Debug.Log("Clicked link for entity with Id: " + objectId);
-                return;
-            }
+            scrollView.AddCell(anotherMob);
         }
     }
 }

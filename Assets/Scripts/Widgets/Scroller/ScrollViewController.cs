@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Models;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScrollViewController : MonoBehaviour {
 
-    public int CellCount = 20;
+    public int CellCount = 2;
     public GameObject ScrollCellPrefab;
     public GameObject CellHolder;
     
@@ -20,7 +21,7 @@ public class ScrollViewController : MonoBehaviour {
     private List<ScrollCell> CachedCells;
     
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
         ScrollRect = GetComponent<ScrollRect>();
 
@@ -28,11 +29,6 @@ public class ScrollViewController : MonoBehaviour {
             throw new MissingComponentException("ScrollViewController -> no ScrollCell prefab set");
             
         BuildCache();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
     
     void BuildCache()
@@ -44,8 +40,8 @@ public class ScrollViewController : MonoBehaviour {
         {
             var cellObject = Instantiate(ScrollCellPrefab);
             var scrollCell = cellObject.GetComponent<ScrollCell>();
-            scrollCell.SetupEmptyCell();
             scrollCell.transform.SetParent(CellHolder.transform);
+            scrollCell.gameObject.SetActive(false);
             CachedCells.Add(scrollCell);
         }
     }
@@ -65,14 +61,14 @@ public class ScrollViewController : MonoBehaviour {
         //  newly added cells will pop on the bttom without moving the list
     }
     
-    public void AddCell(string text)
+    public void AddCell(ITextEntity entity)
     {
         var cell = GetNextRecycledCell();
 
-        var rngText = Guid.NewGuid().ToString();
-        cell.SetDisplay(rngText);
-
+        cell.SetupScrollCell(entity);
+        cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetAsLastSibling();
+        cell.gameObject.SetActive(true);
 
         if (Anchored)
             ScrollRect.verticalNormalizedPosition = 0f;
@@ -91,7 +87,6 @@ public class ScrollViewController : MonoBehaviour {
         }
 
         var oldestCell = ActiveCells.Dequeue();
-        oldestCell.RecycleCell();
         return oldestCell;
     }
 }

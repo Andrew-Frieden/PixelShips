@@ -2,7 +2,7 @@
 using Models;
 using Models.Text;
 
-public interface IRoom
+public interface IRoom : ITextEntity
 {
     CommandShip PlayerShip { get; }
     string Description { get; }
@@ -10,5 +10,4 @@ public interface IRoom
     List<IRoomEntity> Entities { get; }
 
     List<string> ResolveNext(IRoomAction playerAction);
-    TextBlock GetLookText();
 }

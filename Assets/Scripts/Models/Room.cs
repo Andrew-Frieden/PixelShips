@@ -5,7 +5,7 @@ using PixelShips.Helpers;
 
 namespace Models
 {
-    public class Room : IRoom, ITextEntity
+    public class Room : IRoom
     {
         private string Link { get; }
         
@@ -35,9 +35,9 @@ namespace Models
             return resultText;
         }
 
-        public TextBlock GetLookText()
+        public string GetLookText()
         {
-            return new TextBlock(Description.GetDescriptionWithLink(Link, Id, "green"), Id);
+            return Description.GetDescriptionWithLink(Link, Id, "green");
         }
 
         public string GetLinkText()

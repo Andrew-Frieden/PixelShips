@@ -21,9 +21,9 @@ namespace Models
             Hull = hull;
         }
 
-        public TextBlock GetLookText()
+        public string GetLookText()
         {
-            return new TextBlock(Description.GetDescriptionWithLink(Link, Id, "red"), Id);
+            return Description.GetDescriptionWithLink(Link, Id, "red");
         }
 
         public string GetLinkText()

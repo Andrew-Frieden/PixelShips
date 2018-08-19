@@ -1,32 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class ScrollCell : MonoBehaviour
+public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
+    private ITextEntity TextEntity { get; set; }
+    
     public RectTransform RectTransform;
-    private TextMeshProUGUI Text;
+    [SerializeField] private TextMeshProUGUI Text;
 
-    void Start()
+    public delegate void LinkTouchedEvent(ITextEntity entity);
+    public static event LinkTouchedEvent linkTouchedEvent;
+
+    private void Start()
     {
         this.RectTransform = GetComponent<RectTransform>();
         Text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void SetupEmptyCell()
+    public void SetupScrollCell(ITextEntity entity)
     {
-        // reset text
+        TextEntity = entity;
+        Text.text = entity.GetLookText();   
     }
     
-    public void RecycleCell()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        //  empty stuff / make inactive?
-    }
-    
-    public void SetDisplay(string text)
-    {
-        //   set some display stuff
-        Text.text = text;
+        var result = TMP_TextUtilities.FindIntersectingLink(Text, eventData.position, UIManager.Instance.UICamera);
+        if (result >= 0)
+        {
+            linkTouchedEvent?.Invoke(TextEntity);
+        }
     }
 }

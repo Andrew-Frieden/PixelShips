@@ -6,6 +6,11 @@ namespace Models
     {
         public string Id { get; }
 
+        public string GetLookText()
+        {
+            return "[You] warped into the sector.";
+        }
+
         public string GetLinkText()
         {
             throw new System.NotImplementedException();
