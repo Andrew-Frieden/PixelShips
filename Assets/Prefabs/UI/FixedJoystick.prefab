@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114925146479644530}
   - component: {fileID: 114859346367353968}
   m_Layer: 5
-  m_Name: Fixed Joystick
+  m_Name: FixedJoystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,6 +89,9 @@ MonoBehaviour:
   background: {fileID: 224070147403872398}
   handle: {fileID: 224251571662654508}
   Camera: {fileID: 0}
+  BaseImage: {fileID: 0}
+  HandleImage: {fileID: 0}
+  SelectionThreshold: 0.85
 --- !u!114 &114925146479644530
 MonoBehaviour:
   m_ObjectHideFlags: 1
