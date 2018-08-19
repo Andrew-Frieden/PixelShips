@@ -7,6 +7,8 @@ public class TextTyper : MonoBehaviour
     [SerializeField] private float TimeToWrite = 2.0f;
     [SerializeField] private TextMeshProUGUI textMesh;
 
+    private Coroutine typingRoutine;
+
     public void HideText()
     {
         textMesh.maxVisibleCharacters = 0;
@@ -17,13 +19,20 @@ public class TextTyper : MonoBehaviour
         textMesh.maxVisibleCharacters = textMesh.textInfo.characterCount;
     }
 
-    public void TypeText()
+    public void TypeText(float delay)
     {
-        StartCoroutine(ShowCharacters());
+        if (typingRoutine != null)
+        {
+            StopCoroutine(typingRoutine);
+            HideText();
+        }
+        typingRoutine = StartCoroutine(ShowCharacters(delay));
     }
 
-    IEnumerator ShowCharacters()
+    IEnumerator ShowCharacters(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         // Force an update of the mesh to get valid information.
         textMesh.ForceMeshUpdate();
 
@@ -31,6 +40,11 @@ public class TextTyper : MonoBehaviour
         int counter = 0;
         int visibleCount = 0;
         float timeBetweenCharacters = TimeToWrite / totalCharacters;
+        
+        if (timeBetweenCharacters >= 0.02f)
+        {
+            timeBetweenCharacters = 0.02f;
+        }
 
         while (true)
         {
@@ -39,8 +53,7 @@ public class TextTyper : MonoBehaviour
 
             if (visibleCount >= totalCharacters)
             {
-                yield return new WaitForSeconds(5);
-                //yield break;
+                yield break;
             }
 
             counter += 1;

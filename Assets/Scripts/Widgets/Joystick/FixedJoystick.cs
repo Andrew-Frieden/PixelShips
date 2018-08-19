@@ -19,11 +19,12 @@ public class FixedJoystick : Joystick
 
     void Start()
     {
-        joystickPosition = RectTransformUtility.WorldToScreenPoint(Camera, background.position);
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
+        joystickPosition = RectTransformUtility.WorldToScreenPoint(Camera, background.position);
+
         Vector2 direction = eventData.position - joystickPosition;
         inputVector = (direction.magnitude > background.sizeDelta.x / 2f) ? direction.normalized : direction / (background.sizeDelta.x / 2f);
         ClampJoystick();

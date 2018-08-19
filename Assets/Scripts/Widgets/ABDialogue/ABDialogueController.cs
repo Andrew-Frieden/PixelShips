@@ -4,63 +4,109 @@ using UnityEngine.UI;
 
 public class ABDialogueController : MonoBehaviour {
 
+    [SerializeField] private float SmoothFactor;
+
     [SerializeField] private TextMeshProUGUI DialogueText;
     [SerializeField] private TextMeshProUGUI OptionAText;
     [SerializeField] private TextMeshProUGUI OptionBText;
 
-    [SerializeField] private RectTransform OptionATransform;
-    [SerializeField] private RectTransform OptionBTransform;
-    [SerializeField] private RectTransform CenterTransform;
+    [SerializeField] private Canvas canvas;
 
+    private float screenHeight;
     private TextTyper textTyper;
+    private FixedJoystick controlJoystick;
+
+    private Vector2 OnScreen;
+    private Vector2 OffScreen;
+    private Vector2 TargetLocation;
+
+    private RectTransform ControlRectTransform;
 
     void Start()
     {
+        ControlRectTransform = GetComponent<RectTransform>();
+        OnScreen = ControlRectTransform.anchoredPosition;
+
+        screenHeight = ControlRectTransform.rect.height * canvas.scaleFactor;
+        OffScreen = ControlRectTransform.anchoredPosition + new Vector2(0, screenHeight);
+
+        TargetLocation = OffScreen;
+        ControlRectTransform.anchoredPosition = TargetLocation;
+
         textTyper = GetComponentInChildren<TextTyper>();
-        textTyper.TypeText();
+        controlJoystick = GetComponentInChildren<FixedJoystick>();
+
+        controlJoystick.Dragged += HandleSelection;
+    }
+
+    private JoyEdge previousEdge = JoyEdge.None;
+
+    private void HandleSelection(JoyEdge edge)
+    {
+        if (edge != JoyEdge.None)
+        {
+            previousEdge = edge;
+            return;
+        }
+
+        switch (previousEdge)
+        {
+            case JoyEdge.Center:
+                break;
+            case JoyEdge.Left:
+                break;
+            case JoyEdge.Right:
+                break;
+            case JoyEdge.Up:
+                break;
+            case JoyEdge.Down:
+                DismissControl();
+                break;
+        }
+    }
+
+    void Update()
+    {
+        ControlRectTransform.anchoredPosition = Vector2.Lerp(ControlRectTransform.anchoredPosition, TargetLocation, Time.deltaTime*SmoothFactor);
     }
 
     //  push the AB Control in front of the camera with the given content
-    public void ShowControl(ABDialogueContent content, ABDialogueMode mode)
+    public void ShowControl(ABDialogueContent content)
     {
         //  populate the control
+        PopulateControl(content);
         //  hide the text
         textTyper.HideText();
         //  animate the control into view
+        TargetLocation = OnScreen;
         //  animate the display of content
-        textTyper.TypeText();
+        textTyper.TypeText(0.2f);
         //  wait for user input
+    }
+
+    public void ShowControl()
+    {
+        var content = new ABDialogueContent()
+        {
+            MainText = "Woah its spacey out there!",
+            OptionAText = "Might want to consider this idea",
+            OptionBText = "Sounds risky"
+        };
+
+        ShowControl(content);
     }
 
     //  hide the control from view. this gets called by the 'back' option.
     public void DismissControl()
     {
-    }
-    
-    //  reset any text or options set from previous content on the control
-    private void ClearContent()
-    {
-
+        TargetLocation = OffScreen;
     }
 
     //  populate the text and options on the control with the given content
     private void PopulateControl(ABDialogueContent content)
     {
-
-    }
-
-    private void ShowOptionA()
-    {
-
-    }
-
-    private void ShowOptionB()
-    {
-
-    }
-
-    private void ShowNoOption()
-    {
-
+        DialogueText.text = content.MainText;
+        OptionAText.text = content.OptionAText;
+        OptionBText.text = content.OptionBText;
     }
 }
