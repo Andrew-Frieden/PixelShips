@@ -12,13 +12,15 @@ namespace Models
         public int Hull { get; set; }
         public string Description { get; }
         public string Link { get; }
+        public ABDialogueContent DialogueContent { get; }
 
-        public Mob(string description, string link, int hull)
+        public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();
             Description = description;
             Link = link;
             Hull = hull;
+            DialogueContent = dialogueContent;
         }
 
         public string GetLookText()
@@ -38,7 +40,7 @@ namespace Models
 
         public IRoomAction GetNextAction(IRoom s)
         {
-            return new AttackAction(this, s.PlayerShip);
+            return new AttackAction(this, s.PlayerShip, 5);
         }
 
         public ABDialogueContent GetInteraction(CmdState s)

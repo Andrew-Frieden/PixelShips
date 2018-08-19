@@ -11,11 +11,11 @@ namespace Actions
         private ICombatEntity Source;
         private ICombatEntity Target;
         
-        public AttackAction(ICombatEntity source, ICombatEntity target)
+        public AttackAction(ICombatEntity source, ICombatEntity target, int damage)
         {
             Source = source;
             Target = target;
-            Damage = 5;
+            Damage = damage;
         }
 
         public IEnumerable<string> Execute(IRoom room)

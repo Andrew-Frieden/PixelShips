@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Actions;
 using Models;
 using Models.Factories;
 using TMPro;
@@ -18,23 +19,33 @@ namespace Controller
         private void Start()
         {
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
-        }
-        
-        private void Awake()
-        {
-            var mob = new Mob("A {{ link }} floats here", "Space Barbarian", 2);
-            
-            Debug.Log("Mob Created.");
             
             var commandShip = ShipFactory.GenerateCommandShip();
             
-            Debug.Log("Command Ship Created.");
+            var tabbyOfficerContent = new ABDialogueContent()
+            {
+                MainText = @"A tabby officer greets you over the voice comms:
+
+Meow Citizen!
+
+I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck in the kelp.Can you renderrr me some assistance ? ",
+                OptionAText = "Might want to consider this idea",
+                OptionBText = "Sounds risky"
+            };
             
-            _room = new Room("You enter into a {{ link }} with many asteroids.", "Giant Nebula", commandShip, new List<IRoomEntity>() { mob });
+            var tabbyOfficer = new Mob("A {{ link }} floats here", "Tabby Officer", 2, tabbyOfficerContent);
+
+            tabbyOfficerContent.OptionAAction = new AttackAction(tabbyOfficer, commandShip, 3);
+            tabbyOfficerContent.OptionBAction = new AttackAction(tabbyOfficer, commandShip, 5);
             
-            Debug.Log("Room Created.");
+            var giantNebulaContent = new ABDialogueContent()
+            {
+                MainText = @"This sector seems to be a dizzying array of star dust and deadly asteroids.",
+                OptionAText = "Warp to next sector",
+                OptionBText = "This should just be an A or cancel I think"
+            };
             
-            Debug.Log("Room look text: " + _room.GetLookText());
+            _room = new Room("You enter into a {{ link }} with many asteroids.", "Giant Nebula", commandShip, new List<IRoomEntity>() { tabbyOfficer }, giantNebulaContent);
             
             scrollView.AddCell(_room);
             scrollView.AddCell(_room.Entities[0]);
@@ -42,13 +53,14 @@ namespace Controller
 
         private void HandleLinkTouchedEvent(ITextEntity textEntity)
         {
-            Debug.Log("Clicked link for entity with Id: " +  textEntity.Id);
-            abController.ShowControl();
+            abController.ShowControl(textEntity.DialogueContent);
         }
 
         public void OnPlayerChoseAction()
         {
-            var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2);
+            var plantContent = new ABDialogueContent();
+            
+            var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
             
             scrollView.AddCell(anotherMob);
         }

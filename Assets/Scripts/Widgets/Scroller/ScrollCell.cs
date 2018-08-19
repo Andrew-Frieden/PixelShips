@@ -17,7 +17,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        this.RectTransform = GetComponent<RectTransform>();
+        RectTransform = GetComponent<RectTransform>();
         Text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
