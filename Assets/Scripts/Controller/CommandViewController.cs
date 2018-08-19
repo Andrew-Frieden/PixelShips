@@ -11,6 +11,7 @@ namespace Controller
     public class CommandViewController : MonoBehaviour
     {   
         [SerializeField] private ScrollViewController scrollView;
+        [SerializeField] private ABDialogueController abController;
         
         private IRoom _room;
 
@@ -42,6 +43,7 @@ namespace Controller
         private void HandleLinkTouchedEvent(ITextEntity textEntity)
         {
             Debug.Log("Clicked link for entity with Id: " +  textEntity.Id);
+            abController.ShowControl();
         }
 
         public void OnPlayerChoseAction()

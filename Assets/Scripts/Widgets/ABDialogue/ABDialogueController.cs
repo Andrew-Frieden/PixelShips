@@ -88,7 +88,11 @@ public class ABDialogueController : MonoBehaviour {
     {
         var content = new ABDialogueContent()
         {
-            MainText = "Woah its spacey out there!",
+            MainText = @"A tabby officer greets you over the voice comms:
+
+Meow Citizen!
+
+I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck in the kelp.Can you renderrr me some assistance ? ",
             OptionAText = "Might want to consider this idea",
             OptionBText = "Sounds risky"
         };
