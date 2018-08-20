@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Actions;
+using Common;
 using Models;
 using Models.Factories;
 using Repository;
@@ -16,6 +17,8 @@ namespace Controller
     {   
         [SerializeField] private ScrollViewController scrollView;
         [SerializeField] private ABDialogueController abController;
+
+        public Blink Blink;
         
         private IRoom _room;
 
@@ -38,6 +41,8 @@ namespace Controller
             //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
             scrollView.AddCell(room);
             scrollView.AddCell(room.Entities[0]);
+
+            StartCoroutine(Blink.BlinkLoop());
         }
 
         private void HandleLinkTouchedEvent(ITextEntity textEntity)

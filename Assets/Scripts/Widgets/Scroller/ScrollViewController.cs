@@ -51,8 +51,7 @@ public class ScrollViewController : MonoBehaviour {
         cell.gameObject.SetActive(true);
         cell.SetupScrollCell(entity);
         cell.RectTransform.localScale = Vector2.one;
-        cell.RectTransform.SetAsLastSibling();
-        
+        cell.RectTransform.SetSiblingIndex(CellCount - 1);
 
         ScrollRect.verticalNormalizedPosition = 0f;
 
