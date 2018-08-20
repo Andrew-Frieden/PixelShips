@@ -14,14 +14,16 @@ namespace Models
         public string Description { get; }
         public RoomFlavor Flavor { get; }
         public List<IRoomEntity> Entities { get; }
+        public ABDialogueContent DialogueContent { get; }
 
-        public Room(string description, string link, CommandShip ship, List<IRoomEntity> roomEntities)
+        public Room(string description, string link, CommandShip ship, List<IRoomEntity> roomEntities, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();
             Description = description;
             Link = link;
             PlayerShip = ship;
             Entities = roomEntities;
+            DialogueContent = dialogueContent;
         }
 
         public List<string> ResolveNext(IRoomAction playerAction)

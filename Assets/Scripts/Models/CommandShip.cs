@@ -5,6 +5,7 @@ namespace Models
     public class CommandShip : Ship, ICombatEntity, ITextEntity
     {
         public string Id { get; }
+        public ABDialogueContent DialogueContent { get; }
 
         public string GetLookText()
         {
