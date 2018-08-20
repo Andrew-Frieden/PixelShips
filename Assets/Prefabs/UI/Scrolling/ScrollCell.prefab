@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 224677878799380134}
   - component: {fileID: 222823660238638204}
   - component: {fileID: 114575980894616672}
+  - component: {fileID: 114519696129269252}
   m_Layer: 0
   m_Name: TextMeshPro Text
   m_TagString: Untagged
@@ -59,6 +60,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 224017825426601496}
   Text: {fileID: 114575980894616672}
+  Typer: {fileID: 114519696129269252}
+--- !u!114 &114519696129269252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856671653717430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587689a34a598c5439f8b8550cfc3bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeToWrite: 0.5
+  textMesh: {fileID: 114575980894616672}
 --- !u!114 &114575980894616672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,8 +120,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

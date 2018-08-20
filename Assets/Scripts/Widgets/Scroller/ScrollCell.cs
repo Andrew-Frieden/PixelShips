@@ -11,6 +11,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
     
     public RectTransform RectTransform;
     [SerializeField] private TextMeshProUGUI Text;
+    [SerializeField] private TextTyper Typer;
 
     public delegate void LinkTouchedEvent(ITextEntity entity);
     public static event LinkTouchedEvent linkTouchedEvent;
@@ -24,7 +25,9 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
     public void SetupScrollCell(ITextEntity entity)
     {
         TextEntity = entity;
-        Text.text = entity.GetLookText();   
+        Text.text = entity.GetLookText();
+        Typer.HideText();
+        Typer.TypeText(0.1f);
     }
     
     public void OnPointerClick(PointerEventData eventData)

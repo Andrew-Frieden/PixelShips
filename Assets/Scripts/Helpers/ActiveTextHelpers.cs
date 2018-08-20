@@ -18,7 +18,7 @@ namespace PixelShips.Helpers
 
         public static string GetDescriptionWithLink(this string text, string link, string id, string color)
         {
-            return Regex.Replace(text, "{{.*?}}", GetLink(link, id, color));
+            return Regex.Replace(text, "{{.*?}}", GetLink($"[{link}]", id, color));
         }
     }
 }

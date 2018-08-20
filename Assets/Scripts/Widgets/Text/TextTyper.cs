@@ -19,6 +19,12 @@ public class TextTyper : MonoBehaviour
         textMesh.maxVisibleCharacters = textMesh.textInfo.characterCount;
     }
 
+    void Start()
+    {
+        if (textMesh == null)
+            textMesh = GetComponent<TextMeshProUGUI>();
+    }
+
     public void TypeText(float delay)
     {
         if (typingRoutine != null)
