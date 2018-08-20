@@ -1,7 +1,4 @@
-﻿using Actions;
-using Models.Text;
-
-namespace Models
+﻿namespace Models
 {
     public interface IRoomEntity : ITextEntity
     {

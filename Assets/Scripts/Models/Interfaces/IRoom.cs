@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Models;
-using Models.Text;
 
 public interface IRoom : ITextEntity
 {
@@ -10,4 +9,7 @@ public interface IRoom : ITextEntity
     List<IRoomEntity> Entities { get; }
 
     List<string> ResolveNext(IRoomAction playerAction);
+
+    void SetPlayerShip(CommandShip ship);
+    void AddEntity(IRoomEntity entity);
 }

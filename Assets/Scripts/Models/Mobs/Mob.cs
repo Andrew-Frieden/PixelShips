@@ -1,8 +1,6 @@
 ﻿using System;
 using Actions;
-using Models.Text;
 using PixelShips.Helpers;
-using UnityEditor;
 
 namespace Models
 {

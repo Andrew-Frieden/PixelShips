@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Models.Text;
 using PixelShips.Helpers;
 
 namespace Models
@@ -10,7 +9,7 @@ namespace Models
         private string Link { get; }
         
         public string Id { get; }
-        public CommandShip PlayerShip { get; }
+        public CommandShip PlayerShip { get; private set; }
         public string Description { get; }
         public RoomFlavor Flavor { get; }
         public List<IRoomEntity> Entities { get; }
@@ -35,6 +34,16 @@ namespace Models
             actions.ForEach(a => resultText.AddRange(a.Execute(this)));
 
             return resultText;
+        }
+
+        public void SetPlayerShip(CommandShip ship)
+        {
+            PlayerShip = ship;
+        }
+
+        public void AddEntity(IRoomEntity entity)
+        {
+            Entities.Add(entity);
         }
 
         public string GetLookText()
