@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Models;
-using System;
 
 namespace Repository
 {
@@ -96,11 +95,8 @@ namespace Repository
                 "Out the window you see a"
 
             };
-            Random rand = new Random();
 
-            var i = rand.Next(leadInTexts.Count);
-
-            return leadInTexts[i];
+            return leadInTexts[UnityEngine.Random.Range(0, leadInTexts.Count)];
         }
     }
 }

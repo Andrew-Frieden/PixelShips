@@ -34,7 +34,11 @@ namespace Controller
             var roomRepository = new RoomRepository();
             var rooms = roomRepository.LoadData();
 
-            var room = rooms.First();
+            
+            var randomizedRooms = rooms.OrderBy(a => Guid.NewGuid()).ToList();
+            var room = randomizedRooms.First();
+
+
             room.SetPlayerShip(commandShip);
             room.AddEntity(roomEntities.First());
             
