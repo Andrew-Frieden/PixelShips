@@ -10,27 +10,38 @@ namespace Common
 		[SerializeField] private TMP_Text _underScore;
 		[SerializeField] private ScrollRect _scrollRect;
 
-		private bool _hasScrolled;
+		private bool _init;
+		private bool _cellAdded;
+		
+		private void Start()
+		{
+			ScrollViewController.cellAddedEvent += HandleCellAdded;
+		}
+		
+		private void HandleCellAdded()
+		{
+			_cellAdded = true;
+		}
 		
 		private void Update()
 		{
-			if (_underScore.enabled)
+			if (!_init)
 			{
-				gameObject.transform.SetAsLastSibling();
-
-				if (!_hasScrolled)
-				{
-					_scrollRect.verticalNormalizedPosition = 0f;
-					_hasScrolled = false;
-				}
+				Scroll();
+				_init = true;
 			}
-			
-			_scrollRect.onValueChanged.AddListener(Listener);
+
+			if (_cellAdded)
+			{
+				Invoke(nameof(Scroll), 0.05f);
+				_cellAdded = false;
+			}
 		}
-		
-		private void Listener(Vector2 value)
+
+		private void Scroll()
 		{
-			_hasScrolled = true;
+			gameObject.transform.SetAsLastSibling();
+			_scrollRect.verticalNormalizedPosition = 0f;
 		}
 
 		public IEnumerator BlinkLoop()
