@@ -18,6 +18,9 @@ public class ScrollViewController : MonoBehaviour {
     private Queue<ScrollCell> ActiveCells;
     private List<ScrollCell> CachedCells;
     
+    public delegate void CellAddedEvent();
+    public static event CellAddedEvent cellAddedEvent;
+    
 	// Use this for initialization
 	void Awake () {
 
@@ -53,10 +56,10 @@ public class ScrollViewController : MonoBehaviour {
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
 
-        ScrollRect.verticalNormalizedPosition = 0f;
-
         ActiveCells.Enqueue(cell);
         LastActiveCell = cell;
+        
+        cellAddedEvent?.Invoke();
     }
     
     private ScrollCell GetNextRecycledCell()

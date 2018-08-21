@@ -167,66 +167,6 @@ Prefab:
       propertyPath: UICamera
       value: 
       objectReference: {fileID: 1478137180}
-    - target: {fileID: 114388143151355262, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114388143151355262, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114313118659236976, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114313118659236976, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114343310006482164, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114343310006482164, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114914497729118664, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114914497729118664, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114516275300397248, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114516275300397248, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114590904654541824, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114590904654541824, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
   m_IsPrefabAsset: 0
