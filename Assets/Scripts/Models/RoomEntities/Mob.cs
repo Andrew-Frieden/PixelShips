@@ -31,19 +31,9 @@ namespace Models
             throw new System.NotImplementedException();
         }
 
-        public ABDialogueContent GetInteraction(IRoom s)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IRoomAction GetNextAction(IRoom s)
         {
             return new AttackAction(this, s.PlayerShip, 5);
-        }
-
-        public ABDialogueContent GetInteraction(CmdState s)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
