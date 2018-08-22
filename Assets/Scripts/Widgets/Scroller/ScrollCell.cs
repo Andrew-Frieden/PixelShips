@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
+    private const int Spacing = 5;
+    
     private ITextEntity TextEntity { get; set; }
     
     public RectTransform RectTransform;
@@ -29,7 +31,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
         Typer.HideText();
         Typer.TypeText(0.1f);
 
-        return Text.GetPreferredValues().y + 50;
+        return Text.GetPreferredValues().y + Spacing;
     }
     
     public void OnPointerClick(PointerEventData eventData)
