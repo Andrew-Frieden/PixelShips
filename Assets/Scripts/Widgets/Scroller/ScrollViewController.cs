@@ -52,12 +52,14 @@ public class ScrollViewController : MonoBehaviour {
         var cell = GetNextRecycledCell();
 
         cell.gameObject.SetActive(true);
-        cell.SetupScrollCell(entity);
+        var verticalSize = cell.SetupScrollCell(entity);
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
 
         ActiveCells.Enqueue(cell);
         LastActiveCell = cell;
+        
+        cell.RectTransform.sizeDelta = new Vector2 (cell.RectTransform.sizeDelta.x, verticalSize);
         
         cellAddedEvent?.Invoke();
     }

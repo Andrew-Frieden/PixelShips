@@ -60,6 +60,10 @@ namespace Controller
             
             var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
             
+            var secondMob = new Mob("A very seriously sized {{ link }} hulks off into the distance. Be carefyk if this one", "Space Ogre", 2, plantContent);
+            
+            scrollView.AddCell(secondMob);
+            
             scrollView.AddCell(anotherMob);
         }
     }
