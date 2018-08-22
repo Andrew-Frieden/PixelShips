@@ -5,7 +5,7 @@ using Models;
 
 namespace Actions
 {
-    public class AttackAction : IRoomAction
+    public class AttackAction : SimpleAction
     {
         private int Damage { get; }
         private ICombatEntity Source;
