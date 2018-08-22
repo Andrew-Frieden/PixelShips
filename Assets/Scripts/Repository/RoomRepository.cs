@@ -16,7 +16,7 @@ namespace Repository
                 OptionBText = "This should just be an A or cancel I think"
             };
 
-            rooms.Add(new Room("You enter into a {{ link }} with many asteroids.", "Giant Nebula", null, new List<IRoomEntity>() { }, giantNebulaContent));
+            rooms.Add(new Room("You enter into a {{ link }} with many asteroids.", "Giant Nebula", null, new List<IRoomActor>() { }, giantNebulaContent));
 
 
 
@@ -82,7 +82,7 @@ namespace Repository
 
             };
 
-            return new Room( leadIn + mainText, roomName, null, new List<IRoomEntity>() { }, roomContent);
+            return new Room( leadIn + mainText, roomName, null, new List<IRoomActor>() { }, roomContent);
         }
 
         private string randomizeLeadIn()

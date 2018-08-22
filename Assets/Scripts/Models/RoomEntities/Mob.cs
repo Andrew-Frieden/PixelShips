@@ -4,7 +4,7 @@ using PixelShips.Helpers;
 
 namespace Models
 {
-    public class Mob : IRoomEntity, ICombatEntity
+    public class Mob : IRoomActor, ICombatEntity
     {
         public string Id { get; }
         public int Hull { get; set; }

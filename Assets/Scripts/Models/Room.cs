@@ -12,10 +12,10 @@ namespace Models
         public CommandShip PlayerShip { get; private set; }
         public string Description { get; }
         public RoomFlavor Flavor { get; }
-        public List<IRoomEntity> Entities { get; }
+        public List<IRoomActor> Entities { get; }
         public ABDialogueContent DialogueContent { get; }
 
-        public Room(string description, string link, CommandShip ship, List<IRoomEntity> roomEntities, ABDialogueContent dialogueContent)
+        public Room(string description, string link, CommandShip ship, List<IRoomActor> roomEntities, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();
             Description = description;
@@ -41,9 +41,9 @@ namespace Models
             PlayerShip = ship;
         }
 
-        public void AddEntity(IRoomEntity entity)
+        public void AddEntity(IRoomActor actor)
         {
-            Entities.Add(entity);
+            Entities.Add(actor);
         }
 
         public string GetLookText()

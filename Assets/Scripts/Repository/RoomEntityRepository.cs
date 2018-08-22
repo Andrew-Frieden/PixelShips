@@ -3,11 +3,11 @@ using Models;
 
 namespace Repository
 {
-    public class RoomEntityRepository : IJsonRepository<IRoomEntity>
+    public class RoomEntityRepository : IJsonRepository<IRoomActor>
     {
-        public IEnumerable<IRoomEntity> LoadData()
+        public IEnumerable<IRoomActor> LoadData()
         {
-            var entities = new List<IRoomEntity>();
+            var entities = new List<IRoomActor>();
             
             var tabbyOfficerContent = new ABDialogueContent()
             {

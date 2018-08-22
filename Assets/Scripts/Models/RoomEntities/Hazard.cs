@@ -1,6 +1,6 @@
 ﻿namespace Models
 {
-    public class Hazard : IRoomEntity
+    public class Hazard : IRoomActor
     {
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; }

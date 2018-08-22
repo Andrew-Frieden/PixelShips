@@ -1,6 +1,6 @@
 ﻿namespace Models
 {
-    public class NPC : IRoomEntity
+    public class NPC : IRoomActor
     {
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; }

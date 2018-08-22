@@ -22,7 +22,7 @@ namespace Actions
         {
             Target.Hull -= Damage;
 
-            return new List<string>() {room.FindTextEntityByGuid(Target.Id).GetLinkText() + " took " + Damage + " damage."};
+            return new List<string>() { room.FindTextEntityByGuid(Target.Id).GetLinkText() + " took " + Damage + " damage."};
         }
     }
 }
