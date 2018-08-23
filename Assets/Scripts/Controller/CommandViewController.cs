@@ -67,11 +67,5 @@ namespace Controller
             
             scrollView.AddCells(new List<ITextEntity>() { secondMob, anotherMob });
         }
-
-        public void TestLoad()
-        {
-            var saveLoadCtrl = new SaveLoadController();
-            var gameState = saveLoadCtrl.Load();
-        }
     }
 }
