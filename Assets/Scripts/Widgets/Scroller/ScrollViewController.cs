@@ -47,12 +47,12 @@ public class ScrollViewController : MonoBehaviour {
         }
     }
     
-    public void AddCell(ITextEntity entity)
+    public void AddCell(ITextEntity entity, bool start)
     {
         var cell = GetNextRecycledCell();
 
         cell.gameObject.SetActive(true);
-        var verticalSize = cell.SetupScrollCell(entity);
+        var verticalSize = cell.SetupScrollCell(entity, start);
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
 

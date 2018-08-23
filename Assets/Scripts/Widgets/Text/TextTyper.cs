@@ -4,7 +4,7 @@ using TMPro;
 
 public class TextTyper : MonoBehaviour
 {
-    [SerializeField] private float TimeToWrite = 2.0f;
+    [SerializeField] private float TimeToWrite = 1.0f;
     [SerializeField] private TextMeshProUGUI textMesh;
 
     private Coroutine typingRoutine;
@@ -57,9 +57,26 @@ public class TextTyper : MonoBehaviour
             visibleCount = counter % (totalCharacters + 1);
             textMesh.maxVisibleCharacters = visibleCount;
 
+            //Start the next cell
             if (visibleCount >= totalCharacters)
             {
-                yield break;
+                var siblingIndex = gameObject.transform.parent.GetSiblingIndex();
+                for (var i = siblingIndex; i < gameObject.transform.parent.parent.GetChildCount(); i++)
+                {
+                    //End if we are on the last cell
+                    if (i == gameObject.transform.parent.parent.GetChildCount() - 1)
+                    {
+                        yield break;
+                    }
+                    
+                    var nextScrollCell = gameObject.transform.parent.parent.GetChild(i + 1);
+                    var textTyper = nextScrollCell.GetChild(0) != null ? nextScrollCell.GetChild(0).GetComponent<TextTyper>() : null;
+                    if (textTyper != null && textTyper.isActiveAndEnabled)
+                    {
+                        textTyper.TypeText(0.1f);
+                        yield break;
+                    }
+                }
             }
 
             counter += 1;

@@ -24,12 +24,15 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
         Text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public float SetupScrollCell(ITextEntity entity)
+    public float SetupScrollCell(ITextEntity entity, bool start)
     {
         TextEntity = entity;
         Text.text = entity.GetLookText();
         Typer.HideText();
-        Typer.TypeText(0.1f);
+        if (start)
+        {
+            Typer.TypeText(0.1f); 
+        }
 
         return Text.GetPreferredValues().y + Spacing;
     }
