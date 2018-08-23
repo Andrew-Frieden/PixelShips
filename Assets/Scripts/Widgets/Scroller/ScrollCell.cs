@@ -4,6 +4,7 @@ using Models;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using Widgets.Scroller;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
@@ -13,7 +14,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
     
     public RectTransform RectTransform;
     [SerializeField] private TextMeshProUGUI Text;
-    [SerializeField] private TextTyper Typer;
+    [SerializeField] private ScrollCellTextTyper Typer;
 
     public delegate void LinkTouchedEvent(ITextEntity entity);
     public static event LinkTouchedEvent linkTouchedEvent;
