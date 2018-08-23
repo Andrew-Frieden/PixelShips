@@ -6,10 +6,4 @@ namespace Models
         public DateTime SaveTime;
         public RoomDto Room;
     }
-    
-    public class GameState
-    {
-        public DateTime CurrentTime;
-        public Room Room;
-    }
 }
