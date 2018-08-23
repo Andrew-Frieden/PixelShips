@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Models;
+using PixelSpace.Models.SharedModels.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,13 +47,15 @@ public class ScrollViewController : MonoBehaviour {
             CachedCells.Add(scrollCell);
         }
     }
-    
-    public void AddCell(ITextEntity entity, bool start)
+
+    //Flag to start the textTyper on the first cell
+    private bool _first = true;
+    private void AddCell(ITextEntity entity)
     {
         var cell = GetNextRecycledCell();
 
         cell.gameObject.SetActive(true);
-        var verticalSize = cell.SetupScrollCell(entity, start);
+        var verticalSize = cell.SetupScrollCell(entity, _first);
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
 
@@ -60,8 +63,16 @@ public class ScrollViewController : MonoBehaviour {
         LastActiveCell = cell;
         
         cell.RectTransform.sizeDelta = new Vector2 (cell.RectTransform.sizeDelta.x, verticalSize);
+        _first = false;
         
         cellAddedEvent?.Invoke();
+    }
+
+    public void AddCells(IEnumerable<ITextEntity> entities)
+    {
+        entities.ForEach(AddCell);
+        //After all the cells have been added reset the first flag
+        _first = true;
     }
     
     private ScrollCell GetNextRecycledCell()

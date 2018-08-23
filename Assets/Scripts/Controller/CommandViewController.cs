@@ -43,8 +43,7 @@ namespace Controller
             room.AddEntity(roomEntities.First());
             
             //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
-            scrollView.AddCell(room, true);
-            scrollView.AddCell(room.Entities[0], false);
+            scrollView.AddCells(new List<ITextEntity>() { room, room.Entities[0] });
 
             StartCoroutine(Blink.BlinkLoop());
         }
@@ -59,12 +58,9 @@ namespace Controller
             var plantContent = new ABDialogueContent();
             
             var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
-            
             var secondMob = new Mob("A very seriously sized {{ link }} hulks off into the distance. Be carefyk if this one", "Space Ogre", 2, plantContent);
             
-            scrollView.AddCell(secondMob, true);
-            
-            scrollView.AddCell(anotherMob, false);
+            scrollView.AddCells(new List<ITextEntity>() { secondMob, anotherMob });
         }
     }
 }
