@@ -59,7 +59,7 @@ namespace Repository
             rooms.Add(generateRoom(randomizeLeadIn(), "Zone of Empty Space",
                 "The vast expanse of nothing-ness goes on in every direction.  It is both inspiring and unsettling.", "Warp Left", "Warp Right"));
 
-            rooms.Add(generateRoom(randomizeLeadIn(), "Pulsar’s Spallation Field",
+            rooms.Add(generateRoom(randomizeLeadIn(), "Pulsar's Spallation Field",
                 "The frighteningly hot neutron star spins rapidly, spitting out hot radiation at a rather up-beat tempo.", "Warp Left", "Warp Right"));
 
             rooms.Add(generateRoom(randomizeLeadIn(), "Cloud of Asteroids",
@@ -98,7 +98,7 @@ namespace Repository
                 "Jump drives still whirring, a {{ link }} fills your screen. ",
                 "As your ship decelerates rapidly, a {{ link }} comes into view. ",
                 "\"Captain!  We've spotted a nearby {{ link }},\" your first mate shouts. ",
-                "\" We have arrived at your destination... a {{ link }}... thank you for flying jump drive spacelines!\" "
+                "\"We have arrived at your destination... a {{ link }}... thank you for flying jump drive spacelines!\" "
 
             };
 

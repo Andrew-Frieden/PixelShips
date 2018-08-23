@@ -4,6 +4,7 @@ using Models;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using Widgets.Scroller;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
@@ -13,7 +14,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
     
     public RectTransform RectTransform;
     [SerializeField] private TextMeshProUGUI Text;
-    [SerializeField] private TextTyper Typer;
+    [SerializeField] private ScrollCellTextTyper Typer;
 
     public delegate void LinkTouchedEvent(ITextEntity entity);
     public static event LinkTouchedEvent linkTouchedEvent;
@@ -24,12 +25,15 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
         Text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public float SetupScrollCell(ITextEntity entity)
+    public float SetupScrollCell(ITextEntity entity, bool start)
     {
         TextEntity = entity;
         Text.text = entity.GetLookText();
         Typer.HideText();
-        Typer.TypeText(0.1f);
+        if (start)
+        {
+            Typer.TypeText(0.1f); 
+        }
 
         return Text.GetPreferredValues().y + Spacing;
     }

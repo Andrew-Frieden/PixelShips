@@ -48,8 +48,7 @@ namespace Controller
             room.AddEntity(tabby);
             
             //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
-            scrollView.AddCell(room);
-            scrollView.AddCell(room.Entities[0]);
+            scrollView.AddCells(new List<ITextEntity>() { room, room.Entities[0] });
 
             StartCoroutine(Blink.BlinkLoop());
         }
@@ -61,23 +60,12 @@ namespace Controller
 
         public void OnPlayerChoseAction()
         {
-            //var plantContent = new ABDialogueContent();
-
-            //var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
-
-            //var secondMob = new Mob("A very seriously sized {{ link }} hulks off into the distance. Be carefyk if this one", "Space Ogre", 2, plantContent);
-
-            //scrollView.AddCell(secondMob);
-
-            //scrollView.AddCell(anotherMob);
-
-            var saveLoadCtrl = new SaveLoadController();
-            var gameState = new GameState
-            {
-                CurrentTime = DateTime.Now,
-                Room = (Room)room
-            };
-            saveLoadCtrl.Save(gameState);
+            var plantContent = new ABDialogueContent();
+            
+            var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
+            var secondMob = new Mob("A very seriously sized {{ link }} hulks off into the distance. Be carefyk if this one", "Space Ogre", 2, plantContent);
+            
+            scrollView.AddCells(new List<ITextEntity>() { secondMob, anotherMob });
         }
 
         public void TestLoad()

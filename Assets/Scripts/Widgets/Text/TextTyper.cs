@@ -4,8 +4,8 @@ using TMPro;
 
 public class TextTyper : MonoBehaviour
 {
-    [SerializeField] private float TimeToWrite = 2.0f;
-    [SerializeField] private TextMeshProUGUI textMesh;
+    [SerializeField] protected float TimeToWrite = 1.0f;
+    [SerializeField] protected TextMeshProUGUI textMesh;
 
     private Coroutine typingRoutine;
 
@@ -35,7 +35,7 @@ public class TextTyper : MonoBehaviour
         typingRoutine = StartCoroutine(ShowCharacters(delay));
     }
 
-    IEnumerator ShowCharacters(float delay)
+    protected virtual IEnumerator ShowCharacters(float delay)
     {
         yield return new WaitForSeconds(delay);
 
@@ -57,6 +57,7 @@ public class TextTyper : MonoBehaviour
             visibleCount = counter % (totalCharacters + 1);
             textMesh.maxVisibleCharacters = visibleCount;
 
+            //Start the next cell
             if (visibleCount >= totalCharacters)
             {
                 yield break;
