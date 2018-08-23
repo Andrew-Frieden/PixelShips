@@ -1,8 +1,7 @@
 ﻿namespace Models
 {
-    public interface ICombatEntity
+    public interface ICombatEntity : ITextEntity
     {
-        string Id { get; }
         int Hull { get; set; }
     }
 }

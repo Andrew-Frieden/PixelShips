@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Actions;
 using Models;
 
 namespace Repository
@@ -17,7 +18,7 @@ Meow Citizen!
 
 I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck in the kelp.Can you renderrr me some assistance ? ",
                 OptionAText = "Might want to consider this idea",
-                OptionBText = "Sounds risky"
+                OptionBText = "Sounds risky",
             };
             
             var tabbyOfficer = new Mob("A {{ link }} floats here.", "Tabby Officer", 2, tabbyOfficerContent);

@@ -6,7 +6,7 @@ namespace Models
 {
     public class Room : IRoom
     {
-        private string Link { get; }
+        public string Link { get; }
         
         public string Id { get; }
         public CommandShip PlayerShip { get; private set; }
@@ -23,6 +23,11 @@ namespace Models
             PlayerShip = ship;
             Entities = roomEntities;
             DialogueContent = dialogueContent;
+        }
+
+        public Room()
+        {
+            Entities = new List<IRoomActor>();
         }
 
         public List<string> ResolveNext(IRoomAction playerAction)

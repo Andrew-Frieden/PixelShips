@@ -19,8 +19,7 @@ namespace Controller
         [SerializeField] private ABDialogueController abController;
 
         public Blink Blink;
-        
-        private IRoom _room;
+        private IRoom room;
 
         private void Start()
         {
@@ -30,17 +29,23 @@ namespace Controller
 
             var roomEntityRepository = new RoomEntityRepository();
             var roomEntities = roomEntityRepository.LoadData();
-            
+
             var roomRepository = new RoomRepository();
             var rooms = roomRepository.LoadData();
 
             
             var randomizedRooms = rooms.OrderBy(a => Guid.NewGuid()).ToList();
-            var room = randomizedRooms.First();
+            room = randomizedRooms.First();
+
 
 
             room.SetPlayerShip(commandShip);
-            room.AddEntity(roomEntities.First());
+
+            var tabby = (Mob)roomEntities.First();
+            tabby.DialogueContent.OptionAAction = new AttackAction(tabby, commandShip, 17);
+            tabby.DialogueContent.OptionBAction = new AttackAction(tabby, commandShip, 39);
+
+            room.AddEntity(tabby);
             
             //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
             scrollView.AddCells(new List<ITextEntity>() { room, room.Entities[0] });
