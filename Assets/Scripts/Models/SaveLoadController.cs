@@ -1,43 +1,48 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 namespace Models
 {
     public class SaveLoadController
     {
+        private string SaveFilePath = Application.dataPath + "/SaveData.json";
+
         public GameState Load()
         {
-            var saveState = new SaveState();
-            //  deserialize savestate from json
+            var jsonData = File.ReadAllText(SaveFilePath);
+            var saveState = JsonConvert.DeserializeObject<SaveState>(jsonData);
             return BuildGameState(saveState);
         }
         
         public void Save(GameState state)
         {
             var saveState = BuildSaveState(state);
-            //  serialize and persist saveState
+            var jsonData = JsonConvert.SerializeObject(saveState);
+            File.WriteAllText(SaveFilePath, jsonData);
         }
         
         private GameState BuildGameState(SaveState save)
         {
             var state = new GameState();
-            
-            
-            
+
+            var room = new Room();
+            var playerShip = new CommandShip();
+
+            state.CurrentTime = DateTime.Now;
             return state;
         }
         
         private SaveState BuildSaveState(GameState state)
         {
-            var save = new SaveState
+            return new SaveState
             {
                 Room = state.Room.ToDto(),
                 SaveTime = DateTime.Now
             };
-
-            return save;
         }
-        
     }
     
     public static class DtoHelpers
@@ -78,7 +83,7 @@ namespace Models
                 Speed = ship.Speed,
                 Transport = ship.Transport,
                 Intelligence = ship.Intelligence,
-                ContentDto = ship.DialogueContent.ToDto()
+                ContentDto = ship.DialogueContent?.ToDto()
             };
         }
         
@@ -106,6 +111,9 @@ namespace Models
             var actionModels = new List<IRoomAction>() { content.OptionAAction, content.OptionBAction };
             foreach (var act in actionModels)
             {
+                if (act == null)
+                    continue;
+
                 if (act is SimpleAction)
                 {
                     var simple = (SimpleAction)act;
@@ -118,7 +126,7 @@ namespace Models
                 //}
                 else
                 {
-                    throw new Exception("ABContent.ToDto() => unable to convert action to dto.");
+                    throw new Exception($"ABContent.ToDto() => unable to convert action to dto: {act.GetType().ToString()} ada");
                 }
             }
 
@@ -127,7 +135,13 @@ namespace Models
         
         public static SimpleActionDto ToDto(this SimpleAction simpleAction)
         {
-            return new SimpleActionDto();
+            return new SimpleActionDto
+            {
+                ActionName = simpleAction.ActionName,
+                Stats = simpleAction.Stats,
+                SourceId = simpleAction.Source.Id,
+                TargetId = simpleAction.Target.Id
+            };
         }
     }
     

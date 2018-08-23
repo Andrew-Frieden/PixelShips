@@ -8,7 +8,6 @@ namespace Models
         public string ActionName;
         public string TargetId;
         public string SourceId;
-        public List<string> Keys;
-        public List<int> Values;
+        public Dictionary<string, int> Stats;
     }
 }

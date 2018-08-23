@@ -12,15 +12,17 @@ namespace Models
         public int Combat { get; }
         public int Speed { get; }
         
-        public Ship(int gathing, int transport, int intelligence, int combat, int speed, int hull)
+        public Ship(int gathering, int transport, int intelligence, int combat, int speed, int hull)
         {
-            Gathering = gathing;
+            Gathering = gathering;
             Transport = transport;
             Intelligence = intelligence;
             Combat = combat;
             Speed = speed;
             Hull = hull;
         }
+
+        public Ship() { }
     } 
 }
 

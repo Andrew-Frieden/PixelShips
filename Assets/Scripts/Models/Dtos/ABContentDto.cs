@@ -24,7 +24,10 @@ namespace Models
             {
                 OptionBActionSimple = action;
             }
-            throw new Exception("ABContentDto.AddSimpleAction() => both actions already set.");
+            else
+            {
+                throw new Exception("ABContentDto.AddSimpleAction() => both actions already set.");
+            }
         }
     }
 }

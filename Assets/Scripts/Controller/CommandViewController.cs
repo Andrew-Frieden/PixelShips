@@ -19,8 +19,7 @@ namespace Controller
         [SerializeField] private ABDialogueController abController;
 
         public Blink Blink;
-        
-        private IRoom _room;
+        private IRoom room;
 
         private void Start()
         {
@@ -30,17 +29,23 @@ namespace Controller
 
             var roomEntityRepository = new RoomEntityRepository();
             var roomEntities = roomEntityRepository.LoadData();
-            
+
             var roomRepository = new RoomRepository();
             var rooms = roomRepository.LoadData();
 
             
             var randomizedRooms = rooms.OrderBy(a => Guid.NewGuid()).ToList();
-            var room = randomizedRooms.First();
+            room = randomizedRooms.First();
+
 
 
             room.SetPlayerShip(commandShip);
-            room.AddEntity(roomEntities.First());
+
+            var tabby = (Mob)roomEntities.First();
+            tabby.DialogueContent.OptionAAction = new AttackAction(tabby, commandShip, 17);
+            tabby.DialogueContent.OptionBAction = new AttackAction(tabby, commandShip, 39);
+
+            room.AddEntity(tabby);
             
             //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
             scrollView.AddCell(room);
@@ -56,15 +61,29 @@ namespace Controller
 
         public void OnPlayerChoseAction()
         {
-            var plantContent = new ABDialogueContent();
-            
-            var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
-            
-            var secondMob = new Mob("A very seriously sized {{ link }} hulks off into the distance. Be carefyk if this one", "Space Ogre", 2, plantContent);
-            
-            scrollView.AddCell(secondMob);
-            
-            scrollView.AddCell(anotherMob);
+            //var plantContent = new ABDialogueContent();
+
+            //var anotherMob = new Mob("A {{ link }} floats here", "Potted Plant", 2, plantContent);
+
+            //var secondMob = new Mob("A very seriously sized {{ link }} hulks off into the distance. Be carefyk if this one", "Space Ogre", 2, plantContent);
+
+            //scrollView.AddCell(secondMob);
+
+            //scrollView.AddCell(anotherMob);
+
+            var saveLoadCtrl = new SaveLoadController();
+            var gameState = new GameState
+            {
+                CurrentTime = DateTime.Now,
+                Room = (Room)room
+            };
+            saveLoadCtrl.Save(gameState);
+        }
+
+        public void TestLoad()
+        {
+            var saveLoadCtrl = new SaveLoadController();
+            var gameState = saveLoadCtrl.Load();
         }
     }
 }

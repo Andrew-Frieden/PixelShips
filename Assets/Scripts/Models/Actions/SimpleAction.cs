@@ -3,16 +3,14 @@ using System.Collections.Generic;
 
 namespace Models
 {
-    public class SimpleAction : IRoomAction
+    public abstract class SimpleAction : IRoomAction
     {
+        public string ActionName;
+
         public ITextEntity Target;
         public ITextEntity Source;
-        public IEnumerable<string> Keys;
-        public IEnumerable<int> Values;
+        public Dictionary<string, int> Stats;
 
-        public IEnumerable<string> Execute(IRoom room)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract IEnumerable<string> Execute(IRoom room);
     }
 }
