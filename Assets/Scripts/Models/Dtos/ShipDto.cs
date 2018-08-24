@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Models
+﻿namespace Models.Dtos
 {
     public class ShipDto
     {

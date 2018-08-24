@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Models.Dtos;
 
 namespace Models
 {

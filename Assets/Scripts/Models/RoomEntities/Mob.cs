@@ -1,5 +1,5 @@
 ﻿using System;
-using Actions;
+using Models.Actions;
 using PixelShips.Helpers;
 
 namespace Models
@@ -10,7 +10,7 @@ namespace Models
         public int Hull { get; set; }
         public string Description { get; }
         public string Link { get; }
-        public ABDialogueContent DialogueContent { get; }
+        public ABDialogueContent DialogueContent { get; set; }
 
         public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)
         {

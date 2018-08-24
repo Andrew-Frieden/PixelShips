@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Models
+namespace Models.Dtos
 {
     public class SimpleActionDto
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Helpers;
-using Models;
+using Models.Dtos;
 
-namespace Actions
+namespace Models.Actions
 {
     public class AttackAction : SimpleAction
     {
@@ -44,12 +44,12 @@ namespace Actions
             }
         }
 
-        public AttackAction(SimpleAction action)
+        public AttackAction(IRoom room, SimpleActionDto dto)
         {
             ActionName = "Attack";
-            Stats = action.Stats;
-            Source = (ICombatEntity)action.Source;
-            Target = (ICombatEntity)action.Target;
+            Source = (ICombatEntity)room.FindEntity(dto.SourceId);
+            Target = (ICombatEntity)room.FindEntity(dto.TargetId);
+            Stats = dto.Stats;
         }
 
         public AttackAction(ICombatEntity source, ICombatEntity target, int damage)
