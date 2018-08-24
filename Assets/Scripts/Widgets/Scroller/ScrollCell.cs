@@ -10,40 +10,37 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
     private const int Spacing = 5;
     
-    private ITextEntity TextEntity { get; set; }
-    
     public RectTransform RectTransform;
-    [SerializeField] private TextMeshProUGUI Text;
+    [SerializeField] private TextMeshProUGUI EncodedText;
     [SerializeField] private ScrollCellTextTyper Typer;
 
-    public delegate void LinkTouchedEvent(ITextEntity entity);
+    public delegate void LinkTouchedEvent(string guid);
     public static event LinkTouchedEvent linkTouchedEvent;
 
     private void Start()
     {
         RectTransform = GetComponent<RectTransform>();
-        Text = GetComponentInChildren<TextMeshProUGUI>();
+        EncodedText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public float SetupScrollCell(ITextEntity entity, bool start)
+    public float SetupScrollCell(string encodedCellText, bool start)
     {
-        TextEntity = entity;
-        Text.text = entity.GetLookText();
+        EncodedText.text = encodedCellText;
         Typer.HideText();
         if (start)
         {
             Typer.TypeText(0.1f); 
         }
 
-        return Text.GetPreferredValues().y + Spacing;
+        return EncodedText.GetPreferredValues().y + Spacing;
     }
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        var result = TMP_TextUtilities.FindIntersectingLink(Text, eventData.position, UIManager.Instance.UICamera);
+        var result = TMP_TextUtilities.FindIntersectingLink(EncodedText, eventData.position, UIManager.Instance.UICamera);
         if (result >= 0)
         {
-            linkTouchedEvent?.Invoke(TextEntity);
+            linkTouchedEvent?.Invoke(EncodedText.textInfo.linkInfo[result].GetLinkID());
         }
     }
 }

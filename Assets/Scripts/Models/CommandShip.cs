@@ -1,21 +1,21 @@
 ﻿using System;
+using PixelShips.Helpers;
 
 namespace Models
 {
-    public class CommandShip : Ship, ICombatEntity, ITextEntity
+    public class CommandShip : Ship, ICombatEntity
     {
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; }
 
         public string GetLookText()
         {
-            return "[You] warped into the sector.";
+            return "You".GetLink("orange", Id);;
         }
 
         public string GetLinkText()
         {
-            return "link text";
-            //throw new System.NotImplementedException();
+            return "You".GetLink("orange", Id);
         }
 
         public CommandShip(int gathing, int transport, int intelligence, int combat, int speed, int hull) : base(gathing, transport, intelligence, combat, speed, hull)

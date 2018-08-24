@@ -17,7 +17,7 @@ namespace Repository
                 OptionBText = "This should just be an A or cancel I think"
             };
 
-            rooms.Add(new Room("You enter into a {{ link }} with many asteroids.", "Giant Nebula", null, new List<IRoomActor>() { }, giantNebulaContent));
+            rooms.Add(new Room("You enter into a < > with many asteroids.", "Giant Nebula", null, new List<IRoomActor>() { }, giantNebulaContent));
 
             rooms.Add(RoomFactory.GenerateRoom("Space Kelp Forest",
                 "Giant undulating spaceborne plant strands obstruct your view of the galaxies beyond.", "Warp Left", "Warp Right"));

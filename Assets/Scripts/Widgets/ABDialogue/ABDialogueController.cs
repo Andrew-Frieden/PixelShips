@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Models;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,9 @@ public class ABDialogueController : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI DialogueText;
     [SerializeField] private TextMeshProUGUI OptionAText;
     [SerializeField] private TextMeshProUGUI OptionBText;
+
+    private IRoomAction _actionA;
+    private IRoomAction _actionB;
 
     [SerializeField] private Canvas canvas;
 
@@ -21,6 +25,9 @@ public class ABDialogueController : MonoBehaviour {
     private Vector2 TargetLocation;
 
     private RectTransform ControlRectTransform;
+    
+    public delegate void ChoseActionEvent(IRoomAction action);
+    public static event ChoseActionEvent choseActionEvent;
 
     void Start()
     {
@@ -54,8 +61,12 @@ public class ABDialogueController : MonoBehaviour {
             case JoyEdge.Center:
                 break;
             case JoyEdge.Left:
+                choseActionEvent?.Invoke(_actionA);
+                DismissControl();
                 break;
             case JoyEdge.Right:
+                choseActionEvent?.Invoke(_actionA);
+                DismissControl();
                 break;
             case JoyEdge.Up:
                 break;
@@ -112,5 +123,7 @@ I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck
         DialogueText.text = content.MainText;
         OptionAText.text = content.OptionAText;
         OptionBText.text = content.OptionBText;
+        _actionA = content.OptionAAction;
+        _actionB = content.OptionBAction;
     }
 }

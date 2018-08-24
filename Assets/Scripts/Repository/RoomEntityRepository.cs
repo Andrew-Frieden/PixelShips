@@ -21,7 +21,7 @@ I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck
                 OptionBText = "Sounds risky",
             };
             
-            var tabbyOfficer = new Mob("A {{ link }} floats here.", "Tabby Officer", 2, tabbyOfficerContent);
+            var tabbyOfficer = new Mob("A < > floats here.", "Tabby Officer", 2, tabbyOfficerContent);
     
             //TODO: Set these post creation so there is no dependency in the repository on game state
             //tabbyOfficerContent.OptionAAction = new AttackAction(tabbyOfficer, commandShip, 3);
