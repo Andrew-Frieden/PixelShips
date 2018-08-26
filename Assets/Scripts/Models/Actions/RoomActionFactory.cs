@@ -14,6 +14,9 @@ namespace Models.Actions
 
         public IRoomAction GetSimpleAction(SimpleActionDto dto)
         {
+            if (dto == null)
+                return null;
+
             switch (dto.ActionName)
             {
                 case "Attack":
