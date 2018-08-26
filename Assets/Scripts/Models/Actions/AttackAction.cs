@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Helpers;
 using Models.Dtos;
+using PixelShips.Helpers;
 
 namespace Models.Actions
 {
