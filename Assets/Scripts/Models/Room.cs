@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PixelShips.Helpers;
+using UnityEngine;
 
 namespace Models
 {
@@ -59,6 +61,16 @@ namespace Models
         public string GetLinkText()
         {
             return Link;
+        }
+
+        public IRoomActor FindRoomActorByGuid(string id)
+        {
+            var actor = Entities.FirstOrDefault(entity => entity.Id == id);
+            if (actor == null)
+            {
+                Debug.Log($"Error: No actor found by the id: {id}");
+            }
+            return actor;
         }
     }
 }

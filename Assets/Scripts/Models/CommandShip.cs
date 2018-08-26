@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using PixelShips.Helpers;
+using UnityEngine;
 
 namespace Models
 {
@@ -7,6 +9,8 @@ namespace Models
     {
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; }
+        
+        private Dictionary<string, IRoomActor> Actors { get; }
 
         public string GetLookText()
         {
@@ -22,6 +26,30 @@ namespace Models
         {
             Id = Guid.NewGuid().ToString();
             DialogueContent = new ABDialogueContent();
+        }
+
+        public void AddActor(IRoomActor actor)
+        {
+            if (Actors.ContainsKey(actor.Id))
+            {
+                Actors[actor.Id] = actor;
+            }
+            else
+            {
+                Debug.Log("Error: Ship already contains that actor.");
+            }
+        }
+
+        public void RemoveActor(string id)
+        {
+            if (Actors.ContainsKey(id))
+            {
+                Actors[id] = null;
+            }
+            else
+            {
+                Debug.Log("Error: Ship does not contain that actor.");
+            }
         }
 
         public CommandShip() { }

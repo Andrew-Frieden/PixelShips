@@ -10,6 +10,8 @@ public interface IRoom : ITextEntity
 
     List<string> ResolveNext(IRoomAction playerAction);
 
+    IRoomActor FindRoomActorByGuid(string id);
+
     void SetPlayerShip(CommandShip ship);
     void AddEntity(IRoomActor actor);
 }
