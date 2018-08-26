@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dc34c4351d4014a32da7f08f8f3a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToWrite: 1
+  TimeToWrite: 0.1
   textMesh: {fileID: 114575980894616672}
 --- !u!114 &114380741825702806
 MonoBehaviour:
@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 224017825426601496}
-  Text: {fileID: 114575980894616672}
-  Typer: {fileID: 0}
+  EncodedText: {fileID: 114575980894616672}
+  Typer: {fileID: 114214692658963588}
 --- !u!114 &114575980894616672
 MonoBehaviour:
   m_ObjectHideFlags: 1

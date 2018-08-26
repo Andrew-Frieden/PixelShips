@@ -50,12 +50,12 @@ public class ScrollViewController : MonoBehaviour {
 
     //Flag to start the textTyper on the first cell
     private bool _first = true;
-    private void AddCell(ITextEntity entity)
+    private void AddCell(string encodedText)
     {
         var cell = GetNextRecycledCell();
 
         cell.gameObject.SetActive(true);
-        var verticalSize = cell.SetupScrollCell(entity, _first);
+        var verticalSize = cell.SetupScrollCell(encodedText, _first);
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
 
@@ -68,7 +68,7 @@ public class ScrollViewController : MonoBehaviour {
         cellAddedEvent?.Invoke();
     }
 
-    public void AddCells(IEnumerable<ITextEntity> entities)
+    public void AddCells(IEnumerable<string> entities)
     {
         entities.ForEach(AddCell);
         //After all the cells have been added reset the first flag

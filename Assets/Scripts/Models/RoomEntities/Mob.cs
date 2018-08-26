@@ -28,7 +28,7 @@ namespace Models
 
         public string GetLinkText()
         {
-            throw new System.NotImplementedException();
+            return Link;
         }
 
         public IRoomAction GetNextAction(IRoom s)

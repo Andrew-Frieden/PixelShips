@@ -64,7 +64,16 @@ namespace Models.Actions
         public override IEnumerable<string> Execute(IRoom room)
         {
             Target.Hull -= Damage;
-            return new List<string>() { room.FindTextEntityByGuid(Target.Id).GetLinkText() + " took " + Damage + " damage."};
+
+            if (Source is CommandShip)
+            {
+                //TODO - add target link?
+                return new List<string>() { ("< > deal " + Damage + " damage to the target.").GetDescriptionWithLink(Source.GetLinkText(), Target.Id, "orange")};
+            }
+            else
+            {
+                return new List<string>() { ("< > dealt you " + Damage + " damage.").GetDescriptionWithLink(Source.GetLinkText(), Target.Id, "orange")};
+            }
         }
     }
 }
