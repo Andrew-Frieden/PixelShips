@@ -5,6 +5,9 @@ using Models.Actions;
 
 public interface IRoom : ITextEntity
 {
+    int _tick { get; }
+    void Tick();
+    
     CommandShip PlayerShip { get; }
     string Description { get; }
     RoomFlavor Flavor { get; }

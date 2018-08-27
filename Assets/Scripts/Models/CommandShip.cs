@@ -13,12 +13,12 @@ namespace Models
 
         public string GetLookText()
         {
-            return "You".GetLink("orange", Id);;
+            throw new NotImplementedException();
         }
 
         public string GetLinkText()
         {
-            return "You".GetLink("orange", Id);
+            return "You";
         }
 
         public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)

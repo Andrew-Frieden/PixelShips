@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Models.Actions;
 using PixelShips.Helpers;
 
@@ -10,6 +11,7 @@ namespace Models
         public int Hull { get; set; }
         public string Description { get; }
         public string Link { get; }
+        public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
         public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)

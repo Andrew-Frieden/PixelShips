@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Models.Actions;
 
 namespace Models.Actors
 {
@@ -8,7 +9,12 @@ namespace Models.Actors
 
         public string Id { get; protected set; }
         public Dictionary<string, int> Stats { get; }
-        public ABDialogueContent DialogueContent { get; }
+        public ABDialogueContent DialogueContent { get; set; }
+
+        public DelayedActor() : base()
+        {
+            Stats = new Dictionary<string, int>();
+        }
         
         public string GetLookText()
         {
@@ -20,7 +26,7 @@ namespace Models.Actors
             throw new System.NotImplementedException();
         }
 
-        public IRoomAction GetNextAction(IRoom s)
+        public virtual IRoomAction GetNextAction(IRoom s)
         {
             throw new System.NotImplementedException();
         }

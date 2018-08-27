@@ -68,11 +68,11 @@ namespace Models.Actions
             if (Source is CommandShip)
             {
                 //TODO - add target link?
-                return new List<string>() { ("< > deal " + Damage + " damage to the target.").GetDescriptionWithLink(Source.GetLinkText(), Target.Id, "orange")};
+                return new List<string>() { ("< > deal " + Damage + " damage to the target.").GetDescriptionWithLink(Source.GetLinkText(), Source.Id, "red")};
             }
             else
             {
-                return new List<string>() { ("< > dealt you " + Damage + " damage.").GetDescriptionWithLink(Source.GetLinkText(), Target.Id, "orange")};
+                return new List<string>() { ("< > dealt you " + Damage + " damage.").GetDescriptionWithLink(Source.GetLinkText(), Source.Id, "red")};
             }
         }
     }

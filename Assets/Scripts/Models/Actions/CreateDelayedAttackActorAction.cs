@@ -25,7 +25,7 @@ namespace Models.Actions
         {
             room.Entities.Add(new DelayedAttackActor(_source, _target, _timeToLive, _damage));
             
-            return new List<string>() { "A delayed attack actor has been created. TODO." };
+            return new List<string>() { "You fire a hellfire missle." };
         }
     }
 }

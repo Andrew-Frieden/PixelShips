@@ -1,6 +1,6 @@
 ﻿using System;
-using Actions;
 using Models.Actions;
+using Unity.Collections.LowLevel.Unsafe;
 
 namespace Models.Actors
 {
@@ -10,7 +10,7 @@ namespace Models.Actors
         private readonly ICombatEntity _target;
         private readonly int _damage;
 
-        public DelayedAttackActor(ICombatEntity source, ICombatEntity target, int timeToLive, int damage)
+        public DelayedAttackActor(ICombatEntity source, ICombatEntity target, int timeToLive, int damage) :base()
         {
             Id = Guid.NewGuid().ToString();
             Stats[TimeToLiveKey] = timeToLive;
@@ -19,15 +19,15 @@ namespace Models.Actors
             _damage = damage; 
         }
 
-        public IRoomAction GetNextAction(IRoom s)
+        public override IRoomAction GetNextAction(IRoom s)
         {
-            if (Stats[DelayedActor.TimeToLiveKey] == 1)
+            if (Stats[TimeToLiveKey] == 1)
             {
                 return new AttackAction(_source, _target, _damage);
             }
             else
             {
-                return new DelayedAction($"An attack will hit {_target.GetLinkText()} in {Stats[DelayedActor.TimeToLiveKey]} ticks.");
+                return new DelayedAction($"A hellfire missle will hit {_target.GetLinkText()} ", this);
             }
         }
     }

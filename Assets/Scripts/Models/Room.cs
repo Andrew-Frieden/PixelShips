@@ -12,6 +12,8 @@ namespace Models
         public string Link { get; }
         
         public string Id { get; }
+        public int _tick { get; private set; }
+
         public CommandShip PlayerShip { get; private set; }
         public string Description { get; }
         public RoomFlavor Flavor { get; }
@@ -39,6 +41,11 @@ namespace Models
         public Room()
         {
             Entities = new List<IRoomActor>();
+        }
+        
+        public void Tick()
+        {
+            _tick++;
         }
 
         public List<string> ResolveNext(IRoomAction playerAction)
