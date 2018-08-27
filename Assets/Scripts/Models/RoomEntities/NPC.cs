@@ -1,9 +1,11 @@
-﻿namespace Models
+﻿using Models.Actions;
+
+namespace Models
 {
     public class NPC : IRoomActor
     {
         public string Id { get; }
-        public ABDialogueContent DialogueContent { get; }
+        public ABDialogueContent DialogueContent { get; set; }
         public string Description { get; }
         
         public string GetLookText()

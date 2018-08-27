@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
-using Models;
 
-public interface IRoomAction
+namespace Models.Actions
 {
-    IEnumerable<string> Execute(IRoom room);
+    public interface IRoomAction
+    {
+        IEnumerable<string> Execute(IRoom room);
+    }
 }

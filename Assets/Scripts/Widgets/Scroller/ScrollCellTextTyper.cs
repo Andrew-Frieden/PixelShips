@@ -31,10 +31,10 @@ namespace Widgets.Scroller
                 if (visibleCount >= totalCharacters)
                 {
                     var siblingIndex = gameObject.transform.parent.GetSiblingIndex();
-                    for (var i = siblingIndex; i < gameObject.transform.parent.parent.GetChildCount(); i++)
+                    for (var i = siblingIndex; i < gameObject.transform.parent.parent.childCount; i++)
                     {
                         //End if we are on the last cell
-                        if (i == gameObject.transform.parent.parent.GetChildCount() - 1)
+                        if (i == gameObject.transform.parent.parent.childCount - 1)
                         {
                             yield break;
                         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Models.Actions;
 using PixelShips.Helpers;
 using UnityEngine;
 
@@ -15,8 +16,8 @@ namespace Models
         public string Description { get; }
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; }
-        public ABDialogueContent DialogueContent { get; }
-        
+        public ABDialogueContent DialogueContent { get; set; }
+
         public Room(string description, string link, CommandShip ship, List<IRoomActor> roomEntities, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();
@@ -25,6 +26,14 @@ namespace Models
             PlayerShip = ship;
             Entities = roomEntities;
             DialogueContent = dialogueContent;
+        }
+
+        public Room(string id, string desc, string name)
+        {
+            Id = id;
+            Description = desc;
+            Link = name;
+            Entities = new List<IRoomActor>();
         }
 
         public Room()

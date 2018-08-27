@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Models.Dtos;
+using System;
+
 namespace Models
 {
     public class SaveState
