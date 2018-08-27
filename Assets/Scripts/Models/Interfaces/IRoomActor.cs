@@ -1,4 +1,6 @@
-﻿namespace Models
+﻿using Models.Actions;
+
+namespace Models
 {
     public interface IRoomActor : ITextEntity
     {

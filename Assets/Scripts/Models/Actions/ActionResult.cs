@@ -1,18 +1,20 @@
 ﻿namespace Models.Actions
 {
-    public class ActionResult : ITextEntity
-    {
-        public string Id { get; }
-        public ABDialogueContent DialogueContent { get; }
+    // this isn't used anywhere? delete me?
 
-        public string GetLookText()
-        {
-            throw new System.NotImplementedException();
-        }
+    //public class ActionResult : ITextEntity
+    //{
+    //    public string Id { get; }
+    //    public ABDialogueContent DialogueContent { get; }
 
-        public string GetLinkText()
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+    //    public string GetLookText()
+    //    {
+    //        throw new System.NotImplementedException();
+    //    }
+
+    //    public string GetLinkText()
+    //    {
+    //        throw new System.NotImplementedException();
+    //    }
+    //}
 }

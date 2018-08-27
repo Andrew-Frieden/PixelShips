@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Actions;
 using Common;
 using Models;
+using Models.Actions;
 using Models.Factories;
-using PixelSpace.Models.SharedModels.Helpers;
 using Repository;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.EventSystems;
 
 namespace Controller
 {

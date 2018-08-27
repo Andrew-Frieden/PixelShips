@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Models.Actions;
+using Models.Dtos;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,18 +25,7 @@ namespace Models
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
         }
-        
-        private GameState BuildGameState(SaveState save)
-        {
-            var state = new GameState();
 
-            var room = new Room();
-            var playerShip = new CommandShip();
-
-            state.CurrentTime = DateTime.Now;
-            return state;
-        }
-        
         private SaveState BuildSaveState(GameState state)
         {
             return new SaveState
@@ -43,113 +34,40 @@ namespace Models
                 SaveTime = DateTime.Now
             };
         }
-    }
-    
-    public static class DtoHelpers
-    {
-        public static RoomDto ToDto(this Room room)
-        {
-            var roomDto = new RoomDto
-            {
-                PlayerShip = room.PlayerShip.ToDto(),
-                Mobs = new List<MobDto>()
-            };
-            
-            foreach (var entity in room.Entities)
-            {
-                if (entity is Mob)
-                {
-                    var mob = (Mob)entity;
-                    roomDto.Mobs.Add(mob.ToDto());
-                }
-                //else if (entity is Hazard)
-                //{
-                //    var hazard = (Hazard)entity;
-                //    roomDto.Hazards.Add(hazard.ToDto());
-                //}
-            }
 
-            return roomDto;
-        }
-        
-        public static ShipDto ToDto(this CommandShip ship)
+        private GameState BuildGameState(SaveState save)
         {
-            return new ShipDto
+            var state = new GameState()
             {
-                Id = ship.Id,
-                Combat = ship.Combat,
-                Gathering = ship.Gathering,
-                Hull = ship.Hull,
-                Speed = ship.Speed,
-                Transport = ship.Transport,
-                Intelligence = ship.Intelligence,
-                ContentDto = ship.DialogueContent?.ToDto()
-            };
-        }
-        
-        public static MobDto ToDto(this Mob mob)
-        {
-            return new MobDto
-            {
-                Id = mob.Id,
-                Hull = mob.Hull,
-                Description = mob.Description,
-                Link = mob.Link,
-                Content = mob.DialogueContent.ToDto()
-            };
-        }
-        
-        public static ABContentDto ToDto(this ABDialogueContent content)
-        {
-            var contentDto = new ABContentDto
-            {
-                MainText = content.MainText,
-                OptionAText = content.OptionAText,
-                OptionBText = content.OptionBText
+                Room = save.Room.FromDto()
             };
 
-            var actionModels = new List<IRoomAction>() { content.OptionAAction, content.OptionBAction };
-            foreach (var act in actionModels)
-            {
-                if (act == null)
-                    continue;
+            var ship = save.Room.PlayerShip.FromDto();
+            state.Room.SetPlayerShip(ship);
 
-                if (act is SimpleAction)
-                {
-                    var simple = (SimpleAction)act;
-                    contentDto.AddSimpleAction(simple.ToDto());
-                }
-                //else if (act is ComplexAction)
-                //{
-                //    var complex = (ComplexAction)act;
-                //    contentDto.AddComplexAction(complex.ToDto());
-                //}
-                else
-                {
-                    throw new Exception($"ABContent.ToDto() => unable to convert action to dto: {act.GetType().ToString()} ada");
-                }
-            }
+            var actionFactory = new RoomActionFactory(state.Room);
 
-            return contentDto;
-        }
-        
-        public static SimpleActionDto ToDto(this SimpleAction simpleAction)
-        {
-            return new SimpleActionDto
-            {
-                ActionName = simpleAction.ActionName,
-                Stats = simpleAction.Stats,
-                SourceId = simpleAction.Source.Id,
-                TargetId = simpleAction.Target.Id
-            };
-        }
-    }
-    
-    public static class RoomActionFactory
-    {
-        public static IRoomAction GetSimpleAction(SimpleActionDto actionDto)
-        {
-            throw new NotImplementedException();
+            //  grab all the mob dtos and build mob entities
+            var mobs = new List<Mob>();
+            save.Room.Mobs.ForEach(dto => mobs.Add(new Mob(dto.Description, dto.Link, dto.Hull, null)));
+
+            //  create a collection to put all entities into (mobs, npcs, hazards)
+            var entities = new List<IRoomActor>();
+            entities.AddRange(mobs);
+
+            //  add all the entities to the room
+            entities.ForEach(e => state.Room.AddEntity(e));
+
+            var contents = save.Room.GetContent();
+
+            //  setup the DialogueContent for every mob
+            save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));
+
+            //  setup the DialogueContent for the player ship
+            ship.DialogueContent = save.Room.PlayerShip.ContentDto.FromDto(state.Room);
+
+            state.CurrentTime = DateTime.Now;
+            return state;
         }
     }
 }

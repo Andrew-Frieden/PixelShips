@@ -6,7 +6,7 @@ namespace Models
     public class CommandShip : Ship, ICombatEntity
     {
         public string Id { get; }
-        public ABDialogueContent DialogueContent { get; }
+        public ABDialogueContent DialogueContent { get; set; }
 
         public string GetLookText()
         {
@@ -18,12 +18,16 @@ namespace Models
             return "You".GetLink("orange", Id);
         }
 
-        public CommandShip(int gathing, int transport, int intelligence, int combat, int speed, int hull) : base(gathing, transport, intelligence, combat, speed, hull)
+        public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)
         {
             Id = Guid.NewGuid().ToString();
             DialogueContent = new ABDialogueContent();
         }
 
-        public CommandShip() { }
+        public CommandShip(string id, int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)
+        {
+            Id = id;
+            DialogueContent = null;
+        }
     }
 }
