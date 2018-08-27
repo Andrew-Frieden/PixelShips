@@ -16,7 +16,7 @@ namespace Models
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; }
         public ABDialogueContent DialogueContent { get; }
-
+        
         public Room(string description, string link, CommandShip ship, List<IRoomActor> roomEntities, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();

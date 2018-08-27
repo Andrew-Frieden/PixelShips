@@ -1,15 +1,14 @@
-﻿namespace Models.Actors
+﻿using System.Collections.Generic;
+
+namespace Models.Actors
 {
     public class DelayedActor : IRoomActor
     {
-        protected int _timeToLive;
-        public string Id { get; }
-        public ABDialogueContent DialogueContent { get; }
+        public const string TimeToLiveKey = "timetolive";
 
-        public void Tick()
-        {
-            _timeToLive -= _timeToLive;
-        }
+        public string Id { get; protected set; }
+        public Dictionary<string, int> Stats { get; }
+        public ABDialogueContent DialogueContent { get; }
         
         public string GetLookText()
         {
