@@ -1,4 +1,5 @@
-﻿using Models.Actions;
+﻿using System.Collections.Generic;
+using Models.Actions;
 
 namespace Models
 {
@@ -7,6 +8,7 @@ namespace Models
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; set; }
         public string Description { get; }
+        public Dictionary<string, int> Stats { get; }
         
         public string GetLookText()
         {
@@ -17,7 +19,7 @@ namespace Models
         {
             throw new System.NotImplementedException();
         }
-        
+
         public IRoomAction GetNextAction(IRoom s)
         {
             throw new System.NotImplementedException();

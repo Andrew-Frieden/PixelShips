@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Models.Actions;
 using PixelShips.Helpers;
+using UnityEngine;
 
 namespace Models
 {
@@ -10,6 +12,8 @@ namespace Models
         public string Link { get; }
         
         public string Id { get; }
+        public int _tick { get; private set; }
+
         public CommandShip PlayerShip { get; private set; }
         public string Description { get; }
         public RoomFlavor Flavor { get; }
@@ -37,6 +41,11 @@ namespace Models
         public Room()
         {
             Entities = new List<IRoomActor>();
+        }
+        
+        public void Tick()
+        {
+            _tick++;
         }
 
         public List<string> ResolveNext(IRoomAction playerAction)
@@ -68,6 +77,16 @@ namespace Models
         public string GetLinkText()
         {
             return Link;
+        }
+
+        public IRoomActor FindRoomActorByGuid(string id)
+        {
+            var actor = Entities.FirstOrDefault(entity => entity.Id == id);
+            if (actor == null)
+            {
+                Debug.Log($"Error: No actor found by the id: {id}");
+            }
+            return actor;
         }
     }
 }

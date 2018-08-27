@@ -64,7 +64,7 @@ public class ABDialogueController : MonoBehaviour {
                 DismissControl();
                 break;
             case JoyEdge.Right:
-                choseActionEvent?.Invoke(_actionA);
+                choseActionEvent?.Invoke(_actionB);
                 DismissControl();
                 break;
             case JoyEdge.Up:

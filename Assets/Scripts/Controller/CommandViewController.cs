@@ -36,8 +36,8 @@ namespace Controller
             _room.SetPlayerShip(commandShip);
 
             var tabby = (Mob)roomEntities.First();
-            tabby.DialogueContent.OptionAAction = new AttackAction(tabby, commandShip, 17);
-            tabby.DialogueContent.OptionBAction = new AttackAction(tabby, commandShip, 39);
+            tabby.DialogueContent.OptionAAction = new AttackAction(commandShip, tabby, 17);
+            tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(commandShip, tabby, 3, 39);
 
             _room.AddEntity(tabby);
             
@@ -53,16 +53,27 @@ namespace Controller
             abController.ShowControl(entity.DialogueContent);
         }
 
-        private void HandlePlayerChoseAction(IRoomAction action)
+        private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
-            //scrollView.AddCells
-            action.Execute(_room);
+            var actionsToExecute = new List<IRoomAction>
+            {
+                playerAction
+            };
+
+            var actionResults = new List<string>();
 
             foreach (var entity in _room.Entities)
             {
-                //scrollView.AddCells
-                scrollView.AddCells(entity.GetNextAction(_room).Execute(_room));
+                actionsToExecute.Add(entity.GetNextAction(_room));
             }
+
+            foreach (var action in actionsToExecute)
+            {
+                actionResults.AddRange(action.Execute(_room));
+            }
+            
+            scrollView.AddCells(actionResults);
+            _room.Tick();
         }
     }
 }

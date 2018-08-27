@@ -5,12 +5,17 @@ using Models.Actions;
 
 public interface IRoom : ITextEntity
 {
+    int _tick { get; }
+    void Tick();
+    
     CommandShip PlayerShip { get; }
     string Description { get; }
     RoomFlavor Flavor { get; }
     List<IRoomActor> Entities { get; }
 
     List<string> ResolveNext(IRoomAction playerAction);
+
+    IRoomActor FindRoomActorByGuid(string id);
 
     void SetPlayerShip(CommandShip ship);
     void AddEntity(IRoomActor actor);
