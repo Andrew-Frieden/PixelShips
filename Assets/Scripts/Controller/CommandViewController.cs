@@ -46,7 +46,7 @@ namespace Controller
 
             StartCoroutine(Blink.BlinkLoop());
         }
-
+        
         private void HandleLinkTouchedEvent(string guid)
         {
             var entity = _room.Entities.FirstOrDefault(e => e.Id == guid) ?? (ITextEntity) _room.PlayerShip;
@@ -65,6 +65,9 @@ namespace Controller
             foreach (var entity in _room.Entities)
             {
                 actionsToExecute.Add(entity.GetNextAction(_room));
+                
+                //if player warped -> break
+                //set current room to next room
             }
 
             foreach (var action in actionsToExecute)
@@ -73,6 +76,12 @@ namespace Controller
             }
             
             scrollView.AddCells(actionResults);
+
+            foreach (var entity in _room.Entities)
+            {
+                entity.AfterAction(_room);
+            }
+            
             _room.Tick();
         }
     }

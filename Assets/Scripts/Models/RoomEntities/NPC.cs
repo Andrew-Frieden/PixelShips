@@ -25,5 +25,7 @@ namespace Models
         {
             throw new System.NotImplementedException();
         }
+
+        public void AfterAction(IRoom room) { }
     }
 }

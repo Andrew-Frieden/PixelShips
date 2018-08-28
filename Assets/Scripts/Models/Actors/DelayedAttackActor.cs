@@ -19,6 +19,16 @@ namespace Models.Actors
             _damage = damage; 
         }
 
+        public override string GetLookText()
+        {
+            return "";
+        }
+
+        public override string GetLinkText()
+        {
+            return "";
+        }
+
         public override IRoomAction GetNextAction(IRoom s)
         {
             if (Stats[TimeToLiveKey] == 1)
@@ -27,7 +37,7 @@ namespace Models.Actors
             }
             else
             {
-                return new DelayedAction($"A hellfire missle will hit {_target.GetLinkText()} ", this);
+                return new DelayedAction($"A hellfire missle will hit {_target.GetLinkText()} ", Id);
             }
         }
     }

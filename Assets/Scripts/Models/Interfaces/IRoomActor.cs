@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-﻿using Models.Actions;
+ using Models.Actions;
 
 namespace Models
 {
@@ -8,5 +8,7 @@ namespace Models
         Dictionary<string, int> Stats { get; }
 
         IRoomAction GetNextAction(IRoom s);
+
+        void AfterAction(IRoom room);
     }
 }

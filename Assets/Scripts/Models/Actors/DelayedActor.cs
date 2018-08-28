@@ -3,32 +3,29 @@ using Models.Actions;
 
 namespace Models.Actors
 {
-    public class DelayedActor : IRoomActor
+    public abstract class DelayedActor : IRoomActor
     {
         public const string TimeToLiveKey = "timetolive";
 
         public string Id { get; protected set; }
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
+        
+        public abstract string GetLookText();
+        public abstract string GetLinkText();
+        public abstract IRoomAction GetNextAction(IRoom s);
 
-        public DelayedActor() : base()
+        protected DelayedActor()
         {
             Stats = new Dictionary<string, int>();
         }
-        
-        public string GetLookText()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public string GetLinkText()
+        public void AfterAction(IRoom room)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual IRoomAction GetNextAction(IRoom s)
-        {
-            throw new System.NotImplementedException();
+            if (Stats[TimeToLiveKey] == 0)
+            {
+                room.Entities.Remove(this);
+            }
         }
     }
 }

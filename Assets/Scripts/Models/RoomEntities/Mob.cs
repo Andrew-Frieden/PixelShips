@@ -37,5 +37,7 @@ namespace Models
         {
             return new AttackAction(this, s.PlayerShip, 5);
         }
+
+        public void AfterAction(IRoom room) { }
     }
 }
