@@ -5,19 +5,20 @@ namespace Models.Actions
 {
     public class DelayedAction : SimpleAction
     {
-        private readonly DelayedActor _actor;
+        private readonly string _actorId;
         private readonly string _description;
 
-        public DelayedAction(string description, DelayedActor actor)
+        public DelayedAction(string description, string actorId)
         {
             _description = description;
-            _actor = actor;
+            _actorId = actorId;
         }
         
         public override IEnumerable<string> Execute(IRoom room)
         {
-            _actor.Stats[DelayedActor.TimeToLiveKey]--;
-            return new List<string>() { _description + $"in {_actor.Stats[DelayedActor.TimeToLiveKey]} ticks"};
+            var actor = (IRoomActor) room.FindEntity(_actorId);
+            actor.Stats[DelayedActor.TimeToLiveKey]--;
+            return new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks"};
         }
     }
 }
