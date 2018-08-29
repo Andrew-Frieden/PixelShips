@@ -1,9 +1,19 @@
-﻿using Models.Actions;
+﻿using System;
+using Models.Actions;
 
 namespace Models.Actors
 {
     public class WarpDriveActor : DelayedActor
     {
+        private readonly ICombatEntity _source;
+        
+        public WarpDriveActor(ICombatEntity source, int timeToLive) :base()
+        {
+            Id = Guid.NewGuid().ToString();
+            Stats[TimeToLiveKey] = timeToLive;
+            _source = source;
+        }
+        
         public override string GetLookText()
         {
             throw new System.NotImplementedException();
@@ -11,7 +21,7 @@ namespace Models.Actors
 
         public override string GetLinkText()
         {
-            throw new System.NotImplementedException();
+            return "Warp drive";
         }
 
         public override IRoomAction GetNextAction(IRoom s)
@@ -22,7 +32,7 @@ namespace Models.Actors
             }
             else
             {
-                return new DelayedAction($"Your warp drive is charging. It will be ready in ", Id);
+                return new DelayedAction($"Your warp drive is charging. It will be ready ", Id);
             }
         }
     }

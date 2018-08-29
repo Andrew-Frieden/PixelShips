@@ -8,24 +8,20 @@ namespace Models.Actions
         public const string ACTION_NAME = "CreateWarpDriveActor";
         
         private ICombatEntity _source;
-        private ICombatEntity _target;
         private int _timeToLive;
-        private int _damage;
 
-        public CreateWarpDriveActorAction(ICombatEntity source, ICombatEntity target, int timeToLive, int damage)
+        public CreateWarpDriveActorAction(ICombatEntity source, int timeToLive)
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;
             _source = source;
-            _target = target;
-            _damage = damage; 
         }
         
         public override IEnumerable<string> Execute(IRoom room)
         {
-            room.Entities.Add(new DelayedAttackActor(_source, _target, _timeToLive, _damage));
+            room.Entities.Add(new WarpDriveActor(_source, _timeToLive));
             
-            return new List<string>() { "You fire a hellfire missle." };
+            return new List<string>() { "You begin to spin up your warp drive." };
         }
     }
 }

@@ -23,28 +23,34 @@ namespace Controller
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
             ABDialogueController.choseActionEvent += HandlePlayerChoseAction;
             
-            var commandShip = ShipFactory.GenerateCommandShip();
+            var playerShip = ShipFactory.GenerateCommandShip();
+            var roomFactory = new RoomFactory();
 
-            var roomEntityRepository = new RoomEntityRepository();
-            var roomEntities = roomEntityRepository.LoadData();
-
-            var roomRepository = new RoomRepository();
-            var rooms = roomRepository.LoadData();
-
-            var randomizedRooms = rooms.OrderBy(a => Guid.NewGuid()).ToList();
-            _room = randomizedRooms.First();
-            _room.SetPlayerShip(commandShip);
-
-            var tabby = (Mob)roomEntities.First();
-            tabby.DialogueContent.OptionAAction = new AttackAction(commandShip, tabby, 17);
-            tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(commandShip, tabby, 3, 39);
-
-            _room.AddEntity(tabby);
+            _room = roomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), true);
+            _room.SetPlayerShip(playerShip);
             
-            //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
-            scrollView.AddCells(new List<string>() { _room.GetLookText(), _room.Entities[0].GetLookText() });
+            StartNextRoom(_room, _room);
 
             StartCoroutine(Blink.BlinkLoop());
+        }
+
+        public void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
+        {
+            nextRoom.SetPlayerShip(previousRoom.PlayerShip);
+            
+            var tabby = (ICombatEntity) nextRoom.Entities[0];
+            tabby.DialogueContent.OptionAAction = new AttackAction(nextRoom.PlayerShip, tabby, 17);
+            tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(nextRoom.PlayerShip, tabby, 3, 39);
+
+            nextRoom.PlayerShip.DialogueContent.MainText = "Your ship looks like a standard frigate.";
+            nextRoom.PlayerShip.DialogueContent.OptionAText = "Create a shield.";
+            nextRoom.PlayerShip.DialogueContent.OptionBText = "Spin up your warp drive.";
+            
+            nextRoom.PlayerShip.DialogueContent.OptionAAction = new CreateShieldActorAction(nextRoom.PlayerShip, null, 3, 5);
+            nextRoom.PlayerShip.DialogueContent.OptionBAction = new CreateWarpDriveActorAction(nextRoom.PlayerShip, 2);
+
+            //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
+            scrollView.AddCells(new List<string>() { nextRoom.GetLookText(), nextRoom.PlayerShip.GetLookText(), nextRoom.Entities[0].GetLookText() });
         }
         
         private void HandleLinkTouchedEvent(string guid)
@@ -64,10 +70,16 @@ namespace Controller
 
             foreach (var entity in _room.Entities)
             {
-                actionsToExecute.Add(entity.GetNextAction(_room));
+                var nextAction = entity.GetNextAction(_room);
                 
                 //if player warped -> break
-                //set current room to next room
+                if (nextAction is WarpAction)
+                {
+                    StartNextRoom(_room.Exits.First(), _room);
+                    return;
+                }
+                
+                actionsToExecute.Add(nextAction);
             }
 
             foreach (var action in actionsToExecute)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Actions;
+using Models.Factories;
 using PixelShips.Helpers;
 using UnityEngine;
 
@@ -9,18 +10,19 @@ namespace Models
 {
     public class Room : IRoom
     {
-        public string Link { get; }
+        private string Link { get; }
         
         public string Id { get; }
         public int _tick { get; private set; }
+        public string Description { get; set; }
 
         public CommandShip PlayerShip { get; private set; }
-        public string Description { get; }
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; }
+        public List<IRoom> Exits { get; set; }
         public ABDialogueContent DialogueContent { get; set; }
 
-        public Room(string description, string link, CommandShip ship, List<IRoomActor> roomEntities, ABDialogueContent dialogueContent)
+        public Room(string description, string link, CommandShip ship, List<IRoomActor> roomEntities, ABDialogueContent dialogueContent, List<RoomTemplate> templates)
         {
             Id = Guid.NewGuid().ToString();
             Description = description;
@@ -28,11 +30,21 @@ namespace Models
             PlayerShip = ship;
             Entities = roomEntities;
             DialogueContent = dialogueContent;
+            RoomTemplates = templates;
         }
 
         public Room(string id, string desc, string name)
         {
             Id = id;
+            Description = desc;
+            Link = name;
+            Entities = new List<IRoomActor>();
+        }
+        
+        //TODO: params out of order here
+        public Room(string name, string desc)
+        {
+            Id = Guid.NewGuid().ToString();
             Description = desc;
             Link = name;
             Entities = new List<IRoomActor>();
@@ -47,6 +59,8 @@ namespace Models
         {
             _tick++;
         }
+
+        public List<RoomTemplate> RoomTemplates { get; set; }
 
         public List<string> ResolveNext(IRoomAction playerAction)
         {
@@ -77,16 +91,6 @@ namespace Models
         public string GetLinkText()
         {
             return Link;
-        }
-
-        public IRoomActor FindRoomActorByGuid(string id)
-        {
-            var actor = Entities.FirstOrDefault(entity => entity.Id == id);
-            if (actor == null)
-            {
-                Debug.Log($"Error: No actor found by the id: {id}");
-            }
-            return actor;
         }
     }
 }

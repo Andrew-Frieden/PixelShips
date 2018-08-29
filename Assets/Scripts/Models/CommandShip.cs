@@ -12,7 +12,7 @@ namespace Models
 
         public string GetLookText()
         {
-            throw new NotImplementedException();
+            return "< > jump into the sector.".GetDescriptionWithLink(GetLinkText(), Id, "blue");
         }
 
         public string GetLinkText()

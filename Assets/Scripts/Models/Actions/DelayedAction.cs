@@ -18,7 +18,7 @@ namespace Models.Actions
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
             actor.Stats[DelayedActor.TimeToLiveKey]--;
-            return new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks"};
+            return new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks."};
         }
     }
 }

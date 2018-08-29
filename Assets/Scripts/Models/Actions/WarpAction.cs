@@ -6,7 +6,7 @@ namespace Models.Actions
     {
         public IEnumerable<string> Execute(IRoom room)
         {
-            throw new System.NotImplementedException();
+            return new List<string>() { "You warp to the next room!" };
         }
     }
 }

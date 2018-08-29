@@ -9,10 +9,13 @@ public interface IRoom : ITextEntity
     int _tick { get; }
     void Tick();
     
+    List<RoomTemplate> RoomTemplates { get; set; }
+    
     CommandShip PlayerShip { get; }
-    string Description { get; }
+    string Description { get; set; }
     RoomFlavor Flavor { get; }
     List<IRoomActor> Entities { get; }
+    List<IRoom> Exits { set; get; }
 
     List<string> ResolveNext(IRoomAction playerAction);
 
