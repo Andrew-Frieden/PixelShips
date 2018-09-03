@@ -1,5 +1,6 @@
 ﻿using Models.Actions;
 using Models.Dtos;
+using Models.Factories;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Models
             var ship = save.Room.PlayerShip.FromDto();
             state.Room.SetPlayerShip(ship);
 
-            var actionFactory = new RoomActionFactory(state.Room);
+            //var actionFactory = new RoomActionFactory(state.Room);
 
             //  grab all the mob dtos and build mob entities
             var mobs = new List<Mob>();

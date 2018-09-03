@@ -5,11 +5,11 @@ namespace Models.Actors
 {
     public class ShieldActor : DelayedActor
     {
-        private readonly ICombatEntity _source;
-        private readonly ICombatEntity _target;
+        private readonly IRoomActor _source;
+        private readonly IRoomActor _target;
         private readonly int _damageReduction;
 
-        public ShieldActor(ICombatEntity source, ICombatEntity target, int timeToLive, int damageReduction) :base()
+        public ShieldActor(IRoomActor source, IRoomActor target, int timeToLive, int damageReduction) :base()
         {
             Id = Guid.NewGuid().ToString();
             Stats[TimeToLiveKey] = timeToLive;

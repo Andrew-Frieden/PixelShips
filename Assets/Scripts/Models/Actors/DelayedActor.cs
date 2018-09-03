@@ -27,5 +27,15 @@ namespace Models.Actors
                 room.Entities.Remove(this);
             }
         }
+
+        public void ChangeState(int nextState)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ABDialogueContent CalculateDialogue(IRoom room)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

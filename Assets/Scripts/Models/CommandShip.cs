@@ -1,23 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using PixelShips.Helpers;
+using Models.Actions;
+using TextEncoding;
 using UnityEngine;
 
 namespace Models
 {
-    public class CommandShip : Ship, ICombatEntity
+    public class CommandShip : Ship, IRoomActor
     {
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
+        private Dictionary<string, int> _stats;
+        public Dictionary<string, int> Stats
+        {
+            get
+            {
+                if (_stats == null)
+                {
+                    _stats = new Dictionary<string, int>();
+                    _stats["Hull"] = 10;
+                    _stats["captainship"] = 11;
+                    _stats["resourcium"] = 1;
+                }
+                return _stats;
+            }
+            private set { _stats = value; }
+        }
+
         public string GetLookText()
         {
-            return "< > jump into the sector.".GetDescriptionWithLink(GetLinkText(), Id, "blue");
+            return "< > jump into the sector.".Encode(GetLinkText(), Id, "blue");
         }
 
         public string GetLinkText()
         {
             return "You";
+        }
+
+        public IRoomAction GetNextAction(IRoom room)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AfterAction(IRoom room)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangeState(int nextState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ABDialogueContent CalculateDialogue(IRoom room)
+        {
+            throw new NotImplementedException();
         }
 
         public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)

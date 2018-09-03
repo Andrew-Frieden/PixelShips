@@ -5,9 +5,9 @@ namespace Models.Actors
 {
     public class WarpDriveActor : DelayedActor
     {
-        private readonly ICombatEntity _source;
+        private readonly IRoomActor _source;
         
-        public WarpDriveActor(ICombatEntity source, int timeToLive) :base()
+        public WarpDriveActor(IRoomActor source, int timeToLive) :base()
         {
             Id = Guid.NewGuid().ToString();
             Stats[TimeToLiveKey] = timeToLive;

@@ -37,7 +37,7 @@ namespace Models.Factories
                 OptionBText = "Option B."
             };
 
-            var tabby = (Mob) _actors.First();
+            var tabby = _actors.First();
             skeletonRoom.AddEntity(tabby);
 
             //TODO: Take away setter

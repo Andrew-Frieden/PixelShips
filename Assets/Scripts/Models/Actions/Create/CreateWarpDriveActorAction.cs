@@ -7,10 +7,10 @@ namespace Models.Actions
     {
         public const string ACTION_NAME = "CreateWarpDriveActor";
         
-        private ICombatEntity _source;
+        private IRoomActor _source;
         private int _timeToLive;
 
-        public CreateWarpDriveActorAction(ICombatEntity source, int timeToLive)
+        public CreateWarpDriveActorAction(IRoomActor source, int timeToLive)
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;

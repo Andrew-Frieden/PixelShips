@@ -1,4 +1,5 @@
 ﻿using Models.Actions;
+using Models.Factories;
 using System;
 using System.Collections.Generic;
 
@@ -103,6 +104,18 @@ namespace Models.Dtos
                 TargetId = simpleAction.Target.Id
             };
         }
+        
+        public static FlexEntityDto ToDto(this FlexEntity entity)
+        {
+            return new FlexEntityDto
+            {
+                EntityType = entity.GetType().FullName,
+                Id = entity.Id,
+                Name = entity.Name,
+                Stats = entity.Stats
+            };
+        }
+        
         #endregion
 
         #region FromDto
@@ -127,10 +140,8 @@ namespace Models.Dtos
         /// </summary>
         public static ABDialogueContent FromDto(this ABContentDto content, IRoom room)
         {
-            var actionFactory = new RoomActionFactory(room);
-
-            var actionA = actionFactory.GetSimpleAction(content.OptionAActionSimple);
-            var actionB = actionFactory.GetSimpleAction(content.OptionBActionSimple);
+            var actionA = content.OptionAActionSimple.FromDto(room);
+            var actionB = content.OptionBActionSimple.FromDto(room);
 
             return new ABDialogueContent
             {

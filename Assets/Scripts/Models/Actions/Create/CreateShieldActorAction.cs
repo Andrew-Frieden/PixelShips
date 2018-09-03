@@ -7,12 +7,12 @@ namespace Models.Actions
     {
         public const string ACTION_NAME = "CreateShieldActor";
         
-        private ICombatEntity _source;
-        private ICombatEntity _target;
+        private IRoomActor _source;
+        private IRoomActor _target;
         private int _timeToLive;
         private int _damageReduction;
 
-        public CreateShieldActorAction(ICombatEntity source, ICombatEntity target, int timeToLive, int damageReduction)
+        public CreateShieldActorAction(IRoomActor source, IRoomActor target, int timeToLive, int damageReduction)
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;

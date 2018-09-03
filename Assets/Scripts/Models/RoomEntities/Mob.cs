@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.Actions;
-using PixelShips.Helpers;
+using TextEncoding;
 
 namespace Models
 {
@@ -25,7 +25,7 @@ namespace Models
 
         public string GetLookText()
         {
-            return Description.GetDescriptionWithLink(Link, Id, "red");
+            return Description.Encode(Link, Id, "red");
         }
 
         public string GetLinkText()
@@ -39,5 +39,15 @@ namespace Models
         }
 
         public void AfterAction(IRoom room) { }
+
+        public void ChangeState(int nextState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ABDialogueContent CalculateDialogue(IRoom room)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

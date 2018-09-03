@@ -6,11 +6,11 @@ namespace Models.Actors
 {
     public class DelayedAttackActor : DelayedActor
     {
-        private readonly ICombatEntity _source;
-        private readonly ICombatEntity _target;
+        private readonly IRoomActor _source;
+        private readonly IRoomActor _target;
         private readonly int _damage;
 
-        public DelayedAttackActor(ICombatEntity source, ICombatEntity target, int timeToLive, int damage) :base()
+        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage) :base()
         {
             Id = Guid.NewGuid().ToString();
             Stats[TimeToLiveKey] = timeToLive;

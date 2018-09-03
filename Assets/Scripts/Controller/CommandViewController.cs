@@ -38,9 +38,17 @@ namespace Controller
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
             
-            var tabby = (ICombatEntity) nextRoom.Entities[0];
-            tabby.DialogueContent.OptionAAction = new AttackAction(nextRoom.PlayerShip, tabby, 17);
-            tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(nextRoom.PlayerShip, tabby, 3, 39);
+            //var tabby = (IRoomActor) nextRoom.Entities[0];
+            //tabby.DialogueContent.OptionAAction = new AttackAction(nextRoom.PlayerShip, tabby, 17);
+            //tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(nextRoom.PlayerShip, tabby, 3, 39);
+            
+            foreach(var ent in nextRoom.Entities)
+            {
+                if (ent != nextRoom.PlayerShip)
+                {
+                    ent.DialogueContent = ent.CalculateDialogue(nextRoom);
+                }
+            }
 
             nextRoom.PlayerShip.DialogueContent.MainText = "Your ship looks like a standard frigate.";
             nextRoom.PlayerShip.DialogueContent.OptionAText = "Create a shield.";
@@ -92,6 +100,14 @@ namespace Controller
             foreach (var entity in _room.Entities)
             {
                 entity.AfterAction(_room);
+            }
+            
+            foreach (var entity in _room.Entities)
+            {
+                if (entity != _room.PlayerShip)
+                {
+                    entity.DialogueContent = entity.CalculateDialogue(_room);
+                }
             }
             
             _room.Tick();
