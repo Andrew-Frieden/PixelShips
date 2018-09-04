@@ -10,7 +10,33 @@ namespace Models.Actors
         public string Id { get; protected set; }
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
-        
+
+        public bool IsAggro
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public bool CanCombat
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
         public abstract string GetLookText();
         public abstract string GetLinkText();
         public abstract IRoomAction GetNextAction(IRoom s);

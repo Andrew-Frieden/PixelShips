@@ -25,7 +25,10 @@ I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck
             //entities.Add(tabbyOfficer);
 
             var exampleNpc = new ExampleNpcFlexEntity();
+            var exampleHazard = new ExampleHazardFlexEntity(2, 80);
+
             entities.Add(exampleNpc);
+            entities.Add(exampleHazard);
 
             return entities;
         }

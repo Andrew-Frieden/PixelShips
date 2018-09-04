@@ -31,6 +31,7 @@ namespace Models
         {
             Name = name;
             Id = Guid.NewGuid().ToString();
+            Stats = new Dictionary<string, int>();
         }
 
         public override IRoomAction GetNextAction(IRoom room)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Models.Actions;
 using TextEncoding;
-using UnityEngine;
 
 namespace Models
 {
@@ -19,14 +18,28 @@ namespace Models
                 if (_stats == null)
                 {
                     _stats = new Dictionary<string, int>();
-                    _stats["Hull"] = 10;
-                    _stats["captainship"] = 11;
-                    _stats["resourcium"] = 1;
+                    _stats[StatKeys.Hull] = 10;
+                    _stats[StatKeys.Captainship] = 11;
+                    _stats[StatKeys.Resourcium] = 1;
                 }
                 return _stats;
             }
             private set { _stats = value; }
         }
+
+        public bool IsAggro
+        {
+            get
+            {
+                return Stats[StatKeys.IsAggro] != 0;
+            }
+            set
+            {
+                Stats[StatKeys.IsAggro] = value ? 1 : 0;
+            }
+        }
+
+        public bool CanCombat { get { return true; } }
 
         public string GetLookText()
         {

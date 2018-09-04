@@ -31,6 +31,7 @@ namespace Models.Actions
         public override IEnumerable<string> Execute(IRoom room)
         {
             Target.Stats["Hull"] -= Damage;
+            Target.IsAggro = true;
 
             if (Source is CommandShip)
             {
@@ -41,6 +42,7 @@ namespace Models.Actions
             {
                 return new List<string>() { ("< > dealt you " + Damage + " damage.").Encode(Source.GetLinkText(), Source.Id, "red")};
             }
+
         }
     }
 }

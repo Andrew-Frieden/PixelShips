@@ -5,6 +5,8 @@ namespace Models
 {
     public interface IRoomActor : ITextEntity
     {
+        bool IsAggro { get; set; }
+        bool CanCombat { get; }
         Dictionary<string, int> Stats { get; }
         //Dictionary<string, string> Text { get; }
 

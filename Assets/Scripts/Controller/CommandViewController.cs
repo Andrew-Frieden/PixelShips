@@ -57,10 +57,20 @@ namespace Controller
             nextRoom.PlayerShip.DialogueContent.OptionAAction = new CreateShieldActorAction(nextRoom.PlayerShip, null, 3, 5);
             nextRoom.PlayerShip.DialogueContent.OptionBAction = new CreateWarpDriveActorAction(nextRoom.PlayerShip, 2);
 
-            //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
-            scrollView.AddCells(new List<string>() { nextRoom.GetLookText(), nextRoom.PlayerShip.GetLookText(), nextRoom.Entities[0].GetLookText() });
+            scrollView.AddCells(CalculateLookText(nextRoom));
         }
-        
+
+        private IEnumerable<string> CalculateLookText(IRoom room)
+        {
+            var lookText = new List<string>
+            {
+                room.PlayerShip.GetLookText(),
+                room.GetLookText()
+            };
+            room.Entities.ForEach(e => lookText.Add(e.GetLookText()));
+            return lookText;
+        }
+
         private void HandleLinkTouchedEvent(string guid)
         {
             var entity = _room.Entities.FirstOrDefault(e => e.Id == guid) ?? (ITextEntity) _room.PlayerShip;

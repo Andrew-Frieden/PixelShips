@@ -14,6 +14,21 @@ namespace Models
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
+        public bool IsAggro
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool CanCombat => true;
+
         public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();

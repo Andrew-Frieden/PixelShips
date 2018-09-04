@@ -9,15 +9,35 @@ namespace Models
 {
     public abstract class FlexEntity : IRoomActor
     {
-        public bool IsCombatFlagged { get; set; }   //  if this is true, player interactions are all combat related. Only the Entity should be able to switch this.
-        
-        public int Hull { get; set; }   //  expect to have combat stats in Stats for any FlexEntity that IsCombatFlagged
+        public bool IsAggro
+        {
+            get
+            {
+                return Stats[StatKeys.IsAggro] != 0;
+            }
+            set
+            {
+                Stats[StatKeys.IsAggro] = value ? 1 : 0;
+            }
+        }
+
+        public bool CanCombat
+        {
+            get
+            {
+                return Stats[StatKeys.CanCombat] != 0;
+            }
+            set
+            {
+                Stats[StatKeys.CanCombat] = value ? 1 : 0;
+            }
+        }
         
         public string Id { get; protected set; }
         public string Description { get; }  //  do we really need a description field? shouldn't GetLookText calculate it?
         public string Name { get; protected set; }
         
-        public Dictionary<string, int> Stats { get; private set; }
+        public Dictionary<string, int> Stats { get; protected set; }
         public ABDialogueContent DialogueContent { get; set; }
 
         const string CurrentStateKey = "current_state"; 
@@ -25,9 +45,6 @@ namespace Models
         { 
             get
             {
-                if (Stats == null)
-                    Stats = new Dictionary<string, int>();
-                    
                 if (!Stats.ContainsKey(CurrentStateKey))
                 {
                     Stats[CurrentStateKey] = 0;
@@ -48,7 +65,10 @@ namespace Models
             Name = dto.Name;
         }
 
-        protected FlexEntity() { }
+        protected FlexEntity()
+        {
+           
+        }
         
         public string GetLinkText()
         {
@@ -65,11 +85,28 @@ namespace Models
         }
     }
 
-    public class ExampleMobFlexEntity
+    public static class StatKeys
     {
+        public static readonly string CanCombat = "can_combat";     //  1 if the entity is capable of participating in combat
+        public static readonly string IsAggro = "is_aggro";         //  1 if the entity is actively attacking or being attacked
+        public static readonly string Hull = "current_hull";
+        public static readonly string MaxHull = "max_hull";
+        public static readonly string Captainship = "captainship";
+        public static readonly string Resourcium = "resourcium";
+        public static readonly string ExampleDamageMitigationStat = "damage_mitigation";
     }
-    
-    public class ExampleHazardFlexEntity
+
+    public static class StatsHelper
     {
+        public static Dictionary<string, int> EmptyStatsBlock()
+        {
+            return new Dictionary<string, int>
+            {
+                { StatKeys.IsAggro, 0 },
+                { StatKeys.CanCombat, 0 },
+                { StatKeys.Hull, 0 },
+                { StatKeys.Captainship, 0 },
+            };
+        }
     }
 }
