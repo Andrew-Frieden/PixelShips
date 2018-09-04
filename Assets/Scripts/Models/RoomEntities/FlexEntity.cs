@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Models.Actions;
 using Models.Dtos;
-using UnityEngine;
-using Models.Dialogue;
 
 namespace Models
 {
@@ -65,10 +62,7 @@ namespace Models
             Name = dto.Name;
         }
 
-        protected FlexEntity()
-        {
-           
-        }
+        protected FlexEntity() { }
         
         public string GetLinkText()
         {
