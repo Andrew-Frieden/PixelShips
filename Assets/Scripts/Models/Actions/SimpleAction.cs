@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Models.Dtos;
 
 namespace Models.Actions
 {
@@ -7,10 +8,21 @@ namespace Models.Actions
     {
         public string ActionName;
 
-        public ITextEntity Target;
-        public ITextEntity Source;
+        public IRoomActor Target;
+        public IRoomActor Source;
         public Dictionary<string, int> Stats;
 
         public abstract IEnumerable<string> Execute(IRoom room);
+        
+        protected SimpleAction(SimpleActionDto dto, IRoom room)
+        {
+            Source = (IRoomActor)room.FindEntity(dto.SourceId);
+            Target = (IRoomActor)room.FindEntity(dto.TargetId);
+            Stats = dto.Stats;
+        }
+        
+        protected SimpleAction()
+        {
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.Actions;
-using PixelShips.Helpers;
+using TextEncoding;
 
 namespace Models
 {
@@ -14,6 +14,21 @@ namespace Models
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
+        public bool IsAggro
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool CanCombat => true;
+
         public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();
@@ -25,7 +40,7 @@ namespace Models
 
         public string GetLookText()
         {
-            return Description.GetDescriptionWithLink(Link, Id, "red");
+            return Description.Encode(Link, Id, "red");
         }
 
         public string GetLinkText()
@@ -39,5 +54,15 @@ namespace Models
         }
 
         public void AfterAction(IRoom room) { }
+
+        public void ChangeState(int nextState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ABDialogueContent CalculateDialogue(IRoom room)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

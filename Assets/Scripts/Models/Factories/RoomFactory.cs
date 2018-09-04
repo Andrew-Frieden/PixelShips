@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PixelSpace.Models.SharedModels.Helpers;
 using Repository;
 
 namespace Models.Factories
@@ -36,9 +37,11 @@ namespace Models.Factories
                 OptionAText = "Option A.",
                 OptionBText = "Option B."
             };
-
-            var tabby = (Mob) _actors.First();
-            skeletonRoom.AddEntity(tabby);
+            foreach (var actor in _actors)
+            {
+                skeletonRoom.AddEntity(actor);
+            }
+            //_actors.ForEach(a => skeletonRoom.AddEntity(a));
 
             //TODO: Take away setter
             if (hasExits)

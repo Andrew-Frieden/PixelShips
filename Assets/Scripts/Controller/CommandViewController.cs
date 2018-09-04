@@ -38,9 +38,17 @@ namespace Controller
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
             
-            var tabby = (ICombatEntity) nextRoom.Entities[0];
-            tabby.DialogueContent.OptionAAction = new AttackAction(nextRoom.PlayerShip, tabby, 17);
-            tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(nextRoom.PlayerShip, tabby, 3, 39);
+            //var tabby = (IRoomActor) nextRoom.Entities[0];
+            //tabby.DialogueContent.OptionAAction = new AttackAction(nextRoom.PlayerShip, tabby, 17);
+            //tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(nextRoom.PlayerShip, tabby, 3, 39);
+            
+            foreach(var ent in nextRoom.Entities)
+            {
+                if (ent != nextRoom.PlayerShip)
+                {
+                    ent.DialogueContent = ent.CalculateDialogue(nextRoom);
+                }
+            }
 
             nextRoom.PlayerShip.DialogueContent.MainText = "Your ship looks like a standard frigate.";
             nextRoom.PlayerShip.DialogueContent.OptionAText = "Create a shield.";
@@ -49,10 +57,20 @@ namespace Controller
             nextRoom.PlayerShip.DialogueContent.OptionAAction = new CreateShieldActorAction(nextRoom.PlayerShip, null, 3, 5);
             nextRoom.PlayerShip.DialogueContent.OptionBAction = new CreateWarpDriveActorAction(nextRoom.PlayerShip, 2);
 
-            //TODO: Make a scroll view controller method to handle printing a room and all its entities to cells
-            scrollView.AddCells(new List<string>() { nextRoom.GetLookText(), nextRoom.PlayerShip.GetLookText(), nextRoom.Entities[0].GetLookText() });
+            scrollView.AddCells(CalculateLookText(nextRoom));
         }
-        
+
+        private IEnumerable<string> CalculateLookText(IRoom room)
+        {
+            var lookText = new List<string>
+            {
+                room.PlayerShip.GetLookText(),
+                room.GetLookText()
+            };
+            room.Entities.ForEach(e => lookText.Add(e.GetLookText()));
+            return lookText;
+        }
+
         private void HandleLinkTouchedEvent(string guid)
         {
             var entity = _room.Entities.FirstOrDefault(e => e.Id == guid) ?? (ITextEntity) _room.PlayerShip;
@@ -92,6 +110,14 @@ namespace Controller
             foreach (var entity in _room.Entities)
             {
                 entity.AfterAction(_room);
+            }
+            
+            foreach (var entity in _room.Entities)
+            {
+                if (entity != _room.PlayerShip)
+                {
+                    entity.DialogueContent = entity.CalculateDialogue(_room);
+                }
             }
             
             _room.Tick();

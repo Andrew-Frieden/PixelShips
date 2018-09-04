@@ -9,7 +9,22 @@ namespace Models
         public ABDialogueContent DialogueContent { get; set; }
         public string Description { get; }
         public Dictionary<string, int> Stats { get; }
-        
+
+        public bool IsAggro
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public bool CanCombat => false;
+
         public string GetLookText()
         {
             throw new System.NotImplementedException();
@@ -26,5 +41,15 @@ namespace Models
         }
 
         public void AfterAction(IRoom room) { }
+
+        public void ChangeState(int nextState)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ABDialogueContent CalculateDialogue(IRoom room)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

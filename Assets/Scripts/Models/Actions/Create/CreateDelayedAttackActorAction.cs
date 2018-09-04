@@ -7,12 +7,12 @@ namespace Models.Actions
     {
         public const string ACTION_NAME = "CreateDelayedAttackActor";
         
-        private ICombatEntity _source;
-        private ICombatEntity _target;
+        private IRoomActor _source;
+        private IRoomActor _target;
         private int _timeToLive;
         private int _damage;
 
-        public CreateDelayedAttackActorAction(ICombatEntity source, ICombatEntity target, int timeToLive, int damage)
+        public CreateDelayedAttackActorAction(IRoomActor source, IRoomActor target, int timeToLive, int damage)
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;

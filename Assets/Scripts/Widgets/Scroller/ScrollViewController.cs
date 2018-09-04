@@ -68,9 +68,9 @@ public class ScrollViewController : MonoBehaviour {
         cellAddedEvent?.Invoke();
     }
 
-    public void AddCells(IEnumerable<string> entities)
+    public void AddCells(IEnumerable<string> text)
     {
-        entities.ForEach(AddCell);
+        text.ForEach(AddCell);
         //After all the cells have been added reset the first flag
         _first = true;
     }

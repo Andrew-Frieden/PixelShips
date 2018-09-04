@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace PixelShips.Helpers
+namespace TextEncoding
 {
     public static class ActiveTextHelpers
     {
@@ -16,7 +16,7 @@ namespace PixelShips.Helpers
             return string.Format("<color=\"{0}\">{1}</color>", color, text);
         }
 
-        public static string GetDescriptionWithLink(this string text, string link, string id, string color)
+        public static string Encode(this string text, string link, string id, string color)
         {
             return Regex.Replace(text, "<.*?>", GetLink($"[{link}]", id, color));
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.Actions;
 using Models.Factories;
-using PixelShips.Helpers;
+using TextEncoding;
 using UnityEngine;
 
 namespace Models
@@ -85,7 +85,7 @@ namespace Models
 
         public string GetLookText()
         {
-            return Description.GetDescriptionWithLink(Link, Id, "green");
+            return Description.Encode(Link, Id, "green");
         }
 
         public string GetLinkText()

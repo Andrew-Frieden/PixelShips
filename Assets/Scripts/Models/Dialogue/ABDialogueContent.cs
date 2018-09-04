@@ -7,11 +7,12 @@ public class ABDialogueContent
     public string OptionBText;
     public IRoomAction OptionAAction;
     public IRoomAction OptionBAction;
+    public ABDialogueMode Mode;
 }
 
 public enum ABDialogueMode
 {
     AB,
-    A,
-    Forced
+    AorCancel,
+    Acknowledge
 }

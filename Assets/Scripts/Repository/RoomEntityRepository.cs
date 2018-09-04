@@ -22,7 +22,13 @@ I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck
             
             var tabbyOfficer = new Mob("A < > floats here.", "Tabby Officer", 2, tabbyOfficerContent);
 
-            entities.Add(tabbyOfficer);
+            //entities.Add(tabbyOfficer);
+
+            var exampleNpc = new ExampleNpcFlexEntity();
+            var exampleHazard = new ExampleHazardFlexEntity(2, 80);
+
+            entities.Add(exampleNpc);
+            entities.Add(exampleHazard);
 
             return entities;
         }
