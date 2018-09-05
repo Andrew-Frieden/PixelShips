@@ -3,9 +3,9 @@ using Common;
 
 namespace Models.Factories
 {
-    public static class ShipFactory
+    public class ShipFactory
     {
-        public static CommandShip GenerateCommandShip()
+        public CommandShip GenerateCommandShip()
         {
             return new CommandShip(
                 Random.Range(0, 10),

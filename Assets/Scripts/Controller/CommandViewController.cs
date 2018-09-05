@@ -23,10 +23,9 @@ namespace Controller
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
             ABDialogueController.choseActionEvent += HandlePlayerChoseAction;
             
-            var playerShip = ShipFactory.GenerateCommandShip();
-            var roomFactory = new RoomFactory();
+            var playerShip = FactoryContainer.ShipFactory.GenerateCommandShip();
 
-            _room = roomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), true);
+            _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), true);
             _room.SetPlayerShip(playerShip);
             
             StartNextRoom(_room, _room);

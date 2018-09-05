@@ -6,7 +6,7 @@ using Repository;
 
 namespace Models.Factories
 {
-    public class RoomFactory
+    public sealed class RoomFactory
     {
         private readonly IEnumerable<IRoom> _rooms;
         private readonly IEnumerable<IRoomActor> _actors;
