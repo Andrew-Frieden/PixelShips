@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.Actions;
+using Models.Dialogue;
+using Models.Factories;
+using Repository;
 using TextEncoding;
+using UnityEngine;
 
 namespace Models
 {
@@ -21,11 +25,14 @@ namespace Models
                     _stats[StatKeys.Hull] = 10;
                     _stats[StatKeys.Captainship] = 11;
                     _stats[StatKeys.Resourcium] = 1;
+                    _stats[StatKeys.WarpDriveReady] = 0;
                 }
                 return _stats;
             }
             private set { _stats = value; }
         }
+
+        public bool PrintToScreen { get; set; }
 
         public bool IsAggro
         {
@@ -36,6 +43,18 @@ namespace Models
             set
             {
                 Stats[StatKeys.IsAggro] = value ? 1 : 0;
+            }
+        }
+
+        public bool WarpDriveReady
+        {
+            get
+            {
+                return Stats[StatKeys.WarpDriveReady] != 0;
+            }
+            set
+            {
+                Stats[StatKeys.WarpDriveReady] = value ? 1 : 0;
             }
         }
 
@@ -68,7 +87,27 @@ namespace Models
 
         public ABDialogueContent CalculateDialogue(IRoom room)
         {
-            throw new NotImplementedException();
+            if (WarpDriveReady)
+            {
+                var roomA = room.Exits[0];
+                var roomB = room.Exits[1];
+                
+                return DialogueBuilder.Init()
+                    .AddMainText("Your ship looks like its ready to jump to hyperspace.")
+                    .AddTextA("Warp to room A.")
+                    .AddActionA(new WarpAction(roomA))
+                    .AddTextB("Warp to room B.")
+                    .AddActionB(new WarpAction(roomB))
+                    .Build();
+            }
+            
+            return DialogueBuilder.Init()
+                .AddMainText("Your ship looks like a standard frigate.")
+                .AddTextA("Create a shield.")
+                .AddActionA(new CreateShieldActorAction(room.PlayerShip, null, 3, 5))
+                .AddTextB("Spin up your warp drive.")
+                .AddActionB(new CreateWarpDriveActorAction(2))
+                .Build();
         }
 
         public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)

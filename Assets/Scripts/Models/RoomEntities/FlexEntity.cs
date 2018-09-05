@@ -6,6 +6,8 @@ namespace Models
 {
     public abstract class FlexEntity : IRoomActor
     {
+        public bool PrintToScreen { get; set; }
+
         public bool IsAggro
         {
             get
@@ -88,6 +90,7 @@ namespace Models
         public static readonly string Captainship = "captainship";
         public static readonly string Resourcium = "resourcium";
         public static readonly string ExampleDamageMitigationStat = "damage_mitigation";
+        public static readonly string WarpDriveReady = "warp_drive_ready";
     }
 
     public static class StatsHelper

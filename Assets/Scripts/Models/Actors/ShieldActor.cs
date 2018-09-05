@@ -18,12 +18,12 @@ namespace Models.Actors
             _damageReduction = damageReduction; 
         }
 
-        public override string GetLookText()
+        public override ABDialogueContent CalculateDialogue(IRoom room)
         {
-            return "";
+            throw new NotImplementedException();
         }
 
-        public override string GetLinkText()
+        public override string GetLookText()
         {
             return "";
         }

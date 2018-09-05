@@ -34,13 +34,11 @@ namespace Controller
             StartCoroutine(Blink.BlinkLoop());
         }
 
-        public void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
+        private void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
             
-            //var tabby = (IRoomActor) nextRoom.Entities[0];
-            //tabby.DialogueContent.OptionAAction = new AttackAction(nextRoom.PlayerShip, tabby, 17);
-            //tabby.DialogueContent.OptionBAction = new CreateDelayedAttackActorAction(nextRoom.PlayerShip, tabby, 3, 39);
+            _room.PlayerShip.DialogueContent =  _room.PlayerShip.CalculateDialogue(nextRoom);
             
             foreach(var ent in nextRoom.Entities)
             {
@@ -49,13 +47,6 @@ namespace Controller
                     ent.DialogueContent = ent.CalculateDialogue(nextRoom);
                 }
             }
-
-            nextRoom.PlayerShip.DialogueContent.MainText = "Your ship looks like a standard frigate.";
-            nextRoom.PlayerShip.DialogueContent.OptionAText = "Create a shield.";
-            nextRoom.PlayerShip.DialogueContent.OptionBText = "Spin up your warp drive.";
-            
-            nextRoom.PlayerShip.DialogueContent.OptionAAction = new CreateShieldActorAction(nextRoom.PlayerShip, null, 3, 5);
-            nextRoom.PlayerShip.DialogueContent.OptionBAction = new CreateWarpDriveActorAction(nextRoom.PlayerShip, 2);
 
             scrollView.AddCells(CalculateLookText(nextRoom));
         }
@@ -109,16 +100,18 @@ namespace Controller
 
             foreach (var entity in _room.Entities)
             {
-                entity.AfterAction(_room);
+                //entity.AfterAction(_room);
             }
             
             foreach (var entity in _room.Entities)
             {
-                if (entity != _room.PlayerShip)
+                if (entity != _room.PlayerShip && entity.PrintToScreen)
                 {
                     entity.DialogueContent = entity.CalculateDialogue(_room);
                 }
             }
+            
+            _room.PlayerShip.DialogueContent =  _room.PlayerShip.CalculateDialogue(_room);
             
             _room.Tick();
         }

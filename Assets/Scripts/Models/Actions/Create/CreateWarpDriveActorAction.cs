@@ -7,19 +7,17 @@ namespace Models.Actions
     {
         public const string ACTION_NAME = "CreateWarpDriveActor";
         
-        private IRoomActor _source;
         private int _timeToLive;
 
-        public CreateWarpDriveActorAction(IRoomActor source, int timeToLive)
+        public CreateWarpDriveActorAction(int timeToLive)
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;
-            _source = source;
         }
         
         public override IEnumerable<string> Execute(IRoom room)
         {
-            room.Entities.Add(new WarpDriveActor(_source, _timeToLive));
+            room.Entities.Add(new WarpDriveActor(_timeToLive));
             
             return new List<string>() { "You begin to spin up your warp drive." };
         }

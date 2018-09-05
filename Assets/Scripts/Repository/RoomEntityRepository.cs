@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models;
+using UnityEngine;
 
 namespace Repository
 {
@@ -29,6 +30,9 @@ I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck
 
             entities.Add(exampleNpc);
             entities.Add(exampleHazard);
+
+            
+            Debug.Log("*** Load Room Data Complete ***");
 
             return entities;
         }

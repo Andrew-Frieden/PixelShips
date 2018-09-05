@@ -10,6 +10,8 @@ namespace Models
         public string Description { get; }
         public Dictionary<string, int> Stats { get; }
 
+        public bool PrintToScreen { get; set; }
+
         public bool IsAggro
         {
             get
