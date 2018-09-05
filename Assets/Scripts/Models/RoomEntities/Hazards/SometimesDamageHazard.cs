@@ -5,6 +5,7 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
+using static Models.Stats.StatKeys;
 
 public class ExampleHazardFlexEntity : FlexEntity
 {

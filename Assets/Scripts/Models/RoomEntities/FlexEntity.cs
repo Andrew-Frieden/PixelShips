@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Models.Actions;
 using Models.Dtos;
+using Models.Stats;
 
 namespace Models
 {
@@ -91,19 +92,5 @@ namespace Models
         public static readonly string Resourcium = "resourcium";
         public static readonly string ExampleDamageMitigationStat = "damage_mitigation";
         public static readonly string WarpDriveReady = "warp_drive_ready";
-    }
-
-    public static class StatsHelper
-    {
-        public static Dictionary<string, int> EmptyStatsBlock()
-        {
-            return new Dictionary<string, int>
-            {
-                { StatKeys.IsAggro, 0 },
-                { StatKeys.CanCombat, 0 },
-                { StatKeys.Hull, 0 },
-                { StatKeys.Captainship, 0 },
-            };
-        }
     }
 }
