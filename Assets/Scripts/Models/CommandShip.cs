@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.Actions;
+using Models.Stats;
 using TextEncoding;
 
 namespace Models
 {
-    public class CommandShip : Ship, IRoomActor
+    public class CommandShip : IRoomActor
     {
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; set; }
@@ -71,16 +72,21 @@ namespace Models
             throw new NotImplementedException();
         }
 
-        public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)
+        public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull)
         {
             Id = Guid.NewGuid().ToString();
             DialogueContent = new ABDialogueContent();
         }
 
-        public CommandShip(string id, int gathering, int transport, int intelligence, int combat, int speed, int hull) : base(gathering, transport, intelligence, combat, speed, hull)
+        public CommandShip(string id, int gathering, int transport, int intelligence, int combat, int speed, int hull)
         {
             Id = id;
             DialogueContent = null;
+        }
+        
+        public CommandShip()
+        {
+            Id = Guid.NewGuid().ToString();
         }
     }
 }

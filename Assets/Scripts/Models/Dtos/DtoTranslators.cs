@@ -38,12 +38,6 @@ namespace Models.Dtos
             return new ShipDto
             {
                 Id = ship.Id,
-                Combat = ship.Combat,
-                Gathering = ship.Gathering,
-                Hull = ship.Hull,
-                Speed = ship.Speed,
-                Transport = ship.Transport,
-                Intelligence = ship.Intelligence,
                 ContentDto = ship.DialogueContent?.ToDto()
             };
         }
