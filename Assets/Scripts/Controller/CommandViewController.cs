@@ -15,6 +15,8 @@ namespace Controller
         [SerializeField] private ScrollViewController scrollView;
         [SerializeField] private ABDialogueController abController;
 
+        private RoomController _roomController;
+
         public Blink Blink;
         private IRoom _room;
 
@@ -23,31 +25,17 @@ namespace Controller
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
             ABDialogueController.choseActionEvent += HandlePlayerChoseAction;
             
+            _roomController = new RoomController();
             var playerShip = FactoryContainer.ShipFactory.GenerateCommandShip();
 
             _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), true);
             _room.SetPlayerShip(playerShip);
             
-            StartNextRoom(_room, _room);
+            _roomController.StartNextRoom(_room, _room);
+            
+            scrollView.AddCells(CalculateLookText(_room));
 
             StartCoroutine(Blink.BlinkLoop());
-        }
-
-        private void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
-        {
-            nextRoom.SetPlayerShip(previousRoom.PlayerShip);
-            
-            _room.PlayerShip.DialogueContent =  _room.PlayerShip.CalculateDialogue(nextRoom);
-            
-            foreach(var ent in nextRoom.Entities)
-            {
-                if (ent != nextRoom.PlayerShip)
-                {
-                    ent.DialogueContent = ent.CalculateDialogue(nextRoom);
-                }
-            }
-
-            scrollView.AddCells(CalculateLookText(nextRoom));
         }
 
         private IEnumerable<string> CalculateLookText(IRoom room)
@@ -69,48 +57,18 @@ namespace Controller
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
-            var actionsToExecute = new List<IRoomAction>
+            //if player warped -> break
+            if (playerAction is WarpAction)
             {
-                playerAction
-            };
-
-            var actionResults = new List<string>();
-
-            foreach (var entity in _room.Entities)
-            {
-                var nextAction = entity.GetNextAction(_room);
-                
-                //if player warped -> break
-                if (nextAction is WarpAction)
-                {
-                    StartNextRoom(_room.Exits.First(), _room);
-                    return;
-                }
-                
-                actionsToExecute.Add(nextAction);
+                return;
             }
 
-            foreach (var action in actionsToExecute)
-            {
-                actionResults.AddRange(action.Execute(_room));
-            }
+            var actionResults = _roomController.GetActionResults(playerAction, _room);
             
             scrollView.AddCells(actionResults);
-
-            foreach (var entity in _room.Entities)
-            {
-                //entity.AfterAction(_room);
-            }
             
-            foreach (var entity in _room.Entities)
-            {
-                if (entity != _room.PlayerShip && entity.PrintToScreen)
-                {
-                    entity.DialogueContent = entity.CalculateDialogue(_room);
-                }
-            }
-            
-            _room.PlayerShip.DialogueContent =  _room.PlayerShip.CalculateDialogue(_room);
+            _roomController.DoCleanup(_room);
+            _roomController.CalculateNewDialogues(_room);
             
             _room.Tick();
         }
