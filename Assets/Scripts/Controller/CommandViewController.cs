@@ -31,7 +31,7 @@ namespace Controller
             _roomController = new RoomController();
             var playerShip = FactoryContainer.ShipFactory.GenerateCommandShip();
 
-            _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"));
+            _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(5, RoomFlavor.Kelp, "trade"));
             _room.SetPlayerShip(playerShip);
             
             _roomController.StartNextRoom(_room, _room);

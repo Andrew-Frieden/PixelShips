@@ -2,15 +2,15 @@
 {
     public class RoomTemplate
     {
-        private int _difficulty;
-        private RoomFlavor _flavor;
-        private string _mechanic;
+        public int Difficulty { get; }
+        public RoomFlavor Flavor { get; }
+        public string Mechanic { get; }
 
         public RoomTemplate(int difficulty, RoomFlavor flavor, string mechanic)
         {
-            _difficulty = difficulty;
-            _flavor = flavor;
-            _mechanic = mechanic;
+            Difficulty = difficulty;
+            Flavor = flavor;
+            Mechanic = mechanic;
         }
     }
 }

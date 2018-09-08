@@ -10,12 +10,6 @@ namespace Repository
         {
             var entities = new List<IRoomActor>();
 
-            var exampleNpc = new ExampleNpcFlexEntity();
-            var exampleHazard = new ExampleHazardFlexEntity(2, 80);
-
-            entities.Add(exampleNpc);
-            entities.Add(exampleHazard);
-
             return entities;
         }
     }
