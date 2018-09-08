@@ -14,7 +14,7 @@ namespace Models
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
-        public bool PrintToScreen { get; set; }
+        public bool Hidden { get; set; }
 
         public bool IsAggro
         {

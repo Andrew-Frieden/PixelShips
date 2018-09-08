@@ -29,7 +29,7 @@ namespace Models
             private set { _stats = value; }
         }
 
-        public bool PrintToScreen { get; set; }
+        public bool Hidden { get; }
 
         public bool IsAggro
         {

@@ -8,8 +8,8 @@ namespace Models.Factories.Helpers
         {
             var entities = new List<IRoomActor>();
             
-            var exampleNpc = new ExampleNpcFlexEntity();
-            var exampleHazard = new ExampleHazardFlexEntity(2, 20);
+            var exampleNpc = new NeedsHelpNpc();
+            var exampleHazard = new SometimesDamageHazard(2, 20);
 
             if (template.Difficulty * 10 < UnityEngine.Random.Range(1, 100))
             {
@@ -28,7 +28,7 @@ namespace Models.Factories.Helpers
         {
             var entities = new List<IRoomActor>();
             
-            var exampleNpc = new ExampleNpcFlexEntity();
+            var exampleNpc = new NeedsHelpNpc();
 
             entities.Add(exampleNpc);
             
@@ -39,7 +39,7 @@ namespace Models.Factories.Helpers
         {
             var entities = new List<IRoomActor>();
             
-            var exampleHazard = new ExampleHazardFlexEntity(2, 20);
+            var exampleHazard = new SometimesDamageHazard(2, 20);
 
             entities.Add(exampleHazard);
             

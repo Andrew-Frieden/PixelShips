@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Models.Actions;
+﻿using Models.Actions;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +9,8 @@ public class ABDialogueController : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI DialogueText;
     [SerializeField] private TextMeshProUGUI OptionAText;
     [SerializeField] private TextMeshProUGUI OptionBText;
+
+    private ABDialogueMode mode;
 
     private IRoomAction _actionA;
     private IRoomAction _actionB;
@@ -26,10 +27,13 @@ public class ABDialogueController : MonoBehaviour {
 
     private RectTransform ControlRectTransform;
     
-    public delegate void ChoseActionEvent(IRoomAction action);
-    public static event ChoseActionEvent choseActionEvent;
+    public delegate void OnRoomActionSelect(IRoomAction action);
+    public static event OnRoomActionSelect onRoomActionSelect;
 
-    void Start()
+    public delegate void ABDialogueModeSet(ABDialogueMode mode);
+    public static event ABDialogueModeSet onModeSet;
+
+    void Start()    
     {
         ControlRectTransform = GetComponent<RectTransform>();
         OnScreen = ControlRectTransform.anchoredPosition;
@@ -50,22 +54,30 @@ public class ABDialogueController : MonoBehaviour {
 
     private void HandleSelection(JoyEdge edge)
     {
+        //  anytime we see a joyedge that isn't None, just keep track of it
         if (edge != JoyEdge.None)
         {
             previousEdge = edge;
             return;
         }
 
+        //  don't do anything if the previous and current joyedge is None
+        if (previousEdge == JoyEdge.None)
+            return;
+
+        //  once you are here, edge = JoyEdge.None and previousEdge represents that last 'selected' edge
+        
         switch (previousEdge)
         {
             case JoyEdge.Center:
                 break;
             case JoyEdge.Left:
-                choseActionEvent?.Invoke(_actionA);
+
+                onRoomActionSelect?.Invoke(_actionA);
                 DismissControl();
                 break;
             case JoyEdge.Right:
-                choseActionEvent?.Invoke(_actionB);
+                onRoomActionSelect?.Invoke(_actionB);
                 DismissControl();
                 break;
             case JoyEdge.Up:
@@ -109,5 +121,7 @@ public class ABDialogueController : MonoBehaviour {
         OptionBText.text = content.OptionBText;
         _actionA = content.OptionAAction;
         _actionB = content.OptionBAction;
+        mode = content.Mode;
+        onModeSet(mode);
     }
 }

@@ -3,19 +3,19 @@ using Models.Actions;
 
 namespace Models.Actors
 {
-    public class ShieldActor : DelayedActor
+    public class ShieldActor : TemporaryEntity
     {
         private readonly IRoomActor _source;
         private readonly IRoomActor _target;
         private readonly int _damageReduction;
 
-        public ShieldActor(IRoomActor source, IRoomActor target, int timeToLive, int damageReduction) :base()
+        public ShieldActor(IRoomActor source, IRoomActor target, int timeToLive, int damageReduction) : base()
         {
-            Id = Guid.NewGuid().ToString();
             Stats[TimeToLiveKey] = timeToLive;
             _source = source;
             _target = target;
-            _damageReduction = damageReduction; 
+            _damageReduction = damageReduction;
+            Hidden = true;
         }
 
         public override ABDialogueContent CalculateDialogue(IRoom room)

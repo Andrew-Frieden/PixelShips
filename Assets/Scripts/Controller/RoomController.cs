@@ -52,7 +52,7 @@ namespace Controller
         {
             foreach (var entity in room.Entities)
             {
-                if (entity != room.PlayerShip && entity.PrintToScreen)
+                if (entity != room.PlayerShip && !entity.Hidden)
                 {
                     entity.DialogueContent = entity.CalculateDialogue(room);
                 }

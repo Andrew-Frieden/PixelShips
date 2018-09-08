@@ -5,15 +5,15 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
-using static Models.Stats.StatKeys;
 
-public class ExampleHazardFlexEntity : FlexEntity
+public class SometimesDamageHazard : FlexEntity
 {
     public override ABDialogueContent CalculateDialogue(IRoom room)
     {
         return DialogueBuilder.Init()
             .AddMainText("The plasma storm looks pretty dangerous. There isn't much you can do about it.")
-            .SetMode(ABDialogueMode.Acknowledge)
+            .AddTextA("Cancel Scan")
+            .SetMode(ABDialogueMode.Cancel)
             .Build();
     }
 
@@ -39,11 +39,11 @@ public class ExampleHazardFlexEntity : FlexEntity
         }
     }
 
-    public ExampleHazardFlexEntity(FlexEntityDto dto, IRoom room) : base(dto, room)
+    public SometimesDamageHazard(FlexEntityDto dto, IRoom room) : base(dto, room)
     {
     }
 
-    public ExampleHazardFlexEntity(int damage, int chance = 50)
+    public SometimesDamageHazard(int damage, int chance = 50) : base()
     {
         Name = "Plasma Storm";
         Stats = new Dictionary<string, int>

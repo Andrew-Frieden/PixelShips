@@ -29,10 +29,10 @@ namespace Models.Actions
             var actor = (IRoomActor) room.FindEntity(_actorId);
             if (actor != null)
             {
-                actor.Stats[DelayedActor.TimeToLiveKey]--;
+                actor.Stats[TemporaryEntity.TimeToLiveKey]--;
             }
            
-            return _description != null ? new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks."} : new List<string>() {};
+            return _description != null ? new List<string>() { _description + $"in {actor.Stats[TemporaryEntity.TimeToLiveKey]} ticks."} : new List<string>() {};
         }
     }
 }

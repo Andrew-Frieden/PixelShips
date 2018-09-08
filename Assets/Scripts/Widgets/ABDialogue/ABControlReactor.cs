@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,8 @@ public class ABControlReactor : MonoBehaviour
             joyStick = GetComponentInChildren<FixedJoystick>();
         }
         joyStick.Dragged += HandleSelection;
+
+        ABDialogueController.onModeSet += HandleMode;
 
         SetDefaults();
         ShowJoystickBackground();
@@ -85,6 +88,30 @@ public class ABControlReactor : MonoBehaviour
             ShowImage(JoystickBackgroundImage);
         }
         ShowImage(JoystickHandleImage);
+    }
+
+    private void HandleMode(ABDialogueMode mode)
+    {
+        switch (mode)
+        {
+            case ABDialogueMode.ABCancel:
+                Cancel.enabled = true;
+                LeftImage.enabled = true;
+                RightImage.enabled = true;
+                break;
+            case ABDialogueMode.ACancel:
+                Cancel.enabled = true;
+                LeftImage.enabled = true;
+                RightImage.enabled = false;
+                break;
+            case ABDialogueMode.Cancel:
+                Cancel.enabled = true;
+                LeftImage.enabled = false;
+                RightImage.enabled = false;
+                break;
+            default:
+                throw new Exception($"ABControlReactor.HandleMode() unsupported mode: {mode}");
+        }
     }
 
     private void HandleSelection(JoyEdge edge)

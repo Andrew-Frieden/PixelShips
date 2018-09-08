@@ -7,7 +7,7 @@ using TextEncoding;
 
 namespace Models
 {
-    public partial class ExampleNpcFlexEntity : FlexEntity
+    public partial class NeedsHelpNpc : FlexEntity
     {
         private enum NpcState
         {
@@ -23,14 +23,13 @@ namespace Models
             { NpcState.HelpFail, "A <> is irreparably trapped in the dense kelp." }
         };
         
-        public ExampleNpcFlexEntity(FlexEntityDto dto, IRoom room) : base(dto, room)
+        public NeedsHelpNpc(FlexEntityDto dto, IRoom room) : base(dto, room)
         {
         }
-        
-        public ExampleNpcFlexEntity(string name = "NCA Patrol Officer")
+
+        public NeedsHelpNpc(string name = "NCA Patrol Officer") : base()
         {
             Name = name;
-            Id = Guid.NewGuid().ToString();
             Stats = new Dictionary<string, int>();
         }
 
@@ -54,12 +53,12 @@ namespace Models
                 case (int)NpcState.HelpSuccess:
                     return DialogueBuilder.Init()
                         .AddMainText("Yay thanks for the help!")
-                        .SetMode(ABDialogueMode.Acknowledge)
+                        .SetMode(ABDialogueMode.Cancel)
                         .Build();
                 case (int)NpcState.HelpFail:
                     return DialogueBuilder.Init()
                         .AddMainText("Hey you tried your best. I'll call for backup.")
-                        .SetMode(ABDialogueMode.Acknowledge)
+                        .SetMode(ABDialogueMode.Cancel)
                         .Build();
             }
 
@@ -72,7 +71,7 @@ namespace Models
         }
     }
 
-    public partial class ExampleNpcFlexEntity
+    public partial class NeedsHelpNpc
     {
         private class HelpRiskyAction : SimpleAction
         {

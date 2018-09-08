@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Models.Actions;
 using Models.Dtos;
-using Models.Stats;
 
 namespace Models
 {
     public abstract class FlexEntity : IRoomActor
     {
-        public bool PrintToScreen { get; set; }
+        public bool Hidden { get; protected set; }
 
         public bool IsAggro
         {
@@ -33,7 +33,7 @@ namespace Models
             }
         }
         
-        public string Id { get; protected set; }
+        public string Id { get; private set; }
         public string Description { get; }  //  do we really need a description field? shouldn't GetLookText calculate it?
         public string Name { get; protected set; }
         
@@ -65,7 +65,11 @@ namespace Models
             Name = dto.Name;
         }
 
-        protected FlexEntity() { }
+        protected FlexEntity()
+        {
+            Id = Guid.NewGuid().ToString();
+            Stats = new Dictionary<string, int>();
+        }
         
         public string GetLinkText()
         {

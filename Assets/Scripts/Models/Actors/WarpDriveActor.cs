@@ -4,7 +4,7 @@ using Models.Actions;
 
 namespace Models.Actors
 {
-    public class WarpDriveActor : DelayedActor
+    public class WarpDriveActor : TemporaryEntity
     {
         private enum DriveState
         {
@@ -21,10 +21,9 @@ namespace Models.Actors
             { DriveState.Ready, "Your warp drive is ready to jump." }
         };
         
-        public WarpDriveActor(int timeToLive)
+        public WarpDriveActor(int timeToLive) : base()
         {
-            PrintToScreen = false;
-            Id = Guid.NewGuid().ToString();
+            Hidden = true;
             Stats[TimeToLiveKey] = timeToLive;
         }
 

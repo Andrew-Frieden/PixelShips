@@ -12,7 +12,7 @@ public class ABDialogueContent
 
 public enum ABDialogueMode
 {
-    AB,
-    AorCancel,
-    Acknowledge
+    ABCancel = 0,
+    ACancel = 1,
+    Cancel = 2
 }

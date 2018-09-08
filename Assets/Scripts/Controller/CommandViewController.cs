@@ -25,7 +25,7 @@ namespace Controller
         private void Start()
         {
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
-            ABDialogueController.choseActionEvent += HandlePlayerChoseAction;
+            ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
             
             _roomController = new RoomController();
@@ -54,7 +54,7 @@ namespace Controller
 
         private void HandleLinkTouchedEvent(string guid)
         {
-            var entity = _room.Entities.FirstOrDefault(e => e.Id == guid) ?? (ITextEntity) _room.PlayerShip;
+            var entity = _room.FindEntity(guid);
             abController.ShowControl(entity.DialogueContent);
         }
 

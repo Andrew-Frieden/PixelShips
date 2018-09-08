@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using Models.Actions;
-
-namespace Models.Actors
+﻿namespace Models.Actors
 {
-    public abstract class DelayedActor : FlexEntity
+    public abstract class TemporaryEntity : FlexEntity
     {
         public const string TimeToLiveKey = "timetolive";
 
-        protected DelayedActor()
+        protected TemporaryEntity() : base()
         {
-            Stats = new Dictionary<string, int>();
         }
 
         public override void AfterAction(IRoom room)

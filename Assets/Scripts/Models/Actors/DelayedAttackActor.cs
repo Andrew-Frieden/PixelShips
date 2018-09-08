@@ -1,18 +1,16 @@
 ﻿using System;
 using Models.Actions;
-using Unity.Collections.LowLevel.Unsafe;
 
 namespace Models.Actors
 {
-    public class DelayedAttackActor : DelayedActor
+    public class DelayedAttackActor : TemporaryEntity
     {
         private readonly IRoomActor _source;
         private readonly IRoomActor _target;
         private readonly int _damage;
 
-        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage) :base()
+        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage) : base()
         {
-            Id = Guid.NewGuid().ToString();
             Stats[TimeToLiveKey] = timeToLive;
             _source = source;
             _target = target;
