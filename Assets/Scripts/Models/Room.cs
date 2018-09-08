@@ -16,10 +16,10 @@ namespace Models
         public int _tick { get; private set; }
         public string Description { get; set; }
 
+        public IRoom Exit { get; set; }
         public CommandShip PlayerShip { get; private set; }
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; }
-        public List<IRoom> Exits { get; set; }
         public ABDialogueContent DialogueContent { get; set; }
 
         public Room(string description, string link, CommandShip ship, List<IRoomActor> roomEntities, ABDialogueContent dialogueContent, List<RoomTemplate> templates)

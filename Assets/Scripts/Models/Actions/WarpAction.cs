@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
+using Models.Factories;
+using Repository;
 
 namespace Models.Actions
 {
     public class WarpAction : IRoomAction
     {
-        private IRoom _room;
+        private readonly RoomTemplate _template;
         
-        public WarpAction(IRoom room)
+        public WarpAction(RoomTemplate template)
         {
-            _room = room;
+            _template = template;
         }
         
         public IEnumerable<string> Execute(IRoom room)
         {
-            //Call command view controller
+            room.Exit = FactoryContainer.RoomFactory.GenerateRoom(_template);
             
-            
-            
-            return new List<string>() { "3...", "2...", "1..." };
+            return new List<string>() { "You begin to jump into hyperspace!", "3...", "2...", "1..." };
         }
     }
 }

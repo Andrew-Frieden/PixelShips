@@ -20,40 +20,33 @@ namespace Models.Factories
             _actors = entityRepository.LoadData();
         }
 
-        public IRoom GenerateRoom(RoomTemplate template, bool hasExits)
+        public IRoom GenerateRoom(RoomTemplate template)
         {
+            // if template.Flavor etc.
+            
+            var randomizedRooms = _rooms.OrderBy(a => Guid.NewGuid()).ToList();
+            var room = randomizedRooms.First();
+            
             var roomTemplate1 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
             var roomTemplate2 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
-            var roomTemplates = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
-
-            var randomizedRooms = _rooms.OrderBy(a => Guid.NewGuid()).ToList();
-            var skeletonRoom = randomizedRooms.First();
+            room.RoomTemplates = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
 
             //TODO: Take away setter
-            skeletonRoom.Description = RandomizeLeadIn() + skeletonRoom.Description;
-            skeletonRoom.DialogueContent = new ABDialogueContent
+            room.Description = RandomizeLeadIn() + room.Description;
+            room.DialogueContent = new ABDialogueContent
             {
                 MainText = "This is just placeholder text for the room dialogue content.",
                 OptionAText = "Option A.",
                 OptionBText = "Option B."
             };
+            
             foreach (var actor in _actors)
             {
-                skeletonRoom.AddEntity(actor);
+                room.AddEntity(actor);
             }
             //_actors.ForEach(a => skeletonRoom.AddEntity(a));
 
-            //TODO: Take away setter
-            if (hasExits)
-            {
-                skeletonRoom.Exits = new List<IRoom>()
-                {
-                    GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), false),
-                    GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), false)
-                };
-            }
-
-            return skeletonRoom;
+            return room;
         }
 
         private static string RandomizeLeadIn()

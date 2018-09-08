@@ -45,7 +45,7 @@ namespace Models.Actors
                 return new WarpDriveReadyAction(s.PlayerShip);
             }
             
-            return new DelayedAction($"Your warp drive is charging. It will be ready ", Id);
+            return new DelayedAction(Id);
         }
     }
 }

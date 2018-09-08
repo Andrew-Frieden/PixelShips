@@ -5,6 +5,9 @@ namespace Widgets.Scroller
 {
     public class ScrollCellTextTyper : TextTyper
     {
+        public delegate void TyperFinishedEvent();
+        public static event TyperFinishedEvent scrollCellTyperFinishedEvent;
+        
         protected override IEnumerator ShowCharacters(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -36,6 +39,7 @@ namespace Widgets.Scroller
                         //End if we are on the last cell
                         if (i == gameObject.transform.parent.parent.childCount - 1)
                         {
+                            scrollCellTyperFinishedEvent?.Invoke();
                             yield break;
                         }
                     

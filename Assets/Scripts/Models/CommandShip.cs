@@ -86,15 +86,12 @@ namespace Models
         {
             if (WarpDriveReady)
             {
-                var roomA = room.Exits[0];
-                var roomB = room.Exits[1];
-                
                 return DialogueBuilder.Init()
                     .AddMainText("Your ship looks like its ready to jump to hyperspace.")
                     .AddTextA("Warp to room A.")
-                    .AddActionA(new WarpAction(roomA))
+                    .AddActionA(new WarpAction(room.RoomTemplates[0]))
                     .AddTextB("Warp to room B.")
-                    .AddActionB(new WarpAction(roomB))
+                    .AddActionB(new WarpAction(room.RoomTemplates[1]))
                     .Build();
             }
             

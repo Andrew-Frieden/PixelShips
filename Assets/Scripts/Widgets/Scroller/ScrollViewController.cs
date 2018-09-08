@@ -74,6 +74,17 @@ public class ScrollViewController : MonoBehaviour {
         //After all the cells have been added reset the first flag
         _first = true;
     }
+
+    public void ClearScreen()
+    {
+        foreach (var cell in ActiveCells)
+        {
+            cell.gameObject.SetActive(false);
+            CachedCells.Add(cell);
+        }
+        
+        ActiveCells.Clear();
+    }
     
     private ScrollCell GetNextRecycledCell()
     {

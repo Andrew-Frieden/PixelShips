@@ -1,4 +1,5 @@
-﻿using Models.Actions;
+﻿using System.Collections;
+using Models.Actions;
 using TMPro;
 using UnityEngine;
 
@@ -92,22 +93,6 @@ public class ABDialogueController : MonoBehaviour {
         //  animate the display of content
         textTyper.TypeText(0.2f);
         //  wait for user input
-    }
-
-    public void ShowControl()
-    {
-        var content = new ABDialogueContent()
-        {
-            MainText = @"A tabby officer greets you over the voice comms:
-
-Meow Citizen!
-
-I was in pursuit of two renegade Verdants in this sectorrr but my ship got stuck in the kelp.Can you renderrr me some assistance ? ",
-            OptionAText = "Might want to consider this idea",
-            OptionBText = "Sounds risky"
-        };
-
-        ShowControl(content);
     }
 
     //  hide the control from view. this gets called by the 'back' option.

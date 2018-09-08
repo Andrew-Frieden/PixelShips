@@ -19,18 +19,25 @@ namespace Controller
             }
         }
 
-        public List<string> GetActionResults(IRoomAction playerAction, IRoom room)
+        public IEnumerable<string> ExecuteActions(IRoomAction playerAction, IRoom room)
         {
             var actionResults = new List<string>();
-            var actionsToExecute = new List<IRoomAction>
+            var actionsToExecute = new List<IRoomAction>();
+
+            if (!(playerAction is WarpAction))
             {
-                playerAction
-            };
+                actionsToExecute.Add(playerAction);
+            }
 
             foreach (var entity in room.Entities)
             {
                 var nextAction = entity.GetNextAction(room);
                 actionsToExecute.Add(nextAction);
+            }
+            
+            if (playerAction is WarpAction)
+            {
+                actionsToExecute.Add(playerAction);
             }
             
             foreach (var action in actionsToExecute)

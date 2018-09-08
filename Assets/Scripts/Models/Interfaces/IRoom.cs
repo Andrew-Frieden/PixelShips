@@ -10,14 +10,12 @@ public interface IRoom : ITextEntity
     void Tick();
     
     List<RoomTemplate> RoomTemplates { get; set; }
+    IRoom Exit { set; get; }
     
     CommandShip PlayerShip { get; }
     string Description { get; set; }
     RoomFlavor Flavor { get; }
     List<IRoomActor> Entities { get; }
-    List<IRoom> Exits { set; get; }
-
-    List<string> ResolveNext(IRoomAction playerAction);
 
     void SetPlayerShip(CommandShip ship);
     void AddEntity(IRoomActor actor);

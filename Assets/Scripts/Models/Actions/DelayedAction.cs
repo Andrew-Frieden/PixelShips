@@ -14,11 +14,16 @@ namespace Models.Actions
             _actorId = actorId;
         }
         
+        public DelayedAction(string actorId)
+        {
+            _actorId = actorId;
+        }
+        
         public override IEnumerable<string> Execute(IRoom room)
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
             actor.Stats[DelayedActor.TimeToLiveKey]--;
-            return new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks."};
+            return _description != null ? new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks."} : new List<string>() {};
         }
     }
 }

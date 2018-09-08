@@ -1,12 +1,12 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Models;
 using Models.Actions;
 using Models.Factories;
-using Repository;
 using UnityEngine;
+using Widgets.Scroller;
 
 namespace Controller
 {
@@ -20,19 +20,22 @@ namespace Controller
         public Blink Blink;
         private IRoom _room;
 
+        private bool _warpToNextRoom = false;
+
         private void Start()
         {
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
             ABDialogueController.choseActionEvent += HandlePlayerChoseAction;
+            ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
             
             _roomController = new RoomController();
             var playerShip = FactoryContainer.ShipFactory.GenerateCommandShip();
 
-            _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"), true);
+            _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp, "trade"));
             _room.SetPlayerShip(playerShip);
             
             _roomController.StartNextRoom(_room, _room);
-            
+
             scrollView.AddCells(CalculateLookText(_room));
 
             StartCoroutine(Blink.BlinkLoop());
@@ -57,20 +60,38 @@ namespace Controller
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
-            //if player warped -> break
-            if (playerAction is WarpAction)
-            {
-                return;
-            }
-
-            var actionResults = _roomController.GetActionResults(playerAction, _room);
+            scrollView.AddCells(_roomController.ExecuteActions(playerAction, _room));
             
-            scrollView.AddCells(actionResults);
+            //if Exit is populated -> player is warping
+            if (_room.Exit != null)
+            {
+                _warpToNextRoom = true;
+            }
             
             _roomController.DoCleanup(_room);
             _roomController.CalculateNewDialogues(_room);
             
             _room.Tick();
+        }
+
+        private void HandleScrollCellTyperFinishedEvent()
+        {
+            if (!_warpToNextRoom) return;
+            
+            _warpToNextRoom = false;
+            StartCoroutine(WaitAndStartNextRoom());
+        }
+        
+        private IEnumerator WaitAndStartNextRoom()
+        {
+            yield return new WaitForSecondsRealtime(2.0f);
+            
+            scrollView.ClearScreen();
+            _roomController.StartNextRoom(_room.Exit, _room);
+                
+            _room = _room.Exit;
+                
+            scrollView.AddCells(CalculateLookText(_room));
         }
     }
 }
