@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Models.Actions;
+using Models.Dialogue;
 using PixelSpace.Models.SharedModels.Helpers;
 using Repository;
 
@@ -33,18 +35,18 @@ namespace Models.Factories
 
             //TODO: Take away setter
             room.Description = RandomizeLeadIn() + room.Description;
-            room.DialogueContent = new ABDialogueContent
-            {
-                MainText = "This is just placeholder text for the room dialogue content.",
-                OptionAText = "Option A.",
-                OptionBText = "Option B."
-            };
+            room.DialogueContent = DialogueBuilder.Init()
+                .AddMainText("This is just placeholder text for the room dialogue content.")
+                .AddTextA("Delay.")
+                .AddActionA(new DelayedAction())
+                .AddTextB("Delay.")
+                .AddActionB(new DelayedAction())
+                .Build();
             
             foreach (var actor in _actors)
             {
                 room.AddEntity(actor);
             }
-            //_actors.ForEach(a => skeletonRoom.AddEntity(a));
 
             return room;
         }

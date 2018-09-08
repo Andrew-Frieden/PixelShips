@@ -30,7 +30,7 @@ namespace Models.Actors
 
         public override IRoomAction GetNextAction(IRoom s)
         {
-            return new DelayedAction($"A shield effects {_source.GetLinkText()} and will end ", Id);
+            return new DelayedAction(Id);
         }
     }
 }

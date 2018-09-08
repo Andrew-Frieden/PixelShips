@@ -19,10 +19,19 @@ namespace Models.Actions
             _actorId = actorId;
         }
         
+        public DelayedAction()
+        {
+            
+        }
+        
         public override IEnumerable<string> Execute(IRoom room)
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
-            actor.Stats[DelayedActor.TimeToLiveKey]--;
+            if (actor != null)
+            {
+                actor.Stats[DelayedActor.TimeToLiveKey]--;
+            }
+           
             return _description != null ? new List<string>() { _description + $"in {actor.Stats[DelayedActor.TimeToLiveKey]} ticks."} : new List<string>() {};
         }
     }

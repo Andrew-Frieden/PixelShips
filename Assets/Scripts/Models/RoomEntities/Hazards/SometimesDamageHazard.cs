@@ -43,7 +43,7 @@ public class ExampleHazardFlexEntity : FlexEntity
     {
     }
 
-    public ExampleHazardFlexEntity(int damage, int chance = 50)
+    public ExampleHazardFlexEntity(int damage, int chance = 20)
     {
         Name = "Plasma Storm";
         Stats = new Dictionary<string, int>

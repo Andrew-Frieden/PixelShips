@@ -8,6 +8,7 @@ namespace Controller
         public void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
+            previousRoom.PlayerShip.WarpDriveReady = false;
             nextRoom.PlayerShip.DialogueContent =  nextRoom.PlayerShip.CalculateDialogue(nextRoom);
             
             foreach(var ent in nextRoom.Entities)
@@ -22,22 +23,21 @@ namespace Controller
         public IEnumerable<string> ExecuteActions(IRoomAction playerAction, IRoom room)
         {
             var actionResults = new List<string>();
-            var actionsToExecute = new List<IRoomAction>();
+            var actionsToExecute = new List<IRoomAction>()
+            {
+                playerAction
+            };
 
+            //TODO: Dont love that this business logic is in here 
+            //The point of this is that if we are warping we don't execute anything else
+            //for that tick. We could change this flow.
             if (!(playerAction is WarpAction))
             {
-                actionsToExecute.Add(playerAction);
-            }
-
-            foreach (var entity in room.Entities)
-            {
-                var nextAction = entity.GetNextAction(room);
-                actionsToExecute.Add(nextAction);
-            }
-            
-            if (playerAction is WarpAction)
-            {
-                actionsToExecute.Add(playerAction);
+                foreach (var entity in room.Entities)
+                {
+                    var nextAction = entity.GetNextAction(room);
+                    actionsToExecute.Add(nextAction);
+                }
             }
             
             foreach (var action in actionsToExecute)
