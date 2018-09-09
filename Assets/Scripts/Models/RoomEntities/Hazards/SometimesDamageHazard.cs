@@ -90,6 +90,8 @@ public class SometimesDamageHazard : FlexEntity
             }
 
             Target.Stats[StatKeys.Hull] -= actualDamage;
+            
+            PlayerTookDamage(new PlayerTookDamageEventArgs(actualDamage));
 
             //var exampleText = "An energy surge from a <> scorches your hull for {0} damage!";
             var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);

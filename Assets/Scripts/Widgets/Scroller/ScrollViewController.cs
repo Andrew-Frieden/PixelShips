@@ -16,6 +16,8 @@ public class ScrollViewController : MonoBehaviour {
     private Queue<ScrollCell> ActiveCells;
     private List<ScrollCell> CachedCells;
     
+    private Vector2 _scrollViewPos;
+    
     public delegate void CellAddedEvent();
     public static event CellAddedEvent cellAddedEvent;
     
@@ -102,6 +104,49 @@ public class ScrollViewController : MonoBehaviour {
 
         var oldestCell = ActiveCells.Dequeue();
         return oldestCell;
+    }
+    
+    public void Shake()
+    {
+        _scrollViewPos = new Vector2(GetComponent<RectTransform>().anchoredPosition.x,
+                                     GetComponent<RectTransform>().anchoredPosition.y);
+            
+        InvokeRepeating(nameof(BeginShake), 0, 0.05f);
+        Invoke(nameof(StopShake), 1.0f);
+    }
+
+    private void BeginShake()
+    {
+        var scrollViewPos = GetComponent<RectTransform>().anchoredPosition;
+
+        var offsetX = Random.value * 5;
+        var offsetY = Random.value * 5;
+
+        if (Random.Range(0, 100) > 50)
+        {
+            scrollViewPos.x += offsetX;
+        }
+        else
+        {
+            scrollViewPos.x -= offsetX;
+        }
+            
+        if (Random.Range(0, 100) > 50)
+        {
+            scrollViewPos.y += offsetY;
+        }
+        else
+        {
+            scrollViewPos.y -= offsetY;
+        }
+
+        GetComponent<RectTransform>().anchoredPosition = scrollViewPos;
+    }
+
+    private void StopShake()
+    {
+        CancelInvoke(nameof(BeginShake));
+        GetComponent<RectTransform>().anchoredPosition = _scrollViewPos;
     }
 }
 

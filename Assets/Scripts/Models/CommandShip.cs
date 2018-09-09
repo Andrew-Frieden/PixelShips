@@ -20,7 +20,7 @@ namespace Models
                 if (_stats == null)
                 {
                     _stats = new Dictionary<string, int>();
-                    _stats[StatKeys.Hull] = 10;
+                    _stats[StatKeys.Hull] = 20;
                     _stats[StatKeys.Captainship] = 11;
                     _stats[StatKeys.Resourcium] = 1;
                     _stats[StatKeys.WarpDriveReady] = 0;

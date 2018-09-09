@@ -26,5 +26,23 @@ namespace Models.Actions
         protected SimpleAction()
         {
         }
+        
+        public delegate void OnPlayerTookDamageEvent(PlayerTookDamageEventArgs args);
+        public static event OnPlayerTookDamageEvent onPlayerTookDamageEvent;
+        
+        protected virtual void PlayerTookDamage(PlayerTookDamageEventArgs args)
+        {
+            onPlayerTookDamageEvent?.Invoke(args);
+        }
+    }
+    
+    public class PlayerTookDamageEventArgs : EventArgs
+    {
+        public int Damage { get; }
+
+        public PlayerTookDamageEventArgs(int damage)
+        {
+            Damage = damage;
+        }
     }
 }
