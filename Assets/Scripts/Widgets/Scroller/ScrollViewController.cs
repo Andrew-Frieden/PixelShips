@@ -55,7 +55,7 @@ public class ScrollViewController : MonoBehaviour {
         var verticalSize = cell.SetupScrollCell(encodedText, _first);
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
-
+        cell.Dim(false);
         ActiveCells.Enqueue(cell);
         LastActiveCell = cell;
         
@@ -76,7 +76,7 @@ public class ScrollViewController : MonoBehaviour {
     {
         foreach(var cell in ActiveCells)
         {
-            cell.Dim();
+            cell.Dim(true);
         }
     }
 

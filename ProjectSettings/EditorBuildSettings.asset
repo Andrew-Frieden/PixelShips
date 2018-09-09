@@ -5,13 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Scroller.unity
-    guid: 8ec20f76549e84a429548157d3515f40
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Main - Drew.unity
-    guid: 43fc5a5c5ca6baf428b885dbe7841d97
+    path: Assets/Scenes/Main - Adam.unity
+    guid: 63cabcd2f5c0dfb4abb9d40f7ba0c4c6
   m_configObjects: {}

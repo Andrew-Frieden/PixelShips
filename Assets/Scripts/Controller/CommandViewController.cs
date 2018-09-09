@@ -81,7 +81,7 @@ namespace Controller
         
         private IEnumerator WaitAndStartNextRoom()
         {
-            yield return new WaitForSecondsRealtime(2.0f);
+            yield return new WaitForSecondsRealtime(1.0f);
             
             scrollView.ClearScreen();
 

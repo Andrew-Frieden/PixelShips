@@ -6,6 +6,9 @@ using Widgets.Scroller;
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
     private const int Spacing = 5;
+    private bool dimmed;
+    private readonly float DimScale = 0.55f;
+    private float _inverseDimScale => (1.0f / DimScale);
     
     public RectTransform RectTransform;
     [SerializeField] private TextMeshProUGUI EncodedText;
@@ -41,8 +44,28 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void Dim()
+    public void Dim(bool dim)
     {
-        EncodedText.CrossFadeAlpha(0.5f, 0.5f, true);
+        if (dim == dimmed)
+            return;
+
+        if (dim)
+        {
+            var color = EncodedText.color;
+            color.r = color.r * DimScale;
+            color.g = color.g * DimScale;
+            color.b = color.b * DimScale;
+            EncodedText.color = color;
+        }
+        else
+        {
+            var color = EncodedText.color;
+            color.r = color.r * _inverseDimScale;
+            color.g = color.g * _inverseDimScale;
+            color.b = color.b * _inverseDimScale;
+            EncodedText.color = color;
+        }
+
+        dimmed = dim;
     }
 }
