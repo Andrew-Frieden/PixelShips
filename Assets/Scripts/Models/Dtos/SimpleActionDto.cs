@@ -8,5 +8,6 @@ namespace Models.Dtos
         public string TargetId;
         public string SourceId;
         public Dictionary<string, int> Stats;
+        public Dictionary<string, string> Values;
     }
 }

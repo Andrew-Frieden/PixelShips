@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Models.Actions;
 using Models.Dialogue;
+using Models.Stats;
 using TextEncoding;
 
 namespace Models
@@ -112,7 +113,7 @@ namespace Models
                 .AddTextA("Create a shield.")
                 .AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
                 .AddTextB("Spin up your warp drive.")
-                .AddActionB(new CreateWarpDriveActorAction(2))
+                .AddActionB(new CreateWarpDriveActorAction(1))
                 .Build();
         }
 

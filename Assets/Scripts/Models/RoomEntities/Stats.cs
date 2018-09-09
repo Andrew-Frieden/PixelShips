@@ -12,6 +12,16 @@ namespace Models.Stats
         public static readonly string Resourcium = "resourcium";
         public static readonly string ExampleDamageMitigationStat = "damage_mitigation";
         public static readonly string WarpDriveReady = "warp_drive_ready";
+        public static readonly string HazardDamageAmount = "hazard_damage_amount";
+        public static readonly string HazardDamageChance = "hazard_damage_chance";
+    }
+
+    public static class ValueKeys
+    {
+        public static readonly string Name = "name";
+        public static readonly string LookText = "look_text";
+        public static readonly string DialogueText = "dialogue_text";
+        public static readonly string HazardDamageText = "hazard_damage_text";
     }
 
     public static class StatsHelper

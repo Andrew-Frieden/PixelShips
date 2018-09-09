@@ -94,6 +94,7 @@ namespace Models.Dtos
             {
                 ActionName = simpleAction.ActionName,
                 Stats = simpleAction.Stats,
+                Values = simpleAction.Values,
                 SourceId = simpleAction.Source.Id,
                 TargetId = simpleAction.Target.Id
             };
@@ -105,7 +106,7 @@ namespace Models.Dtos
             {
                 EntityType = entity.GetType().FullName,
                 Id = entity.Id,
-                Name = entity.Name,
+                Values = entity.Values,
                 Stats = entity.Stats
             };
         }

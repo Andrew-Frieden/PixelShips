@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using GameData;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
 
 namespace Models.Factories.Helpers
 {
@@ -9,17 +12,13 @@ namespace Models.Factories.Helpers
             var entities = new List<IRoomActor>();
             
             var exampleNpc = new NeedsHelpNpc();
-            var exampleHazard = new SometimesDamageHazard(2, 20);
-
-            if (template.Difficulty * 10 < UnityEngine.Random.Range(1, 100))
+            if (template.Difficulty * 10 < Random.Range(1, 100))
             {
                 entities.Add(exampleNpc);
             }
 
-            if (template.Difficulty * 10 < UnityEngine.Random.Range(1, 100))
-            {
-                entities.Add(exampleHazard);
-            }
+            var data = ExampleGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
+            entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
 
             return entities;
         }
@@ -39,9 +38,9 @@ namespace Models.Factories.Helpers
         {
             var entities = new List<IRoomActor>();
             
-            var exampleHazard = new SometimesDamageHazard(2, 20);
+            //var exampleHazard = new SometimesDamageHazard(2, 20);
 
-            entities.Add(exampleHazard);
+            //entities.Add(exampleHazard);
             
             return entities;
         }

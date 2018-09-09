@@ -11,6 +11,7 @@ namespace Models.Actions
         public IRoomActor Target;
         public IRoomActor Source;
         public Dictionary<string, int> Stats;
+        public Dictionary<string, string> Values;
 
         public abstract IEnumerable<string> Execute(IRoom room);
         
@@ -19,6 +20,7 @@ namespace Models.Actions
             Source = (IRoomActor)room.FindEntity(dto.SourceId);
             Target = (IRoomActor)room.FindEntity(dto.TargetId);
             Stats = dto.Stats;
+            Values = dto.Values;
         }
         
         protected SimpleAction()

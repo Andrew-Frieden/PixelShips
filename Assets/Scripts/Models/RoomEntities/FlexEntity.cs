@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Models.Actions;
 using Models.Dtos;
+using Models.Stats;
 
 namespace Models
 {
@@ -34,8 +35,18 @@ namespace Models
         }
         
         public string Id { get; private set; }
-        public string Description { get; }  //  do we really need a description field? shouldn't GetLookText calculate it?
-        public string Name { get; protected set; }
+
+        public string Name
+        {
+            get
+            {
+                return Values[ValueKeys.Name];
+            }
+            protected set
+            {
+                Values[ValueKeys.Name] = value;
+            }
+        }
         
         public Dictionary<string, int> Stats { get; protected set; }
         public Dictionary<string, string> Values { get; protected set; }
@@ -64,7 +75,6 @@ namespace Models
             Values = dto.Values;
             Stats = dto.Stats;
             Id = dto.Id;
-            Name = dto.Name;
         }
 
         protected FlexEntity()
@@ -73,7 +83,14 @@ namespace Models
             Stats = new Dictionary<string, int>();
             Values = new Dictionary<string, string>();
         }
-        
+
+        protected FlexEntity(Dictionary<string, int> stats, Dictionary<string, string> values)
+        {
+            Id = Guid.NewGuid().ToString();
+            Stats = stats;
+            Values = values;
+        }
+
         public string GetLinkText()
         {
             return Name;
@@ -89,15 +106,9 @@ namespace Models
         }
     }
 
-    public static class StatKeys
+    public class FlexData
     {
-        public static readonly string CanCombat = "can_combat";     //  1 if the entity is capable of participating in combat
-        public static readonly string IsAggro = "is_aggro";         //  1 if the entity is actively attacking or being attacked
-        public static readonly string Hull = "current_hull";
-        public static readonly string MaxHull = "max_hull";
-        public static readonly string Captainship = "captainship";
-        public static readonly string Resourcium = "resourcium";
-        public static readonly string ExampleDamageMitigationStat = "damage_mitigation";
-        public static readonly string WarpDriveReady = "warp_drive_ready";
+        public Dictionary<string, int> Stats;
+        public Dictionary<string, string> Values;
     }
 }
