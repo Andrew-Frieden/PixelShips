@@ -15,21 +15,21 @@ public class ShipHudController : MonoBehaviour
 	public void InitializeShipHud(int hull)
 	{
 		CurrentHull = hull;
-		_hull.text = "Current Hull: " + CurrentHull.ToString();
+		_hull.text = "Current Hull: " + CurrentHull;
 	}
 
 	public void UpdateHull(int newHull)
 	{
-		StartCoroutine(UpdateText(newHull));
+		StartCoroutine(UpdateHullText(newHull));
 	}
 
-	private IEnumerator UpdateText(int newHull)
+	private IEnumerator UpdateHullText(int newHull)
 	{
 		while (newHull  < CurrentHull)
 		{
 			CurrentHull -= 1;
 			CurrentHull = Mathf.Clamp(CurrentHull, newHull, CurrentHull);
-			_hull.text = "Current Hull: " + CurrentHull.ToString();
+			_hull.text = "Current Hull: " + CurrentHull;
 			yield return new WaitForSeconds(1 / (CurrentHull - newHull));
 		}
 		
@@ -37,7 +37,7 @@ public class ShipHudController : MonoBehaviour
 		{
 			CurrentHull += 1;
 			CurrentHull = Mathf.Clamp(CurrentHull, 0f, newHull);
-			_hull.text = "Current Hull: " + CurrentHull.ToString();
+			_hull.text = "Current Hull: " + CurrentHull;
 			yield return new WaitForSeconds(1 / (CurrentHull - newHull));
 		}
 	}

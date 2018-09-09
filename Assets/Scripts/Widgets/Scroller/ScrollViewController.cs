@@ -17,6 +17,7 @@ public class ScrollViewController : MonoBehaviour {
     private List<ScrollCell> CachedCells;
     
     private Vector2 _scrollViewPos;
+    private RectTransform _scrollViewRectTransform;
     
     public delegate void CellAddedEvent();
     public static event CellAddedEvent cellAddedEvent;
@@ -108,8 +109,9 @@ public class ScrollViewController : MonoBehaviour {
     
     public void Shake()
     {
-        _scrollViewPos = new Vector2(GetComponent<RectTransform>().anchoredPosition.x,
-                                     GetComponent<RectTransform>().anchoredPosition.y);
+        _scrollViewRectTransform = GetComponent<RectTransform>();
+        _scrollViewPos = new Vector2(_scrollViewRectTransform.anchoredPosition.x,
+                                     _scrollViewRectTransform.anchoredPosition.y);
             
         InvokeRepeating(nameof(BeginShake), 0, 0.05f);
         Invoke(nameof(StopShake), 1.0f);
@@ -117,7 +119,7 @@ public class ScrollViewController : MonoBehaviour {
 
     private void BeginShake()
     {
-        var scrollViewPos = GetComponent<RectTransform>().anchoredPosition;
+        var scrollViewPos = _scrollViewRectTransform.anchoredPosition;
 
         var offsetX = Random.value * 5;
         var offsetY = Random.value * 5;
@@ -140,13 +142,13 @@ public class ScrollViewController : MonoBehaviour {
             scrollViewPos.y -= offsetY;
         }
 
-        GetComponent<RectTransform>().anchoredPosition = scrollViewPos;
+        _scrollViewRectTransform.anchoredPosition = scrollViewPos;
     }
 
     private void StopShake()
     {
         CancelInvoke(nameof(BeginShake));
-        GetComponent<RectTransform>().anchoredPosition = _scrollViewPos;
+        _scrollViewRectTransform.anchoredPosition = _scrollViewPos;
     }
 }
 
