@@ -20,6 +20,9 @@ namespace Models.Factories.Helpers
             var data = ExampleGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
             entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
 
+            var miningAsteroid = new MiningGatherableObject();
+            entities.Add(miningAsteroid);
+
             return entities;
         }
         

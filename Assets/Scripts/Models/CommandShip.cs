@@ -24,6 +24,7 @@ namespace Models
                     _stats[StatKeys.Captainship] = 11;
                     _stats[StatKeys.Resourcium] = 1;
                     _stats[StatKeys.WarpDriveReady] = 0;
+                    _stats[StatKeys.Scrap] = 0;
                 }
                 return _stats;
             }

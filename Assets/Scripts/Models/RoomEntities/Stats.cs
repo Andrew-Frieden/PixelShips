@@ -10,6 +10,7 @@ namespace Models.Stats
         public static readonly string MaxHull = "max_hull";
         public static readonly string Captainship = "captainship";
         public static readonly string Resourcium = "resourcium";
+        public static readonly string Scrap = "scrap";
         public static readonly string ExampleDamageMitigationStat = "damage_mitigation";
         public static readonly string WarpDriveReady = "warp_drive_ready";
         public static readonly string HazardDamageAmount = "hazard_damage_amount";
