@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TextEncoding;
 
 namespace Models.Actions
 {
@@ -13,7 +14,7 @@ namespace Models.Actions
         {
             ((CommandShip) Source).WarpDriveReady = true;
 
-            return new List<string> { "Your drive is ready." };
+            return new List<string> { "<> is ready.".Encode("Warp drive", Source.Id, "blue") };
         }
     }
 }
