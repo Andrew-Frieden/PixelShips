@@ -61,6 +61,8 @@ namespace Controller
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
             var text = _roomController.ResolveNextTick(_room, playerAction);
+
+            scrollView.DimCells();
             scrollView.AddCells(text);
 
             //if Exit is populated -> player is warping

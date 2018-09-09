@@ -72,6 +72,14 @@ public class ScrollViewController : MonoBehaviour {
         _first = true;
     }
 
+    public void DimCells()
+    {
+        foreach(var cell in ActiveCells)
+        {
+            cell.Dim();
+        }
+    }
+
     public void ClearScreen()
     {
         foreach (var cell in ActiveCells)

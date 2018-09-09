@@ -43,4 +43,9 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
             linkTouchedEvent?.Invoke(EncodedText.textInfo.linkInfo[result].GetLinkID());
         }
     }
+
+    public void Dim()
+    {
+        EncodedText.CrossFadeAlpha(0.5f, 0.5f, true);
+    }
 }
