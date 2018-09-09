@@ -3,35 +3,27 @@ using Models.Actions;
 
 namespace Controller
 {
-    public sealed class RoomController
+    public static class RoomController
     {
-        public void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
+        public static void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
-            previousRoom.PlayerShip.WarpDriveReady = false;
-            nextRoom.PlayerShip.DialogueContent =  nextRoom.PlayerShip.CalculateDialogue(nextRoom);
-            
-            foreach(var ent in nextRoom.Entities)
-            {
-                if (ent != nextRoom.PlayerShip)
-                {
-                    ent.DialogueContent = ent.CalculateDialogue(nextRoom);
-                }
-            }
+            nextRoom.PlayerShip.WarpTarget = null;
+            CalculateDialogues(nextRoom);
         }
 
-        public IEnumerable<string> ResolveNextTick(IRoom room, IRoomAction playerAction)
+        public static IEnumerable<string> ResolveNextTick(IRoom room, IRoomAction playerAction)
         {
             var resolveText = ExecuteActions(room, playerAction);
 
             DoCleanup(room);
-            CalculateNewDialogues(room);
+            CalculateDialogues(room);
             room.Tick();
 
             return resolveText;
         }
 
-        private IEnumerable<string> ExecuteActions(IRoom room, IRoomAction playerAction)
+        private static IEnumerable<string> ExecuteActions(IRoom room, IRoomAction playerAction)
         {
             var actionResults = new List<string>();
             var actionsToExecute = new List<IRoomAction>()
@@ -59,7 +51,7 @@ namespace Controller
             return actionResults;
         }
 
-        private void CalculateNewDialogues(IRoom room)
+        private static void CalculateDialogues(IRoom room)
         {
             foreach (var entity in room.Entities)
             {
@@ -72,7 +64,7 @@ namespace Controller
             room.PlayerShip.DialogueContent =  room.PlayerShip.CalculateDialogue(room);
         }
 
-        private void DoCleanup(IRoom room)
+        private static void DoCleanup(IRoom room)
         {
             foreach (var entity in room.Entities)
             {

@@ -29,6 +29,16 @@ namespace Models
             private set { _stats = value; }
         }
 
+        private Dictionary<string, string> _values;
+        public Dictionary<string, string> Values
+        {
+            get
+            {
+                return _values;
+            }
+            private set { _values = value; }
+        }
+
         public bool Hidden { get; }
 
         public bool IsAggro
@@ -54,6 +64,8 @@ namespace Models
                 Stats[StatKeys.WarpDriveReady] = value ? 1 : 0;
             }
         }
+
+        public RoomTemplate WarpTarget;
 
         public bool CanCombat { get { return true; } }
 
@@ -89,9 +101,9 @@ namespace Models
                 return DialogueBuilder.Init()
                     .AddMainText("Your ship looks like its ready to jump to hyperspace.")
                     .AddTextA("Warp to room A.")
-                    .AddActionA(new WarpAction(room.RoomTemplates[0]))
+                    .AddActionA(new WarpAction(room.Exits[0]))
                     .AddTextB("Warp to room B.")
-                    .AddActionB(new WarpAction(room.RoomTemplates[1]))
+                    .AddActionB(new WarpAction(room.Exits[1]))
                     .Build();
             }
             

@@ -29,7 +29,7 @@ namespace Models.Factories
             //TODO: need to figure out how to calculate the next templates
             var roomTemplate1 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
             var roomTemplate2 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
-            room.RoomTemplates = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
+            room.Exits = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
 
             //TODO: Take away setter
             room.Description = RandomizeLeadIn() + room.Description;

@@ -9,8 +9,7 @@ public interface IRoom : ITextEntity
     int _tick { get; }
     void Tick();
     
-    List<RoomTemplate> RoomTemplates { get; set; }
-    IRoom Exit { set; get; }
+    List<RoomTemplate> Exits { get; set; }
     
     CommandShip PlayerShip { get; }
     string Description { get; set; }

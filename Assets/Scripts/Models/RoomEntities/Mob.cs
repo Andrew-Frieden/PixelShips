@@ -31,6 +31,14 @@ namespace Models
 
         public bool CanCombat => true;
 
+        public Dictionary<string, string> Values
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)
         {
             Id = Guid.NewGuid().ToString();

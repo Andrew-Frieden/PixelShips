@@ -38,6 +38,7 @@ namespace Models
         public string Name { get; protected set; }
         
         public Dictionary<string, int> Stats { get; protected set; }
+        public Dictionary<string, string> Values { get; protected set; }
         public ABDialogueContent DialogueContent { get; set; }
 
         const string CurrentStateKey = "current_state"; 
@@ -60,6 +61,7 @@ namespace Models
 
         protected FlexEntity(FlexEntityDto dto, IRoom room)
         {
+            Values = dto.Values;
             Stats = dto.Stats;
             Id = dto.Id;
             Name = dto.Name;
@@ -69,6 +71,7 @@ namespace Models
         {
             Id = Guid.NewGuid().ToString();
             Stats = new Dictionary<string, int>();
+            Values = new Dictionary<string, string>();
         }
         
         public string GetLinkText()

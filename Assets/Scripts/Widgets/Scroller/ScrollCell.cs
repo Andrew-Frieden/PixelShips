@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Models;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using Widgets.Scroller;

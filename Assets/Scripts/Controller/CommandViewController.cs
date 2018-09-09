@@ -15,10 +15,10 @@ namespace Controller
         [SerializeField] private ScrollViewController scrollView;
         [SerializeField] private ABDialogueController abController;
 
-        private RoomController _roomController;
-
         public Blink Blink;
         private IRoom _room;
+
+        private CommandShip PlayerShip => _room.PlayerShip;
 
         private bool _warpToNextRoom = false;
 
@@ -28,13 +28,12 @@ namespace Controller
             ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
             
-            _roomController = new RoomController();
             var playerShip = FactoryContainer.ShipFactory.GenerateCommandShip();
 
             _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(5, RoomFlavor.Kelp, "trade"));
             _room.SetPlayerShip(playerShip);
             
-            _roomController.StartNextRoom(_room, _room);
+            RoomController.StartNextRoom(_room, _room);
 
             scrollView.AddCells(CalculateLookText(_room));
 
@@ -60,13 +59,13 @@ namespace Controller
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
-            var text = _roomController.ResolveNextTick(_room, playerAction);
+            var text = RoomController.ResolveNextTick(_room, playerAction);
 
             scrollView.DimCells();
             scrollView.AddCells(text);
 
             //if Exit is populated -> player is warping
-            if (_room.Exit != null)
+            if (PlayerShip.WarpTarget != null)
             {
                 _warpToNextRoom = true;
             }
@@ -85,9 +84,10 @@ namespace Controller
             yield return new WaitForSecondsRealtime(2.0f);
             
             scrollView.ClearScreen();
-            _roomController.StartNextRoom(_room.Exit, _room);
-                
-            _room = _room.Exit;
+
+            var nextRoom = FactoryContainer.RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
+            RoomController.StartNextRoom(nextRoom, _room);
+            _room = nextRoom;
                 
             scrollView.AddCells(CalculateLookText(_room));
         }

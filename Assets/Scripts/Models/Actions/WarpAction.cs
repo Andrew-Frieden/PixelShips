@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Factories;
-using Repository;
+using Controller;
 
 namespace Models.Actions
 {
@@ -15,7 +15,8 @@ namespace Models.Actions
         
         public IEnumerable<string> Execute(IRoom room)
         {
-            room.Exit = FactoryContainer.RoomFactory.GenerateRoom(_template);
+            room.PlayerShip.WarpDriveReady = false;
+            room.PlayerShip.WarpTarget = _template;
             
             return new List<string>() { "You begin to jump into hyperspace!", "3...", "2...", "1..." };
         }

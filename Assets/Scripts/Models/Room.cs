@@ -16,7 +16,6 @@ namespace Models
         public int _tick { get; private set; }
         public string Description { get; set; }
 
-        public IRoom Exit { get; set; }
         public CommandShip PlayerShip { get; private set; }
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; }
@@ -30,7 +29,7 @@ namespace Models
             PlayerShip = ship;
             Entities = roomEntities;
             DialogueContent = dialogueContent;
-            RoomTemplates = templates;
+            Exits = templates;
         }
 
         public Room(string id, string desc, string name)
@@ -60,7 +59,7 @@ namespace Models
             _tick++;
         }
 
-        public List<RoomTemplate> RoomTemplates { get; set; }
+        public List<RoomTemplate> Exits { get; set; }
 
         public List<string> ResolveNext(IRoomAction playerAction)
         {

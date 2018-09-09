@@ -8,6 +8,7 @@ namespace Models.Dtos
         public string EntityType;
         public string Name;
         public Dictionary<string, int> Stats;
+        public Dictionary<string, string> Values;
         ABContentDto Content;
     }
 }

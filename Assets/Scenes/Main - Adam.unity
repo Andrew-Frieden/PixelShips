@@ -466,6 +466,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShowView
       objectReference: {fileID: 0}
+    - target: {fileID: 114817603610428620, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: smoothFactor
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
   m_IsPrefabAsset: 0
