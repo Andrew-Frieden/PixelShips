@@ -60,18 +60,14 @@ namespace Controller
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
-            scrollView.AddCells(_roomController.ExecuteActions(playerAction, _room));
-            
+            var text = _roomController.ResolveNextTick(_room, playerAction);
+            scrollView.AddCells(text);
+
             //if Exit is populated -> player is warping
             if (_room.Exit != null)
             {
                 _warpToNextRoom = true;
             }
-            
-            _roomController.DoCleanup(_room);
-            _roomController.CalculateNewDialogues(_room);
-            
-            _room.Tick();
         }
 
         private void HandleScrollCellTyperFinishedEvent()

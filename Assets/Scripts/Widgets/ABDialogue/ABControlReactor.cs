@@ -42,7 +42,7 @@ public class ABControlReactor : MonoBehaviour
         ShowJoystickBackground();
     }
 
-    void SetDefaults()
+        void SetDefaults()
     {
         LeftImage.color = LeftColorRest;
         RightImage.color = RightColorRest;
@@ -90,9 +90,11 @@ public class ABControlReactor : MonoBehaviour
         ShowImage(JoystickHandleImage);
     }
 
+    private ABDialogueMode _mode;
     private void HandleMode(ABDialogueMode mode)
     {
-        switch (mode)
+        _mode = mode;
+        switch (_mode)
         {
             case ABDialogueMode.ABCancel:
                 Cancel.enabled = true;
@@ -127,14 +129,20 @@ public class ABControlReactor : MonoBehaviour
                 ShowJoystickHandle();
                 break;
             case JoyEdge.Left:
-                LeftImage.color = LeftColorSelected;
-                JoystickHandleImage.color = LeftColorSelected;
-                LeftImage.rectTransform.localScale = new Vector3(ImageSelectionScale, ImageSelectionScale);
+                if (_mode == ABDialogueMode.ABCancel || _mode == ABDialogueMode.ACancel)
+                {
+                    LeftImage.color = LeftColorSelected;
+                    JoystickHandleImage.color = LeftColorSelected;
+                    LeftImage.rectTransform.localScale = new Vector3(ImageSelectionScale, ImageSelectionScale);
+                }
                 break;
             case JoyEdge.Right:
-                RightImage.color = RightColorSelected;
-                JoystickHandleImage.color = RightColorSelected;
-                RightImage.rectTransform.localScale = new Vector3(ImageSelectionScale, ImageSelectionScale);
+                if (_mode == ABDialogueMode.ABCancel)
+                {
+                    RightImage.color = RightColorSelected;
+                    JoystickHandleImage.color = RightColorSelected;
+                    RightImage.rectTransform.localScale = new Vector3(ImageSelectionScale, ImageSelectionScale);
+                }
                 break;
             case JoyEdge.Up:
                 break;

@@ -12,7 +12,6 @@ public class SometimesDamageHazard : FlexEntity
     {
         return DialogueBuilder.Init()
             .AddMainText("The plasma storm looks pretty dangerous. There isn't much you can do about it.")
-            .AddTextA("Cancel Scan")
             .SetMode(ABDialogueMode.Cancel)
             .Build();
     }

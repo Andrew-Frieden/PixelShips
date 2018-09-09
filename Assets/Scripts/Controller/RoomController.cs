@@ -20,7 +20,18 @@ namespace Controller
             }
         }
 
-        public IEnumerable<string> ExecuteActions(IRoomAction playerAction, IRoom room)
+        public IEnumerable<string> ResolveNextTick(IRoom room, IRoomAction playerAction)
+        {
+            var resolveText = ExecuteActions(room, playerAction);
+
+            DoCleanup(room);
+            CalculateNewDialogues(room);
+            room.Tick();
+
+            return resolveText;
+        }
+
+        private IEnumerable<string> ExecuteActions(IRoom room, IRoomAction playerAction)
         {
             var actionResults = new List<string>();
             var actionsToExecute = new List<IRoomAction>()
@@ -48,11 +59,11 @@ namespace Controller
             return actionResults;
         }
 
-        public void CalculateNewDialogues(IRoom room)
+        private void CalculateNewDialogues(IRoom room)
         {
             foreach (var entity in room.Entities)
             {
-                if (entity != room.PlayerShip && !entity.Hidden)
+                if (!entity.Hidden)
                 {
                     entity.DialogueContent = entity.CalculateDialogue(room);
                 }
@@ -61,7 +72,7 @@ namespace Controller
             room.PlayerShip.DialogueContent =  room.PlayerShip.CalculateDialogue(room);
         }
 
-        public void DoCleanup(IRoom room)
+        private void DoCleanup(IRoom room)
         {
             foreach (var entity in room.Entities)
             {

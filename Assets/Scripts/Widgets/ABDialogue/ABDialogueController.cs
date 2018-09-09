@@ -72,13 +72,18 @@ public class ABDialogueController : MonoBehaviour {
             case JoyEdge.Center:
                 break;
             case JoyEdge.Left:
-
-                onRoomActionSelect?.Invoke(_actionA);
-                DismissControl();
+                if (mode == ABDialogueMode.ABCancel || mode == ABDialogueMode.ACancel)
+                {
+                    onRoomActionSelect?.Invoke(_actionA);
+                    DismissControl();
+                }
                 break;
             case JoyEdge.Right:
-                onRoomActionSelect?.Invoke(_actionB);
-                DismissControl();
+                if (mode == ABDialogueMode.ABCancel)
+                {
+                    onRoomActionSelect?.Invoke(_actionB);
+                    DismissControl();
+                }
                 break;
             case JoyEdge.Up:
                 break;

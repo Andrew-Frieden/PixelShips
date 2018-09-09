@@ -17,6 +17,14 @@ public class ABOptionViewController : TripleViewController {
         {
             joystick.Dragged += HandleSelection;
         }
+
+        ABDialogueController.onModeSet += HandleMode;
+    }
+
+    private ABDialogueMode _mode;
+    private void HandleMode(ABDialogueMode mode)
+    {
+        _mode = mode;
     }
 
     private void HandleSelection(JoyEdge edge)
@@ -30,10 +38,12 @@ public class ABOptionViewController : TripleViewController {
                 ShowView(CenterView);
                 break;
             case JoyEdge.Left:
-                ShowView(OptionAView);
+                if (_mode == ABDialogueMode.ABCancel || _mode == ABDialogueMode.ACancel)
+                    ShowView(OptionAView);
                 break;
             case JoyEdge.Right:
-                ShowView(OptionBView);
+                if (_mode == ABDialogueMode.ABCancel)
+                    ShowView(OptionBView);
                 break;
             case JoyEdge.Up:
                 break;

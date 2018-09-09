@@ -12,7 +12,6 @@ namespace Models.Factories
     public sealed class RoomFactory
     {
         private readonly IEnumerable<IRoom> _rooms;
-        private readonly IEnumerable<IRoomActor> _actors;
 
         public RoomFactory()
         {
@@ -20,7 +19,6 @@ namespace Models.Factories
             var entityRepository = new RoomEntityRepository();
             
             _rooms = roomRepository.LoadData();
-            _actors = entityRepository.LoadData();
         }
 
         public IRoom GenerateRoom(RoomTemplate template)
