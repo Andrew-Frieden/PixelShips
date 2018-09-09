@@ -98,7 +98,7 @@ namespace Models
             return DialogueBuilder.Init()
                 .AddMainText("Your ship looks like a standard frigate.")
                 .AddTextA("Create a shield.")
-                .AddActionA(new CreateShieldActorAction(room.PlayerShip, null, 3, 5))
+                .AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
                 .AddTextB("Spin up your warp drive.")
                 .AddActionB(new CreateWarpDriveActorAction(2))
                 .Build();

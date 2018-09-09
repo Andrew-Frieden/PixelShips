@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Actors;
+using TextEncoding;
 
 namespace Models.Actions
 {
@@ -7,8 +8,6 @@ namespace Models.Actions
     {
         public const string ACTION_NAME = "CreateShieldActor";
         
-        private IRoomActor _source;
-        private IRoomActor _target;
         private int _timeToLive;
         private int _damageReduction;
 
@@ -16,16 +15,16 @@ namespace Models.Actions
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;
-            _source = source;
-            _target = target;
+            Source = source;
+            Target = target;
             _damageReduction = damageReduction; 
         }
         
         public override IEnumerable<string> Execute(IRoom room)
         {
-            room.Entities.Add(new ShieldActor(_source, _target, _timeToLive, _damageReduction));
+            room.Entities.Add(new ShieldActor(Source, Target, _timeToLive, _damageReduction));
             
-            return new List<string>() { "You generate a shield." };
+            return new List<string>() { "<> generate a shield.".Encode("You", Source.Id, "blue") };
         }
     }
 }
