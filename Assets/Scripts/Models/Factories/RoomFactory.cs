@@ -4,7 +4,6 @@ using System.Linq;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Factories.Helpers;
-using PixelSpace.Models.SharedModels.Helpers;
 using Repository;
 
 namespace Models.Factories
@@ -15,16 +14,12 @@ namespace Models.Factories
 
         public RoomFactory()
         {
-            var roomRepository = new RoomRepository();
-            var entityRepository = new RoomEntityRepository();
-            
-            _rooms = roomRepository.LoadData();
         }
 
         public IRoom GenerateRoom(RoomTemplate template)
         {
-            var randomizedRooms = _rooms.OrderBy(a => Guid.NewGuid()).ToList();
-            var room = randomizedRooms.First();
+            var randomRoomText = RoomRepository.ExampleRoomText.OrderBy(t => Guid.NewGuid()).First();
+            var room = new Room(randomRoomText[0], randomRoomText[1]);
             
             //TODO: need to figure out how to calculate the next templates
             var roomTemplate1 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
