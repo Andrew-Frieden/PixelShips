@@ -4,6 +4,7 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
+using UnityEngine;
 
 namespace Models
 {
@@ -83,9 +84,10 @@ namespace Models
 
             public override IEnumerable<string> Execute(IRoom room)
             {
-                Source.Stats["scrap"] += 15;
+                var scrap = Source.Stats["captainship"] + (int)UnityEngine.Random.Range(0, 10);
+                Source.Stats["scrap"] += scrap;
                 Target.Stats["gathered"] = 0;
-                return new string[] { "You gathered 15 scrap." };
+                return new string[] { "You gathered " + scrap + " scrap." };
 
             }
         }
