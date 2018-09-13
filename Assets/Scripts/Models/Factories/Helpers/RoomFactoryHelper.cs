@@ -21,7 +21,16 @@ namespace Models.Factories.Helpers
             entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
 
             var miningAsteroid = new MiningGatherableObject();
-            entities.Add(miningAsteroid);
+            if (5 > Random.Range(1, 10))
+            {
+                entities.Add(miningAsteroid);
+            }
+
+            var floatingObject = new SimpleFloatingObject();
+            if (5 > Random.Range(1, 10))
+            {
+                entities.Add(floatingObject);
+            }
 
             return entities;
         }

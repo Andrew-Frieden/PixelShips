@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using Models.Actions;
+using Models.Dialogue;
+using Models.Dtos;
+using TextEncoding;
+
+namespace Models
+{
+    public partial class SimpleFloatingObject : FlexEntity
+    { 
+        public const string Gathered = "gathered";
+
+        private enum NpcState
+        {
+            Full = 0
+        }
+        
+        private Dictionary<NpcState, string> LookText = new Dictionary<NpcState, string>
+        {
+            { NpcState.Full, "There is some floating <> nearby." }
+        };
+        
+        public SimpleFloatingObject(FlexEntityDto dto, IRoom room) : base(dto, room)
+        {
+        }
+
+        public SimpleFloatingObject(string name = "Scrap") : base()
+        {
+            Name = name;
+            Stats = new Dictionary<string, int>();
+            Stats.Add(Gathered, 1);
+        }
+
+        public override IRoomAction GetNextAction(IRoom room)
+        {
+            return new DoNothingAction(this);
+        }
+
+        public override ABDialogueContent CalculateDialogue(IRoom room)
+        {
+            switch (CurrentState)
+            {
+                case (int)NpcState.Full:
+                    return DialogueBuilder.Init()
+                        .AddMainText("The most ubiquitous and least valuable item in the galaxy.  Worth 1 space bux per unit.")
+                        .SetMode(ABDialogueMode.ACancel)
+                        .AddTextA("Pick it up")
+                            .AddActionA(new LootAction(room.PlayerShip, this))
+                        .Build();
+            }
+
+            throw new NotSupportedException();
+        }
+
+        public override string GetLookText()
+        {
+            return LookText[(NpcState)CurrentState].Encode(Name, Id, "red");;
+        }
+
+        public override void AfterAction(IRoom room)
+        {
+            if (Stats[Gathered] == 0)
+            {
+                room.Entities.Remove(this);
+            }
+        }
+    }
+
+    public partial class SimpleFloatingObject
+    {
+        private class LootAction : SimpleAction
+        {
+            public LootAction(SimpleActionDto dto, IRoom room) : base(dto, room)
+            {
+            }
+            
+            public LootAction(IRoomActor src, IRoomActor target)
+            {
+                Source = src;
+                Target = target;
+            }
+
+            public override IEnumerable<string> Execute(IRoom room)
+            {
+                Source.Stats["scrap"] += 15;
+                Target.Stats["gathered"] = 0;
+                return new string[] { "You gathered 15 scrap." };
+
+            }
+        }
+        
+    }
+}
