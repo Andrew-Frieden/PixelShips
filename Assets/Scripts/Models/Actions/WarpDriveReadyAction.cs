@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TextEncoding;
+using Links.Colors;
 
 namespace Models.Actions
 {
@@ -14,7 +15,7 @@ namespace Models.Actions
         {
             ((CommandShip) Source).WarpDriveReady = true;
 
-            return new List<string> { "<> is ready.".Encode("Warp drive", Source.Id, "blue") };
+            return new List<string> { "<> is ready.".Encode("Warp drive", Source.Id, LinkColors.Player) };
         }
     }
 }

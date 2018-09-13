@@ -5,6 +5,7 @@ using Models.Actions;
 using Models.Factories;
 using TextEncoding;
 using UnityEngine;
+using Links.Colors;
 
 namespace Models
 {
@@ -84,7 +85,7 @@ namespace Models
 
         public string GetLookText()
         {
-            return Description.Encode(Link, Id, "green");
+            return Description.Encode(Link, Id, LinkColors.Room);
         }
 
         public string GetLinkText()

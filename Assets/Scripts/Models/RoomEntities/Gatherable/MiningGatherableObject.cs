@@ -4,6 +4,7 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
+using Links.Colors;
 
 namespace Models
 {
@@ -59,7 +60,7 @@ namespace Models
 
         public override string GetLookText()
         {
-            return LookText[(NpcState)CurrentState].Encode(Name, Id, "red");;
+            return LookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable);;
         }
     }
 

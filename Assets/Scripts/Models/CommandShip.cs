@@ -4,6 +4,7 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Stats;
 using TextEncoding;
+using Links.Colors;
 
 namespace Models
 {
@@ -73,7 +74,7 @@ namespace Models
 
         public string GetLookText()
         {
-            return "< > jump into the sector.".Encode(GetLinkText(), Id, "blue");
+            return "< > jump into the sector.".Encode(GetLinkText(), Id, LinkColors.Player);
         }
 
         public string GetLinkText()
