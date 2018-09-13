@@ -8,11 +8,10 @@ namespace Models.Dtos
     public static class DtoTranslators
     {
         #region ToDto
-        public static RoomDto ToDto(this Room room)
+        public static RoomDto ToDto(this IRoom room)
         {
             var roomDto = new RoomDto
             {
-                PlayerShip = room.PlayerShip.ToDto(),
                 Mobs = new List<MobDto>()
             };
 
@@ -115,7 +114,7 @@ namespace Models.Dtos
 
         #region FromDto
 
-        public static Room FromDto(this RoomDto dto)
+        public static IRoom FromDto(this RoomDto dto)
         {
             return new Room(dto.Id, dto.Description, dto.Link);
         }

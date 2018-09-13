@@ -6,7 +6,8 @@ namespace Models
     public class GameState
     {
         public DateTime CurrentTime;
-        public Room Room;
+        public IRoom Room;
+        public CommandShip CommandShip;
 
         public void LogData()
         {

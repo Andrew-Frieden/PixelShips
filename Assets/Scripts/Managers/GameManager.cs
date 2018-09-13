@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using Common;
 using Events;
+using Models;
 
 public class GameManager : Singleton<GameManager>
 {
-	public enum GameState
+	public enum GamePhase
 	{
 		BOOT,
 		PREGAME,
@@ -13,31 +14,35 @@ public class GameManager : Singleton<GameManager>
 
 	public EventGameState OnGameStateChanged;
 
-	private GameState _currentGameState = GameState.BOOT;
-	public GameState CurrentGameState => _currentGameState;
+	private SaveLoadController _saveLoadController;
+	
+	private GamePhase _currentGamePhase = GamePhase.BOOT;
+	public GamePhase CurrentGamePhase => _currentGamePhase;
+	
+	public GameState GameState { get; private set; }
 
 	private void Start()
 	{
 		StartGame();
 	}
 
-	private void UpdateState(GameState state)
+	private void UpdateState(GamePhase phase)
 	{
-		var previousGameState = _currentGameState;
-		_currentGameState = state;
+		var previousGameState = _currentGamePhase;
+		_currentGamePhase = phase;
 
-		switch (_currentGameState)
+		switch (_currentGamePhase)
 		{
-			case GameState.PREGAME:
+			case GamePhase.PREGAME:
 				break;
-			case GameState.MISSION:
+			case GamePhase.MISSION:
 				break;
 			default:
 				Debug.Log("Invalid Game State");
 				break;
 		}
 		
-		OnGameStateChanged.Invoke(_currentGameState, previousGameState);
+		OnGameStateChanged.Invoke(_currentGamePhase, previousGameState);
 		
 		//To listen to this
 		//GameManager.Instance.OnGameStateChanged.AddListener(MyGameStateChangedHandler);
@@ -46,11 +51,18 @@ public class GameManager : Singleton<GameManager>
 
 	private void StartGame()
 	{
-		UpdateState(GameState.PREGAME);
+		UpdateState(GamePhase.PREGAME);
+		
+		_saveLoadController = new SaveLoadController();
+		
+		//if (Player has a save file)
+		//GameState = _saveLoadController.Load();
+
+		GameState = _saveLoadController.CreateNewGameState();
 	}
 	
 	public void StartMission()
 	{
-		UpdateState(GameState.MISSION);
+		UpdateState(GamePhase.MISSION);
 	}
 }

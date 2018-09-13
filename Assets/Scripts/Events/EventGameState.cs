@@ -3,5 +3,5 @@
 namespace Events
 {
     [System.Serializable]
-    public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> { }
+    public class EventGameState : UnityEvent<GameManager.GamePhase, GameManager.GamePhase> { }
 }

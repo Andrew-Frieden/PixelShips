@@ -7,5 +7,6 @@ namespace Models
     {
         public DateTime SaveTime;
         public RoomDto Room;
+        public ShipDto CommandShip;
     }
 }

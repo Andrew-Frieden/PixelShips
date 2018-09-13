@@ -9,8 +9,6 @@ namespace Models.Dtos
         public string Link;
         public string Id;
 
-        public ShipDto PlayerShip;
-
         public List<MobDto> Mobs;
         //public List<NPCDto> Npcs;
         //public List<HazardDto> Hazards;
@@ -23,7 +21,6 @@ namespace Models.Dtos
             var contents = new List<ABContentDto>();
 
             dto.Mobs.ForEach(m => contents.Add(m.Content));
-            contents.Add(dto.PlayerShip.ContentDto);
 
             return contents;
         }

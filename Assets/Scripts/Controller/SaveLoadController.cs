@@ -17,7 +17,7 @@ namespace Models
         {
             var jsonData = File.ReadAllText(SaveFilePath);
             var saveState = JsonConvert.DeserializeObject<SaveState>(jsonData);
-            return BuildGameState(saveState);
+            return LoadGameState(saveState);
         }
         
         public void Save(GameState state)
@@ -25,6 +25,15 @@ namespace Models
             var saveState = BuildSaveState(state);
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
+        }
+
+        public GameState CreateNewGameState()
+        {
+            return new GameState
+            {
+                CommandShip = FactoryContainer.ShipFactory.GenerateCommandShip(),
+                Room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(5, RoomFlavor.Kelp, "trade"))
+            };
         }
 
         private SaveState BuildSaveState(GameState state)
@@ -36,17 +45,15 @@ namespace Models
             };
         }
 
-        private GameState BuildGameState(SaveState save)
+        private GameState LoadGameState(SaveState save)
         {
             var state = new GameState()
             {
-                Room = save.Room.FromDto()
+                Room = save.Room.FromDto(),
+                CommandShip = save.CommandShip.FromDto()
             };
 
-            var ship = save.Room.PlayerShip.FromDto();
-            state.Room.SetPlayerShip(ship);
-
-            //var actionFactory = new RoomActionFactory(state.Room);
+            state.Room.SetPlayerShip(state.CommandShip);
 
             //  grab all the mob dtos and build mob entities
             var mobs = new List<Mob>();
@@ -65,7 +72,7 @@ namespace Models
             save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));
 
             //  setup the DialogueContent for the player ship
-            ship.DialogueContent = save.Room.PlayerShip.ContentDto.FromDto(state.Room);
+            state.CommandShip.CalculateDialogue(state.Room);
 
             state.CurrentTime = DateTime.Now;
             return state;

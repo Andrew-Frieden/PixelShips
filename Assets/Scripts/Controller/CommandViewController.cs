@@ -31,10 +31,9 @@ namespace Controller
             ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
             SimpleAction.onPlayerTookDamageEvent += HandlePlayerTookDamageEvent;
-            
-            var playerShip = FactoryContainer.ShipFactory.GenerateCommandShip();
 
-            _room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(5, RoomFlavor.Kelp, "trade"));
+            var playerShip = GameManager.Instance.GameState.CommandShip;
+            _room = GameManager.Instance.GameState.Room;
             _room.SetPlayerShip(playerShip);
             
             //TODO: abstract the stats lookup

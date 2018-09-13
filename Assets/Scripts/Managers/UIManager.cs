@@ -18,23 +18,23 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.OnGameStateChanged.AddListener(GameStateChangedHandler);
     }
     
-    private void GameStateChangedHandler(GameManager.GameState currentState, GameManager.GameState previous)
+    private void GameStateChangedHandler(GameManager.GamePhase currentPhase, GameManager.GamePhase previous)
     {
-        if (currentState == previous) 
+        if (currentPhase == previous) 
             return;
         
-        switch (currentState)
+        switch (currentPhase)
         {
-            case GameManager.GameState.PREGAME:
+            case GameManager.GamePhase.PREGAME:
                 MainMenu.gameObject.SetActive(true);
                 TripleView.gameObject.SetActive(false);
                 break;
-            case GameManager.GameState.MISSION:
+            case GameManager.GamePhase.MISSION:
                 MainMenu.gameObject.SetActive(false);
                 TripleView.gameObject.SetActive(true);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
+                throw new ArgumentOutOfRangeException(nameof(currentPhase), currentPhase, null);
         }
     }
 }
