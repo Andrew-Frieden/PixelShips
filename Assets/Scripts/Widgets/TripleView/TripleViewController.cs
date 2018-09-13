@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TripleViewController : MonoBehaviour {
-
+public class TripleViewController : MonoBehaviour 
+{
+    public delegate void ViewShown(int view);
+    public event ViewShown OnViewShown;
+    
     private Vector3 leftPosition;
     private Vector3 rightPosition;
 
@@ -41,19 +44,29 @@ public class TripleViewController : MonoBehaviour {
 
     public void ShowView(GameObject view)
     {
-        if (view == Views[0])
+        if (view == Views[(int) TripleView.Middle])
         {
             targetPosition = startPosition;
+            OnViewShown?.Invoke((int) TripleView.Middle);
         }
 
-        if (view == Views[1])
+        if (view == Views[(int) TripleView.Right])
         {
             targetPosition = startPosition + new Vector3(-Width, 0, 0);
+            OnViewShown?.Invoke((int) TripleView.Right);
         }
 
-        if (view == Views[2])
+        if (view == Views[(int) TripleView.Left])
         {
             targetPosition = startPosition + new Vector3(Width, 0, 0);
+            OnViewShown?.Invoke((int) TripleView.Left);
         }
     }
+}
+
+public enum TripleView
+{
+    Left = 2,
+    Middle = 0,
+    Right = 1
 }
