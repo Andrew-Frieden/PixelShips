@@ -20,9 +20,9 @@ namespace Controller
             var resolveText = (List<string>) ExecuteActions(room, playerAction);
             var cleanupText = DoCleanup(room);
 
-            if (cleanupText != "")
+            if (cleanupText.Any())
             {
-                resolveText.Add(cleanupText);
+                resolveText.AddRange(cleanupText);
             }
             else
             {
@@ -74,7 +74,7 @@ namespace Controller
             room.PlayerShip.DialogueContent =  room.PlayerShip.CalculateDialogue(room);
         }
 
-        private static string DoCleanup(IRoom room)
+        private static IEnumerable<string> DoCleanup(IRoom room)
         {
             foreach (var entity in room.Entities)
             {
@@ -84,10 +84,14 @@ namespace Controller
             if (room.PlayerShip.Stats[StatKeys.Hull] < 1)
             {
                 room.PlayerShip.Stats[ShipDto.StatKeys.IsAlive] = 0;
-                return "You have been destroyed.";
+                return new List<string>
+                {
+                    "You have been destroyed.",
+                    "Navigate to your base to recruit a new captain."
+                };
             }
 
-            return "";
+            return new List<string>();
         }
     }
 }

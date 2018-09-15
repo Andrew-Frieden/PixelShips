@@ -25,7 +25,7 @@ namespace Models
                     {
                         [ShipDto.StatKeys.IsAlive] = 1,
                         [StatKeys.MaxHull] = 20,
-                        [StatKeys.Hull] = 1,
+                        [StatKeys.Hull] = 20,
                         [StatKeys.MaxShields] = 20,
                         [StatKeys.Shields] = 20,
                         [StatKeys.Captainship] = 11,
@@ -161,7 +161,6 @@ namespace Models
                     return "Captain P.W. Underpants";
                 case 3:
                     return "John 'deep space' Robinson";
-                case 4:
                 default:
                     return "The dread pirate spigs";
             }
