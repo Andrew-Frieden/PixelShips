@@ -77,7 +77,7 @@ namespace Models.Dialogue
             if (room.PlayerShip.WarpDriveReady)
             {
                 return Init()
-                    .AddMainText("Your warp drive is fully charged.")
+                    .AddMainText(room.GetLookText() + Environment.NewLine + Environment.NewLine + "Your warp drive is fully charged.")
                     .AddTextA("Warp to room A.")
                     .AddActionA(new WarpAction(room.Exits[0]))
                     .AddTextB("Warp to room B.")
@@ -86,7 +86,7 @@ namespace Models.Dialogue
             }
 
             return Init()
-                .AddMainText("Your ship looks like a standard frigate.")
+                .AddMainText(room.GetLookText() + Environment.NewLine + Environment.NewLine + "Your warp drive is cold.")
                 .AddTextA("Spin up your warp drive.")
                 .AddActionA(new CreateWarpDriveActorAction(1))
                 .SetMode(ABDialogueMode.ACancel)
