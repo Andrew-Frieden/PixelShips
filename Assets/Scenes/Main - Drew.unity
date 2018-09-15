@@ -474,7 +474,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1492080716}
+      - m_Target: {fileID: 507359776}
         m_MethodName: ShowView
         m_Mode: 2
         m_Arguments:
@@ -903,6 +903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1819563499}
+  - component: {fileID: 507359776}
   m_Layer: 5
   m_Name: TripleView
   m_TagString: Untagged
@@ -910,6 +911,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &507359776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 507359775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef040035a44b8ea4799baa7f0b37791a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Views:
+  - {fileID: 951407633}
+  - {fileID: 1102975707}
+  - {fileID: 950014021}
+  StartingView: {fileID: 951407633}
+  ViewBase: {fileID: 130238960}
+  Canvas: {fileID: 424702075}
+  smoothFactor: 10
 --- !u!1 &540044497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1371,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1492080716}
+      - m_Target: {fileID: 507359776}
         m_MethodName: ShowView
         m_Mode: 2
         m_Arguments:
@@ -1672,7 +1692,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1492080716}
+      - m_Target: {fileID: 507359776}
         m_MethodName: ShowView
         m_Mode: 2
         m_Arguments:
@@ -2495,7 +2515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883b904cdade65e439c75267e6c2f93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tripleViewController: {fileID: 1492080716}
+  _tripleViewController: {fileID: 507359776}
   _shipScrollViewController: {fileID: 2144024880}
 --- !u!1 &1146837846
 GameObject:
@@ -3070,7 +3090,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492080715}
-  - component: {fileID: 1492080716}
   m_Layer: 5
   m_Name: NavBar
   m_TagString: Untagged
@@ -3100,26 +3119,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -909.99994}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1492080716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114817603610428620, guid: 79de77b574fcaea40a7fea743957c85b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1492080714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef040035a44b8ea4799baa7f0b37791a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Views:
-  - {fileID: 951407633}
-  - {fileID: 1102975707}
-  - {fileID: 950014021}
-  StartingView: {fileID: 951407633}
-  ViewBase: {fileID: 130238960}
-  Canvas: {fileID: 424702075}
-  smoothFactor: 10
 --- !u!1 &1506686791
 GameObject:
   m_ObjectHideFlags: 0
