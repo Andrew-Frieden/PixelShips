@@ -16,7 +16,7 @@ namespace Models
             Empty = 1,
         }
         
-        private Dictionary<NpcState, string> LookText = new Dictionary<NpcState, string>
+        private readonly Dictionary<NpcState, string> _lookText = new Dictionary<NpcState, string>
         {
             { NpcState.Full, "Your scanners detect a nearby <>. Might be worth a look." },
             { NpcState.Empty, "Your scanners detect a nearby <> but it is depleted." }
@@ -60,7 +60,7 @@ namespace Models
 
         public override string GetLookText()
         {
-            return LookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable);;
+            return _lookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable);;
         }
     }
 
@@ -131,10 +131,7 @@ namespace Models
                         return new string[] { "You gathered 5 scrap." };
 
                 }
-
-
             }
         }
-        
     }
 }

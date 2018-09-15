@@ -12,5 +12,12 @@
         public int Speed;
 
         public ABContentDto ContentDto;
+        
+        public static class StatKeys
+        {
+            public const string IsAlive = "is_alive";
+            public const string WarpDriveReady = "warp_drive_ready";
+            public const string CaptainName = "captain_name";
+        }
     }
 }

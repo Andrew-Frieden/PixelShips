@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Models.Actions;
+using Models.Dtos;
+using Models.Stats;
 
 namespace Controller
 {
@@ -14,11 +17,18 @@ namespace Controller
 
         public static IEnumerable<string> ResolveNextTick(IRoom room, IRoomAction playerAction)
         {
-            var resolveText = ExecuteActions(room, playerAction);
+            var resolveText = (List<string>) ExecuteActions(room, playerAction);
+            var cleanupText = DoCleanup(room);
 
-            DoCleanup(room);
-            CalculateDialogues(room);
-            room.Tick();
+            if (cleanupText != "")
+            {
+                resolveText.Add(cleanupText);
+            }
+            else
+            {
+                CalculateDialogues(room);
+                room.Tick();
+            }
 
             return resolveText;
         }
@@ -64,12 +74,20 @@ namespace Controller
             room.PlayerShip.DialogueContent =  room.PlayerShip.CalculateDialogue(room);
         }
 
-        private static void DoCleanup(IRoom room)
+        private static string DoCleanup(IRoom room)
         {
             foreach (var entity in room.Entities)
             {
                 //entity.AfterAction(_room);
             }
+
+            if (room.PlayerShip.Stats[StatKeys.Hull] < 1)
+            {
+                room.PlayerShip.Stats[ShipDto.StatKeys.IsAlive] = 0;
+                return "You have been destroyed.";
+            }
+
+            return "";
         }
     }
 }

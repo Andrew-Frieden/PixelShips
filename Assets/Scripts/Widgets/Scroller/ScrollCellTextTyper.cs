@@ -27,7 +27,7 @@ namespace Widgets.Scroller
 
             while (true)
             {
-                visibleCount = counter % (totalCharacters + 1);
+                visibleCount = counter % (totalCharacters + 3);
                 textMesh.maxVisibleCharacters = visibleCount;
 
                 //Start the next cell
@@ -53,7 +53,7 @@ namespace Widgets.Scroller
                     }
                 }
 
-                counter += 1;
+                counter += 3;
                 yield return new WaitForSeconds(timeBetweenCharacters);
             }
         }
