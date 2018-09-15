@@ -14,7 +14,7 @@ public class PirateMob : FlexEntity
         Name = "Pirate Ship";
         IsHostile = false;
         CanCombat = false;
-        Values[ValueKeys.LookText] = "A menacing <> cruises through";
+        Values[ValueKeys.LookText] = "You recieve a hail from a menacing <>";
         Values[ValueKeys.LookTextAggro] = "A <> is maneuvering to attack position";
         Stats[StatKeys.Hull] = 5;
     }
