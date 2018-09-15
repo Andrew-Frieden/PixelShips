@@ -61,10 +61,16 @@ namespace Models
 
         public bool Hidden { get; }
 
-        public bool IsAggro
+        public bool IsHostile
         {
-            get => Stats[StatKeys.IsAggro] != 0;
-            set => Stats[StatKeys.IsAggro] = value ? 1 : 0;
+            get
+            {
+                return Stats[StatKeys.IsHostile] != 0;
+            }
+            set
+            {
+                Stats[StatKeys.IsHostile] = value ? 1 : 0;
+            }
         }
 
         public bool WarpDriveReady
@@ -75,7 +81,7 @@ namespace Models
 
         public RoomTemplate WarpTarget;
 
-        public bool CanCombat => true;
+        public bool CanCombat { get { return true; } set { throw new Exception("Tried to set CommandShip CanCombat to true"); } }
 
         public string GetLookText()
         {

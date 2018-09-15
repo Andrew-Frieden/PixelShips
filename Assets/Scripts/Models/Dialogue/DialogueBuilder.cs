@@ -60,6 +60,17 @@ namespace Models.Dialogue
         {
             return new DialogueBuild();
         }
+
+        public static ABDialogueContent PlayerAttackDialogue(string mainText, IRoomActor target, IRoom room)
+        {
+            return Init()
+                .AddMainText(mainText)
+                .AddTextA("Pulse Lasers")
+                    .AddActionA(new AttackAction(room.PlayerShip, target, 2))
+                .AddTextB("Plasma Torpedo")
+                    .AddActionB(new AttackAction(room.PlayerShip, target, 8))
+                    .Build();
+        }
     }
     
     public interface IDialogueBuilder
