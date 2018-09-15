@@ -154,7 +154,7 @@ namespace Models
                 case 2:
                     return "Captain P.W. Underpants";
                 case 3:
-                    return "John 'deep space' robinson";
+                    return "John 'deep space' Robinson";
                 case 4:
                 default:
                     return "The dread pirate spigs";

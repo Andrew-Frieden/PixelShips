@@ -93,6 +93,14 @@ public class ScrollViewController : MonoBehaviour {
         
         ActiveCells.Clear();
     }
+
+    public void DisableInteractions()
+    {
+        foreach (var cell in ActiveCells)
+        {
+            cell.DisableClickEvents();
+        }
+    }
     
     private ScrollCell GetNextRecycledCell()
     {
