@@ -8,7 +8,7 @@ using Links.Colors;
 
 namespace Models
 {
-    public partial class MiningGatherableObject : FlexEntity
+    public partial class SingleUseGatherable : FlexEntity
     {
         private enum NpcState
         {
@@ -22,11 +22,11 @@ namespace Models
             { NpcState.Empty, "Your scanners detect a nearby <> but it is depleted." }
         };
         
-        public MiningGatherableObject(FlexEntityDto dto, IRoom room) : base(dto, room)
+        public SingleUseGatherable(FlexEntityDto dto, IRoom room) : base(dto, room)
         {
         }
 
-        public MiningGatherableObject(string name = "Resource-Rich Asteroid") : base()
+        public SingleUseGatherable(string name = "Resource-Rich Asteroid") : base()
         {
             Name = name;
             Stats = new Dictionary<string, int>();
@@ -64,7 +64,7 @@ namespace Models
         }
     }
 
-    public partial class MiningGatherableObject
+    public partial class SingleUseGatherable
     {
         private class MiningLootAction : SimpleAction
         {

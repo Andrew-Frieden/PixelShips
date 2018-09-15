@@ -8,7 +8,7 @@ using Links.Colors;
 
 namespace Models
 {
-    public partial class SimpleFloatingObject : FlexEntity
+    public partial class ScrapGatherable : FlexEntity
     { 
         public const string Gathered = "gathered";
 
@@ -22,11 +22,11 @@ namespace Models
             { NpcState.Full, "There is some floating <> nearby." }
         };
         
-        public SimpleFloatingObject(FlexEntityDto dto, IRoom room) : base(dto, room)
+        public ScrapGatherable(FlexEntityDto dto, IRoom room) : base(dto, room)
         {
         }
 
-        public SimpleFloatingObject(string name = "Scrap") : base()
+        public ScrapGatherable(string name = "Scrap") : base()
         {
             Name = name;
             Stats = new Dictionary<string, int>();
@@ -68,7 +68,7 @@ namespace Models
         }
     }
 
-    public partial class SimpleFloatingObject
+    public partial class ScrapGatherable
     {
         private class LootAction : SimpleAction
         {

@@ -6,8 +6,8 @@ namespace Models.Stats
     {
         #region Core
     
-        public const string CanCombat = "can_combat"; //  1 if the entity is capable of participating in combat
-        public const string IsAggro = "is_aggro";     //  1 if the entity is actively attacking or being attacked
+        public const string CanCombat = "attackable"; //  1 if the entity is capable of participating in combat
+        public const string IsHostile = "hostile";     //  1 if the entity is actively attacking or being attacked
         public const string Hull = "current_hull";
         public const string MaxHull = "max_hull";
         public const string Captainship = "captainship";

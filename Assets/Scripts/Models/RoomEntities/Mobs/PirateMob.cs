@@ -1,9 +1,9 @@
-﻿using Models;
+﻿using Links.Colors;
+using Models;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using Models.Stats;
-using System;
 using System.Collections.Generic;
 using TextEncoding;
 
@@ -47,11 +47,15 @@ Empty your cargo or we'll dust ya!")
     {
         if (IsHostile)
         {
-            return Values[ValueKeys.LookTextAggro].Encode(Name, Id, "red");
+            return Values[ValueKeys.LookTextAggro].Encode(Name, Id, LinkColors.HostileEntity);
+        }
+        else if (CanCombat)
+        {
+            return Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.CanCombatEntity);
         }
         else
         {
-            return Values[ValueKeys.LookText].Encode(Name, Id, "orange");
+            return Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.NPC);
         }
     }
 
@@ -92,7 +96,7 @@ Empty your cargo or we'll dust ya!")
             if (!Source.IsHostile && !Source.CanCombat)
             {
                 Source.IsHostile = true;
-                return new string[] { "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, "red") };
+                return new string[] { "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity) };
             }
             return new string[] { };
         }
@@ -135,12 +139,12 @@ Empty your cargo or we'll dust ya!")
             {
                 Target.IsHostile = false;
                 Target.CanCombat = true;
-                return new string[] { "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, "orange") };
+                return new string[] { "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity) };
             }
             else
             {
                 Target.IsHostile = true;
-                return new string[] { "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, "red") };
+                return new string[] { "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity) };
             }
         }
     }
@@ -180,7 +184,7 @@ Empty your cargo or we'll dust ya!")
 
             Source.Stats[StatKeys.Resourcium] -= Amount;
 
-            return new string[] { string.Format("You transfer {0} resourcium to the <>", Amount).Encode(Target.GetLinkText(), Target.Id, "orange") };
+            return new string[] { string.Format("You transfer {0} resourcium to the <>", Amount).Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity) };
         }
     }
 }

@@ -18,18 +18,27 @@ namespace Models.Factories.Helpers
             }
 
             var data = ExampleGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
-            entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
+            if (5 > Random.Range(1, 10))
+            {
+                entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
+            }
 
-            var miningAsteroid = new MiningGatherableObject();
+            var miningAsteroid = new SingleUseGatherable();
             if (5 > Random.Range(1, 10))
             {
                 entities.Add(miningAsteroid);
             }
 
-            var floatingObject = new SimpleFloatingObject();
+            var floatingObject = new ScrapGatherable();
             if (5 > Random.Range(1, 10))
             {
                 entities.Add(floatingObject);
+            }
+
+            var pirateMob = new PirateMob();
+            if (5 > Random.Range(1, 10))
+            {
+                entities.Add(pirateMob);
             }
 
             return entities;
