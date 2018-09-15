@@ -16,7 +16,7 @@ namespace Models
 
         public bool Hidden { get; set; }
 
-        public bool IsAggro
+        public bool IsHostile
         {
             get
             {
@@ -34,6 +34,19 @@ namespace Models
         public Dictionary<string, string> Values
         {
             get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        bool IRoomActor.CanCombat
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
             {
                 throw new NotImplementedException();
             }

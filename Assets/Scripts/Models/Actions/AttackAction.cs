@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Dtos;
+using Models.Stats;
 using TextEncoding;
 
 namespace Models.Actions
@@ -30,8 +31,8 @@ namespace Models.Actions
 
         public override IEnumerable<string> Execute(IRoom room)
         {
-            Target.Stats["Hull"] -= Damage;
-            Target.IsAggro = true;
+            Target.Stats[StatKeys.Hull] -= Damage;
+            Target.IsHostile = true;
 
             if (Source is CommandShip)
             {

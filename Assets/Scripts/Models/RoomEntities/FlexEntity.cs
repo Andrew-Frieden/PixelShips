@@ -10,15 +10,15 @@ namespace Models
     {
         public bool Hidden { get; protected set; }
 
-        public bool IsAggro
+        public bool IsHostile
         {
             get
             {
-                return Stats[StatKeys.IsAggro] != 0;
+                return Stats[StatKeys.IsHostile] != 0;
             }
             set
             {
-                Stats[StatKeys.IsAggro] = value ? 1 : 0;
+                Stats[StatKeys.IsHostile] = value ? 1 : 0;
             }
         }
 

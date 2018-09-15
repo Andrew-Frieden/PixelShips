@@ -6,8 +6,8 @@ namespace Models.Stats
     {
         #region Core
     
-        public const string CanCombat = "can_combat"; //  1 if the entity is capable of participating in combat
-        public const string IsAggro = "is_aggro";     //  1 if the entity is actively attacking or being attacked
+        public const string CanCombat = "attackable"; //  1 if the entity is capable of participating in combat
+        public const string IsHostile = "hostile";     //  1 if the entity is actively attacking or being attacked
         public const string Hull = "current_hull";
         public const string MaxHull = "max_hull";
         public const string Captainship = "captainship";
@@ -32,10 +32,11 @@ namespace Models.Stats
 
     public static class ValueKeys
     {
-        public const string Name = "name";
-        public const string LookText = "look_text";
-        public const string DialogueText = "dialogue_text";
-        public const string HazardDamageText = "hazard_damage_text";
+        public static readonly string Name = "name";
+        public static readonly string LookText = "look_text";
+        public static readonly string LookTextAggro = "look_text_aggro";
+        public static readonly string DialogueText = "dialogue_text";
+        public static readonly string HazardDamageText = "hazard_damage_text";
     }
 
     public static class StatsHelper
@@ -44,7 +45,7 @@ namespace Models.Stats
         {
             return new Dictionary<string, int>
             {
-                { StatKeys.IsAggro, 0 },
+                { StatKeys.IsHostile, 0 },
                 { StatKeys.CanCombat, 0 },
                 { StatKeys.Hull, 0 },
                 { StatKeys.Captainship, 0 },
