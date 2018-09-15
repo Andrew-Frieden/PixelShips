@@ -71,6 +71,27 @@ namespace Models.Dialogue
                     .AddActionB(new AttackAction(room.PlayerShip, target, 8))
                     .Build();
         }
+
+        public static ABDialogueContent PlayerNavigateDialogue(IRoom room)
+        {
+            if (room.PlayerShip.WarpDriveReady)
+            {
+                return Init()
+                    .AddMainText("Your warp drive is fully charged.")
+                    .AddTextA("Warp to room A.")
+                    .AddActionA(new WarpAction(room.Exits[0]))
+                    .AddTextB("Warp to room B.")
+                    .AddActionB(new WarpAction(room.Exits[1]))
+                    .Build();
+            }
+
+            return Init()
+                .AddMainText("Your ship looks like a standard frigate.")
+                .AddTextA("Spin up your warp drive.")
+                .AddActionA(new CreateWarpDriveActorAction(1))
+                .SetMode(ABDialogueMode.ACancel)
+                .Build();
+        }
     }
     
     public interface IDialogueBuilder

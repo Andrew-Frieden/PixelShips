@@ -14,6 +14,8 @@ namespace Models
         {
             get
             {
+                if (!Stats.ContainsKey(StatKeys.IsHostile))
+                    Stats[StatKeys.IsHostile] = 0;
                 return Stats[StatKeys.IsHostile] != 0;
             }
             set

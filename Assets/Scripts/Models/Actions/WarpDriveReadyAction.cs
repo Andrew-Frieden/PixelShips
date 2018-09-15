@@ -15,7 +15,7 @@ namespace Models.Actions
         {
             ((CommandShip) Source).WarpDriveReady = true;
 
-            return new List<string> { "<> is ready.".Encode("Warp drive", Source.Id, LinkColors.Player) };
+            return new List<string> { "<> is ready.".Encode("Warp drive", room.Id, LinkColors.Room) };
         }
     }
 }

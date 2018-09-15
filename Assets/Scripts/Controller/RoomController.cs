@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Models.Actions;
+using Models.Dialogue;
 using Models.Dtos;
 using Models.Stats;
 
@@ -72,6 +73,7 @@ namespace Controller
             }
             
             room.PlayerShip.DialogueContent =  room.PlayerShip.CalculateDialogue(room);
+            room.DialogueContent = DialogueBuilder.PlayerNavigateDialogue(room);
         }
 
         private static IEnumerable<string> DoCleanup(IRoom room)

@@ -24,7 +24,13 @@ public static class RoomHelpers
 {
     public static ITextEntity FindEntity(this IRoom room, string id)
     {
-        return string.IsNullOrEmpty(id) ? null : room.Entities.FirstOrDefault(e => e.Id == id) ?? (ITextEntity)room.PlayerShip;
+        if (string.IsNullOrEmpty(id))
+            return null;
+
+        var entities = new List<ITextEntity>() { room, room.PlayerShip };
+        entities.AddRange(room.Entities);
+
+        return entities.FirstOrDefault(ent => ent.Id == id);
     }
 
     public static IRoomActor FindActor(this IRoom room, string id)

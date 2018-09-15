@@ -6,6 +6,7 @@ using Models.Stats;
 using TextEncoding;
 using Links.Colors;
 using Models.Dtos;
+using System.Linq;
 
 namespace Models
 {
@@ -65,6 +66,8 @@ namespace Models
         {
             get
             {
+                if (!Stats.ContainsKey(StatKeys.IsHostile))
+                    Stats[StatKeys.IsHostile] = 0;
                 return Stats[StatKeys.IsHostile] != 0;
             }
             set
@@ -110,23 +113,26 @@ namespace Models
 
         public ABDialogueContent CalculateDialogue(IRoom room)
         {
-            if (WarpDriveReady)
+            IRoomAction passAction;
+            string passText;
+
+            if (room.Entities.Any(ent => ent.IsHostile))
             {
-                return DialogueBuilder.Init()
-                    .AddMainText("Your ship looks like its ready to jump to hyperspace.")
-                    .AddTextA("Warp to room A.")
-                    .AddActionA(new WarpAction(room.Exits[0]))
-                    .AddTextB("Warp to room B.")
-                    .AddActionB(new WarpAction(room.Exits[1]))
-                    .Build();
+                passAction = new BarrellRollAction(this);
+                passText = "Evasive Maneuvers";
             }
-            
+            else
+            {
+                passAction = new GiveASpeechAction(this);
+                passText = "Give a Speech";
+            }
+
             return DialogueBuilder.Init()
                 .AddMainText("Your ship looks like a standard frigate.")
-                .AddTextA("Create a shield.")
+                .AddTextA("Overcharge Shields")
                 .AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
-                .AddTextB("Spin up your warp drive.")
-                .AddActionB(new CreateWarpDriveActorAction(1))
+                .AddTextB(passText)
+                .AddActionB(passAction)
                 .Build();
         }
 

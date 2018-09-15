@@ -43,6 +43,7 @@ public class SometimesDamageHazard : FlexEntity
 
     public SometimesDamageHazard(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
     {
+        IsHostile = true;
     }
 
     private class HazardDamageAction : SimpleAction
