@@ -4,6 +4,7 @@ using System.Linq;
 using Common;
 using Models;
 using Models.Actions;
+using Models.Dtos;
 using Models.Factories;
 using Models.Stats;
 using UnityEngine;
@@ -74,6 +75,12 @@ namespace Controller
             if (PlayerShip.WarpTarget != null)
             {
                 _warpToNextRoom = true;
+            }
+
+            //if Player is dead -> disable all interactions
+            if (PlayerShip.Stats[ShipDto.StatKeys.IsAlive] != 1)
+            {
+                _scrollView.DisableInteractions();
             }
         }
 

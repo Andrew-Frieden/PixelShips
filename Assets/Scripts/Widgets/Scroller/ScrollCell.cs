@@ -5,10 +5,11 @@ using Widgets.Scroller;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
+    private bool _isClickable = true;
     private const int Spacing = 5;
     private bool dimmed;
-    private readonly float DimScale = 0.55f;
-    private float _inverseDimScale => (1.0f / DimScale);
+    private const float DimScale = 0.55f;
+    private static float _inverseDimScale => (1.0f / DimScale);
     
     public RectTransform RectTransform;
     [SerializeField] private TextMeshProUGUI EncodedText;
@@ -34,9 +35,17 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
 
         return EncodedText.GetPreferredValues().y + Spacing;
     }
+
+    public void DisableClickEvents()
+    {
+        _isClickable = false;
+    }
     
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!_isClickable)
+            return;
+        
         var result = TMP_TextUtilities.FindIntersectingLink(EncodedText, eventData.position, UIManager.Instance.UICamera);
         if (result >= 0)
         {
