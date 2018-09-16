@@ -35,10 +35,16 @@ namespace Models.Factories.Helpers
                 entities.Add(floatingObject);
             }
 
-            var pirateMob = new PirateMob();
-            if (5 > Random.Range(1, 10))
+            var mobList = new List<IRoomActor>();
+            mobList.Add(new PirateMob());
+            mobList.Add(new VerdantObserverMob());
+            mobList.Add(new VerdantInformantMob());
+            mobList.Add(new VerdantInterrogatorMob());
+
+            if (7 > Random.Range(1, 10))
             {
-                entities.Add(pirateMob);
+                var tempList = mobList.OrderBy(d => System.Guid.NewGuid());
+                entities.Add(tempList.First());
             }
 
             return entities;
