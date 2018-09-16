@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Helpers;
 using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
@@ -35,19 +37,27 @@ namespace Models.Actions
 
         public override IEnumerable<string> Execute(IRoom room)
         {
-            Target.Stats[StatKeys.Hull] -= Damage;
+            var actualDamage = Damage;
+                
+            if (Target.Stats.ContainsKey(StatKeys.ExampleDamageMitigationStat))
+            {
+                actualDamage -= Target.Stats[StatKeys.ExampleDamageMitigationStat];
+                actualDamage = Math.Max(actualDamage, 1);
+            }
+            
+            Target.TakeDamage(actualDamage);
             Target.IsHostile = true;
             
-            PlayerTookDamage(new PlayerTookDamageEventArgs(Damage));
+            PlayerTookDamage();
 
             if (Source is CommandShip)
             {
                 //TODO - add target link?
-                return new List<string>() { ("< > deal " + Damage + " damage to the target with your " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.Player)};
+                return new List<string>() { ("< > deal " + actualDamage + " damage to the target with your " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.Player)};
             }
             else
             {
-                return new List<string>() { ("< > dealt you " + Damage + " damage with it's " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity)};
+                return new List<string>() { ("< > dealt you " + actualDamage + " damage with it's " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity)};
             }
 
         }

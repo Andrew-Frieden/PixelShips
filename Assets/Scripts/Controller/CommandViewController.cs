@@ -105,9 +105,10 @@ namespace Controller
             _scrollView.AddCells(CalculateLookText(_room));
         }
 
-        private void HandlePlayerTookDamageEvent(PlayerTookDamageEventArgs args)
+        private void HandlePlayerTookDamageEvent()
         {
-            _shipHudController.UpdateHull(args.Damage);
+            _shipHudController.UpdateShield();
+            _shipHudController.UpdateHull();
             _scrollView.Shake();
         }
     }
