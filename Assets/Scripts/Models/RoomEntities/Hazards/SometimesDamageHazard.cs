@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Helpers;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
@@ -90,10 +91,10 @@ public class SometimesDamageHazard : FlexEntity
                 actualDamage -= Target.Stats[StatKeys.ExampleDamageMitigationStat];
                 actualDamage = Math.Max(actualDamage, 1);
             }
-
-            Target.Stats[StatKeys.Hull] -= actualDamage;
             
-            PlayerTookDamage(new PlayerTookDamageEventArgs(actualDamage));
+            Target.TakeDamage(actualDamage);
+            
+            PlayerTookDamage();
 
             //var exampleText = "An energy surge from a <> scorches your hull for {0} damage!";
             var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);

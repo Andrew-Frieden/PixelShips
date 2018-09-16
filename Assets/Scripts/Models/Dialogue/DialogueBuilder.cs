@@ -92,6 +92,14 @@ namespace Models.Dialogue
                 .SetMode(ABDialogueMode.ACancel)
                 .Build();
         }
+
+        public static ABDialogueContent EmptyDialogue()
+        {
+            return Init()
+                .AddMainText("The scanner signature was lost.")
+                .SetMode(ABDialogueMode.Cancel)
+                .Build();
+        }
     }
     
     public interface IDialogueBuilder

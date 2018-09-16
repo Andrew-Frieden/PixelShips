@@ -5,7 +5,7 @@ using TextEncoding;
 
 namespace Models
 {
-    public class Mob : IRoomActor, ICombatEntity
+    public class Mob : IRoomActor
     {
         public string Id { get; }
         public int Hull { get; set; }
@@ -14,7 +14,7 @@ namespace Models
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
-        public bool Hidden { get; set; }
+        public bool IsHidden { get; set; }
 
         public bool IsHostile
         {
@@ -29,8 +29,6 @@ namespace Models
             }
         }
 
-        public bool CanCombat => true;
-
         public Dictionary<string, string> Values
         {
             get
@@ -39,7 +37,7 @@ namespace Models
             }
         }
 
-        bool IRoomActor.CanCombat
+        bool IRoomActor.IsAttackable
         {
             get
             {
@@ -47,6 +45,14 @@ namespace Models
             }
 
             set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsDestroyed
+        {
+            get
             {
                 throw new NotImplementedException();
             }

@@ -8,10 +8,16 @@ namespace Models
         public DateTime CurrentTime;
         public IRoom Room;
         public CommandShip CommandShip;
+        private int _ticks;
 
-        public void LogData()
+        public int GetTicks()
         {
-            Debug.Log("test");
+            return _ticks;
+        }
+        
+        public void Tick()
+        {
+            _ticks++;
         }
     }
 }

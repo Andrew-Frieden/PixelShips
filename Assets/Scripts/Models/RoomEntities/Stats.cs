@@ -2,11 +2,12 @@
 
 namespace Models.Stats
 {
-    public static class StatKeys
+    public static partial class StatKeys
     {
         #region Core
-    
-        public const string CanCombat = "attackable"; //  1 if the entity is capable of participating in combat
+
+        public const string IsDestroyed = "destroyed";
+        public const string IsAttackable = "attackable"; //  1 if the entity is capable of participating in combat
         public const string IsHostile = "hostile";     //  1 if the entity is actively attacking or being attacked
         public const string Hull = "current_hull";
         public const string MaxHull = "max_hull";
@@ -46,7 +47,7 @@ namespace Models.Stats
             return new Dictionary<string, int>
             {
                 { StatKeys.IsHostile, 0 },
-                { StatKeys.CanCombat, 0 },
+                { StatKeys.IsAttackable, 0 },
                 { StatKeys.Hull, 0 },
                 { StatKeys.Captainship, 0 },
             };

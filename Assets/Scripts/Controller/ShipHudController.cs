@@ -1,44 +1,87 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Models;
+using Models.Stats;
 using TMPro;
 using UnityEngine;
 
-public class ShipHudController : MonoBehaviour
+namespace Controller
 {
-	[SerializeField] private TextMeshProUGUI _shipName;
-	[SerializeField] private TextMeshProUGUI _sectorName;
-	[SerializeField] private TextMeshProUGUI _hull;
-	[SerializeField] private TextMeshProUGUI _energy;
-	
-	public float CurrentHull { get; private set; }
-
-	public void InitializeShipHud(int hull)
+	public class ShipHudController : MonoBehaviour
 	{
-		CurrentHull = hull;
-		_hull.text = "Current Hull: " + CurrentHull;
-	}
+		[SerializeField] private TextMeshProUGUI _shield;
+		[SerializeField] private TextMeshProUGUI _sectorName;
+		[SerializeField] private TextMeshProUGUI _hull;
+		[SerializeField] private TextMeshProUGUI _energy;
 
-	public void UpdateHull(int newHull)
-	{
-		StartCoroutine(UpdateHullText(newHull));
-	}
+		private CommandShip PlayerShip { get; set; }
 
-	private IEnumerator UpdateHullText(int newHull)
-	{
-		while (newHull  < CurrentHull)
+		//These track the ships 'current' before any actions/tick changes the values
+		private int CurrentHull { get; set; }
+		private int CurrentShield { get; set; }
+
+		public void InitializeShipHud(CommandShip ship)
 		{
-			CurrentHull -= 1;
-			CurrentHull = Mathf.Clamp(CurrentHull, newHull, CurrentHull);
-			_hull.text = "Current Hull: " + CurrentHull;
-			yield return new WaitForSeconds(1 / (CurrentHull - newHull));
-		}
+			PlayerShip = ship;
 		
-		while (newHull > CurrentHull)
+			CurrentHull = PlayerShip.Stats[StatKeys.Hull];
+			CurrentShield = PlayerShip.Stats[StatKeys.Shields];
+		
+			_shield.text = "Shield: " + PlayerShip.Stats[StatKeys.Shields] + "/" + PlayerShip.Stats[StatKeys.MaxShields];
+			_hull.text = "Hull: " + PlayerShip.Stats[StatKeys.Hull] + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+		}
+
+		public void UpdateHull()
 		{
-			CurrentHull += 1;
-			CurrentHull = Mathf.Clamp(CurrentHull, 0f, newHull);
-			_hull.text = "Current Hull: " + CurrentHull;
-			yield return new WaitForSeconds(1 / (CurrentHull - newHull));
+			StartCoroutine(UpdateHullText());
+		}
+
+		public void UpdateShield()
+		{
+			StartCoroutine(UpdateShieldText());
+		}
+
+		private IEnumerator UpdateShieldText()
+		{
+			if (CurrentShield > PlayerShip.Stats[StatKeys.Shields])
+			{
+				while (PlayerShip.Stats[StatKeys.Shields]  < CurrentShield)
+				{
+					CurrentShield -= 1;
+					_shield.text = "Shield: " + CurrentShield + "/" + PlayerShip.Stats[StatKeys.MaxShields];
+					yield return new WaitForSeconds(0.25f);
+				}
+			}
+			else
+			{
+				while (PlayerShip.Stats[StatKeys.Shields]  > CurrentShield)
+				{
+					CurrentShield += 1;
+					_shield.text = "Shield: " + CurrentShield + "/" + PlayerShip.Stats[StatKeys.MaxShields];
+					yield return new WaitForSeconds(0.25f);
+				}
+			}
+		}
+	
+		private IEnumerator UpdateHullText()
+		{
+			if (CurrentHull > PlayerShip.Stats[StatKeys.Hull])
+			{
+				while (PlayerShip.Stats[StatKeys.Hull]  < CurrentHull)
+				{
+					CurrentHull -= 1;
+					_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+					yield return new WaitForSeconds(0.25f);
+				}
+			}
+			else
+			{
+				while (PlayerShip.Stats[StatKeys.Hull]  > CurrentHull)
+				{
+					CurrentHull += 1;
+					_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+					yield return new WaitForSeconds(0.25f);
+				}
+			}
 		}
 	}
 }

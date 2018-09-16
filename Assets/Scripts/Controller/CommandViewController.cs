@@ -4,11 +4,13 @@ using System.Linq;
 using Common;
 using Models;
 using Models.Actions;
+using Models.Dialogue;
 using Models.Dtos;
 using Models.Factories;
 using Models.Stats;
 using UnityEngine;
 using Widgets.Scroller;
+using static Models.CommandShip;
 
 namespace Controller
 {
@@ -32,13 +34,14 @@ namespace Controller
             ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
             SimpleAction.onPlayerTookDamageEvent += HandlePlayerTookDamageEvent;
+            RoomController.onRoomHealEvent += HandleRoomHealEvent;
 
             var playerShip = GameManager.Instance.GameState.CommandShip;
             _room = GameManager.Instance.GameState.Room;
             _room.SetPlayerShip(playerShip);
             
             //TODO: abstract the stats lookup
-            _shipHudController.InitializeShipHud(playerShip.Stats[StatKeys.Hull]);
+            _shipHudController.InitializeShipHud(playerShip);
             
             RoomController.StartNextRoom(_room, _room);
 
@@ -61,7 +64,8 @@ namespace Controller
         private void HandleLinkTouchedEvent(string guid)
         {
             var entity = _room.FindEntity(guid);
-            _abController.ShowControl(entity.DialogueContent);
+            var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue();
+            _abController.ShowControl(content);
         }
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)
@@ -78,7 +82,7 @@ namespace Controller
             }
 
             //if Player is dead -> disable all interactions
-            if (PlayerShip.Stats[ShipDto.StatKeys.IsAlive] != 1)
+            if (PlayerShip.IsDestroyed)
             {
                 _scrollView.DisableInteractions();
             }
@@ -105,10 +109,16 @@ namespace Controller
             _scrollView.AddCells(CalculateLookText(_room));
         }
 
-        private void HandlePlayerTookDamageEvent(PlayerTookDamageEventArgs args)
+        private void HandlePlayerTookDamageEvent()
         {
-            _shipHudController.UpdateHull((int) _shipHudController.CurrentHull - args.Damage);
+            _shipHudController.UpdateShield();
+            _shipHudController.UpdateHull();
             _scrollView.Shake();
+        }
+
+        private void HandleRoomHealEvent()
+        {
+            _shipHudController.UpdateShield();
         }
     }
 }
