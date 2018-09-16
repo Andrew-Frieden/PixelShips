@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models;
+using Models.Stats;
 using TMPro;
 using UnityEngine;
 
@@ -9,36 +11,31 @@ public class ShipHudController : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI _sectorName;
 	[SerializeField] private TextMeshProUGUI _hull;
 	[SerializeField] private TextMeshProUGUI _energy;
-	
-	public float CurrentHull { get; private set; }
 
-	public void InitializeShipHud(int hull)
+	private CommandShip PlayerShip { get; set; }
+
+	private int CurrentHull { get; set; }
+
+	public void InitializeShipHud(CommandShip ship)
 	{
-		CurrentHull = hull;
-		_hull.text = "Current Hull: " + CurrentHull;
+		PlayerShip = ship;
+		CurrentHull = PlayerShip.Stats[StatKeys.Hull];
+		_hull.text = "Hull: " + PlayerShip.Stats[StatKeys.Hull] + "/" + PlayerShip.Stats[StatKeys.MaxHull];
 	}
 
-	public void UpdateHull(int newHull)
+	public void UpdateHull(int damage)
 	{
-		StartCoroutine(UpdateHullText(newHull));
+		StartCoroutine(UpdateHullText(damage));
 	}
 
-	private IEnumerator UpdateHullText(int newHull)
+	//TODO: This is only for damage, need to implement the 'repair your hull' version
+	private IEnumerator UpdateHullText(int damage)
 	{
-		while (newHull  < CurrentHull)
+		while (PlayerShip.Stats[StatKeys.Hull]  < CurrentHull)
 		{
 			CurrentHull -= 1;
-			CurrentHull = Mathf.Clamp(CurrentHull, newHull, CurrentHull);
-			_hull.text = "Current Hull: " + CurrentHull;
-			yield return new WaitForSeconds(1 / (CurrentHull - newHull));
-		}
-		
-		while (newHull > CurrentHull)
-		{
-			CurrentHull += 1;
-			CurrentHull = Mathf.Clamp(CurrentHull, 0f, newHull);
-			_hull.text = "Current Hull: " + CurrentHull;
-			yield return new WaitForSeconds(1 / (CurrentHull - newHull));
+			_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+			yield return new WaitForSeconds(0.25f);
 		}
 	}
 }
