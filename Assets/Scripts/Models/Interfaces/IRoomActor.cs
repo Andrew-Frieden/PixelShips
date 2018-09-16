@@ -5,9 +5,10 @@ namespace Models
 {
     public interface IRoomActor : ITextEntity
     {
-        bool Hidden { get; }
+        bool IsHidden { get; }
         bool IsHostile { get; set; }
-        bool CanCombat { get; set; }
+        bool IsAttackable { get; set; }
+
         Dictionary<string, int> Stats { get; }
         Dictionary<string, string> Values { get; }
 

@@ -2,7 +2,7 @@
 
 namespace Models.Stats
 {
-    public static class StatKeys
+    public static partial class StatKeys
     {
         #region Core
     

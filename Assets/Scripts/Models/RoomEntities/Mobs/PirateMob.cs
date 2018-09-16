@@ -13,7 +13,7 @@ public class PirateMob : FlexEntity
     {
         Name = "Rogue Privateer";
         IsHostile = false;
-        CanCombat = false;
+        IsAttackable = false;
         Values[ValueKeys.LookText] = "You recieve a hail from a menacing <>";
         Values[ValueKeys.LookTextAggro] = "A <> is maneuvering to attack position";
         Stats[StatKeys.Hull] = 5;
@@ -25,7 +25,7 @@ public class PirateMob : FlexEntity
         {
             return DialogueBuilder.PlayerAttackDialogue("The privateer's weapons are already spun up and locked on to you!", this, room);
         }
-        else if (CanCombat)
+        else if (IsAttackable)
         {
             return DialogueBuilder.PlayerAttackDialogue("A rusty privateer cruises through the sector.", this, room);
         }
@@ -49,7 +49,7 @@ Empty your cargo or we'll dust ya!")
         {
             return Values[ValueKeys.LookTextAggro].Encode(Name, Id, LinkColors.HostileEntity);
         }
-        else if (CanCombat)
+        else if (IsAttackable)
         {
             return Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.CanCombatEntity);
         }
@@ -61,7 +61,7 @@ Empty your cargo or we'll dust ya!")
 
     public override IRoomAction GetNextAction(IRoom room)
     {
-        if (!IsHostile && !CanCombat)
+        if (!IsHostile && !IsAttackable)
         {
             return new BecomeHostileIfNeutralAction(this);
         }
@@ -93,7 +93,7 @@ Empty your cargo or we'll dust ya!")
 
         public override IEnumerable<string> Execute(IRoom room)
         {
-            if (!Source.IsHostile && !Source.CanCombat)
+            if (!Source.IsHostile && !Source.IsAttackable)
             {
                 Source.IsHostile = true;
                 return new string[] { "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity) };
@@ -138,7 +138,7 @@ Empty your cargo or we'll dust ya!")
             if (roll >= Dc)
             {
                 Target.IsHostile = false;
-                Target.CanCombat = true;
+                Target.IsAttackable = true;
                 return new string[] { "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity) };
             }
             else
@@ -180,7 +180,7 @@ Empty your cargo or we'll dust ya!")
         public override IEnumerable<string> Execute(IRoom room)
         {
             Target.IsHostile = false;
-            Target.CanCombat = true;
+            Target.IsAttackable = true;
 
             if (Source.Stats[StatKeys.Resourcium] < Amount)
             {

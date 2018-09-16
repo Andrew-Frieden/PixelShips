@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Models.Dtos;
 using Models.Stats;
 using UnityEngine;
+using static Models.CommandShip;
 
 namespace Controller
 {
@@ -37,11 +38,11 @@ namespace Controller
 
 			var baseStats = new List<string>
 			{
-				"Name: " + ship.Values[ShipDto.StatKeys.CaptainName],
+				"Name: " + ship.Values[ShipStats.CaptainName],
 				"Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull],
 				"Shields: " + ship.Stats[StatKeys.Shields] + "/" + ship.Stats[StatKeys.MaxShields],
 				"Captainship: " + ship.Stats[StatKeys.Captainship],
-				"WarpDriveReady: " + (ship.Stats[ShipDto.StatKeys.WarpDriveReady] == 1)
+				"WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
 			};
 			
 			if (ship.Stats[StatKeys.Scrap] > 0)

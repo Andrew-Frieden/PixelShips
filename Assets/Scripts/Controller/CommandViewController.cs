@@ -9,6 +9,7 @@ using Models.Factories;
 using Models.Stats;
 using UnityEngine;
 using Widgets.Scroller;
+using static Models.CommandShip;
 
 namespace Controller
 {
@@ -78,7 +79,7 @@ namespace Controller
             }
 
             //if Player is dead -> disable all interactions
-            if (PlayerShip.Stats[ShipDto.StatKeys.IsAlive] != 1)
+            if (PlayerShip.IsDestroyed)
             {
                 _scrollView.DisableInteractions();
             }

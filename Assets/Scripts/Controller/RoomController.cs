@@ -2,8 +2,9 @@
 using System.Linq;
 using Models.Actions;
 using Models.Dialogue;
-using Models.Dtos;
+using Models.Dtos;  // i think we should put the stat keys somewhere else - doesn't seem like roomcontroller needs to know about dtos
 using Models.Stats;
+using static Models.CommandShip;
 
 namespace Controller
 {
@@ -66,7 +67,7 @@ namespace Controller
         {
             foreach (var entity in room.Entities)
             {
-                if (!entity.Hidden)
+                if (!entity.IsHidden)
                 {
                     entity.DialogueContent = entity.CalculateDialogue(room);
                 }
@@ -83,16 +84,14 @@ namespace Controller
                 //entity.AfterAction(_room);
             }
 
-            if (room.PlayerShip.Stats[StatKeys.Hull] < 1)
+            if (room.PlayerShip.IsDestroyed)
             {
-                room.PlayerShip.Stats[ShipDto.StatKeys.IsAlive] = 0;
                 return new List<string>
                 {
                     "You have been destroyed.",
                     "Navigate to your base to recruit a new captain."
                 };
             }
-
             return new List<string>();
         }
     }

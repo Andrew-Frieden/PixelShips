@@ -23,7 +23,7 @@ namespace Models.Actors
         
         public WarpDriveActor(int timeToLive) : base()
         {
-            Hidden = true;
+            IsHidden = true;
             Stats[TimeToLiveKey] = timeToLive;
         }
 
