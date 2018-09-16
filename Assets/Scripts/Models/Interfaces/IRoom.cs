@@ -6,9 +6,6 @@ using UnityEngine;
 
 public interface IRoom : ITextEntity
 {
-    int _tick { get; }
-    void Tick();
-    
     List<RoomTemplate> Exits { get; set; }
     
     CommandShip PlayerShip { get; }

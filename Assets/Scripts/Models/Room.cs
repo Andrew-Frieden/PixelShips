@@ -14,9 +14,9 @@ namespace Models
         private string Link { get; }
         
         public string Id { get; }
-        public int _tick { get; private set; }
         public string Description { get; set; }
 
+        public List<RoomTemplate> Exits { get; set; }
         public CommandShip PlayerShip { get; private set; }
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; }
@@ -41,8 +41,7 @@ namespace Models
             Entities = new List<IRoomActor>();
         }
         
-        //TODO: params out of order here
-        public Room(string name, string desc)
+        public Room(string desc, string name)
         {
             Id = Guid.NewGuid().ToString();
             Description = desc;
@@ -53,24 +52,6 @@ namespace Models
         public Room()
         {
             Entities = new List<IRoomActor>();
-        }
-        
-        public void Tick()
-        {
-            _tick++;
-        }
-
-        public List<RoomTemplate> Exits { get; set; }
-
-        public List<string> ResolveNext(IRoomAction playerAction)
-        {
-            var actions = new List<IRoomAction>() {playerAction};
-            Entities.ForEach(e => actions.Add(e.GetNextAction(this)));
-
-            var resultText = new List<string>();
-            actions.ForEach(a => resultText.AddRange(a.Execute(this)));
-
-            return resultText;
         }
 
         public void SetPlayerShip(CommandShip ship)
