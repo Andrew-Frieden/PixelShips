@@ -2,6 +2,7 @@
 using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
+using Links.Colors;
 
 namespace Models.Actions
 {
@@ -21,12 +22,15 @@ namespace Models.Actions
             }
         }
 
-        public AttackAction(IRoomActor source, IRoomActor target, int damage)
+        private string Weapon;
+
+        public AttackAction(IRoomActor source, IRoomActor target, int damage, string weapon)
         {
             Source = source;
             Target = target;
             Stats = new Dictionary<string, int>();
             Damage = damage;
+            Weapon = weapon;
         }
 
         public override IEnumerable<string> Execute(IRoom room)
@@ -37,11 +41,11 @@ namespace Models.Actions
             if (Source is CommandShip)
             {
                 //TODO - add target link?
-                return new List<string>() { ("< > deal " + Damage + " damage to the target.").Encode(Source.GetLinkText(), Source.Id, "red")};
+                return new List<string>() { ("< > deal " + Damage + " damage to the target with your " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.Player)};
             }
             else
             {
-                return new List<string>() { ("< > dealt you " + Damage + " damage.").Encode(Source.GetLinkText(), Source.Id, "red")};
+                return new List<string>() { ("< > dealt you " + Damage + " damage with it's " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity)};
             }
 
         }
