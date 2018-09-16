@@ -2007,7 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d163ddcb81a50d40a7c24e4eb4a8b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipName: {fileID: 600688517}
+  _shield: {fileID: 600688517}
   _sectorName: {fileID: 791987314}
   _hull: {fileID: 378417752}
   _energy: {fileID: 60980200}
