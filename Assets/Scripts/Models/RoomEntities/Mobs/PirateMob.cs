@@ -11,7 +11,7 @@ public class PirateMob : FlexEntity
 {
     public PirateMob() : base()
     {
-        Name = "Pirate Ship";
+        Name = "Rogue Privateer";
         IsHostile = false;
         CanCombat = false;
         Values[ValueKeys.LookText] = "You recieve a hail from a menacing <>";
@@ -23,11 +23,11 @@ public class PirateMob : FlexEntity
     {
         if (IsHostile)
         {
-            return DialogueBuilder.PlayerAttackDialogue("The pirate's weapons are already spun up and locked on to you!", this, room);
+            return DialogueBuilder.PlayerAttackDialogue("The privateer's weapons are already spun up and locked on to you!", this, room);
         }
         else if (CanCombat)
         {
-            return DialogueBuilder.PlayerAttackDialogue("A rusty pirate cruises through the sector.", this, room);
+            return DialogueBuilder.PlayerAttackDialogue("A rusty privateer cruises through the sector.", this, room);
         }
         else
         {
@@ -38,7 +38,7 @@ Empty your cargo or we'll dust ya!")
                         .AddTextA("Transfer 100 resourcium")
                             .AddActionA(new GetRobbedAction(room.PlayerShip, this, 100)) //  player loses 100 resourcium and pirate ship to CanCombat = true
                         .AddTextB("Talk your way out of it")
-                            .AddActionB(new SmoothTalkAction(room.PlayerShip, this, 100))  //  if successful, this action will set the pirate ship to CanCombat = true, failure sets pirate to IsHostile = true
+                            .AddActionB(new SmoothTalkAction(room.PlayerShip, this, 10))  //  if successful, this action will set the pirate ship to CanCombat = true, failure sets pirate to IsHostile = true
                         .Build();
         }
     }
@@ -67,7 +67,7 @@ Empty your cargo or we'll dust ya!")
         }
         else if (IsHostile)
         {
-            return new AttackAction(this, room.PlayerShip, 3);
+            return new AttackAction(this, room.PlayerShip, 2);
         }
         return new DoNothingAction(this);
     }
@@ -182,7 +182,13 @@ Empty your cargo or we'll dust ya!")
             Target.IsHostile = false;
             Target.CanCombat = true;
 
-            Source.Stats[StatKeys.Resourcium] -= Amount;
+            if (Source.Stats[StatKeys.Resourcium] < Amount)
+            {
+                Amount = Source.Stats[StatKeys.Resourcium];
+            }
+
+                Source.Stats[StatKeys.Resourcium] -= Amount;
+
 
             return new string[] { string.Format("You transfer {0} resourcium to the <>", Amount).Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity) };
         }
