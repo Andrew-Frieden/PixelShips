@@ -8,7 +8,7 @@ namespace Models
 {
     public abstract class FlexEntity : IRoomActor
     {
-        public bool Hidden { get; protected set; }
+        public bool IsHidden { get; protected set; }
 
         public bool IsHostile
         {
@@ -24,7 +24,7 @@ namespace Models
             }
         }
 
-        public bool CanCombat
+        public bool IsAttackable
         {
             get
             {
@@ -66,6 +66,8 @@ namespace Models
                 return Stats[CurrentStateKey]; 
             }
         }
+
+        public virtual bool IsDestroyed => false;
 
         public void ChangeState(int nextState)
         {

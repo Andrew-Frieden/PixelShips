@@ -15,7 +15,7 @@ namespace Models.Actors
             _source = source;
             _target = target;
             _damageReduction = damageReduction;
-            Hidden = true;
+            IsHidden = true;
         }
 
         public override ABDialogueContent CalculateDialogue(IRoom room)

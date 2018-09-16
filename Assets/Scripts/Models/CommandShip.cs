@@ -24,13 +24,13 @@ namespace Models
                 {
                     _stats = new Dictionary<string, int>
                     {
-                        [ShipDto.StatKeys.IsAlive] = 1,
+                        [ShipStats.IsAlive] = 1,
                         [StatKeys.MaxHull] = 20,
                         [StatKeys.Hull] = 20,
                         [StatKeys.MaxShields] = 20,
                         [StatKeys.Shields] = 20,
                         [StatKeys.Captainship] = 11,
-                        [ShipDto.StatKeys.WarpDriveReady] = 0,
+                        [ShipStats.WarpDriveReady] = 0,
                         [StatKeys.Scrap] = 0,
                         [StatKeys.Resourcium] = 0,
                         [StatKeys.Techanite] = 0,
@@ -52,7 +52,7 @@ namespace Models
                 {
                     _values = new Dictionary<string, string>()
                     {
-                        [ShipDto.StatKeys.CaptainName] = PickRandomCaptainName(),
+                        [ShipStats.CaptainName] = PickRandomCaptainName(),
                     };
                 }
                 return _values;
@@ -60,7 +60,7 @@ namespace Models
             private set => _values = value;
         }
 
-        public bool Hidden { get; }
+        public bool IsHidden { get; }
 
         public bool IsHostile
         {
@@ -78,13 +78,27 @@ namespace Models
 
         public bool WarpDriveReady
         {
-            get => Stats[ShipDto.StatKeys.WarpDriveReady] != 0;
-            set => Stats[ShipDto.StatKeys.WarpDriveReady] = value ? 1 : 0;
+            get => Stats[ShipStats.WarpDriveReady] != 0;
+            set => Stats[ShipStats.WarpDriveReady] = value ? 1 : 0;
         }
 
         public RoomTemplate WarpTarget;
 
-        public bool CanCombat { get { return true; } set { throw new Exception("Tried to set CommandShip CanCombat to true"); } }
+        public bool IsAttackable { get { return true; } set { throw new Exception("Tried to set CommandShip CanCombat to true"); } }
+
+        public bool IsDestroyed
+        {
+            get
+            {
+                return Stats[StatKeys.Hull] <= 0;
+            }
+        }
+
+        public int Hull
+        {
+            get => Stats[StatKeys.Hull];
+            set => Stats[StatKeys.Hull] = value;
+        }
 
         public string GetLookText()
         {
@@ -170,6 +184,14 @@ namespace Models
                 default:
                     return "The dread pirate spigs";
             }
+        }
+
+        public static partial class ShipStats
+        {
+            public const string IsAlive = "is_alive";
+
+            public const string WarpDriveReady = "warp_drive_ready";
+            public const string CaptainName = "captain_name";
         }
     }
 }

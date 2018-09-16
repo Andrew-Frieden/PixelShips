@@ -14,7 +14,7 @@ namespace Models
         public Dictionary<string, int> Stats { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
-        public bool Hidden { get; set; }
+        public bool IsHidden { get; set; }
 
         public bool IsHostile
         {
@@ -39,7 +39,7 @@ namespace Models
             }
         }
 
-        bool IRoomActor.CanCombat
+        bool IRoomActor.IsAttackable
         {
             get
             {
