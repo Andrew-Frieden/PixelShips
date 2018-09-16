@@ -1,16 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;  // i think we should put the stat keys somewhere else - doesn't seem like roomcontroller needs to know about dtos
 using Models.Stats;
+using UnityEngine;
 using static Models.CommandShip;
 
 namespace Controller
 {
     public static class RoomController
     {
+        public delegate void OnRoomHealEvent();
+        public static event OnRoomHealEvent onRoomHealEvent;
+        
         public static void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
@@ -20,20 +25,27 @@ namespace Controller
 
         public static IEnumerable<string> ResolveNextTick(IRoom room, IRoomAction playerAction)
         {
-            var resolveText = (List<string>) ExecuteActions(room, playerAction);
+            var nextTickText = (List<string>) ExecuteActions(room, playerAction);
             var cleanupText = DoCleanup(room);
 
+            //If there is any cleanup text is means the ship was destroyed, this should be explicit here
             if (cleanupText.Any())
             {
-                resolveText.AddRange(cleanupText);
+                nextTickText.AddRange(cleanupText);
             }
+            //Otherwise recalculate all dialogues and do a game tick
             else
             {
                 CalculateDialogues(room);
-                room.Tick();
+                GameManager.Instance.GameState.Tick();
+
+                if (GameManager.Instance.GameState.GetTicks() % 5 == 0)
+                {
+                    nextTickText.AddRange(PassiveRoomHeal(room));
+                }
             }
 
-            return resolveText;
+            return nextTickText;
         }
 
         private static IEnumerable<string> ExecuteActions(IRoom room, IRoomAction playerAction)
@@ -62,6 +74,30 @@ namespace Controller
             }
 
             return actionResults;
+        }
+
+        private static IEnumerable<string> PassiveRoomHeal(IRoom room)
+        {
+            //Heal the player shields for 5, max of max shields
+            room.PlayerShip.Stats[StatKeys.Shields] = Mathf.Min(room.PlayerShip.Stats[StatKeys.MaxShields],
+                room.PlayerShip.Stats[StatKeys.Shields] + 5);
+            
+            //Heal all entity shields for 3, max of max shields
+            foreach (var entity in room.Entities)
+            {
+                if (entity.Stats.ContainsKey(StatKeys.Shields))
+                {
+                    entity.Stats[StatKeys.Shields] = Mathf.Min(entity.Stats[StatKeys.MaxShields],
+                        entity.Stats[StatKeys.Shields] + 3);
+                }
+            }
+            
+            onRoomHealEvent?.Invoke();
+            
+            return new List<string>
+            {
+                "You march of time continues. Your shields regenerate."
+            };
         }
 
         private static void CalculateDialogues(IRoom room)

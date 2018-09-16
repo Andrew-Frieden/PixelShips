@@ -27,22 +27,12 @@ namespace Models.Actions
         {
         }
         
-        public delegate void OnPlayerTookDamageEvent(PlayerTookDamageEventArgs args);
+        public delegate void OnPlayerTookDamageEvent();
         public static event OnPlayerTookDamageEvent onPlayerTookDamageEvent;
         
-        protected virtual void PlayerTookDamage(PlayerTookDamageEventArgs args)
+        protected virtual void PlayerTookDamage()
         {
-            onPlayerTookDamageEvent?.Invoke(args);
-        }
-    }
-    
-    public class PlayerTookDamageEventArgs : EventArgs
-    {
-        public int Damage { get; }
-
-        public PlayerTookDamageEventArgs(int damage)
-        {
-            Damage = damage;
+            onPlayerTookDamageEvent?.Invoke();
         }
     }
 }

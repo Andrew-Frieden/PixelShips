@@ -34,6 +34,7 @@ namespace Controller
             ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
             SimpleAction.onPlayerTookDamageEvent += HandlePlayerTookDamageEvent;
+            RoomController.onRoomHealEvent += HandleRoomHealEvent;
 
             var playerShip = GameManager.Instance.GameState.CommandShip;
             _room = GameManager.Instance.GameState.Room;
@@ -108,10 +109,16 @@ namespace Controller
             _scrollView.AddCells(CalculateLookText(_room));
         }
 
-        private void HandlePlayerTookDamageEvent(PlayerTookDamageEventArgs args)
+        private void HandlePlayerTookDamageEvent()
         {
-            _shipHudController.UpdateHull(args.Damage);
+            _shipHudController.UpdateShield();
+            _shipHudController.UpdateHull();
             _scrollView.Shake();
+        }
+
+        private void HandleRoomHealEvent()
+        {
+            _shipHudController.UpdateShield();
         }
     }
 }
