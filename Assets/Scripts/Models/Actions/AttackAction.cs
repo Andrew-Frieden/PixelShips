@@ -37,6 +37,8 @@ namespace Models.Actions
         {
             Target.Stats[StatKeys.Hull] -= Damage;
             Target.IsHostile = true;
+            
+            PlayerTookDamage(new PlayerTookDamageEventArgs(Damage));
 
             if (Source is CommandShip)
             {
