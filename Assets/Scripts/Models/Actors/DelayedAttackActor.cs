@@ -37,11 +37,12 @@ namespace Models.Actors
         {
             if (Stats[TimeToLiveKey] == 1)
             {
+                Stats[TimeToLiveKey]--;
                 return new AttackAction(_source, _target, _damage, _name);
             }
             else
             {
-                return new DelayedAction($"A " + _name + " will hit {_target.GetLinkText()} ", Id);
+                return new DelayedAction($"A {_name} will hit {_target.GetLinkText()} ", Id);
             }
         }
     }

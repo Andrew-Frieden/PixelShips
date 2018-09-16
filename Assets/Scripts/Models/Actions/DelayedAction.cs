@@ -27,11 +27,8 @@ namespace Models.Actions
         public override IEnumerable<string> Execute(IRoom room)
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
-            if (actor != null)
-            {
-                actor.Stats[TemporaryEntity.TimeToLiveKey]--;
-            }
-           
+            actor.Stats[TemporaryEntity.TimeToLiveKey]--;
+         
             return _description != null ? new List<string>() { _description + $"in {actor.Stats[TemporaryEntity.TimeToLiveKey]} ticks."} : new List<string>() {};
         }
     }
