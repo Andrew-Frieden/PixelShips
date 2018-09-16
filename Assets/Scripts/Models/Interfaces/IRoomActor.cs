@@ -5,7 +5,7 @@ namespace Models
 {
     public interface IRoomActor : ITextEntity
     {
-        bool IsDestroyed { get; }
+        bool IsDestroyed { get; set; }
         bool IsHidden { get; }
         bool IsHostile { get; set; }
         bool IsAttackable { get; set; }

@@ -56,6 +56,10 @@ namespace Models
             {
                 throw new NotImplementedException();
             }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public Mob(string description, string link, int hull, ABDialogueContent dialogueContent)

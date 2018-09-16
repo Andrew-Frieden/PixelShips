@@ -5,7 +5,6 @@ using Models.Dialogue;
 using Models.Stats;
 using TextEncoding;
 using Links.Colors;
-using Models.Dtos;
 using System.Linq;
 
 namespace Models
@@ -40,7 +39,10 @@ namespace Models
                 }
                 return _stats;
             }
-            private set => _stats = value;
+            private set
+            {
+                _stats = value;
+            }
         }
 
         private Dictionary<string, string> _values;
@@ -57,7 +59,10 @@ namespace Models
                 }
                 return _values;
             }
-            private set => _values = value;
+            private set
+            {
+                _values = value;
+            }
         }
 
         public bool IsHidden { get; }
@@ -78,8 +83,14 @@ namespace Models
 
         public bool WarpDriveReady
         {
-            get => Stats[ShipStats.WarpDriveReady] != 0;
-            set => Stats[ShipStats.WarpDriveReady] = value ? 1 : 0;
+            get
+            {
+                return Stats[ShipStats.WarpDriveReady] != 0;
+            }
+            set
+            {
+                Stats[ShipStats.WarpDriveReady] = value ? 1 : 0;
+            }
         }
 
         public RoomTemplate WarpTarget;
@@ -92,12 +103,24 @@ namespace Models
             {
                 return Stats[StatKeys.Hull] <= 0;
             }
+            set
+            {
+                if (value)
+                    Stats[StatKeys.Hull] = 0;
+            }
         }
 
         public int Hull
         {
-            get => Stats[StatKeys.Hull];
-            set => Stats[StatKeys.Hull] = value;
+            get
+            {
+                return Stats[StatKeys.Hull];
+            }
+
+            set
+            {
+                Stats[StatKeys.Hull] = value;
+            }
         }
 
         public string GetLookText()
