@@ -1,5 +1,6 @@
 ﻿using System;
 using Models.Actions;
+using Models.Dialogue;
 
 namespace Models.Actors
 {
@@ -8,18 +9,23 @@ namespace Models.Actors
         private readonly IRoomActor _source;
         private readonly IRoomActor _target;
         private readonly int _damage;
+        private readonly string _name;
 
-        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage) : base()
+        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage, string name) : base()
         {
             Stats[TimeToLiveKey] = timeToLive;
             _source = source;
             _target = target;
-            _damage = damage; 
+            _damage = damage;
+            _name = name;
         }
 
         public override ABDialogueContent CalculateDialogue(IRoom room)
         {
-            throw new NotImplementedException();
+            return DialogueBuilder.Init()
+                .SetMode(ABDialogueMode.Cancel)
+                 .AddMainText("The " + _name + " will strike in " + Stats[TimeToLiveKey] + " turns.")
+                  .Build();
         }
 
         public override string GetLookText()
@@ -31,11 +37,11 @@ namespace Models.Actors
         {
             if (Stats[TimeToLiveKey] == 1)
             {
-                return new AttackAction(_source, _target, _damage);
+                return new AttackAction(_source, _target, _damage, _name);
             }
             else
             {
-                return new DelayedAction($"A hellfire missle will hit {_target.GetLinkText()} ", Id);
+                return new DelayedAction($"A " + _name + " will hit {_target.GetLinkText()} ", Id);
             }
         }
     }

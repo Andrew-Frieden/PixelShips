@@ -73,7 +73,7 @@ namespace Models
 
         public IRoomAction GetNextAction(IRoom s)
         {
-            return new AttackAction(this, s.PlayerShip, 5);
+            return new AttackAction(this, s.PlayerShip, 5, "Mob Weapon");
         }
 
         public void AfterAction(IRoom room) { }

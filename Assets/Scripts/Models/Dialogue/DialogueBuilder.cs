@@ -66,9 +66,9 @@ namespace Models.Dialogue
             return Init()
                 .AddMainText(mainText)
                 .AddTextA("Pulse Lasers")
-                    .AddActionA(new AttackAction(room.PlayerShip, target, 2))
+                    .AddActionA(new AttackAction(room.PlayerShip, target, 2, "Pulse Lasers"))
                 .AddTextB("Plasma Torpedo")
-                    .AddActionB(new AttackAction(room.PlayerShip, target, 8))
+                    .AddActionB(new CreateDelayedAttackActorAction(room.PlayerShip, target,1, 8, "Plasma Torpedo"))
                     .Build();
         }
 

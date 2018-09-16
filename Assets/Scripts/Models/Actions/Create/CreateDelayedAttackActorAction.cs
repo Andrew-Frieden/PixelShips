@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Models.Actors;
+using TextEncoding;
+using Links.Colors;
 
 namespace Models.Actions
 {
@@ -11,21 +13,26 @@ namespace Models.Actions
         private IRoomActor _target;
         private int _timeToLive;
         private int _damage;
+        private string _name;
 
-        public CreateDelayedAttackActorAction(IRoomActor source, IRoomActor target, int timeToLive, int damage)
+        public CreateDelayedAttackActorAction(IRoomActor source, IRoomActor target, int timeToLive, int damage, string name)
         {
             ActionName = ACTION_NAME;
             _timeToLive = timeToLive;
             _source = source;
             _target = target;
-            _damage = damage; 
+            _damage = damage;
+            _name = name;
         }
         
         public override IEnumerable<string> Execute(IRoom room)
         {
-            room.Entities.Add(new DelayedAttackActor(_source, _target, _timeToLive, _damage));
+
+            var newActor = new DelayedAttackActor(_source, _target, _timeToLive, _damage, _name);
+            room.Entities.Add(newActor);
             
-            return new List<string>() { "You fire a hellfire missle." };
+            return new List<string>() { ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity) } ;
+           
         }
     }
 }
