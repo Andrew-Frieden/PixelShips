@@ -41,10 +41,10 @@ namespace Models
             Entities = new List<IRoomActor>();
         }
         
-        public Room(string desc, string name)
+        public Room(string name, string description)
         {
             Id = Guid.NewGuid().ToString();
-            Description = desc;
+            Description = description;
             Link = name;
             Entities = new List<IRoomActor>();
         }

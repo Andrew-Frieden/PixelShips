@@ -14,7 +14,7 @@ public class VerdantInformantMob : FlexEntity
     {
         Name = "Verdant Informant";
         IsHostile = false;
-        CanCombat = true;
+        IsAttackable = true;
         Values[ValueKeys.LookText] = "A <> is in the sector, guns at the ready.";
         Values[ValueKeys.LookTextAggro] = "A <> is maneuvering to attack position.";
         Stats[StatKeys.Hull] = 8;
