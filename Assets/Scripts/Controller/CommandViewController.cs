@@ -41,7 +41,7 @@ namespace Controller
             _room.SetPlayerShip(playerShip);
             
             //TODO: abstract the stats lookup
-            _shipHudController.InitializeShipHud(playerShip);
+            _shipHudController.InitializeShipHud(_room);
             
             RoomController.StartNextRoom(_room, _room);
 
@@ -116,6 +116,8 @@ namespace Controller
             _room = nextRoom;
                 
             _scrollView.AddCells(CalculateLookText(_room));
+
+            _shipHudController.UpdateSector(_room);
         }
 
         private void HandlePlayerTookDamageEvent()

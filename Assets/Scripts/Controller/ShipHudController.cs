@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Models;
 using Models.Stats;
+using TextEncoding;
 using TMPro;
 using UnityEngine;
 
@@ -19,15 +20,16 @@ namespace Controller
 		private int CurrentHull { get; set; }
 		private int CurrentShield { get; set; }
 
-		public void InitializeShipHud(CommandShip ship)
+		public void InitializeShipHud(IRoom room)
 		{
-			PlayerShip = ship;
+			PlayerShip = room.PlayerShip;
 		
 			CurrentHull = PlayerShip.Stats[StatKeys.Hull];
 			CurrentShield = PlayerShip.Stats[StatKeys.Shields];
 		
 			_shield.text = "Shield: " + PlayerShip.Stats[StatKeys.Shields] + "/" + PlayerShip.Stats[StatKeys.MaxShields];
 			_hull.text = "Hull: " + PlayerShip.Stats[StatKeys.Hull] + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+            UpdateSector(room);
 		}
 
 		public void UpdateHull()
@@ -39,6 +41,11 @@ namespace Controller
 		{
 			StartCoroutine(UpdateShieldText());
 		}
+
+        public void UpdateSector(IRoom room)
+        {
+            _sectorName.text = "<>".Encode(room.GetLinkText(), room.Id, LinkColors.Room);
+        }
 
 		private IEnumerator UpdateShieldText()
 		{
