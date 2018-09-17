@@ -25,14 +25,20 @@ namespace Models.Actions
             _name = name;
         }
         
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
 
             var newActor = new DelayedAttackActor(_source, _target, _timeToLive, _damage, _name);
             room.Entities.Add(newActor);
             
-            return new List<string>() { ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity) } ;
-           
+            return new List<StringTagContainer>()
+            {
+                new StringTagContainer()
+                {
+                    Text = ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity),
+                    ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                }
+            };
         }
     }
 }

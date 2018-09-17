@@ -49,15 +49,24 @@ namespace Controller
             StartCoroutine(Blink.BlinkLoop());
         }
 
-        private IEnumerable<string> CalculateLookText(IRoom room)
+        private IEnumerable<StringTagContainer> CalculateLookText(IRoom room)
         {
-            var lookText = new List<string>
+            var lookResults = new List<StringTagContainer>()
             {
-                room.PlayerShip.GetLookText(),
-                room.GetLookText()
+                new StringTagContainer()
+                {
+                    Text = room.PlayerShip.GetLookText().Text,
+                    ResultTags = new List<ActionResultTags> { }
+                },
+                new StringTagContainer()
+                {
+                    Text = room.GetLookText().Text,
+                    ResultTags = new List<ActionResultTags> { }
+                }
             };
-            room.Entities.ForEach(e => lookText.Add(e.GetLookText()));
-            return lookText;
+
+            room.Entities.ForEach(e => lookResults.Add(e.GetLookText()));
+            return lookResults;
         }
 
         private void HandleLinkTouchedEvent(string guid)

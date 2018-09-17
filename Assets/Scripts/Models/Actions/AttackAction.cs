@@ -35,7 +35,7 @@ namespace Models.Actions
             Weapon = weapon;
         }
 
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             var actualDamage = Damage;
                 
@@ -53,13 +53,26 @@ namespace Models.Actions
             if (Source is CommandShip)
             {
                 //TODO - add target link?
-                return new List<string>() { ("< > deal " + actualDamage + " damage to the target with your " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.Player)};
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = ("< > deal " + actualDamage + " damage to the target with your " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.Player),
+                        ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                    }
+                };
             }
             else
             {
-                return new List<string>() { ("< > dealt you " + actualDamage + " damage with it's " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity)};
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = ("< > dealt you " + actualDamage + " damage with it's " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity),
+                        ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                    }
+                };
             }
-
         }
     }
 }

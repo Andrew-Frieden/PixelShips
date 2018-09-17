@@ -20,11 +20,18 @@ namespace Models.Actions
             _damageReduction = damageReduction; 
         }
         
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             room.Entities.Add(new ShieldActor(Source, Target, _timeToLive, _damageReduction));
             
-            return new List<string>() { "<> generate a shield.".Encode("You", Source.Id, "blue") };
+            return new List<StringTagContainer>()
+            {
+                new StringTagContainer()
+                {
+                    Text = "<> generate a shield.".Encode("You", Source.Id, "blue"),
+                    ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                }
+            };
         }
     }
 }

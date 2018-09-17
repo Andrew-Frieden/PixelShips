@@ -102,7 +102,7 @@ namespace Models
 
         public abstract IRoomAction GetNextAction(IRoom room);
         public abstract ABDialogueContent CalculateDialogue(IRoom room);
-        public abstract string GetLookText();
+        public abstract StringTagContainer GetLookText();
 
         public virtual void AfterAction(IRoom room) 
         {

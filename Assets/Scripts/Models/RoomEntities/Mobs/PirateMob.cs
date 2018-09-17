@@ -43,19 +43,28 @@ Empty your cargo or we'll dust ya!")
         }
     }
 
-    public override string GetLookText()
+    public override StringTagContainer GetLookText()
     {
         if (IsHostile)
         {
-            return Values[ValueKeys.LookTextAggro].Encode(Name, Id, LinkColors.HostileEntity);
+            return new StringTagContainer()
+            {
+                Text = Values[ValueKeys.LookTextAggro].Encode(Name, Id, LinkColors.HostileEntity)
+            };
         }
         else if (IsAttackable)
         {
-            return Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.CanCombatEntity);
+            return new StringTagContainer()
+            {
+                Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.CanCombatEntity)
+            };
         }
         else
         {
-            return Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.NPC);
+            return new StringTagContainer()
+            {
+                Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.NPC)
+            };
         }
     }
 
@@ -91,14 +100,22 @@ Empty your cargo or we'll dust ya!")
             Source = src;
         }
 
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             if (!Source.IsHostile && !Source.IsAttackable)
             {
                 Source.IsHostile = true;
-                return new string[] { "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity) };
+                
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity),
+                        ResultTags = new List<ActionResultTags> { }
+                    }
+                };
             }
-            return new string[] { };
+            return new List<StringTagContainer>() { };
         }
     }
 
@@ -130,7 +147,7 @@ Empty your cargo or we'll dust ya!")
             Dc = dc;
         }
 
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             var stat = Source.Stats[StatKeys.Captainship];
             var roll = stat + UnityEngine.Random.Range(1, 21);
@@ -139,12 +156,28 @@ Empty your cargo or we'll dust ya!")
             {
                 Target.IsHostile = false;
                 Target.IsAttackable = true;
-                return new string[] { "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity) };
+                
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity),
+                        ResultTags = new List<ActionResultTags> { }
+                    }
+                };
             }
             else
             {
                 Target.IsHostile = true;
-                return new string[] { "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity) };
+                
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity),
+                        ResultTags = new List<ActionResultTags> { }
+                    }
+                };
             }
         }
     }
@@ -177,7 +210,7 @@ Empty your cargo or we'll dust ya!")
             Amount = amount;
         }
 
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             Target.IsHostile = false;
             Target.IsAttackable = true;
@@ -189,8 +222,14 @@ Empty your cargo or we'll dust ya!")
 
                 Source.Stats[StatKeys.Resourcium] -= Amount;
 
-
-            return new string[] { string.Format("You transfer {0} resourcium to the <>", Amount).Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity) };
+            return new List<StringTagContainer>()
+            {
+                new StringTagContainer()
+                {
+                    Text = $"You transfer {Amount} resourcium to the <>".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity),
+                    ResultTags = new List<ActionResultTags> { }
+                }
+            };
         }
     }
 }

@@ -100,9 +100,12 @@ namespace Models
             set => Stats[StatKeys.Hull] = value;
         }
 
-        public string GetLookText()
+        public StringTagContainer GetLookText()
         {
-            return "< > jump into the sector.".Encode(GetLinkText(), Id, LinkColors.Player);
+            return new StringTagContainer()
+            {
+                Text = "< > jump into the sector.".Encode(GetLinkText(), Id, LinkColors.Player)
+            };
         }
 
         public string GetLinkText()

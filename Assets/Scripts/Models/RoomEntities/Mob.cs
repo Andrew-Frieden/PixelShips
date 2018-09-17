@@ -61,9 +61,9 @@ namespace Models
             DialogueContent = dialogueContent;
         }
 
-        public string GetLookText()
+        public StringTagContainer GetLookText()
         {
-            return Description.Encode(Link, Id, "red");
+            return null;
         }
 
         public string GetLinkText()

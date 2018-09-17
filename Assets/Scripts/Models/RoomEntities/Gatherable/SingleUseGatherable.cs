@@ -58,9 +58,12 @@ namespace Models
             throw new NotSupportedException();
         }
 
-        public override string GetLookText()
+        public override StringTagContainer GetLookText()
         {
-            return _lookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable);;
+            return new StringTagContainer()
+            {
+                Text = _lookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable)
+            };
         }
     }
 
@@ -78,59 +81,73 @@ namespace Models
                 Target = target;
             }
 
-            public override IEnumerable<string> Execute(IRoom room)
+            public override IEnumerable<StringTagContainer> Execute(IRoom room)
             {
-                var lootDrop = (int)UnityEngine.Random.Range(0, 10);
-
+                var gatheredText = "";
+                
+                var lootDrop = UnityEngine.Random.Range(0, 10);
+                var results = new List<StringTagContainer>();
+                    
                 Target.ChangeState((int)NpcState.Empty);
 
                 switch (lootDrop)
                 {
                     case 0:
                         Source.Stats["resourcium"] += 15;
-                        return new string[] { "You gathered 15 resourcium." };
-
+                        gatheredText = "You gathered 15 resourcium.";
+                        break;
                     case 1:
                         Source.Stats["resourcium"] += 5;
-                        return new string[] { "You gathered 5 resourcium." };
-
+                        gatheredText = "You gathered 5 resourcium.";
+                        break;
                     case 2:
                         Source.Stats["scrap"] += 15;
-                        return new string[] { "You gathered 15 scrap." };
-
+                        gatheredText = "You gathered 15 scrap.";
+                        break;
                     case 3:
                         Source.Stats["resourcium"] += 25;
-                        return new string[] { "You gathered 25 resourcium." };
-
+                        gatheredText = "You gathered 25 resourcium.";
+                        break;
                     case 4:
                         Source.Stats["scrap"] += 25;
-                        return new string[] { "You gathered 25 scrap." };
-
+                        gatheredText = "You gathered 25 scrap.";
+                        break;
                     case 5:
                         Source.Stats["scrap"] += 75;
-                        return new string[] { "You gathered 75 scrap." };
-
+                        gatheredText = "You gathered 75 scrap.";
+                        break;
                     case 6:
                         Source.Stats["scrap"] += 75;
-                        return new string[] { "You gathered 75 scrap." };
-
+                        gatheredText = "You gathered 75 scrap.";
+                        break;
                     case 7:
                         Source.Stats["scrap"] += 150;
-                        return new string[] { "You gathered 150 scrap." };
-
+                        gatheredText = "You gathered 150 scrap.";
+                        break;
                     case 8:
                         Source.Stats["resourcium"] += 1;
-                        return new string[] { "You gathered 1 resourcium." };
-
+                        gatheredText = "You gathered 1 resourcium.";
+                        break;        
                     case 9:
                         Source.Stats["Hull"] -= 5;
-                        return new string[] { "The minerals exploded dealing 5 damage" };
-
+                        gatheredText = "The minerals exploded dealing 5 damage";
+                        break;
                     default:
                         Source.Stats["scrap"] += 5;
-                        return new string[] { "You gathered 5 scrap." };
-
+                        gatheredText = "You gathered 5 scrap.";
+                        break;        
                 }
+
+                if (gatheredText != "")
+                {
+                    results.Add(new StringTagContainer()
+                    {
+                        Text = gatheredText,
+                        ResultTags = new List<ActionResultTags> { }
+                    });
+                }
+
+                return results;
             }
         }
     }

@@ -4,6 +4,6 @@ namespace Models.Actions
 {
     public interface IRoomAction
     {
-        IEnumerable<string> Execute(IRoom room);
+        IEnumerable<StringTagContainer> Execute(IRoom room);
     }
 }

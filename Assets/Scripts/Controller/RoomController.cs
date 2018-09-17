@@ -22,15 +22,15 @@ namespace Controller
             CalculateDialogues(nextRoom);
         }
 
-        public static IEnumerable<string> ResolveNextTick(IRoom room, IRoomAction playerAction)
+        public static IEnumerable<StringTagContainer> ResolveNextTick(IRoom room, IRoomAction playerAction)
         {
-            var nextTickText = (List<string>) ExecuteActions(room, playerAction);
+            var nextTickActionResults = (List<StringTagContainer>) ExecuteActions(room, playerAction);
             var cleanupText = DoCleanup(room);
 
             //If there is any cleanup text is means the ship was destroyed, this should be explicit here
             if (cleanupText.Any())
             {
-                nextTickText.AddRange(cleanupText);
+                nextTickActionResults.AddRange(cleanupText);
             }
             //Otherwise recalculate all dialogues and do a game tick
             else
@@ -40,16 +40,16 @@ namespace Controller
 
                 if (GameManager.Instance.GameState.GetTicks() % 5 == 0)
                 {
-                    nextTickText.AddRange(PassiveRoomHeal(room));
+                    nextTickActionResults.AddRange(PassiveRoomHeal(room));
                 }
             }
 
-            return nextTickText;
+            return nextTickActionResults;
         }
 
-        private static IEnumerable<string> ExecuteActions(IRoom room, IRoomAction playerAction)
+        private static IEnumerable<StringTagContainer> ExecuteActions(IRoom room, IRoomAction playerAction)
         {
-            var actionResults = new List<string>();
+            var actionResults = new List<StringTagContainer>();
             var actionsToExecute = new List<IRoomAction>()
             {
                 playerAction
@@ -75,7 +75,7 @@ namespace Controller
             return actionResults;
         }
 
-        private static IEnumerable<string> PassiveRoomHeal(IRoom room)
+        private static IEnumerable<StringTagContainer> PassiveRoomHeal(IRoom room)
         {
             //Heal the player shields for 5, max of max shields
             room.PlayerShip.Stats[StatKeys.Shields] = Mathf.Min(room.PlayerShip.Stats[StatKeys.MaxShields],
@@ -93,9 +93,13 @@ namespace Controller
             
             onRoomHealEvent?.Invoke();
             
-            return new List<string>
+            return new List<StringTagContainer>()
             {
-                "You march of time continues. Your shields regenerate."
+                new StringTagContainer()
+                {
+                    Text = "You march of time continues. Your shields regenerate.",
+                    ResultTags = new List<ActionResultTags> { }
+                }
             };
         }
 
@@ -113,7 +117,7 @@ namespace Controller
             room.DialogueContent = DialogueBuilder.PlayerNavigateDialogue(room);
         }
 
-        private static IEnumerable<string> DoCleanup(IRoom room)
+        private static IEnumerable<StringTagContainer> DoCleanup(IRoom room)
         {
             foreach (var entity in room.Entities)
             {
@@ -122,13 +126,22 @@ namespace Controller
 
             if (room.PlayerShip.IsDestroyed)
             {
-                return new List<string>
+                return new List<StringTagContainer>()
                 {
-                    "You have been destroyed.",
-                    "Navigate to your base to recruit a new captain."
+                    new StringTagContainer()
+                    {
+                        Text = "You have been destroyed.",
+                        ResultTags = new List<ActionResultTags> { }
+                    },
+                    new StringTagContainer()
+                    {
+                        Text = "Navigate to your base to recruit a new captain.",
+                        ResultTags = new List<ActionResultTags> { }
+                    }
                 };
             }
-            return new List<string>();
+
+            return new List<StringTagContainer>();
         }
     }
 }

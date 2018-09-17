@@ -24,15 +24,27 @@ namespace Models.Actions
             
         }
         
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
             if (actor != null)
             {
                 actor.Stats[TemporaryEntity.TimeToLiveKey]--;
             }
-           
-            return _description != null ? new List<string>() { _description + $"in {actor.Stats[TemporaryEntity.TimeToLiveKey]} ticks."} : new List<string>() {};
+
+            if (_description != null)
+            {
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = _description + $"in {actor.Stats[TemporaryEntity.TimeToLiveKey]} ticks." ,
+                        ResultTags = new List<ActionResultTags> { }
+                    }
+                };
+            }
+            
+            return new List<StringTagContainer>() { };
         }
     }
 }

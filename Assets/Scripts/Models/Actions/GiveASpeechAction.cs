@@ -13,9 +13,16 @@ namespace Models.Actions
             Stats = new Dictionary<string, int>();
         }
 
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
-            return new List<string>() { GetSpeechText().Encode(Source.GetLinkText(), Source.Id, LinkColors.Player) };
+            return new List<StringTagContainer>()
+            {
+                new StringTagContainer()
+                {
+                    Text = GetSpeechText().Encode(Source.GetLinkText(), Source.Id, LinkColors.Player),
+                    ResultTags = new List<ActionResultTags> { }
+                }
+            };
         }
 
         private string GetSpeechText()

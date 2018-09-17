@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Models.Actions;
 using Models.Dtos;
 using Models.Stats;
 using UnityEngine;
@@ -32,42 +33,76 @@ namespace Controller
 			_shipScrollViewController.AddCells(GetShipCells());
 		}
 
-		private IEnumerable<string> GetShipCells()
+		private IEnumerable<StringTagContainer> GetShipCells()
 		{
 			var ship = GameManager.Instance.GameState.CommandShip;
 
-			var baseStats = new List<string>
+			var baseStats = new List<StringTagContainer>
 			{
-				"Name: " + ship.Values[ShipStats.CaptainName],
-				"Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull],
-				"Shields: " + ship.Stats[StatKeys.Shields] + "/" + ship.Stats[StatKeys.MaxShields],
-				"Captainship: " + ship.Stats[StatKeys.Captainship],
-				"WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
+				new StringTagContainer()
+				{
+					Text = "Name: " + ship.Values[ShipStats.CaptainName]
+				},
+				new StringTagContainer()
+				{
+					Text = "Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull]
+				},
+				new StringTagContainer()
+				{
+					Text = "Shields: " + ship.Stats[StatKeys.Shields] + "/" + ship.Stats[StatKeys.MaxShields]
+				},
+				new StringTagContainer()
+				{
+					Text = "Captainship: " + ship.Stats[StatKeys.Captainship]
+				},
+				new StringTagContainer()
+				{
+					Text = "WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
+				},
+				new StringTagContainer()
+				{
+					Text = "You begin to spin up your warp drive."
+				}
 			};
 			
 			if (ship.Stats[StatKeys.Scrap] > 0)
 			{
-				baseStats.Add("Scrap: " + ship.Stats[StatKeys.Scrap]);
+				baseStats.Add(new StringTagContainer()
+				{
+					Text = "Scrap: " + ship.Stats[StatKeys.Scrap]
+				});
 			}
 
 			if (ship.Stats[StatKeys.Resourcium] > 0)
 			{
-				baseStats.Add("Resourcium: " + ship.Stats[StatKeys.Resourcium]);
+				baseStats.Add(new StringTagContainer()
+				{
+					Text = "Resourcium: " + ship.Stats[StatKeys.Resourcium]
+				});
 			}
 			
 			if (ship.Stats[StatKeys.Techanite] > 0)
 			{
-				baseStats.Add("Techanite: " + ship.Stats[StatKeys.Techanite]);
+				baseStats.Add(new StringTagContainer()
+				{
+					Text = "Techanite: " + ship.Stats[StatKeys.Techanite]
+				});
 			}
 			
 			if (ship.Stats[StatKeys.MachineParts] > 0)
 			{
-				baseStats.Add("Machine Parts: " + ship.Stats[StatKeys.MachineParts]);
+				baseStats.Add(new StringTagContainer()
+				{
+					Text = "Machine Parts: " + ship.Stats[StatKeys.MachineParts]
+				});
 			}
 			
 			if (ship.Stats[StatKeys.PulsarCoreFragments] > 0)
-			{
-				baseStats.Add("Pulsar Core Fragments: " + ship.Stats[StatKeys.PulsarCoreFragments]);
+			{	
+				baseStats.Add(new StringTagContainer()
+				{
+					Text = "Pulsar Core Fragments: " + ship.Stats[StatKeys.PulsarCoreFragments]
+				});
 			}
 
 			return baseStats;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Models.Actions;
 using PixelSpace.Models.SharedModels.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,12 +51,12 @@ public class ScrollViewController : MonoBehaviour {
 
     //Flag to start the textTyper on the first cell
     private bool _first = true;
-    private void AddCell(string encodedText)
+    private void AddCell(StringTagContainer result)
     {
         var cell = GetNextRecycledCell();
 
         cell.gameObject.SetActive(true);
-        var verticalSize = cell.SetupScrollCell(encodedText, _first);
+        var verticalSize = cell.SetupScrollCell(result.Text, _first);
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
         cell.Dim(false);
@@ -68,7 +69,7 @@ public class ScrollViewController : MonoBehaviour {
         cellAddedEvent?.Invoke();
     }
 
-    public void AddCells(IEnumerable<string> text)
+    public void AddCells(IEnumerable<StringTagContainer> text)
     {
         text.ForEach(AddCell);
         //After all the cells have been added reset the first flag

@@ -19,9 +19,12 @@ public class SometimesDamageHazard : FlexEntity
             .Build();
     }
 
-    public override string GetLookText()
+    public override StringTagContainer GetLookText()
     {
-        return Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.Hazard);
+        return new StringTagContainer()
+        {
+            Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.Hazard)
+        };
     }
 
     public override IRoomAction GetNextAction(IRoom room)
@@ -82,7 +85,7 @@ public class SometimesDamageHazard : FlexEntity
             };
         }
 
-        public override IEnumerable<string> Execute(IRoom room)
+        public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             var actualDamage = BaseDamage;
 
@@ -98,7 +101,15 @@ public class SometimesDamageHazard : FlexEntity
 
             //var exampleText = "An energy surge from a <> scorches your hull for {0} damage!";
             var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);
-            return new string[] { resultText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard) };
+            
+            return new List<StringTagContainer>()
+            {
+                new StringTagContainer()
+                {
+                    Text = resultText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
+                    ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                }
+            };
         }
     }
 }
