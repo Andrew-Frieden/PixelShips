@@ -4,7 +4,7 @@ using TMPro;
 
 public class TextTyper : MonoBehaviour
 {
-    [SerializeField] protected float TimeToWrite = 1.0f;
+    [SerializeField] protected float TimeToWrite = 5.0f;
     [SerializeField] protected TextMeshProUGUI textMesh;
 
     private Coroutine typingRoutine;

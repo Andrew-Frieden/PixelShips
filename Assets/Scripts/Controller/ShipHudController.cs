@@ -14,6 +14,17 @@ namespace Controller
 		[SerializeField] private TextMeshProUGUI _hull;
 		[SerializeField] private TextMeshProUGUI _energy;
 
+        [SerializeField] private TextTyper _typer;
+        private TextTyper sectorTyper
+        {
+            get
+            {
+                if (_typer == null)
+                    this.GetComponent<TextTyper>();
+                return _typer;
+            }
+        }
+
 		private CommandShip PlayerShip { get; set; }
 
 		//These track the ships 'current' before any actions/tick changes the values
@@ -45,6 +56,7 @@ namespace Controller
         public void UpdateSector(IRoom room)
         {
             _sectorName.text = "<>".Encode(room.GetLinkText(), room.Id, LinkColors.Room);
+            sectorTyper.TypeText(0.1f);
         }
 
 		private IEnumerator UpdateShieldText()

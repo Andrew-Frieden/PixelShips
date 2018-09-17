@@ -23,7 +23,10 @@ public class GameManager : Singleton<GameManager>
 
 	private void Start()
 	{
-		StartGame();
+        // Disable screen dimming
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        StartGame();
 	}
 
 	private void UpdateState(GamePhase phase)

@@ -73,7 +73,8 @@ namespace Models.Factories.Helpers
 
             }
 
-            entities.Add(new SpaceStationNpc());
+            if (Random.Range(1,101) <= 25)
+                entities.Add(new SpaceStationNpc());
 
             return entities;
         }
