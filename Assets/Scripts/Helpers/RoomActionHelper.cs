@@ -3,7 +3,7 @@ using Models.Stats;
 
 namespace Helpers
 {
-    public static class RoomActorHelper
+    public static class RoomActionHelper
     {
         public static void TakeDamage(this IRoomActor actor, int damage)
         {
@@ -27,6 +27,11 @@ namespace Helpers
             }
             
             actor.Stats[StatKeys.Hull] -= overflow;
+
+            if (actor.Stats[StatKeys.Hull] <= 0)
+            {
+                actor.IsDestroyed = true;
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ namespace Models.Actions
         public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
+
             if (actor != null)
             {
                 actor.Stats[TemporaryEntity.TimeToLiveKey]--;

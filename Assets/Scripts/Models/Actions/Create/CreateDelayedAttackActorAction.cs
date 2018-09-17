@@ -30,13 +30,25 @@ namespace Models.Actions
 
             var newActor = new DelayedAttackActor(_source, _target, _timeToLive, _damage, _name);
             room.Entities.Add(newActor);
+
+            if (_source is CommandShip)
+            {
+                return new List<StringTagContainer>()
+                {
+                    new StringTagContainer()
+                    {
+                        Text = ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity),
+                        ResultTags = new List<ActionResultTags> {ActionResultTags.Damage}
+                    }
+                };
+            }
             
             return new List<StringTagContainer>()
             {
                 new StringTagContainer()
                 {
-                    Text = ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity),
-                    ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                    Text = ("You detect an incomming < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity),
+                    ResultTags = new List<ActionResultTags> {ActionResultTags.Damage}
                 }
             };
         }

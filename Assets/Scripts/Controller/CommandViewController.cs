@@ -4,6 +4,7 @@ using System.Linq;
 using Common;
 using Models;
 using Models.Actions;
+using Models.Dialogue;
 using Models.Dtos;
 using Models.Factories;
 using Models.Stats;
@@ -72,7 +73,8 @@ namespace Controller
         private void HandleLinkTouchedEvent(string guid)
         {
             var entity = _room.FindEntity(guid);
-            _abController.ShowControl(entity.DialogueContent);
+            var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue();
+            _abController.ShowControl(content);
         }
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)

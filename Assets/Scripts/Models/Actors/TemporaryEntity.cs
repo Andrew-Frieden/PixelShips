@@ -1,4 +1,6 @@
-﻿namespace Models.Actors
+﻿using UnityEngine;
+
+namespace Models.Actors
 {
     public abstract class TemporaryEntity : FlexEntity
     {
@@ -12,7 +14,7 @@
         {
             if (Stats[TimeToLiveKey] == 0)
             {
-                room.Entities.Remove(this);
+                IsDestroyed = true;
             }
         }
     }

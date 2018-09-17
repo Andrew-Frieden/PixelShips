@@ -9,36 +9,68 @@ namespace Models.Factories.Helpers
     {
         public static IEnumerable<IRoomActor> BuildKelpForestActors(RoomTemplate template)
         {
+
+            // 0-1 NPC
+            // 0-2 Gatherable
+            // 0-2 Damage Sources
             var entities = new List<IRoomActor>();
+
+            var NPCBudget = Random.Range(0, 1);
+            var GatherableBudget = Random.Range(0, 2);
+            var DamageBudget = Random.Range(0, 2);
+            var hasHazard = false;
+            var hasBoss = false;
             
             var exampleNpc = new NeedsHelpNpc();
-            if (template.Difficulty * 10 < Random.Range(1, 100))
+            if (NPCBudget > 0)
             {
                 entities.Add(exampleNpc);
+                NPCBudget--;
             }
 
-            var data = ExampleGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
-            if (5 > Random.Range(1, 10))
+            while (GatherableBudget > 0)
             {
-                entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
+                var miningAsteroid = new SingleUseGatherable();
+                var floatingObject = new ScrapGatherable();
+                if (5 > Random.Range(1, 10))
+                {
+                    entities.Add(miningAsteroid);
+                } else
+                {
+                    entities.Add(floatingObject);
+                }
+                GatherableBudget--;
+
             }
 
-            var miningAsteroid = new SingleUseGatherable();
-            if (5 > Random.Range(1, 10))
+            while (DamageBudget > 0)
             {
-                entities.Add(miningAsteroid);
-            }
 
-            var floatingObject = new ScrapGatherable();
-            if (5 > Random.Range(1, 10))
-            {
-                entities.Add(floatingObject);
-            }
+                var randomCount = Random.Range(1, 10);
+                if ((3 < randomCount) && !hasHazard)
+                {
+                    var data = ExampleGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
+                    entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
+                    hasHazard = true;
 
-            var pirateMob = new PirateMob();
-            if (5 > Random.Range(1, 10))
-            {
-                entities.Add(pirateMob);
+                } else if ((5 < randomCount) && !hasBoss)
+                {
+                    entities.Add(new VerdantInterrogatorMob());
+                    hasBoss = true;
+                } else
+                {
+                    var mobList = new List<IRoomActor>();
+                    mobList.Add(new PirateMob());
+                    mobList.Add(new VerdantObserverMob());
+                    mobList.Add(new VerdantInformantMob());
+
+                    var tempList = mobList.OrderBy(d => System.Guid.NewGuid());
+                    entities.Add(tempList.First());
+
+                }
+                DamageBudget--;
+
+
             }
 
             return entities;

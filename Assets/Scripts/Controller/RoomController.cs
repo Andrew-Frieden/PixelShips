@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Models.Actions;
 using Models.Dialogue;
-using Models.Dtos;  // i think we should put the stat keys somewhere else - doesn't seem like roomcontroller needs to know about dtos
 using Models.Stats;
 using UnityEngine;
-using static Models.CommandShip;
 
 namespace Controller
 {
@@ -119,10 +116,9 @@ namespace Controller
 
         private static IEnumerable<StringTagContainer> DoCleanup(IRoom room)
         {
-            foreach (var entity in room.Entities)
-            {
-                //entity.AfterAction(_room);
-            }
+            room.Entities.ForEach(e => e.AfterAction(room));
+            var destroyedEntities = room.Entities.Where(e => e.IsDestroyed).ToList();
+            destroyedEntities.ForEach(e => room.Entities.Remove(e));
 
             if (room.PlayerShip.IsDestroyed)
             {
