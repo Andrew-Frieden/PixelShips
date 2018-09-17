@@ -59,8 +59,7 @@ namespace Controller
             {
                 foreach (var entity in room.Entities)
                 {
-                    var nextAction = entity.GetNextAction(room);
-                    actionsToExecute.Add(nextAction);
+                    actionsToExecute.Add(entity.GetNextAction(room));
                 }
             }
             

@@ -4,7 +4,6 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
-using Links.Colors;
 
 namespace Models
 {
@@ -31,7 +30,6 @@ namespace Models
         public NeedsHelpNpc(string name = "NCA Patrol Officer") : base()
         {
             Name = name;
-            Stats = new Dictionary<string, int>();
         }
 
         public override IRoomAction GetNextAction(IRoom room)
@@ -54,12 +52,10 @@ namespace Models
                 case (int)NpcState.HelpSuccess:
                     return DialogueBuilder.Init()
                         .AddMainText("Yay thanks for the help!")
-                        .SetMode(ABDialogueMode.Cancel)
                         .Build();
                 case (int)NpcState.HelpFail:
                     return DialogueBuilder.Init()
                         .AddMainText("Hey you tried your best. I'll call for backup.")
-                        .SetMode(ABDialogueMode.Cancel)
                         .Build();
             }
 

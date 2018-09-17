@@ -1,4 +1,3 @@
-﻿using Links.Colors;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
@@ -104,6 +103,4 @@ public class VerdantInterrogatorMob : FlexEntity
             return new List<StringTagContainer>();
         }
     }
-
- 
 }

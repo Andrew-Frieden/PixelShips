@@ -1,4 +1,3 @@
-﻿using Links.Colors;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
@@ -96,6 +95,4 @@ public class VerdantObserverMob : FlexEntity
             return new List<StringTagContainer>();
         }
     }
-
- 
 }

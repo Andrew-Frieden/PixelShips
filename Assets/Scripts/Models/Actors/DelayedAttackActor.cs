@@ -22,7 +22,6 @@ namespace Models.Actors
         public override ABDialogueContent CalculateDialogue(IRoom room)
         {
             return DialogueBuilder.Init()
-                .SetMode(ABDialogueMode.Cancel)
                  .AddMainText("The " + _name + " will strike in " + Stats[TimeToLiveKey] + " turns.")
                   .Build();
         }

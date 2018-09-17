@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Actors;
 using TextEncoding;
-using Links.Colors;
 
 namespace Models.Actions
 {
@@ -27,7 +26,6 @@ namespace Models.Actions
         
         public override IEnumerable<StringTagContainer> Execute(IRoom room)
         {
-
             var newActor = new DelayedAttackActor(_source, _target, _timeToLive, _damage, _name);
             room.Entities.Add(newActor);
 

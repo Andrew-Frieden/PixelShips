@@ -4,7 +4,6 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Stats;
 using TextEncoding;
-using Links.Colors;
 using System.Linq;
 
 namespace Models
@@ -129,6 +128,19 @@ namespace Models
             {
                 Text = "< > jump into the sector.".Encode(GetLinkText(), Id, LinkColors.Player)
             };
+        }
+        
+        public int MaxHull
+        {
+            get
+            {
+                return Stats[StatKeys.MaxHull];
+            }
+
+            set
+            {
+                Stats[StatKeys.MaxHull] = value;
+            }
         }
 
         public string GetLinkText()

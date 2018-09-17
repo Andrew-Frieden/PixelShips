@@ -14,6 +14,30 @@ namespace Models.Dialogue
                 content = new ABDialogueContent();
             }
 
+            public IDialogueBuilder AddOption(string text, IRoomAction action)
+            {
+                if (content.OptionAAction == null)
+                    AddOptionA(text, action);
+                else
+                    AddOptionB(text, action);
+
+                return this;
+            }
+
+            public IDialogueBuilder AddOptionA(string text, IRoomAction action)
+            {
+                AddTextA(text);
+                AddActionA(action);
+                return this;
+            }
+
+            public IDialogueBuilder AddOptionB(string text, IRoomAction action)
+            {
+                AddTextB(text);
+                AddActionB(action);
+                return this;
+            }
+
             public IDialogueBuilder AddActionA(IRoomAction action)
             {
                 content.OptionAAction = action;
@@ -46,13 +70,14 @@ namespace Models.Dialogue
 
             public ABDialogueContent Build()
             {
-                return content;
-            }
+                if (content.OptionAAction != null && content.OptionBAction != null)
+                    content.Mode = ABDialogueMode.ABCancel;
+                else if (content.OptionAAction != null && content.OptionBAction == null)
+                    content.Mode = ABDialogueMode.ACancel;
+                else if (content.OptionAAction == null && content.OptionBAction == null)
+                    content.Mode = ABDialogueMode.Cancel;
 
-            public IDialogueBuilder SetMode(ABDialogueMode mode)
-            {
-                content.Mode = mode;
-                return this;
+                return content;
             }
         }
         
@@ -89,7 +114,6 @@ namespace Models.Dialogue
                 .AddMainText(room.GetLookText() + Environment.NewLine + Environment.NewLine + "Your warp drive is cold.")
                 .AddTextA("Spin up your warp drive.")
                 .AddActionA(new CreateWarpDriveActorAction(1))
-                .SetMode(ABDialogueMode.ACancel)
                 .Build();
         }
 
@@ -97,7 +121,6 @@ namespace Models.Dialogue
         {
             return Init()
                 .AddMainText("The scanner signature was lost.")
-                .SetMode(ABDialogueMode.Cancel)
                 .Build();
         }
     }
@@ -109,7 +132,10 @@ namespace Models.Dialogue
         IDialogueBuilder AddTextB(string text);
         IDialogueBuilder AddActionA(IRoomAction action);
         IDialogueBuilder AddActionB(IRoomAction action);
-        IDialogueBuilder SetMode(ABDialogueMode mode);
+        IDialogueBuilder AddOption(string text, IRoomAction action);
+        IDialogueBuilder AddOptionA(string text, IRoomAction action);
+        IDialogueBuilder AddOptionB(string text, IRoomAction action);
+
         ABDialogueContent Build();
     }
 }

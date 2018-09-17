@@ -73,6 +73,8 @@ namespace Models.Factories.Helpers
 
             }
 
+            entities.Add(new SpaceStationNpc());
+
             return entities;
         }
         

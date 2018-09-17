@@ -7,7 +7,6 @@ using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
 using Models.Stats;
-using Links.Colors;
 
 public class SometimesDamageHazard : FlexEntity
 {
@@ -15,7 +14,6 @@ public class SometimesDamageHazard : FlexEntity
     {
         return DialogueBuilder.Init()
             .AddMainText(Values[ValueKeys.DialogueText].Encode(Name, Id, LinkColors.Hazard))
-            .SetMode(ABDialogueMode.Cancel)
             .Build();
     }
 

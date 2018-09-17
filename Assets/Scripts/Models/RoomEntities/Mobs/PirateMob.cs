@@ -1,4 +1,3 @@
-﻿using Links.Colors;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
@@ -79,6 +78,14 @@ Empty your cargo or we'll dust ya!")
             return new AttackAction(this, room.PlayerShip, 2, "Pirate Cannon");
         }
         return new DoNothingAction(this);
+    }
+
+    public override void AfterAction(IRoom room)
+    {
+        if (IsDestroyed)
+        {
+
+        }
     }
 
     public PirateMob(FlexEntityDto dto, IRoom room) : base(dto, room)
@@ -166,19 +173,17 @@ Empty your cargo or we'll dust ya!")
                     }
                 };
             }
-            else
+            
+            Target.IsHostile = true;
+            
+            return new List<StringTagContainer>()
             {
-                Target.IsHostile = true;
-                
-                return new List<StringTagContainer>()
+                new StringTagContainer()
                 {
-                    new StringTagContainer()
-                    {
-                        Text = "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity),
-                        ResultTags = new List<ActionResultTags> { }
-                    }
-                };
-            }
+                    Text = "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity),
+                    ResultTags = new List<ActionResultTags> { }
+                }
+            };
         }
     }
 
@@ -220,7 +225,7 @@ Empty your cargo or we'll dust ya!")
                 Amount = Source.Stats[StatKeys.Resourcium];
             }
 
-                Source.Stats[StatKeys.Resourcium] -= Amount;
+            Source.Stats[StatKeys.Resourcium] -= Amount;
 
             return new List<StringTagContainer>()
             {

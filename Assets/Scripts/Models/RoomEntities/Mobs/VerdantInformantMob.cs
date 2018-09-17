@@ -1,4 +1,3 @@
-﻿using Links.Colors;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
@@ -22,13 +21,10 @@ public class VerdantInformantMob : FlexEntity
 
     public override ABDialogueContent CalculateDialogue(IRoom room)
     {
-
         return DialogueBuilder.PlayerAttackDialogue("Verdant Informant\n" +
             "Hull: " +Stats[StatKeys.Hull]+ " / 8\n" +
             "This ship is definitely up to something, but it's very difficult to tell what.\n" +
             "You can probably take them.", this, room);
-
-    
     }
 
     public override StringTagContainer GetLookText()
@@ -96,6 +92,4 @@ public class VerdantInformantMob : FlexEntity
             return new List<StringTagContainer>();
         }
     }
-
- 
 }
