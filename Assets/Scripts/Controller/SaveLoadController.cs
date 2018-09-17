@@ -56,12 +56,12 @@ namespace Models
             state.Room.SetPlayerShip(state.CommandShip);
 
             //  grab all the mob dtos and build mob entities
-            var mobs = new List<Mob>();
-            save.Room.Mobs.ForEach(dto => mobs.Add(new Mob(dto.Description, dto.Link, dto.Hull, null)));
+            //var mobs = new List<Mob>();
+            //save.Room.Mobs.ForEach(dto => mobs.Add(new Mob(dto.Description, dto.Link, dto.Hull, null)));
 
             //  create a collection to put all entities into (mobs, npcs, hazards)
             var entities = new List<IRoomActor>();
-            entities.AddRange(mobs);
+            //entities.AddRange(mobs);
 
             //  add all the entities to the room
             entities.ForEach(e => state.Room.AddEntity(e));
@@ -69,7 +69,7 @@ namespace Models
             var contents = save.Room.GetContent();
 
             //  setup the DialogueContent for every mob
-            save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));
+            //save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));
 
             //  setup the DialogueContent for the player ship
             state.CommandShip.CalculateDialogue(state.Room);

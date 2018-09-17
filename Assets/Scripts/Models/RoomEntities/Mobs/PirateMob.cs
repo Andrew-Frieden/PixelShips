@@ -1,5 +1,4 @@
-﻿using Links.Colors;
-using Models;
+﻿using Models;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
@@ -70,6 +69,14 @@ Empty your cargo or we'll dust ya!")
             return new AttackAction(this, room.PlayerShip, 2, "Pirate Cannon");
         }
         return new DoNothingAction(this);
+    }
+
+    public override void AfterAction(IRoom room)
+    {
+        if (IsDestroyed)
+        {
+
+        }
     }
 
     public PirateMob(FlexEntityDto dto, IRoom room) : base(dto, room)

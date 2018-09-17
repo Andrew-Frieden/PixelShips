@@ -25,6 +25,8 @@ namespace Models.Actions
         
         protected SimpleAction()
         {
+            Stats = new Dictionary<string, int>();
+            Values = new Dictionary<string, string>();
         }
         
         public delegate void OnPlayerTookDamageEvent();

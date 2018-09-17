@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Links.Colors
+﻿namespace TextEncoding
 {
     public static class LinkColors
     {

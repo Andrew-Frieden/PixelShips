@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -20,5 +21,11 @@ namespace TextEncoding
         {
             return Regex.Replace(text, "<.*?>", GetLink($"[{link}]", id, color));
         }
+    }
+
+    public static class Env
+    {
+        public static string l = Environment.NewLine;
+        public static string ll = Environment.NewLine + Environment.NewLine;
     }
 }

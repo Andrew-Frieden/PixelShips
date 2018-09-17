@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Models.Actions;
-using Models.Factories;
 using TextEncoding;
-using UnityEngine;
-using Links.Colors;
 
 namespace Models
 {

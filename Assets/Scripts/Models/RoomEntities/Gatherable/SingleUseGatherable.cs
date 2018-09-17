@@ -4,7 +4,6 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
-using Links.Colors;
 
 namespace Models
 {
@@ -44,14 +43,12 @@ namespace Models
                 case (int)NpcState.Full:
                     return DialogueBuilder.Init()
                         .AddMainText("Your mining scanners detect some seroius resource in this bad boy.")
-                        .SetMode(ABDialogueMode.ACancel)
                         .AddTextA("Attempt to extract resources")
                             .AddActionA(new MiningLootAction(room.PlayerShip, this))
                         .Build();
                 case (int)NpcState.Empty:
                     return DialogueBuilder.Init()
                         .AddMainText("The asteroid is depleted, it may take eons to grow back.")
-                        .SetMode(ABDialogueMode.Cancel)
                         .Build();
             }
 

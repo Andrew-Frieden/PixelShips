@@ -4,7 +4,6 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using TextEncoding;
-using Links.Colors;
 
 namespace Models
 {
@@ -45,7 +44,6 @@ namespace Models
                 case (int)NpcState.Full:
                     return DialogueBuilder.Init()
                         .AddMainText("The most ubiquitous and least valuable item in the galaxy.  Worth 1 space bux per unit.")
-                        .SetMode(ABDialogueMode.ACancel)
                         .AddTextA("Pick it up")
                             .AddActionA(new LootAction(room.PlayerShip, this))
                         .Build();

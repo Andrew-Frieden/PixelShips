@@ -8,10 +8,6 @@ namespace Models.Dtos
         public RoomFlavor Flavor;
         public string Link;
         public string Id;
-
-        public List<MobDto> Mobs;
-        //public List<NPCDto> Npcs;
-        //public List<HazardDto> Hazards;
     }
 
     public static partial class DtoHelpers
@@ -20,7 +16,7 @@ namespace Models.Dtos
         {
             var contents = new List<ABContentDto>();
 
-            dto.Mobs.ForEach(m => contents.Add(m.Content));
+            //dto.Mobs.ForEach(m => contents.Add(m.Content));
 
             return contents;
         }

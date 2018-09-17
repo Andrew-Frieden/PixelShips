@@ -4,7 +4,6 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Stats;
 using TextEncoding;
-using Links.Colors;
 using System.Linq;
 
 namespace Models
@@ -120,6 +119,19 @@ namespace Models
             set
             {
                 Stats[StatKeys.Hull] = value;
+            }
+        }
+
+        public int MaxHull
+        {
+            get
+            {
+                return Stats[StatKeys.MaxHull];
+            }
+
+            set
+            {
+                Stats[StatKeys.MaxHull] = value;
             }
         }
 

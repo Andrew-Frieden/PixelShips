@@ -12,16 +12,16 @@ namespace Models.Dtos
         {
             var roomDto = new RoomDto
             {
-                Mobs = new List<MobDto>()
+                //Mobs = new List<MobDto>()
             };
 
             foreach (var entity in room.Entities)
             {
-                if (entity is Mob)
-                {
-                    var mob = (Mob)entity;
-                    roomDto.Mobs.Add(mob.ToDto());
-                }
+                //if (entity is Mob)
+                //{
+                //    var mob = (Mob)entity;
+                //    roomDto.Mobs.Add(mob.ToDto());
+                //}
                 //else if (entity is Hazard)
                 //{
                 //    var hazard = (Hazard)entity;
@@ -38,18 +38,6 @@ namespace Models.Dtos
             {
                 Id = ship.Id,
                 ContentDto = ship.DialogueContent?.ToDto()
-            };
-        }
-
-        public static MobDto ToDto(this Mob mob)
-        {
-            return new MobDto
-            {
-                Id = mob.Id,
-                Hull = mob.Hull,
-                Description = mob.Description,
-                Link = mob.Link,
-                Content = mob.DialogueContent.ToDto()
             };
         }
 
@@ -122,11 +110,6 @@ namespace Models.Dtos
         public static CommandShip FromDto(this ShipDto dto)
         {
             return new CommandShip(dto.Id, dto.Gathering, dto.Transport, dto.Intelligence, dto.Combat, dto.Speed, dto.Hull);
-        }
-
-        public static Mob FromDto(this MobDto dto)
-        {
-            return new Mob(dto.Description, dto.Link, dto.Hull, new ABDialogueContent());
         }
 
         /// <summary>
