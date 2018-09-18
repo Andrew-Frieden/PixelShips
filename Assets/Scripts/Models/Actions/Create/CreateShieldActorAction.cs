@@ -29,7 +29,7 @@ namespace Models.Actions
                 new StringTagContainer()
                 {
                     Text = "<> generate a shield.".Encode("You", Source.Id, "blue"),
-                    ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                    ResultTags = new List<ActionResultTags> { }
                 }
             };
         }

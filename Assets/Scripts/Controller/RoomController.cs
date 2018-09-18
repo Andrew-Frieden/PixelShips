@@ -9,9 +9,6 @@ namespace Controller
 {
     public static class RoomController
     {
-        public delegate void OnRoomHealEvent();
-        public static event OnRoomHealEvent onRoomHealEvent;
-        
         public static void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
@@ -19,9 +16,10 @@ namespace Controller
             CalculateDialogues(nextRoom);
         }
 
-        public static IEnumerable<StringTagContainer> ResolveNextTick(IRoom room, IRoomAction playerAction)
+        public static IEnumerable<StringTagContainer> ResolveNextTick(IRoom room, IRoomAction playerAction,
+            ShipHudController shipHudController, ScrollViewController scrollView)
         {
-            var nextTickActionResults = (List<StringTagContainer>) ExecuteActions(room, playerAction);
+            var nextTickActionResults = (List<StringTagContainer>) ExecuteActions(room, playerAction, shipHudController, scrollView);
             var cleanupText = DoCleanup(room);
 
             //If there is any cleanup text is means the ship was destroyed, this should be explicit here
@@ -34,23 +32,24 @@ namespace Controller
             {
                 CalculateDialogues(room);
                 GameManager.Instance.GameState.Tick();
-
-                if (GameManager.Instance.GameState.GetTicks() % 5 == 0)
-                {
-                    nextTickActionResults.AddRange(PassiveRoomHeal(room));
-                }
             }
 
             return nextTickActionResults;
         }
 
-        private static IEnumerable<StringTagContainer> ExecuteActions(IRoom room, IRoomAction playerAction)
+        private static IEnumerable<StringTagContainer> ExecuteActions(IRoom room, IRoomAction playerAction, 
+            ShipHudController shipHudController, ScrollViewController scrollView)
         {
             var actionResults = new List<StringTagContainer>();
             var actionsToExecute = new List<IRoomAction>()
             {
                 playerAction
             };
+            
+            if (GameManager.Instance.GameState.GetTicks() > 0 && GameManager.Instance.GameState.GetTicks() % 5 == 0)
+            {
+                actionsToExecute.Add(new PassiveRoomHealAction());
+            }
 
             //TODO: Dont love that this business logic is in here 
             //The point of this is that if we are warping we don't execute anything else
@@ -65,38 +64,37 @@ namespace Controller
             
             foreach (var action in actionsToExecute)
             {
-                actionResults.AddRange(action.Execute(room));
+                var results = action.Execute(room);
+
+                foreach (var result in results)
+                {
+                    DoUIReaction(result, shipHudController, scrollView);
+                    
+                    actionResults.Add(result);
+                }
             }
 
             return actionResults;
         }
 
-        private static IEnumerable<StringTagContainer> PassiveRoomHeal(IRoom room)
+        private static void DoUIReaction(StringTagContainer result, ShipHudController shipHudController, ScrollViewController scrollView)
         {
-            //Heal the player shields for 5, max of max shields
-            room.PlayerShip.Stats[StatKeys.Shields] = Mathf.Min(room.PlayerShip.Stats[StatKeys.MaxShields],
-                room.PlayerShip.Stats[StatKeys.Shields] + 5);
-            
-            //Heal all entity shields for 3, max of max shields
-            foreach (var entity in room.Entities)
+            if (result.ResultTags == null)
             {
-                if (entity.Stats.ContainsKey(StatKeys.Shields))
-                {
-                    entity.Stats[StatKeys.Shields] = Mathf.Min(entity.Stats[StatKeys.MaxShields],
-                        entity.Stats[StatKeys.Shields] + 3);
-                }
+                return;
             }
             
-            onRoomHealEvent?.Invoke();
-            
-            return new List<StringTagContainer>()
+            if (result.ResultTags.Contains(ActionResultTags.Damage))
             {
-                new StringTagContainer()
-                {
-                    Text = "You march of time continues. Your shields regenerate.",
-                    ResultTags = new List<ActionResultTags> { }
-                }
-            };
+                shipHudController.UpdateShield();
+                shipHudController.UpdateHull();
+                scrollView.Shake();
+            }
+                    
+            if (result.ResultTags.Contains(ActionResultTags.Heal))
+            {
+                shipHudController.UpdateShield();
+            }
         }
 
         private static void CalculateDialogues(IRoom room)
@@ -115,7 +113,7 @@ namespace Controller
 
         private static IEnumerable<StringTagContainer> DoCleanup(IRoom room)
         {
-            room.Entities.ForEach(e => e.AfterAction(room));
+            //room.Entities.ForEach(e => e.AfterAction(room));
             var destroyedEntities = room.Entities.Where(e => e.IsDestroyed).ToList();
             destroyedEntities.ForEach(e => room.Entities.Remove(e));
 

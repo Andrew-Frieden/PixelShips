@@ -35,8 +35,7 @@ namespace Models.Actions
                 {
                     new StringTagContainer()
                     {
-                        Text = ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity),
-                        ResultTags = new List<ActionResultTags> {ActionResultTags.Damage}
+                        Text = ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity)
                     }
                 };
             }
@@ -45,8 +44,7 @@ namespace Models.Actions
             {
                 new StringTagContainer()
                 {
-                    Text = ("You detect an incomming < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity),
-                    ResultTags = new List<ActionResultTags> {ActionResultTags.Damage}
+                    Text = ("You detect an incomming < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity)
                 }
             };
         }

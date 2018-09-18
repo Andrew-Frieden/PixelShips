@@ -64,7 +64,7 @@ namespace Models
         {
             if (Stats[Gathered] == 0)
             {
-                room.Entities.Remove(this);
+                IsDestroyed = true;
             }
         }
     }
@@ -93,8 +93,7 @@ namespace Models
                 {
                     new StringTagContainer()
                     {
-                        Text = "You gathered " + scrap + " scrap.",
-                        ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                        Text = "You gathered " + scrap + " scrap."
                     }
                 };
             }

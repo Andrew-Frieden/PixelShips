@@ -23,8 +23,7 @@ namespace Models.Actions
             {
                 new StringTagContainer()
                 {
-                    Text = "You begin to spin up your warp drive.",
-                    ResultTags = new List<ActionResultTags> { ActionResultTags.Damage }
+                    Text = "You begin to spin up your warp drive."
                 }
             };
         }

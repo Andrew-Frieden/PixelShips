@@ -11,7 +11,6 @@ namespace Models.Actions
     public enum ActionResultTags
     {
         Damage,
-        Heal,
-        Deal
+        Heal
     }
 }

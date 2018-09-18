@@ -28,13 +28,5 @@ namespace Models.Actions
             Stats = new Dictionary<string, int>();
             Values = new Dictionary<string, string>();
         }
-        
-        public delegate void OnPlayerTookDamageEvent();
-        public static event OnPlayerTookDamageEvent onPlayerTookDamageEvent;
-        
-        protected virtual void PlayerTookDamage()
-        {
-            onPlayerTookDamageEvent?.Invoke();
-        }
     }
 }

@@ -46,8 +46,6 @@ namespace Models.Actions
             Target.TakeDamage(actualDamage);
             Target.IsHostile = true;
             
-            PlayerTookDamage();
-
             if (Source is CommandShip)
             {
                 //TODO - add target link?

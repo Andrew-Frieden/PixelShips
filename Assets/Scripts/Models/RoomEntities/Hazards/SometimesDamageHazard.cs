@@ -95,8 +95,6 @@ public class SometimesDamageHazard : FlexEntity
             
             Target.TakeDamage(actualDamage);
             
-            PlayerTookDamage();
-
             //var exampleText = "An energy surge from a <> scorches your hull for {0} damage!";
             var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);
             
