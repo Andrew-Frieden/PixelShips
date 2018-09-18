@@ -6,6 +6,9 @@ namespace Models.Actions
     {
         public string Text;
         public IEnumerable<ActionResultTags> ResultTags;
+
+        public StringTagContainer() { }
+        public StringTagContainer(string text) { Text = text; }
     }
 
     public enum ActionResultTags

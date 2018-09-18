@@ -14,8 +14,8 @@ public class SpaceStationNpc : FlexEntity
 
         return DialogueBuilder.Init()
             .AddMainText("The busy <> is blinking with activity. Trade vessels constantly come and go. Comms light up with public chatter.".Encode(Name, Id, LinkColors.NPC))
-            .AddOption($"Repair your ship.{Env.ll}Costs {repairPrice} resourcium." , new RepairAction(room.PlayerShip, repairPrice))
-            .AddOption($"Trade commodities for {tradeValue} resourcium.", new TradeCommoditiesAction(room.PlayerShip, tradeValue))
+            .AddOption($"Repair your ship.{Env.ll}Costs {repairPrice} credits." , new RepairAction(room.PlayerShip, repairPrice))
+            .AddOption($"Trade commodities for {tradeValue} credits.", new TradeCommoditiesAction(room.PlayerShip, tradeValue))
             .Build();
     }
 
@@ -67,9 +67,9 @@ public class SpaceStationNpc : FlexEntity
 
             var repairAmount = ship.MaxHull - ship.Hull;
 
-            if (ship.Stats[StatKeys.Resourcium] >= Cost)
+            if (ship.Stats[StatKeys.Credits] >= Cost)
             {
-                ship.Stats[StatKeys.Resourcium] -= Cost;
+                ship.Stats[StatKeys.Credits] -= Cost;
                 ship.Hull = ship.MaxHull;
                 
                 return new List<StringTagContainer>()
@@ -96,11 +96,12 @@ public class SpaceStationNpc : FlexEntity
         public static int CalculateCommodityValue(CommandShip ship)
         {
             var Scrap = ship.Stats[StatKeys.Scrap] * 1;
+            var Resourcium = ship.Stats[StatKeys.Resourcium] * 5;
             var Techanite = ship.Stats[StatKeys.Techanite] * 10;
             var MachineParts = ship.Stats[StatKeys.MachineParts] * 3;
             var PulsarCoreFragments = ship.Stats[StatKeys.PulsarCoreFragments] * 25;
 
-            return Scrap + Techanite + MachineParts + PulsarCoreFragments;
+            return Scrap + Resourcium + Techanite + MachineParts + PulsarCoreFragments;
         }
 
         private const string ProfitKey = "profit";
@@ -122,11 +123,13 @@ public class SpaceStationNpc : FlexEntity
             var ship = (CommandShip)Source;
 
             ship.Stats[StatKeys.Scrap] = 0;
+            ship.Stats[StatKeys.Resourcium] = 0;
             ship.Stats[StatKeys.Techanite] = 0;
             ship.Stats[StatKeys.MachineParts] = 0;
             ship.Stats[StatKeys.PulsarCoreFragments] = 0;
-            ship.Stats[StatKeys.Resourcium] += Profit;
-            
+
+            ship.Stats[StatKeys.Credits] += Profit;
+
             return new List<StringTagContainer>()
             {
                 new StringTagContainer()

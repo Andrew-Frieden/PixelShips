@@ -22,6 +22,7 @@ namespace Models.Stats
 
         #region Cargo
 
+        public const string Credits = "credits";
         public const string Resourcium = "resourcium";
         public const string Scrap = "scrap";
         public const string Techanite = "techanite";

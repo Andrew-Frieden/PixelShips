@@ -37,32 +37,23 @@ namespace Controller
 		{
 			var ship = GameManager.Instance.GameState.CommandShip;
 
-			var baseStats = new List<StringTagContainer>
-			{
-				new StringTagContainer()
-				{
-					Text = "Name: " + ship.Values[ShipStats.CaptainName]
-				},
-				new StringTagContainer()
-				{
-					Text = "Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull]
-				},
-				new StringTagContainer()
-				{
-					Text = "Shields: " + ship.Stats[StatKeys.Shields] + "/" + ship.Stats[StatKeys.MaxShields]
-				},
-				new StringTagContainer()
-				{
-					Text = "Captainship: " + ship.Stats[StatKeys.Captainship]
-				},
-				new StringTagContainer()
-				{
-					Text = "WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
-				},
-				new StringTagContainer()
-				{
-					Text = "You begin to spin up your warp drive."
-				}
+            var baseStats = new List<StringTagContainer>
+            {
+                new StringTagContainer()
+                {
+                    Text = "Name: " + ship.Values[ShipStats.CaptainName]
+                },
+                new StringTagContainer()
+                {
+                    Text = "Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull]
+                },
+                new StringTagContainer($"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}"),
+                new StringTagContainer($"Captainship: {ship.Stats[StatKeys.Captainship]}"),
+                new StringTagContainer()
+                {
+                    Text = "WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
+                },
+                new StringTagContainer($"Credits: {ship.Stats[StatKeys.Credits]}")
 			};
 			
 			if (ship.Stats[StatKeys.Scrap] > 0)
