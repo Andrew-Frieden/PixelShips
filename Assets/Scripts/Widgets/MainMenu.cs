@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
 	
 	private void OnClickStartButton()
 	{
-		GameManager.Instance.StartMission();
+		GameManager.Instance.StartNewMission();
 	}
 	
 	private void OnClickOptionsButton()

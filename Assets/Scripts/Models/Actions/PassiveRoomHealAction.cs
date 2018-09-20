@@ -15,7 +15,7 @@ namespace Models.Actions
         {
             //Heal the player shields for 5, max of max shields
             room.PlayerShip.Stats[StatKeys.Shields] = Mathf.Min(room.PlayerShip.Stats[StatKeys.MaxShields],
-                room.PlayerShip.Stats[StatKeys.Shields] + 5);
+                room.PlayerShip.Stats[StatKeys.Shields] + 2);
             
             //Heal all entity shields for 3, max of max shields
             foreach (var entity in room.Entities)
@@ -23,7 +23,7 @@ namespace Models.Actions
                 if (entity.Stats.ContainsKey(StatKeys.Shields))
                 {
                     entity.Stats[StatKeys.Shields] = Mathf.Min(entity.Stats[StatKeys.MaxShields],
-                        entity.Stats[StatKeys.Shields] + 3);
+                        entity.Stats[StatKeys.Shields] + 1);
                 }
             }
             
