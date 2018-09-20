@@ -65,6 +65,7 @@ public class GameManager : Singleton<GameManager>
 		
 		//if (Player has a save file)
 		//GameState = _saveLoadController.Load();
+		
 		GameState = _saveLoadController.CreateNewGameState();
 	}
 }

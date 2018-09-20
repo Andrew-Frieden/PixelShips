@@ -38,7 +38,7 @@ namespace Controller
                 playerAction
             };
             
-            if (GameManager.Instance.GameState.GetTicks() > 0 && GameManager.Instance.GameState.GetTicks() % 5 == 0)
+            if (GameManager.Instance.GameState.GetTicks() > 0 && GameManager.Instance.GameState.GetTicks() % 5 == 0 && !(playerAction is WarpAction))
             {
                 //  TODO: one corner case here is that you will heal enemy ships in a room even if they haven't existed for 5 ticks (if you entered the room after a few ticks passed) 
                 actionsToExecute.Add(new PassiveRoomHealAction());

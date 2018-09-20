@@ -36,14 +36,18 @@ namespace Controller
         }
 
         //Called the first time the player spawns a ship and goes to the command view.
-        public void StartCommandView(IRoom room)
+        public void StartCommandView()
         {
-            _shipHudController.InitializeShipHud(room);
+            //Get our initial room and ship from the game state
+            _room = GameManager.Instance.GameState.Room;
+            _room.SetPlayerShip(GameManager.Instance.GameState.CommandShip);
             
-            RoomController.StartNextRoom(room, room);
+            RoomController.StartNextRoom(_room, _room);
+            
+            _shipHudController.InitializeShipHud(_room);
             
             _scrollView.ClearScreen();
-            _scrollView.AddCells(CalculateLookText(room));
+            _scrollView.AddCells(CalculateLookText(_room));
             
             StartCoroutine(Blink.BlinkLoop());
         }

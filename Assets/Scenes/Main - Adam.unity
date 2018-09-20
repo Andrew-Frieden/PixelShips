@@ -314,80 +314,14 @@ Prefab:
       propertyPath: UICamera
       value: 
       objectReference: {fileID: 1478137180}
-    - target: {fileID: 114031279307335440, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114031279307335440, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114882474998815610, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114882474998815610, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158460782813358, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158460782813358, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114446986300624070, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114446986300624070, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114298099237587784, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114298099237587784, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114618562671888556, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114618562671888556, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1702209086149996, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114320860028921166, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: StartingView
-      value: 
-      objectReference: {fileID: 1813683862}
+    - target: {fileID: 1733658196463348, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1813683862 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1067835340755718, guid: f26a9ff0c57f12a44a392b44ef88695c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1786848960}
