@@ -5,7 +5,7 @@ namespace Models
     public interface ITextEntity
     {
         string Id { get; }
-        StringTagContainer GetLookText();
+        TagString GetLookText();
         string GetLinkText();
         ABDialogueContent DialogueContent { get; set; }
     }

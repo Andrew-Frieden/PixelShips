@@ -60,9 +60,9 @@ namespace Models
             Entities.Add(actor);
         }
 
-        public StringTagContainer GetLookText()
+        public TagString GetLookText()
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = Description.Encode(Link, Id, LinkColors.Room)
             };

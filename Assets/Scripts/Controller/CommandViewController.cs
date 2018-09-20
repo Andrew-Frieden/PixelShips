@@ -48,19 +48,19 @@ namespace Controller
             StartCoroutine(Blink.BlinkLoop());
         }
 
-        private IEnumerable<StringTagContainer> CalculateLookText(IRoom room)
+        private IEnumerable<TagString> CalculateLookText(IRoom room)
         {
-            var lookResults = new List<StringTagContainer>()
+            var lookResults = new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = room.PlayerShip.GetLookText().Text,
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 },
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = room.GetLookText().Text,
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 }
             };
 
@@ -77,9 +77,9 @@ namespace Controller
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
-            var text = RoomController.ResolveNextTick(_room, playerAction, _shipHudController, _scrollView);
-
             _scrollView.DimCells();
+
+            var text = RoomController.ResolveNextTick(_room, playerAction, _shipHudController, _scrollView);
             _scrollView.AddCells(text);
 
             //if Exit is populated -> player is warping

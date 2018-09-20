@@ -13,32 +13,32 @@ namespace Models.Actions
             _template = template;
         }
         
-        public IEnumerable<StringTagContainer> Execute(IRoom room)
+        public IEnumerable<TagString> Execute(IRoom room)
         {
             room.PlayerShip.WarpDriveReady = false;
             room.PlayerShip.WarpTarget = _template;
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "You begin to jump into hyperspace!",
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 },
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "3...",
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 },
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "2...",
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 },
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "1...",
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 }
             };
         }

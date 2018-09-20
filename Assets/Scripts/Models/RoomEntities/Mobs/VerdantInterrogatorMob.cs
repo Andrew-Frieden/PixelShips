@@ -29,17 +29,17 @@ public class VerdantInterrogatorMob : FlexEntity
             "They will probably destroy you.", this, room);
     }
 
-    public override StringTagContainer GetLookText()
+    public override TagString GetLookText()
     {
         if (IsHostile)
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = Values[ValueKeys.LookTextAggro].Encode(Name, Id, LinkColors.HostileEntity),
             };
         }
         
-        return new StringTagContainer()
+        return new TagString()
         {
             Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.CanCombatEntity),
         };
@@ -85,22 +85,22 @@ public class VerdantInterrogatorMob : FlexEntity
             Source = src;
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             if (!Source.IsHostile && (Random.Range(0,10) >= 5))
             {
                 Source.IsHostile = true;
                 
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity),
                     }
                 };
             }
 
-            return new List<StringTagContainer>();
+            return new List<TagString>();
         }
     }
 }

@@ -55,9 +55,9 @@ namespace Models
             throw new NotSupportedException();
         }
 
-        public override StringTagContainer GetLookText()
+        public override TagString GetLookText()
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = _lookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable)
             };
@@ -78,12 +78,12 @@ namespace Models
                 Target = target;
             }
 
-            public override IEnumerable<StringTagContainer> Execute(IRoom room)
+            public override IEnumerable<TagString> Execute(IRoom room)
             {
                 var gatheredText = "";
                 
                 var lootDrop = UnityEngine.Random.Range(0, 10);
-                var results = new List<StringTagContainer>();
+                var results = new List<TagString>();
                     
                 Target.ChangeState((int)NpcState.Empty);
 
@@ -137,10 +137,10 @@ namespace Models
 
                 if (gatheredText != "")
                 {
-                    results.Add(new StringTagContainer()
+                    results.Add(new TagString()
                     {
                         Text = gatheredText,
-                        ResultTags = new List<ActionResultTags> { }
+                        Tags = new List<EventTag> { }
                     });
                 }
 

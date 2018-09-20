@@ -13,7 +13,7 @@ namespace Models.Actions
         public Dictionary<string, int> Stats;
         public Dictionary<string, string> Values;
 
-        public abstract IEnumerable<StringTagContainer> Execute(IRoom room);
+        public abstract IEnumerable<TagString> Execute(IRoom room);
         
         protected SimpleAction(SimpleActionDto dto, IRoom room)
         {

@@ -115,7 +115,7 @@ namespace Models
 
         public abstract IRoomAction MainAction(IRoom room);
         public abstract ABDialogueContent CalculateDialogue(IRoom room);
-        public abstract StringTagContainer GetLookText();
+        public abstract TagString GetLookText();
 
         public virtual IRoomAction CleanupStep(IRoom room)
         {

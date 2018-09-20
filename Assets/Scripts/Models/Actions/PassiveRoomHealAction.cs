@@ -11,7 +11,7 @@ namespace Models.Actions
             Stats = new Dictionary<string, int>();
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             //Heal the player shields for 5, max of max shields
             room.PlayerShip.Stats[StatKeys.Shields] = Mathf.Min(room.PlayerShip.Stats[StatKeys.MaxShields],
@@ -27,12 +27,12 @@ namespace Models.Actions
                 }
             }
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "The march of time continues. Your shields regenerate.",
-                    ResultTags = new List<ActionResultTags> { ActionResultTags.Heal }
+                    Tags = new List<EventTag> { EventTag.Heal }
                 }
             };
         }

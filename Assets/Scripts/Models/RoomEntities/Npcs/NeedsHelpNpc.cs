@@ -62,9 +62,9 @@ namespace Models
             throw new NotSupportedException();
         }
 
-        public override StringTagContainer GetLookText()
+        public override TagString GetLookText()
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = LookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.NPC)
             };
@@ -85,7 +85,7 @@ namespace Models
                 Target = target;
             }
 
-            public override IEnumerable<StringTagContainer> Execute(IRoom room)
+            public override IEnumerable<TagString> Execute(IRoom room)
             {
                 var succeeded = false;
                 
@@ -103,12 +103,12 @@ namespace Models
                     Target.ChangeState((int)NpcState.HelpSuccess);
                     Source.Stats["resourcium"] += 15;
                     
-                    return new List<StringTagContainer>()
+                    return new List<TagString>()
                     {
-                        new StringTagContainer()
+                        new TagString()
                         {
                             Text = "Hey it worked! Tabby Officer gives you 15 resourcium.",
-                            ResultTags = new List<ActionResultTags> { }
+                            Tags = new List<EventTag> { }
                         }
                     };
                 }
@@ -116,12 +116,12 @@ namespace Models
                 {
                     Target.ChangeState((int)NpcState.HelpFail);
                     
-                    return new List<StringTagContainer>()
+                    return new List<TagString>()
                     {
-                        new StringTagContainer()
+                        new TagString()
                         {
                             Text = "Uh oh. That didn't work well.",
-                            ResultTags = new List<ActionResultTags> { }
+                            Tags = new List<EventTag> { }
                         }
                     };
                 }
@@ -140,7 +140,7 @@ namespace Models
                 Target = target;
             }
 
-            public override IEnumerable<StringTagContainer> Execute(IRoom room)
+            public override IEnumerable<TagString> Execute(IRoom room)
             {
                 var succeeded = false;
                 
@@ -158,12 +158,12 @@ namespace Models
                     Target.ChangeState((int)NpcState.HelpSuccess);
                     Source.Stats["resourcium"] += 5;
                     
-                    return new List<StringTagContainer>()
+                    return new List<TagString>()
                     {
-                        new StringTagContainer()
+                        new TagString()
                         {
                             Text = "Hey it worked! Tabby Officer gives you 5 resourcium.",
-                            ResultTags = new List<ActionResultTags> { }
+                            Tags = new List<EventTag> { }
                         }
                     };
                 }
@@ -171,12 +171,12 @@ namespace Models
                 {
                     Target.ChangeState((int)NpcState.HelpFail);
                     
-                    return new List<StringTagContainer>()
+                    return new List<TagString>()
                     {
-                        new StringTagContainer()
+                        new TagString()
                         {
                             Text = "Uh oh. That didn't work well.",
-                            ResultTags = new List<ActionResultTags> { }
+                            Tags = new List<EventTag> { }
                         }
                     };
                 }
