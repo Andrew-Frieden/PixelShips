@@ -84,7 +84,7 @@ Empty your cargo or we'll dust ya!")
     {
         if (IsDestroyed)
         {
-            //return new SpawnLootDropAction();
+            return new DropDebrisAction(this);
         }
         return new DoNothingAction(this);
     }
@@ -95,6 +95,24 @@ Empty your cargo or we'll dust ya!")
 
     public PirateMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
     {
+    }
+
+    private class DropDebrisAction : SimpleAction
+    {
+        public DropDebrisAction(IRoomActor src) : base()
+        {
+            Source = src;
+        }
+
+        public override IEnumerable<TagString> Execute(IRoom room)
+        {
+            var drop = new ScrapGatherable("Debris");
+            room.Entities.Add(drop);
+
+            var explosion = $"The <>'s hull explodes into dust!".Encode(Source, LinkColors.HostileEntity).Tag();
+            var dropped = $"A shiny hunk of <> remains.".Encode(drop, LinkColors.Gatherable).Tag();
+            return new TagString[] { explosion, dropped };
+        }
     }
 
     private class BecomeHostileIfNeutralAction : SimpleAction

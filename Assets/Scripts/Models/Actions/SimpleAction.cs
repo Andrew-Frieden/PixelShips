@@ -22,7 +22,7 @@ namespace Models.Actions
             Stats = dto.Stats;
             Values = dto.Values;
         }
-        
+
         protected SimpleAction()
         {
             Stats = new Dictionary<string, int>();

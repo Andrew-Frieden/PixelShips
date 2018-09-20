@@ -69,8 +69,6 @@ namespace Models.Factories.Helpers
 
                 }
                 DamageBudget--;
-
-
             }
 
             if (Random.Range(1,101) <= 25)
