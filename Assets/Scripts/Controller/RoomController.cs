@@ -20,19 +20,10 @@ namespace Controller
             ShipHudController shipHudController, ScrollViewController scrollView)
         {
             var nextTickActionResults = (List<StringTagContainer>) ExecuteActions(room, playerAction, shipHudController, scrollView);
-            var cleanupText = DoCleanup(room);
+            nextTickActionResults.AddRange(Cleanup(room));
 
-            //If there is any cleanup text is means the ship was destroyed, this should be explicit here
-            if (cleanupText.Any())
-            {
-                nextTickActionResults.AddRange(cleanupText);
-            }
-            //Otherwise recalculate all dialogues and do a game tick
-            else
-            {
-                CalculateDialogues(room);
-                GameManager.Instance.GameState.Tick();
-            }
+            CalculateDialogues(room);
+            GameManager.Instance.GameState.Tick();
 
             return nextTickActionResults;
         }
@@ -48,6 +39,7 @@ namespace Controller
             
             if (GameManager.Instance.GameState.GetTicks() > 0 && GameManager.Instance.GameState.GetTicks() % 5 == 0)
             {
+                //  TODO: one corner case here is that you will heal enemy ships in a room even if they haven't existed for 5 ticks (if you entered the room after a few ticks passed) 
                 actionsToExecute.Add(new PassiveRoomHealAction());
             }
 
@@ -58,7 +50,7 @@ namespace Controller
             {
                 foreach (var entity in room.Entities)
                 {
-                    actionsToExecute.Add(entity.GetNextAction(room));
+                    actionsToExecute.Add(entity.MainAction(room));
                 }
             }
             
@@ -68,6 +60,7 @@ namespace Controller
 
                 foreach (var result in results)
                 {
+                    //  TODO this should actually happen when the scroll cell writes out the text, not when everything is executed
                     DoUIReaction(result, shipHudController, scrollView);
                     
                     actionResults.Add(result);
@@ -111,11 +104,12 @@ namespace Controller
             room.DialogueContent = DialogueBuilder.PlayerNavigateDialogue(room);
         }
 
-        private static IEnumerable<StringTagContainer> DoCleanup(IRoom room)
+        private static IEnumerable<StringTagContainer> Cleanup(IRoom room)
         {
-            //room.Entities.ForEach(e => e.AfterAction(room));
-            var destroyedEntities = room.Entities.Where(e => e.IsDestroyed).ToList();
-            destroyedEntities.ForEach(e => room.Entities.Remove(e));
+            room.Entities.ForEach(e => e.CleanupStep(room));
+
+            var destroyed = room.Entities.Where(e => e.IsDestroyed).ToList();
+            destroyed.ForEach(e => room.Entities.Remove(e));
 
             if (room.PlayerShip.IsDestroyed)
             {

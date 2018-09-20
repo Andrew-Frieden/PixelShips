@@ -31,7 +31,7 @@ namespace Models
             Stats = new Dictionary<string, int>();
         }
 
-        public override IRoomAction GetNextAction(IRoom room)
+        public override IRoomAction MainAction(IRoom room)
         {
             return new DoNothingAction(this);
         }

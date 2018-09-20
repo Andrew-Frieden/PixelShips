@@ -149,12 +149,7 @@ namespace Models
             return "You";
         }
 
-        public IRoomAction GetNextAction(IRoom room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AfterAction(IRoom room)
+        public IRoomAction MainAction(IRoom room)
         {
             throw new NotImplementedException();
         }
@@ -223,6 +218,11 @@ namespace Models
                 default:
                     return "The dread pirate spigs";
             }
+        }
+
+        public IRoomAction CleanupStep(IRoom room)
+        {
+            return null;
         }
 
         public static partial class ShipStats

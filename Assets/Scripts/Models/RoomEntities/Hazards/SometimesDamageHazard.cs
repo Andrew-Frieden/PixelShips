@@ -25,7 +25,7 @@ public class SometimesDamageHazard : FlexEntity
         };
     }
 
-    public override IRoomAction GetNextAction(IRoom room)
+    public override IRoomAction MainAction(IRoom room)
     {
         var damage_occurred = Stats[StatKeys.HazardDamageChance] > UnityEngine.Random.Range(1, 100);
 

@@ -32,7 +32,7 @@ namespace Models
             Name = name;
         }
 
-        public override IRoomAction GetNextAction(IRoom room)
+        public override IRoomAction MainAction(IRoom room)
         {
             return new DoNothingAction(this);
         }

@@ -67,7 +67,7 @@ Empty your cargo or we'll dust ya!")
         }
     }
 
-    public override IRoomAction GetNextAction(IRoom room)
+    public override IRoomAction MainAction(IRoom room)
     {
         if (!IsHostile && !IsAttackable)
         {
@@ -80,12 +80,13 @@ Empty your cargo or we'll dust ya!")
         return new DoNothingAction(this);
     }
 
-    public override void AfterAction(IRoom room)
+    public override IRoomAction CleanupStep(IRoom room)
     {
         if (IsDestroyed)
         {
-
+            //return new SpawnLootDropAction();
         }
+        return new DoNothingAction(this);
     }
 
     public PirateMob(FlexEntityDto dto, IRoom room) : base(dto, room)

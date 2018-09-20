@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Models.Actions;
+using UnityEngine;
 
 namespace Models.Actors
 {
@@ -10,12 +11,14 @@ namespace Models.Actors
         {
         }
 
-        public override void AfterAction(IRoom room)
+        public override IRoomAction CleanupStep(IRoom room)
         {
             if (Stats[TimeToLiveKey] == 0)
             {
                 IsDestroyed = true;
             }
+
+            return new DoNothingAction(this);
         }
     }
 }

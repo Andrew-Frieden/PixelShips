@@ -43,7 +43,7 @@ public class VerdantInformantMob : FlexEntity
         };
     }
 
-    public override IRoomAction GetNextAction(IRoom room)
+    public override IRoomAction MainAction(IRoom room)
     {
         if (!IsHostile)
         {

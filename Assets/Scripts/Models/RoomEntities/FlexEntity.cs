@@ -113,13 +113,14 @@ namespace Models
             return Name;
         }
 
-        public abstract IRoomAction GetNextAction(IRoom room);
+        public abstract IRoomAction MainAction(IRoom room);
         public abstract ABDialogueContent CalculateDialogue(IRoom room);
         public abstract StringTagContainer GetLookText();
 
-        public virtual void AfterAction(IRoom room) 
+        public virtual IRoomAction CleanupStep(IRoom room)
         {
             //  do nothing, but allow child classes to override this
+            return new DoNothingAction(this);
         }
     }
 

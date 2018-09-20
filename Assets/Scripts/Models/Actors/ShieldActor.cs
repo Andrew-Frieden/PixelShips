@@ -28,7 +28,7 @@ namespace Models.Actors
             return new StringTagContainer();
         }
 
-        public override IRoomAction GetNextAction(IRoom s)
+        public override IRoomAction MainAction(IRoom s)
         {
             return new DelayedAction(Id);
         }

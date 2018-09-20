@@ -32,7 +32,7 @@ namespace Models
             Stats.Add(Gathered, 1);
         }
 
-        public override IRoomAction GetNextAction(IRoom room)
+        public override IRoomAction MainAction(IRoom room)
         {
             return new DoNothingAction(this);
         }
@@ -60,12 +60,14 @@ namespace Models
             };
         }
 
-        public override void AfterAction(IRoom room)
+        public override IRoomAction CleanupStep(IRoom room)
         {
             if (Stats[Gathered] == 0)
             {
                 IsDestroyed = true;
             }
+
+            return new DoNothingAction(this);
         }
     }
 

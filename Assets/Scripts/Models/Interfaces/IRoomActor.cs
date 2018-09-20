@@ -13,9 +13,9 @@ namespace Models
         Dictionary<string, int> Stats { get; }
         Dictionary<string, string> Values { get; }
 
-        IRoomAction GetNextAction(IRoom room);
+        IRoomAction MainAction(IRoom room);
+        IRoomAction CleanupStep(IRoom room);
 
-        void AfterAction(IRoom room);
         void ChangeState(int nextState);
         ABDialogueContent CalculateDialogue(IRoom room);
     }

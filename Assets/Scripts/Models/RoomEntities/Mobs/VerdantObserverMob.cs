@@ -46,7 +46,7 @@ public class VerdantObserverMob : FlexEntity
         };
     }
 
-    public override IRoomAction GetNextAction(IRoom room)
+    public override IRoomAction MainAction(IRoom room)
     {
         if (!IsHostile)
         {

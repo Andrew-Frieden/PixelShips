@@ -31,7 +31,7 @@ namespace Models.Actors
             return new StringTagContainer();
         }
 
-        public override IRoomAction GetNextAction(IRoom s)
+        public override IRoomAction MainAction(IRoom s)
         {
             if (Stats[TimeToLiveKey] == 1)
             {

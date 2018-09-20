@@ -27,7 +27,7 @@ public class SpaceStationNpc : FlexEntity
         };
     }
 
-    public override IRoomAction GetNextAction(IRoom room)
+    public override IRoomAction MainAction(IRoom room)
     {
         //  TODO this could instead sometimes return flavor text for things happening around at the space station
         return new DoNothingAction(this);
