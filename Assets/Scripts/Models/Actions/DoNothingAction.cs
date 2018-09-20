@@ -14,9 +14,9 @@ namespace Models.Actions
             Source = source;
         }
     
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
-            return new List<StringTagContainer>() { };
+            return new List<TagString>() { };
         }
     }
 }

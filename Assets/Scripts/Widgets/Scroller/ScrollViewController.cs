@@ -51,7 +51,7 @@ public class ScrollViewController : MonoBehaviour {
 
     //Flag to start the textTyper on the first cell
     private bool _first = true;
-    private void AddCell(StringTagContainer result)
+    private void AddCell(TagString result)
     {
         var cell = GetNextRecycledCell();
 
@@ -69,7 +69,7 @@ public class ScrollViewController : MonoBehaviour {
         cellAddedEvent?.Invoke();
     }
 
-    public void AddCells(IEnumerable<StringTagContainer> text)
+    public void AddCells(IEnumerable<TagString> text)
     {
         text.ForEach(AddCell);
         //After all the cells have been added reset the first flag

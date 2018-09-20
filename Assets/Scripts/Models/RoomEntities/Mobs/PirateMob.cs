@@ -42,25 +42,25 @@ Empty your cargo or we'll dust ya!")
         }
     }
 
-    public override StringTagContainer GetLookText()
+    public override TagString GetLookText()
     {
         if (IsHostile)
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = Values[ValueKeys.LookTextAggro].Encode(Name, Id, LinkColors.HostileEntity)
             };
         }
         else if (IsAttackable)
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.CanCombatEntity)
             };
         }
         else
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.NPC)
             };
@@ -108,22 +108,22 @@ Empty your cargo or we'll dust ya!")
             Source = src;
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             if (!Source.IsHostile && !Source.IsAttackable)
             {
                 Source.IsHostile = true;
                 
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity),
-                        ResultTags = new List<ActionResultTags> { }
+                        Tags = new List<EventTag> { }
                     }
                 };
             }
-            return new List<StringTagContainer>() { };
+            return new List<TagString>() { };
         }
     }
 
@@ -155,7 +155,7 @@ Empty your cargo or we'll dust ya!")
             Dc = dc;
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             var stat = Source.Stats[StatKeys.Captainship];
             var roll = stat + UnityEngine.Random.Range(1, 21);
@@ -165,24 +165,24 @@ Empty your cargo or we'll dust ya!")
                 Target.IsHostile = false;
                 Target.IsAttackable = true;
                 
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity),
-                        ResultTags = new List<ActionResultTags> { }
+                        Tags = new List<EventTag> { }
                     }
                 };
             }
             
             Target.IsHostile = true;
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity),
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 }
             };
         }
@@ -216,7 +216,7 @@ Empty your cargo or we'll dust ya!")
             Amount = amount;
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             Target.IsHostile = false;
             Target.IsAttackable = true;
@@ -228,12 +228,12 @@ Empty your cargo or we'll dust ya!")
 
             Source.Stats[StatKeys.Resourcium] -= Amount;
 
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = $"You transfer {Amount} resourcium to the <>".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity),
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 }
             };
         }

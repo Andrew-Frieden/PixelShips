@@ -26,9 +26,9 @@ namespace Models.Actors
                   .Build();
         }
 
-        public override StringTagContainer GetLookText()
+        public override TagString GetLookText()
         {
-            return new StringTagContainer();
+            return new TagString();
         }
 
         public override IRoomAction MainAction(IRoom s)

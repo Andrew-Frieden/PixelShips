@@ -32,9 +32,9 @@ namespace Models.Actors
             throw new NotImplementedException();
         }
 
-        public override StringTagContainer GetLookText()
+        public override TagString GetLookText()
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = _lookText[(DriveState) CurrentState]
             };

@@ -123,9 +123,9 @@ namespace Models
             }
         }
 
-        public StringTagContainer GetLookText()
+        public TagString GetLookText()
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = "< > jump into the sector.".Encode(GetLinkText(), Id, LinkColors.Player)
             };
@@ -222,7 +222,7 @@ namespace Models
 
         public IRoomAction CleanupStep(IRoom room)
         {
-            return null;
+            return new DoNothingAction(this);
         }
 
         public static partial class ShipStats

@@ -24,7 +24,7 @@ namespace Models.Actions
             
         }
         
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             var actor = (IRoomActor) room.FindEntity(_actorId);
 
@@ -35,17 +35,17 @@ namespace Models.Actions
 
             if (_description != null)
             {
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = _description + $"in {actor.Stats[TemporaryEntity.TimeToLiveKey]} ticks." ,
-                        ResultTags = new List<ActionResultTags> { }
+                        Tags = new List<EventTag> { }
                     }
                 };
             }
             
-            return new List<StringTagContainer>() { };
+            return new List<TagString>() { };
         }
     }
 }

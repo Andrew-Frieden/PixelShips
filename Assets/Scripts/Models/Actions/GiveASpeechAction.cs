@@ -12,14 +12,14 @@ namespace Models.Actions
             Stats = new Dictionary<string, int>();
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = GetSpeechText().Encode(Source.GetLinkText(), Source.Id, LinkColors.Player),
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 }
             };
         }

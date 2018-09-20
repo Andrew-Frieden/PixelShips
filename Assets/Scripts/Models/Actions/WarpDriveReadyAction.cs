@@ -10,16 +10,16 @@ namespace Models.Actions
             Source = source;
         }
         
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             ((CommandShip) Source).WarpDriveReady = true;
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "<> is ready.".Encode("Warp drive", room.Id, LinkColors.Room),
-                    ResultTags = new List<ActionResultTags> { }
+                    Tags = new List<EventTag> { }
                 }
             };
         }

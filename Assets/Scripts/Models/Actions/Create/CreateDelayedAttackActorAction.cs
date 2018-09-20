@@ -24,25 +24,25 @@ namespace Models.Actions
             _name = name;
         }
         
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             var newActor = new DelayedAttackActor(_source, _target, _timeToLive, _damage, _name);
             room.Entities.Add(newActor);
 
             if (_source is CommandShip)
             {
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = ("You fire a < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity)
                     }
                 };
             }
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = ("You detect an incomming < >.").Encode(_name, newActor.Id, LinkColors.HostileEntity)
                 }

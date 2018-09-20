@@ -52,9 +52,9 @@ namespace Models
             throw new NotSupportedException();
         }
 
-        public override StringTagContainer GetLookText()
+        public override TagString GetLookText()
         {
-            return new StringTagContainer()
+            return new TagString()
             {
                 Text = LookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable)
             };
@@ -85,15 +85,15 @@ namespace Models
                 Target = target;
             }
             
-            public override IEnumerable<StringTagContainer> Execute(IRoom room)
+            public override IEnumerable<TagString> Execute(IRoom room)
             {
                 var scrap = Source.Stats["captainship"] + UnityEngine.Random.Range(0, 10);
                 Source.Stats["scrap"] += scrap;
                 Target.Stats["gathered"] = 0;
                 
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = "You gathered " + scrap + " scrap."
                     }

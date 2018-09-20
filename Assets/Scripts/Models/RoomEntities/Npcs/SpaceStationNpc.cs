@@ -19,9 +19,9 @@ public class SpaceStationNpc : FlexEntity
             .Build();
     }
 
-    public override StringTagContainer GetLookText()
+    public override TagString GetLookText()
     {
-        return new StringTagContainer()
+        return new TagString()
         {
             Text = "A slowly rotating <> orbits a nearby system.".Encode(Name, Id, LinkColors.NPC),
         };
@@ -61,7 +61,7 @@ public class SpaceStationNpc : FlexEntity
             Cost = cost;
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             var ship = (CommandShip)Source;
 
@@ -72,18 +72,18 @@ public class SpaceStationNpc : FlexEntity
                 ship.Stats[StatKeys.Credits] -= Cost;
                 ship.Hull = ship.MaxHull;
                 
-                return new List<StringTagContainer>()
+                return new List<TagString>()
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = $"Your ship is repaired {repairAmount} hull."
                     }
                 };
             }
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "You try to make a deal but turn up empty handed."
                 }
@@ -118,7 +118,7 @@ public class SpaceStationNpc : FlexEntity
             Profit = profit;
         }
 
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             var ship = (CommandShip)Source;
 
@@ -130,9 +130,9 @@ public class SpaceStationNpc : FlexEntity
 
             ship.Stats[StatKeys.Credits] += Profit;
 
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text =  $"<> make a deal for {Profit} resourcium".Encode(Source.GetLinkText(), Source.Id, LinkColors.Player) 
                 }

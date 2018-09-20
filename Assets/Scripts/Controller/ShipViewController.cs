@@ -33,32 +33,32 @@ namespace Controller
 			_shipScrollViewController.AddCells(GetShipCells());
 		}
 
-		private IEnumerable<StringTagContainer> GetShipCells()
+		private IEnumerable<TagString> GetShipCells()
 		{
 			var ship = GameManager.Instance.GameState.CommandShip;
 
-            var baseStats = new List<StringTagContainer>
+            var baseStats = new List<TagString>
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "Name: " + ship.Values[ShipStats.CaptainName]
                 },
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull]
                 },
-                new StringTagContainer($"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}"),
-                new StringTagContainer($"Captainship: {ship.Stats[StatKeys.Captainship]}"),
-                new StringTagContainer()
+                new TagString($"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}"),
+                new TagString($"Captainship: {ship.Stats[StatKeys.Captainship]}"),
+                new TagString()
                 {
                     Text = "WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
                 },
-                new StringTagContainer($"Credits: {ship.Stats[StatKeys.Credits]}")
+                new TagString($"Credits: {ship.Stats[StatKeys.Credits]}")
 			};
 			
 			if (ship.Stats[StatKeys.Scrap] > 0)
 			{
-				baseStats.Add(new StringTagContainer()
+				baseStats.Add(new TagString()
 				{
 					Text = "Scrap: " + ship.Stats[StatKeys.Scrap]
 				});
@@ -66,7 +66,7 @@ namespace Controller
 
 			if (ship.Stats[StatKeys.Resourcium] > 0)
 			{
-				baseStats.Add(new StringTagContainer()
+				baseStats.Add(new TagString()
 				{
 					Text = "Resourcium: " + ship.Stats[StatKeys.Resourcium]
 				});
@@ -74,7 +74,7 @@ namespace Controller
 			
 			if (ship.Stats[StatKeys.Techanite] > 0)
 			{
-				baseStats.Add(new StringTagContainer()
+				baseStats.Add(new TagString()
 				{
 					Text = "Techanite: " + ship.Stats[StatKeys.Techanite]
 				});
@@ -82,7 +82,7 @@ namespace Controller
 			
 			if (ship.Stats[StatKeys.MachineParts] > 0)
 			{
-				baseStats.Add(new StringTagContainer()
+				baseStats.Add(new TagString()
 				{
 					Text = "Machine Parts: " + ship.Stats[StatKeys.MachineParts]
 				});
@@ -90,7 +90,7 @@ namespace Controller
 			
 			if (ship.Stats[StatKeys.PulsarCoreFragments] > 0)
 			{	
-				baseStats.Add(new StringTagContainer()
+				baseStats.Add(new TagString()
 				{
 					Text = "Pulsar Core Fragments: " + ship.Stats[StatKeys.PulsarCoreFragments]
 				});

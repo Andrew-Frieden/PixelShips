@@ -15,13 +15,13 @@ namespace Models.Actions
             _timeToLive = timeToLive;
         }
         
-        public override IEnumerable<StringTagContainer> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             room.Entities.Add(new WarpDriveActor(_timeToLive));
             
-            return new List<StringTagContainer>()
+            return new List<TagString>()
             {
-                new StringTagContainer()
+                new TagString()
                 {
                     Text = "You begin to spin up your warp drive."
                 }

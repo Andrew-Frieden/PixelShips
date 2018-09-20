@@ -2,16 +2,16 @@
 
 namespace Models.Actions
 {
-    public class StringTagContainer
+    public class TagString
     {
         public string Text;
-        public IEnumerable<ActionResultTags> ResultTags;
+        public IEnumerable<EventTag> Tags;
 
-        public StringTagContainer() { }
-        public StringTagContainer(string text) { Text = text; }
+        public TagString() { }
+        public TagString(string text) { Text = text; }
     }
 
-    public enum ActionResultTags
+    public enum EventTag
     {
         Damage,
         Heal

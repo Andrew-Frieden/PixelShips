@@ -16,22 +16,23 @@ namespace Controller
             CalculateDialogues(nextRoom);
         }
 
-        public static IEnumerable<StringTagContainer> ResolveNextTick(IRoom room, IRoomAction playerAction,
+        public static IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction,
             ShipHudController shipHudController, ScrollViewController scrollView)
         {
-            var nextTickActionResults = (List<StringTagContainer>) ExecuteActions(room, playerAction, shipHudController, scrollView);
-            nextTickActionResults.AddRange(Cleanup(room));
+            var resolveResults = new List<TagString>();
+            resolveResults.AddRange(ExecuteMainActions(room, playerAction, shipHudController, scrollView));
+            resolveResults.AddRange(ExecuteCleanupActions(room));
 
             CalculateDialogues(room);
             GameManager.Instance.GameState.Tick();
 
-            return nextTickActionResults;
+            return resolveResults;
         }
 
-        private static IEnumerable<StringTagContainer> ExecuteActions(IRoom room, IRoomAction playerAction, 
+        private static IEnumerable<TagString> ExecuteMainActions(IRoom room, IRoomAction playerAction, 
             ShipHudController shipHudController, ScrollViewController scrollView)
         {
-            var actionResults = new List<StringTagContainer>();
+            var actionResults = new List<TagString>();
             var actionsToExecute = new List<IRoomAction>()
             {
                 playerAction
@@ -70,21 +71,21 @@ namespace Controller
             return actionResults;
         }
 
-        private static void DoUIReaction(StringTagContainer result, ShipHudController shipHudController, ScrollViewController scrollView)
+        private static void DoUIReaction(TagString result, ShipHudController shipHudController, ScrollViewController scrollView)
         {
-            if (result.ResultTags == null)
+            if (result.Tags == null)
             {
                 return;
             }
             
-            if (result.ResultTags.Contains(ActionResultTags.Damage))
+            if (result.Tags.Contains(EventTag.Damage))
             {
                 shipHudController.UpdateShield();
                 shipHudController.UpdateHull();
                 scrollView.Shake();
             }
                     
-            if (result.ResultTags.Contains(ActionResultTags.Heal))
+            if (result.Tags.Contains(EventTag.Heal))
             {
                 shipHudController.UpdateShield();
             }
@@ -104,31 +105,45 @@ namespace Controller
             room.DialogueContent = DialogueBuilder.PlayerNavigateDialogue(room);
         }
 
-        private static IEnumerable<StringTagContainer> Cleanup(IRoom room)
+        private static IEnumerable<TagString> ExecuteCleanupActions(IRoom room)
         {
-            room.Entities.ForEach(e => e.CleanupStep(room));
+            //  run all cleanup steps and collect any cleanup actions to execute
+            var actions = new List<IRoomAction>()
+            {
+                room.PlayerShip.CleanupStep(room)
+            };
+            room.Entities.ForEach(n => actions.Add(n.CleanupStep(room)));
 
+            //  execute all the cleanup actions
+            var results = new List<TagString>();
+         
+            foreach (var a in actions)
+            {
+                var r = a.Execute(room);
+                results.AddRange(r);
+            }
+
+            //  remove any destroyed entities from the room
             var destroyed = room.Entities.Where(e => e.IsDestroyed).ToList();
             destroyed.ForEach(e => room.Entities.Remove(e));
 
             if (room.PlayerShip.IsDestroyed)
             {
-                return new List<StringTagContainer>()
+                results.AddRange(new TagString[]
                 {
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = "You have been destroyed.",
-                        ResultTags = new List<ActionResultTags> { }
+                        Tags = new List<EventTag> { }
                     },
-                    new StringTagContainer()
+                    new TagString()
                     {
                         Text = "Navigate to your base to recruit a new captain.",
-                        ResultTags = new List<ActionResultTags> { }
+                        Tags = new List<EventTag> { }
                     }
-                };
+                });
             }
-
-            return new List<StringTagContainer>();
+            return results;
         }
     }
 }
