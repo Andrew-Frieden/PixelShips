@@ -33,18 +33,18 @@ namespace Controller
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
             ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
+        }
 
-            var playerShip = GameManager.Instance.GameState.CommandShip;
-            _room = GameManager.Instance.GameState.Room;
-            _room.SetPlayerShip(playerShip);
+        //Called the first time the player spawns a ship and goes to the command view.
+        public void StartCommandView(IRoom room)
+        {
+            _shipHudController.InitializeShipHud(room);
             
-            //TODO: abstract the stats lookup
-            _shipHudController.InitializeShipHud(_room);
+            RoomController.StartNextRoom(room, room);
             
-            RoomController.StartNextRoom(_room, _room);
-
-            _scrollView.AddCells(CalculateLookText(_room));
-
+            _scrollView.ClearScreen();
+            _scrollView.AddCells(CalculateLookText(room));
+            
             StartCoroutine(Blink.BlinkLoop());
         }
 

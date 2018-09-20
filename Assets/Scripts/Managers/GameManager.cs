@@ -57,15 +57,14 @@ public class GameManager : Singleton<GameManager>
 		UpdateState(GamePhase.PREGAME);
 		
 		_saveLoadController = new SaveLoadController();
+	}
+	
+	public void StartNewMission()
+	{
+		UpdateState(GamePhase.MISSION);
 		
 		//if (Player has a save file)
 		//GameState = _saveLoadController.Load();
-
 		GameState = _saveLoadController.CreateNewGameState();
-	}
-	
-	public void StartMission()
-	{
-		UpdateState(GamePhase.MISSION);
 	}
 }

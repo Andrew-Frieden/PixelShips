@@ -35,6 +35,8 @@ public class TripleViewController : MonoBehaviour
 
         startPosition = ViewBase.transform.position;
         targetPosition = startPosition;
+        
+        ShowView(Views[(int) TripleView.Left]);
     }
 
     void Update()
