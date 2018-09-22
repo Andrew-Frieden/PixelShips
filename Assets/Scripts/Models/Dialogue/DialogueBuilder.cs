@@ -113,7 +113,7 @@ namespace Models.Dialogue
             return Init()
                 .AddMainText(room.GetLookText() + Environment.NewLine + Environment.NewLine + "Your warp drive is cold.")
                 .AddTextA("Spin up your warp drive.")
-                .AddActionA(new CreateWarpDriveActorAction(1))
+                .AddActionA(new WarpDriveReadyAction(room.PlayerShip))
                 .Build();
         }
 
