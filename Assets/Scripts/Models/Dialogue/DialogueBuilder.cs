@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Models.Actions;
+using TextEncoding;
 
 namespace Models.Dialogue
 {
@@ -101,20 +103,45 @@ namespace Models.Dialogue
         {
             if (room.PlayerShip.WarpDriveReady)
             {
+                var tempA = room.Exits.First();
+                var tempB = room.Exits.Last();
+                var aText = GetRoomExitText(tempA);
+                var bText = GetRoomExitText(tempB);
+
                 return Init()
-                    .AddMainText(room.GetLookText() + Environment.NewLine + Environment.NewLine + "Your warp drive is fully charged.")
-                    .AddTextA("Warp to room A.")
-                    .AddActionA(new WarpAction(room.Exits[0]))
-                    .AddTextB("Warp to room B.")
-                    .AddActionB(new WarpAction(room.Exits[1]))
+                    .AddMainText($"{room.Description}{Env.ll}Your warp drive is fully charged.")
+                    .AddOption(aText, new WarpAction(tempA))
+                    .AddOption(bText, new WarpAction(tempB))
                     .Build();
             }
 
             return Init()
-                .AddMainText(room.GetLookText() + Environment.NewLine + Environment.NewLine + "Your warp drive is cold.")
-                .AddTextA("Spin up your warp drive.")
+                .AddMainText($"{room.Description}{Env.ll}Your warp drive is cold.")
+                .AddTextA("Spin up warp drive.")
                 .AddActionA(new WarpDriveReadyAction(room.PlayerShip))
                 .Build();
+        }
+
+        private static string GetRoomExitText(RoomTemplate t)
+        {
+            var text = $"Warp to {Room.GetNameForFlavor(t.Flavor)}{Env.ll}";
+
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard))
+            {
+                text += "Hazard Detected" + Env.l;
+            }
+
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Mob))
+            {
+                text += "Hostile Detected" + Env.l;
+            }
+
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Town))
+            {
+                text += "Nearby Starport Detected" + Env.l;
+            }
+
+            return text;
         }
 
         public static ABDialogueContent EmptyDialogue()

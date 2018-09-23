@@ -42,13 +42,13 @@ namespace Models
             {
                 case (int)NpcState.Full:
                     return DialogueBuilder.Init()
-                        .AddMainText("Your mining scanners detect some seroius resource in this bad boy.")
+                        .AddMainText("Your mining scanners detect some serious resource in this bad boy.")
                         .AddTextA("Attempt to extract resources")
                             .AddActionA(new MiningLootAction(room.PlayerShip, this))
                         .Build();
                 case (int)NpcState.Empty:
                     return DialogueBuilder.Init()
-                        .AddMainText("The asteroid is depleted, it may take eons to grow back.")
+                        .AddMainText($"The {Name} is depleted, it may take eons to grow back.")
                         .Build();
             }
 

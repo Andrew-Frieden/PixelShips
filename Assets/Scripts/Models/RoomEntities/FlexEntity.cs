@@ -128,5 +128,9 @@ namespace Models
     {
         public Dictionary<string, int> Stats;
         public Dictionary<string, string> Values;
+
+        //  TODO not sure if this is the right place to put these - they also probably need to be on the FlexEntity themselves
+        public IEnumerable<RoomFlavor> RoomFlavors;
+        public IEnumerable<RoomActorFlavor> ActorFlavors;
     }
 }

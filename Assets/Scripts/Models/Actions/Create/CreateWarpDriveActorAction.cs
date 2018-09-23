@@ -23,7 +23,7 @@ namespace Models.Actions
             {
                 new TagString()
                 {
-                    Text = "You begin to spin up your warp drive."
+                    Text = "Your warp drive begins charging."
                 }
             };
         }

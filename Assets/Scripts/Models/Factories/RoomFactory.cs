@@ -8,7 +8,7 @@ using Repository;
 
 namespace Models.Factories
 {
-    public sealed class RoomFactory
+    public sealed class RoomFactory : IRoomFactory
     {
         private readonly IEnumerable<IRoom> _rooms;
 
@@ -19,29 +19,19 @@ namespace Models.Factories
         public IRoom GenerateRoom(RoomTemplate template)
         {
             var randomRoomText = RoomRepository.ExampleRoomText.OrderBy(t => Guid.NewGuid()).First();
-            var room = new Room(randomRoomText[0], randomRoomText[1]);
-            
-            //TODO: need to figure out how to calculate the next templates
-            var roomTemplate1 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
-            var roomTemplate2 = new RoomTemplate(1, RoomFlavor.Kelp, "gathering");
-            room.Exits = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
+            //var room = new Room(randomRoomText[0], randomRoomText[1]);
 
-            //TODO: Take away setter
-            room.Description = RandomizeLeadIn() + room.Description;
-            room.DialogueContent = DialogueBuilder.Init()
-                .AddMainText("This is just placeholder text for the room dialogue content.")
-                .AddTextA("Delay.")
-                .AddActionA(new DelayedAction())
-                .AddTextB("Delay.")
-                .AddActionB(new DelayedAction())
-                .Build();
+            //TODO: need to figure out how to calculate the next templates
+            var roomTemplate1 = new RoomTemplate(1, RoomFlavor.Kelp);
+            var roomTemplate2 = new RoomTemplate(1, RoomFlavor.Kelp);
+            var exits = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
             
             foreach (var actor in GetActors(template))
             {
-                room.AddEntity(actor);
+                //room.AddEntity(actor);
             }
-
-            return room;
+            throw new NotImplementedException();
+            //return room;
         }
 
         private IEnumerable<IRoomActor> GetActors(RoomTemplate template)

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace PixelSpace.Models.SharedModels.Helpers
+namespace EnumerableExtensions
 {
     public static class EnumerableExtensions
     {
@@ -14,6 +15,16 @@ namespace PixelSpace.Models.SharedModels.Helpers
             {
                 action(item);
             }
+        }
+
+        public static T GetRandom<T>(this IEnumerable<T> source)
+        {
+            return source.OrderBy(i => Guid.NewGuid()).First();
+        }
+
+        public static bool Rng(this float chance)
+        {
+            return UnityEngine.Random.Range(0f, 1f) <= chance;
         }
     }
 }

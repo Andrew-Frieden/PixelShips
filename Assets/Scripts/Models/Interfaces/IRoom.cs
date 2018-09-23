@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Models;
-using Models.Actions;
 using UnityEngine;
 
 public interface IRoom : ITextEntity
 {
-    List<RoomTemplate> Exits { get; set; }
+    IEnumerable<RoomTemplate> Exits { get; }
     
     CommandShip PlayerShip { get; }
-    string Description { get; set; }
+    string Description { get; }
     RoomFlavor Flavor { get; }
     List<IRoomActor> Entities { get; }
 

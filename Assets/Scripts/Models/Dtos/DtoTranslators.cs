@@ -104,7 +104,8 @@ namespace Models.Dtos
 
         public static IRoom FromDto(this RoomDto dto)
         {
-            return new Room(dto.Id, dto.Description, dto.Link);
+            //return new Room(dto.Id, dto.Description, dto.Link);
+            throw new NotImplementedException();
         }
 
         public static CommandShip FromDto(this ShipDto dto)

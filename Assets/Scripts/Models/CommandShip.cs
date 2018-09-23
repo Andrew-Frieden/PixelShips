@@ -5,6 +5,7 @@ using Models.Dialogue;
 using Models.Stats;
 using TextEncoding;
 using System.Linq;
+using EnumerableExtensions;
 
 namespace Models
 {
@@ -125,9 +126,17 @@ namespace Models
 
         public TagString GetLookText()
         {
+            var texts = new List<string>
+            {
+                "<> jump into the sector.".Encode("You", Id, LinkColors.Player),
+                "<> arrives in the sector".Encode("Your ship", Id, LinkColors.Player),
+                "<> warp drive spins down.".Encode("Your", Id, LinkColors.Player),
+                "<> drop out of warp.".Encode("You", Id, LinkColors.Player),
+            };
+
             return new TagString()
             {
-                Text = "< > jump into the sector.".Encode(GetLinkText(), Id, LinkColors.Player)
+                Text = texts.GetRandom()
             };
         }
         
@@ -172,12 +181,12 @@ namespace Models
             else
             {
                 passAction = new GiveASpeechAction(this);
-                passText = "Give a Speech";
+                passText = "Think of a plan";
             }
 
             return DialogueBuilder.Init()
                 .AddMainText("Your ship looks like a standard frigate.")
-                .AddTextA("Overcharge Shields")
+                .AddTextA("Shields Up")
                 .AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
                 .AddTextB(passText)
                 .AddActionB(passAction)

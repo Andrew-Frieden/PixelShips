@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Models;
-using Models.Factories;
 
 namespace Repository
 {

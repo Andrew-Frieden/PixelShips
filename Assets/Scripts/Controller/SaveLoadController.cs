@@ -32,7 +32,7 @@ namespace Models
             return new GameState
             {
                 CommandShip = FactoryContainer.ShipFactory.GenerateCommandShip(),
-                Room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(5, RoomFlavor.Kelp, "trade"))
+                Room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp))
             };
         }
 
