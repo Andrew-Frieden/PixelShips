@@ -11,7 +11,7 @@ namespace Models
 {
     public class SaveLoadController
     {
-        private string SaveFilePath = Application.dataPath + "/SaveData.json";
+        private string SaveFilePath = UnityEngine.Application.dataPath + "/SaveData.json";
 
         public GameState Load()
         {
