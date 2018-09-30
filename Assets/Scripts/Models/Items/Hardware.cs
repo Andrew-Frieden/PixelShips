@@ -2,6 +2,7 @@
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
+using Models.Stats;
 using System;
 using System.Collections.Generic;
 using TextEncoding;
@@ -46,19 +47,31 @@ namespace Items
             Equipped = 1
         }
 
+        public string Description
+        {
+            get
+            {
+                return Values[ValueKeys.DialogueText];
+            }
+            protected set
+            {
+                Values[ValueKeys.DialogueText] = value;
+            }
+        }
+
         public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
                 case (int)HardwareState.Unequipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"{GetLinkText()}")
+                        .AddMainText($"<>{Env.ll}{Description}{Env.ll}This hardware is drifting through space.".Encode(this, LinkColors.Gatherable))
                         .AddOption("Pickup", new PickupHardwareAction(room.PlayerShip, this))
                         .Build();
                     break;
                 case (int)HardwareState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"{GetLinkText()}")
+                        .AddMainText($"<>{Env.ll}{Description}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Gatherable))
                         .AddOption("Drop", new DropHardwareAction(room.PlayerShip, this))
                         .Build();
                     break;
@@ -131,6 +144,7 @@ namespace Items
         public HazardDetector() : base()
         {
             Name = "Deep Field Scanner";
+            Description = "A sophisticated navigation device capable of detecting nearby hazards.";
         }
     }
 
@@ -141,6 +155,7 @@ namespace Items
         public MobDetector() : base()
         {
             Name = "Signature Detector";
+            Description = "Standard-issue military hardware for detecting nearby weapon signatures.";
         }
     }
 
