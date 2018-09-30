@@ -11,9 +11,9 @@ namespace Helpers
         {
             var overflow = 0;
             
-            if (actor.Stats.ContainsKey(StatKeys.ExampleDamageMitigationStat))
+            if (actor.Stats.ContainsKey(StatKeys.DamageMitigationStat))
             {
-                damage -= actor.Stats[StatKeys.ExampleDamageMitigationStat];
+                damage -= actor.Stats[StatKeys.DamageMitigationStat];
                 damage = Math.Max(damage, 1);
             }
 
