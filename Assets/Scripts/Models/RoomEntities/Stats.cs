@@ -17,6 +17,7 @@ namespace Models.Stats
         public const string HazardDamageChance = "hazard_damage_chance";
         public const string MaxShields = "max_shields";
         public const string Shields = "current_shields";
+        public const string MaxHardwareSlots = "max_flex_slots";
 
         #endregion
 
@@ -39,6 +40,9 @@ namespace Models.Stats
         public static readonly string LookTextAggro = "look_text_aggro";
         public static readonly string DialogueText = "dialogue_text";
         public static readonly string HazardDamageText = "hazard_damage_text";
+
+        public static readonly string LightWeapon = "light_weapon";
+        public static readonly string HeavyWeapon = "heavy_weapon";
     }
 
     public static class StatsHelper

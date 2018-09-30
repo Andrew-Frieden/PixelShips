@@ -19,10 +19,9 @@ public class VerdantObserverMob : FlexEntity
         Stats[StatKeys.Hull] = 3;
     }
 
-    public override ABDialogueContent CalculateDialogue(IRoom room)
+    public override void CalculateDialogue(IRoom room)
     {
-
-        return DialogueBuilder.PlayerAttackDialogue("Verdant Observer\n" +
+        DialogueContent = DialogueBuilder.PlayerAttackDialogue("Verdant Observer\n" +
             "Hull: " +Stats[StatKeys.Hull]+ " / 3\n" +
             "A ship so overgrown it's hard to make out what model it originally was.\n" +
             "You can take them.", this, room);

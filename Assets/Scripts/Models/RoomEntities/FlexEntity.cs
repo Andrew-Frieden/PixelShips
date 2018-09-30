@@ -52,7 +52,7 @@ namespace Models
         
         public Dictionary<string, int> Stats { get; protected set; }
         public Dictionary<string, string> Values { get; protected set; }
-        public ABDialogueContent DialogueContent { get; set; }
+        public ABDialogueContent DialogueContent { get; protected set; }
 
         const string CurrentStateKey = "current_state"; 
         protected int CurrentState 
@@ -81,8 +81,7 @@ namespace Models
             }
         }
 
-
-        public void ChangeState(int nextState)
+        public virtual void ChangeState(int nextState)
         {
             Stats[CurrentStateKey] = nextState;
         }
@@ -114,7 +113,7 @@ namespace Models
         }
 
         public abstract IRoomAction MainAction(IRoom room);
-        public abstract ABDialogueContent CalculateDialogue(IRoom room);
+        public abstract void CalculateDialogue(IRoom room);
         public abstract TagString GetLookText();
 
         public virtual IRoomAction CleanupStep(IRoom room)

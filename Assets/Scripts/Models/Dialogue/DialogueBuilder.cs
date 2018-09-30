@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Items;
 using Models.Actions;
 using TextEncoding;
 
@@ -90,12 +91,14 @@ namespace Models.Dialogue
 
         public static ABDialogueContent PlayerAttackDialogue(string mainText, IRoomActor target, IRoom room)
         {
+            var playerShip = room.PlayerShip;
+            var lightWeapon = playerShip.LightWeapon;
+            var heavyWeapon = playerShip.HeavyWeapon;
+
             return Init()
                 .AddMainText(mainText)
-                .AddTextA("Pulse Lasers")
-                    .AddActionA(new AttackAction(room.PlayerShip, target, 2, "Pulse Lasers"))
-                .AddTextB("Plasma Torpedo")
-                    .AddActionB(new CreateDelayedAttackActorAction(room.PlayerShip, target,1, 8, "Plasma Torpedo"))
+                .AddOption(lightWeapon.Name, lightWeapon.GetAction(playerShip, target))
+                .AddOption(heavyWeapon.Name, heavyWeapon.GetAction(playerShip, target))
                     .Build();
         }
 
@@ -103,15 +106,15 @@ namespace Models.Dialogue
         {
             if (room.PlayerShip.WarpDriveReady)
             {
-                var tempA = room.Exits.First();
-                var tempB = room.Exits.Last();
-                var aText = GetRoomExitText(tempA);
-                var bText = GetRoomExitText(tempB);
+                var templateA = room.Exits.First();
+                var templateB = room.Exits.Last();
+                var aText = GetRoomExitText(room.PlayerShip, templateA);
+                var bText = GetRoomExitText(room.PlayerShip, templateB);
 
                 return Init()
                     .AddMainText($"{room.Description}{Env.ll}Your warp drive is fully charged.")
-                    .AddOption(aText, new WarpAction(tempA))
-                    .AddOption(bText, new WarpAction(tempB))
+                    .AddOption(aText, new WarpAction(templateA))
+                    .AddOption(bText, new WarpAction(templateB))
                     .Build();
             }
 
@@ -122,24 +125,27 @@ namespace Models.Dialogue
                 .Build();
         }
 
-        private static string GetRoomExitText(RoomTemplate t)
+        private static string GetRoomExitText(CommandShip ship, RoomTemplate t)
         {
             var text = $"Warp to {Room.GetNameForFlavor(t.Flavor)}{Env.ll}";
 
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard))
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard) 
+                && ship.CheckHardware<HazardDetector>())
             {
                 text += "Hazard Detected" + Env.l;
             }
 
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Mob))
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Mob)
+                && ship.CheckHardware<MobDetector>())
             {
                 text += "Hostile Detected" + Env.l;
             }
 
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Town))
-            {
-                text += "Nearby Starport Detected" + Env.l;
-            }
+            //if (t.ActorFlavors.Contains(RoomActorFlavor.Town)
+            //    && ship.CheckHardware<TownDetector>())
+            //{
+            //    text += "Nearby Starport Detected" + Env.l;
+            //}
 
             return text;
         }

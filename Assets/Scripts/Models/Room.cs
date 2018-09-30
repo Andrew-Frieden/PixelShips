@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.Actions;
+using Models.Dialogue;
 using TextEncoding;
 
 namespace Models
@@ -56,6 +57,11 @@ namespace Models
         public string GetLinkText()
         {
             return Name;
+        }
+
+        public void CalculateDialogue()
+        {
+            DialogueContent = DialogueBuilder.PlayerNavigateDialogue(this);
         }
 
         public static string GetNameForFlavor(RoomFlavor flavor)

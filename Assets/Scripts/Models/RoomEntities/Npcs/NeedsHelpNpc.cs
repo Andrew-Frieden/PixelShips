@@ -37,29 +37,32 @@ namespace Models
             return new DoNothingAction(this);
         }
 
-        public override ABDialogueContent CalculateDialogue(IRoom room)
+        public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
                 case (int)NpcState.NeedsHelp:
-                    return DialogueBuilder.Init()
+                    DialogueContent = DialogueBuilder.Init()
                         .AddMainText("Meow! I need some help.")
                         .AddTextA("Try to jumpstart")
                             .AddActionA(new HelpRiskyAction(room.PlayerShip, this))
                         .AddTextB("Give their vessel a nudge")
                             .AddActionB(new HelpSafeAction(room.PlayerShip, this))
                         .Build();
+                    break;
                 case (int)NpcState.HelpSuccess:
-                    return DialogueBuilder.Init()
+                    DialogueContent = DialogueBuilder.Init()
                         .AddMainText("Yay thanks for the help!")
                         .Build();
+                    break;
                 case (int)NpcState.HelpFail:
-                    return DialogueBuilder.Init()
+                    DialogueContent = DialogueBuilder.Init()
                         .AddMainText("Hey you tried your best. I'll call for backup.")
                         .Build();
+                    break;
+                default:
+                    throw new NotSupportedException();
             }
-
-            throw new NotSupportedException();
         }
 
         public override TagString GetLookText()

@@ -7,13 +7,7 @@ namespace Models.Factories
     {
         public CommandShip GenerateCommandShip()
         {
-            return new CommandShip(
-                Random.Range(0, 10),
-                Random.Range(0, 10),
-                Random.Range(0, 10),
-                Random.Range(0, 10),
-                Random.Range(0, 10),
-                Random.Range(0, 10));
+            return new CommandShip();
         }
     }
 }

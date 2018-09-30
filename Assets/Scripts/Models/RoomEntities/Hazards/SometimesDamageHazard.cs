@@ -10,9 +10,9 @@ using Models.Stats;
 
 public class SometimesDamageHazard : FlexEntity
 {
-    public override ABDialogueContent CalculateDialogue(IRoom room)
+    public override void CalculateDialogue(IRoom room)
     {
-        return DialogueBuilder.Init()
+        DialogueContent = DialogueBuilder.Init()
             .AddMainText(Values[ValueKeys.DialogueText].Encode(Name, Id, LinkColors.Hazard))
             .Build();
     }

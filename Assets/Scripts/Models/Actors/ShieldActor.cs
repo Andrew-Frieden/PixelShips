@@ -18,9 +18,8 @@ namespace Models.Actors
             IsHidden = true;
         }
 
-        public override ABDialogueContent CalculateDialogue(IRoom room)
+        public override void CalculateDialogue(IRoom room)
         {
-            throw new NotImplementedException();
         }
 
         public override TagString GetLookText()

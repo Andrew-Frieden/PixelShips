@@ -110,7 +110,8 @@ namespace Models.Dtos
 
         public static CommandShip FromDto(this ShipDto dto)
         {
-            return new CommandShip(dto.Id, dto.Gathering, dto.Transport, dto.Intelligence, dto.Combat, dto.Speed, dto.Hull);
+            throw new NotImplementedException();
+            //return new CommandShip(dto.Id, dto.Gathering, dto.Transport, dto.Intelligence, dto.Combat, dto.Speed, dto.Hull);
         }
 
         /// <summary>

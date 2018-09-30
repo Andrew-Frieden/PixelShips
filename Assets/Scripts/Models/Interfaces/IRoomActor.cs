@@ -17,6 +17,6 @@ namespace Models
         IRoomAction CleanupStep(IRoom room);
 
         void ChangeState(int nextState);
-        ABDialogueContent CalculateDialogue(IRoom room);
+        void CalculateDialogue(IRoom room);
     }
 }

@@ -20,10 +20,9 @@ public class VerdantInterrogatorMob : FlexEntity
         Stats[StatKeys.Hull] = 35;
     }
 
-    public override ABDialogueContent CalculateDialogue(IRoom room)
+    public override void CalculateDialogue(IRoom room)
     {
-
-        return DialogueBuilder.PlayerAttackDialogue("Verdant Interrogator\n" +
+        DialogueContent = DialogueBuilder.PlayerAttackDialogue("Verdant Interrogator\n" +
             "Hull: " +Stats[StatKeys.Hull]+ " / 35\n" +
             "An overgrown captial class ship that wants to \"ask\" you some \"questions\".\n" +
             "They will probably destroy you.", this, room);

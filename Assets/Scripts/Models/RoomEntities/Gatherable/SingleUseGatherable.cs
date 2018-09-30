@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Items;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
+using Models.Stats;
 using TextEncoding;
 
 namespace Models
@@ -36,23 +38,25 @@ namespace Models
             return new DoNothingAction(this);
         }
 
-        public override ABDialogueContent CalculateDialogue(IRoom room)
+        public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
                 case (int)NpcState.Full:
-                    return DialogueBuilder.Init()
+                    DialogueContent = DialogueBuilder.Init()
                         .AddMainText("Your mining scanners detect some serious resource in this bad boy.")
                         .AddTextA("Attempt to extract resources")
                             .AddActionA(new MiningLootAction(room.PlayerShip, this))
                         .Build();
+                    break;
                 case (int)NpcState.Empty:
-                    return DialogueBuilder.Init()
+                    DialogueContent = DialogueBuilder.Init()
                         .AddMainText($"The {Name} is depleted, it may take eons to grow back.")
                         .Build();
+                    break;
+                default:
+                    throw new NotSupportedException();
             }
-
-            throw new NotSupportedException();
         }
 
         public override TagString GetLookText()
@@ -80,69 +84,77 @@ namespace Models
 
             public override IEnumerable<TagString> Execute(IRoom room)
             {
-                var gatheredText = "";
-                
                 var lootDrop = UnityEngine.Random.Range(0, 10);
                 var results = new List<TagString>();
                     
                 Target.ChangeState((int)NpcState.Empty);
 
+                string lootType;
+                int lootAmount = 0;
+
                 switch (lootDrop)
                 {
                     case 0:
-                        Source.Stats["resourcium"] += 15;
-                        gatheredText = "You gathered 15 resourcium.";
+                        lootType = StatKeys.Resourcium;
+                        lootAmount = 15;
                         break;
                     case 1:
-                        Source.Stats["resourcium"] += 5;
-                        gatheredText = "You gathered 5 resourcium.";
+                        lootType = StatKeys.Resourcium;
+                        lootAmount = 5;
                         break;
                     case 2:
-                        Source.Stats["scrap"] += 15;
-                        gatheredText = "You gathered 15 scrap.";
+                        lootType = StatKeys.Scrap;
+                        lootAmount = 15;
                         break;
                     case 3:
-                        Source.Stats["resourcium"] += 25;
-                        gatheredText = "You gathered 25 resourcium.";
+                        lootType = StatKeys.Resourcium;
+                        lootAmount = 25;
                         break;
                     case 4:
-                        Source.Stats["scrap"] += 25;
-                        gatheredText = "You gathered 25 scrap.";
+                        lootType = StatKeys.Scrap;
+                        lootAmount = 25;
                         break;
                     case 5:
-                        Source.Stats["scrap"] += 75;
-                        gatheredText = "You gathered 75 scrap.";
+                        lootType = StatKeys.Scrap;
+                        lootAmount = 50;
                         break;
                     case 6:
-                        Source.Stats["scrap"] += 75;
-                        gatheredText = "You gathered 75 scrap.";
+                        lootType = StatKeys.Scrap;
+                        lootAmount = 75;
                         break;
                     case 7:
-                        Source.Stats["scrap"] += 150;
-                        gatheredText = "You gathered 150 scrap.";
+                        lootType = StatKeys.Scrap;
+                        lootAmount = 100;
                         break;
                     case 8:
-                        Source.Stats["resourcium"] += 1;
-                        gatheredText = "You gathered 1 resourcium.";
+                        lootType = StatKeys.Resourcium;
+                        lootAmount = 1;
                         break;        
-                    case 9:
-                        Source.Stats["Hull"] -= 5;
-                        gatheredText = "The minerals exploded dealing 5 damage";
-                        break;
                     default:
-                        Source.Stats["scrap"] += 5;
-                        gatheredText = "You gathered 5 scrap.";
+                        lootType = StatKeys.Scrap;
+                        lootAmount = 1;
                         break;        
                 }
 
-                if (gatheredText != "")
+                if (Source is CommandShip)
                 {
-                    results.Add(new TagString()
+                    var cmdShip = (CommandShip)Source;
+                    var booster = cmdShip.GetHardware<GatheringBoost>();
+
+                    if (booster != null)
                     {
-                        Text = gatheredText,
-                        Tags = new List<EventTag> { }
-                    });
+                        booster.ApplyBoost(ref lootAmount);
+                    }
                 }
+
+                Source.Stats[lootType] += lootAmount;
+                var text = $"You gathered {lootAmount} {lootType}.";
+
+                results.Add(new TagString()
+                {
+                    Text = text,
+                    Tags = new List<EventTag> { }
+                });
 
                 return results;
             }

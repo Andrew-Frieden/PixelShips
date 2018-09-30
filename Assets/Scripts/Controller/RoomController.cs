@@ -4,6 +4,7 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Stats;
 using UnityEngine;
+using EnumerableExtensions;
 
 namespace Controller
 {
@@ -93,16 +94,12 @@ namespace Controller
 
         private static void CalculateDialogues(IRoom room)
         {
-            foreach (var entity in room.Entities)
-            {
-                if (!entity.IsHidden)
-                {
-                    entity.DialogueContent = entity.CalculateDialogue(room);
-                }
-            }
+            room.Entities.ForEach(n => n.CalculateDialogue(room));
             
-            room.PlayerShip.DialogueContent =  room.PlayerShip.CalculateDialogue(room);
-            room.DialogueContent = DialogueBuilder.PlayerNavigateDialogue(room);
+            room.PlayerShip.CalculateDialogue(room);
+            room.PlayerShip.Hardware.ForEach(h => h.CalculateDialogue(room));
+
+            room.CalculateDialogue();
         }
 
         private static IEnumerable<TagString> ExecuteCleanupActions(IRoom room)

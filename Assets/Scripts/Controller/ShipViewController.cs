@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Models.Actions;
 using Models.Dtos;
 using Models.Stats;
+using TextEncoding;
 using UnityEngine;
 using static Models.CommandShip;
 
@@ -30,18 +31,18 @@ namespace Controller
 		private void Render()
 		{
 			_shipScrollViewController.ClearScreen();
-			_shipScrollViewController.AddCells(GetShipCells());
+			_shipScrollViewController.AddCells(GetShipData());
 		}
 
-		private IEnumerable<TagString> GetShipCells()
+		private IEnumerable<TagString> GetShipData()
 		{
 			var ship = GameManager.Instance.GameState.CommandShip;
 
-            var baseStats = new List<TagString>
+            var shipData = new List<TagString>
             {
                 new TagString()
                 {
-                    Text = "Name: " + ship.Values[ShipStats.CaptainName]
+                    Text = "Name: <> " + ship.Values[ShipStats.CaptainName]
                 },
                 new TagString()
                 {
@@ -55,10 +56,15 @@ namespace Controller
                 },
                 new TagString($"Credits: {ship.Stats[StatKeys.Credits]}")
 			};
+
+            foreach (var hardware in ship.Hardware)
+            {
+                shipData.Add($"<>".Encode(hardware, LinkColors.Player).Tag());
+            }
 			
 			if (ship.Stats[StatKeys.Scrap] > 0)
 			{
-				baseStats.Add(new TagString()
+				shipData.Add(new TagString()
 				{
 					Text = "Scrap: " + ship.Stats[StatKeys.Scrap]
 				});
@@ -66,7 +72,7 @@ namespace Controller
 
 			if (ship.Stats[StatKeys.Resourcium] > 0)
 			{
-				baseStats.Add(new TagString()
+				shipData.Add(new TagString()
 				{
 					Text = "Resourcium: " + ship.Stats[StatKeys.Resourcium]
 				});
@@ -74,7 +80,7 @@ namespace Controller
 			
 			if (ship.Stats[StatKeys.Techanite] > 0)
 			{
-				baseStats.Add(new TagString()
+				shipData.Add(new TagString()
 				{
 					Text = "Techanite: " + ship.Stats[StatKeys.Techanite]
 				});
@@ -82,7 +88,7 @@ namespace Controller
 			
 			if (ship.Stats[StatKeys.MachineParts] > 0)
 			{
-				baseStats.Add(new TagString()
+				shipData.Add(new TagString()
 				{
 					Text = "Machine Parts: " + ship.Stats[StatKeys.MachineParts]
 				});
@@ -90,13 +96,13 @@ namespace Controller
 			
 			if (ship.Stats[StatKeys.PulsarCoreFragments] > 0)
 			{	
-				baseStats.Add(new TagString()
+				shipData.Add(new TagString()
 				{
 					Text = "Pulsar Core Fragments: " + ship.Stats[StatKeys.PulsarCoreFragments]
 				});
 			}
 
-			return baseStats;
+			return shipData;
 		}
 	}
 }

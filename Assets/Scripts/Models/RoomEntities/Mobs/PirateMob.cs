@@ -18,19 +18,19 @@ public class PirateMob : FlexEntity
         Stats[StatKeys.Hull] = 5;
     }
 
-    public override ABDialogueContent CalculateDialogue(IRoom room)
+    public override void CalculateDialogue(IRoom room)
     {
         if (IsHostile)
         {
-            return DialogueBuilder.PlayerAttackDialogue("The privateer's weapons are already spun up and locked on to you!", this, room);
+            DialogueContent = DialogueBuilder.PlayerAttackDialogue("The privateer's weapons are already spun up and locked on to you!", this, room);
         }
         else if (IsAttackable)
         {
-            return DialogueBuilder.PlayerAttackDialogue("A rusty privateer cruises through the sector.", this, room);
+            DialogueContent = DialogueBuilder.PlayerAttackDialogue("A rusty privateer cruises through the sector.", this, room);
         }
         else
         {
-            return DialogueBuilder.Init()
+            DialogueContent = DialogueBuilder.Init()
                         .AddMainText(@"A crackle comes through the comms:
 
 Empty your cargo or we'll dust ya!")

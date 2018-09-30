@@ -37,16 +37,17 @@ namespace Models
             return new DoNothingAction(this);
         }
 
-        public override ABDialogueContent CalculateDialogue(IRoom room)
+        public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
                 case (int)NpcState.Full:
-                    return DialogueBuilder.Init()
+                    DialogueContent = DialogueBuilder.Init()
                         .AddMainText("The most ubiquitous and least valuable item in the galaxy.  Worth 1 credit per unit.")
                         .AddTextA("Pick it up")
                             .AddActionA(new LootAction(room.PlayerShip, this))
                         .Build();
+                    break;
             }
 
             throw new NotSupportedException();

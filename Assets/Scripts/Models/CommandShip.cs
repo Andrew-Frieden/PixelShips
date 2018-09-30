@@ -6,6 +6,8 @@ using Models.Stats;
 using TextEncoding;
 using System.Linq;
 using EnumerableExtensions;
+using Items;
+using UnityEngine;
 
 namespace Models
 {
@@ -23,7 +25,6 @@ namespace Models
                 {
                     _stats = new Dictionary<string, int>
                     {
-                        [ShipStats.IsAlive] = 1,
                         [StatKeys.MaxHull] = 20,
                         [StatKeys.Hull] = 20,
                         [StatKeys.MaxShields] = 20,
@@ -35,7 +36,8 @@ namespace Models
                         [StatKeys.Techanite] = 0,
                         [StatKeys.MachineParts] = 0,
                         [StatKeys.PulsarCoreFragments] = 0,
-                        [StatKeys.Credits] = 0
+                        [StatKeys.Credits] = 0,
+                        [StatKeys.MaxHardwareSlots] = 2
                     };
                 }
                 return _stats;
@@ -56,6 +58,8 @@ namespace Models
                     _values = new Dictionary<string, string>()
                     {
                         [ShipStats.CaptainName] = PickRandomCaptainName(),
+                        [ValueKeys.LightWeapon] = PulseLaser.Key,
+                        [ValueKeys.HeavyWeapon] = PlasmaTorpedo.Key
                     };
                 }
                 return _values;
@@ -153,6 +157,9 @@ namespace Models
             }
         }
 
+        public IWeapon LightWeapon => WeaponFactory.GetWeapon(Values[ValueKeys.LightWeapon]);
+        public IWeapon HeavyWeapon => WeaponFactory.GetWeapon(Values[ValueKeys.HeavyWeapon]);
+
         public string GetLinkText()
         {
             return "You";
@@ -168,7 +175,7 @@ namespace Models
             throw new NotImplementedException();
         }
 
-        public ABDialogueContent CalculateDialogue(IRoom room)
+        public void CalculateDialogue(IRoom room)
         {
             IRoomAction passAction;
             string passText;
@@ -184,7 +191,7 @@ namespace Models
                 passText = "Think of a plan";
             }
 
-            return DialogueBuilder.Init()
+            DialogueContent = DialogueBuilder.Init()
                 .AddMainText("Your ship looks like a standard frigate.")
                 .AddTextA("Shields Up")
                 .AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
@@ -192,22 +199,14 @@ namespace Models
                 .AddActionB(passAction)
                 .Build();
         }
-
-        public CommandShip(int gathering, int transport, int intelligence, int combat, int speed, int hull)
-        {
-            Id = Guid.NewGuid().ToString();
-            DialogueContent = new ABDialogueContent();
-        }
-
-        public CommandShip(string id, int gathering, int transport, int intelligence, int combat, int speed, int hull)
-        {
-            Id = id;
-            DialogueContent = null;
-        }
         
         public CommandShip()
         {
             Id = Guid.NewGuid().ToString();
+            
+            //  temporary testing
+            EquipHardware(new HazardDetector());
+            EquipHardware(new MobDetector());
         }
 
         private string PickRandomCaptainName()
@@ -234,10 +233,34 @@ namespace Models
             return new DoNothingAction(this);
         }
 
+        private List<Hardware> _hardware = new List<Hardware>();
+        public IEnumerable<Hardware> Hardware { get { return _hardware; } }
+
+        public void EquipHardware(Hardware h)
+        {
+            if (_hardware.Count < Stats[StatKeys.MaxHardwareSlots])
+            {
+                _hardware.Add(h);
+            }
+        }
+
+        public void DropHardware(Hardware h)
+        {
+            _hardware.Remove(h);
+        }
+
+        public bool CheckHardware<T>() where T : Hardware
+        {
+            return Hardware.Any(h => h is T);
+        }
+
+        public T GetHardware<T>() where T : Hardware
+        {
+            return (T)Hardware.FirstOrDefault(h => h is T);
+        }
+
         public static partial class ShipStats
         {
-            public const string IsAlive = "is_alive";
-
             public const string WarpDriveReady = "warp_drive_ready";
             public const string CaptainName = "captain_name";
         }

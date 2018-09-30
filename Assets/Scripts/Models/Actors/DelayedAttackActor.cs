@@ -19,9 +19,9 @@ namespace Models.Actors
             _name = name;
         }
 
-        public override ABDialogueContent CalculateDialogue(IRoom room)
+        public override void CalculateDialogue(IRoom room)
         {
-            return DialogueBuilder.Init()
+            DialogueContent = DialogueBuilder.Init()
                  .AddMainText("The " + _name + " will strike in " + Stats[TimeToLiveKey] + " turns.")
                   .Build();
         }

@@ -27,9 +27,8 @@ namespace Models.Actors
             Stats[TimeToLiveKey] = timeToLive;
         }
 
-        public override ABDialogueContent CalculateDialogue(IRoom room)
+        public override void CalculateDialogue(IRoom room)
         {
-            throw new NotImplementedException();
         }
 
         public override TagString GetLookText()

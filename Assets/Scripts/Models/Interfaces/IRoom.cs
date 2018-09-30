@@ -14,6 +14,7 @@ public interface IRoom : ITextEntity
 
     void SetPlayerShip(CommandShip ship);
     void AddEntity(IRoomActor actor);
+    void CalculateDialogue();
 }
 
 public static class RoomHelpers
@@ -25,6 +26,7 @@ public static class RoomHelpers
 
         var entities = new List<ITextEntity>() { room, room.PlayerShip };
         entities.AddRange(room.Entities);
+        entities.AddRange(room.PlayerShip.Hardware);
 
         return entities.FirstOrDefault(ent => ent.Id == id);
     }
