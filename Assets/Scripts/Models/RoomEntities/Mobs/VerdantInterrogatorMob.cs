@@ -66,6 +66,15 @@ public class VerdantInterrogatorMob : FlexEntity
         return new DoNothingAction(this);
     }
 
+    public override IRoomAction CleanupStep(IRoom room)
+    {
+        if (IsDestroyed)
+        {
+            return new DropKelpFiberAction(this);
+        }
+        return new DoNothingAction(this);
+    }
+
     public VerdantInterrogatorMob(FlexEntityDto dto, IRoom room) : base(dto, room)
     {
     }
@@ -101,6 +110,33 @@ public class VerdantInterrogatorMob : FlexEntity
             }
 
             return new List<TagString>();
+        }
+    }
+
+    private class DropKelpFiberAction : SimpleAction
+    {
+        public DropKelpFiberAction(IRoomActor src) : base()
+        {
+            Source = src;
+        }
+
+        public override IEnumerable<TagString> Execute(IRoom room)
+        {
+
+            var explosion = $"The <>'s hull splinters apart!".Encode(Source, LinkColors.HostileEntity).Tag();
+            
+
+            if (2 < Random.Range(0, 10))
+            {
+                var drop = new ScrapGatherable("Kelp Fiber");
+                room.Entities.Add(drop);
+                var dropped = $"Earthy <> spews from the wreckage.".Encode(drop, LinkColors.Gatherable).Tag();
+                return new TagString[] { explosion, dropped };
+            }
+
+            
+            
+            return new TagString[] { explosion };
         }
     }
 }

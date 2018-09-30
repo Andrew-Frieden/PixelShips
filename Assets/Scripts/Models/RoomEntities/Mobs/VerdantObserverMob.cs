@@ -114,12 +114,21 @@ public class VerdantObserverMob : FlexEntity
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
-            var drop = new ScrapGatherable("Kelp Fiber");
-            room.Entities.Add(drop);
 
             var explosion = $"The <>'s hull splinters apart!".Encode(Source, LinkColors.HostileEntity).Tag();
-            var dropped = $"Earthy <> spews from the wreckage.".Encode(drop, LinkColors.Gatherable).Tag();
-            return new TagString[] { explosion, dropped };
+
+
+            if (8 < Random.Range(0, 10))
+            {
+                var drop = new ScrapGatherable("Kelp Fiber");
+                room.Entities.Add(drop);
+                var dropped = $"Earthy <> spews from the wreckage.".Encode(drop, LinkColors.Gatherable).Tag();
+                return new TagString[] { explosion, dropped };
+            }
+
+
+
+            return new TagString[] { explosion };
         }
     }
 }

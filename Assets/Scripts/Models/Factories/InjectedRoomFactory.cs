@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using EnumerableExtensions;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class InjectedRoomFactory : IRoomFactory
 {
@@ -130,11 +131,43 @@ public class InjectedRoomFactory : IRoomFactory
                 }
                 else if (template.Difficulty <= 10)
                 {
-                    actors.Add(new VerdantInformantMob());
+                    if (7 <= UnityEngine.Random.Range(0, 11))
+                    {
+                        actors.Add(new VerdantInformantMob());
+                    } else
+                    {
+                        actors.Add(new VerdantObserverMob());
+                        actors.Add(new VerdantObserverMob());
+                    }
+                    
                 }
-                else
+                else if (template.Difficulty <= 15)
                 {
-                    actors.Add(new VerdantInterrogatorMob());
+
+                    if (7 <= UnityEngine.Random.Range(0, 11))
+                    {
+                        actors.Add(new VerdantInterrogatorMob());
+                    }
+                    else
+                    {
+                        actors.Add(new VerdantInformantMob());
+                        actors.Add(new VerdantObserverMob());
+                    }
+                }
+                else if (template.Difficulty <= 20)
+                {
+
+                    if (7 <= UnityEngine.Random.Range(0, 11))
+                    {
+                        actors.Add(new VerdantInterrogatorMob());
+                        actors.Add(new VerdantInformantMob());
+                    }
+                    else
+                    {
+                        actors.Add(new VerdantInformantMob());
+                        actors.Add(new VerdantObserverMob());
+                        actors.Add(new VerdantObserverMob());
+                    }
                 }
             }
             else
