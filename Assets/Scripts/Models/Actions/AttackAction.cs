@@ -35,9 +35,7 @@ namespace Models.Actions
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
-            var actualDamage = Damage;
-                
-            Target.TakeDamage(actualDamage);
+            var actualDamage = Target.TakeDamage(Damage);
             Target.IsHostile = true;
             
             if (Source is CommandShip)

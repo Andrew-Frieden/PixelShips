@@ -6,7 +6,7 @@ namespace Helpers
 {
     public static class RoomActionHelper
     {
-        public static void TakeDamage(this IRoomActor actor, int damage)
+        public static int TakeDamage(this IRoomActor actor, int damage)
         {
             var overflow = 0;
             
@@ -39,6 +39,8 @@ namespace Helpers
             {
                 actor.IsDestroyed = true;
             }
+
+            return damage;
         }
     }
 }
