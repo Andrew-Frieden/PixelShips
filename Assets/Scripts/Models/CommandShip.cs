@@ -37,7 +37,9 @@ namespace Models
                         [StatKeys.MachineParts] = 0,
                         [StatKeys.PulsarCoreFragments] = 0,
                         [StatKeys.Credits] = 0,
-                        [StatKeys.MaxHardwareSlots] = 2
+                        [StatKeys.MaxHardwareSlots] = 2,
+                        [StatKeys.Energy] = 10,
+                        [StatKeys.MaxEnergy] = 10
                     };
                 }
                 return _stats;
