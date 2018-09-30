@@ -633,6 +633,44 @@ Prefab:
       propertyPath: _tripleViewController
       value: 
       objectReference: {fileID: 1608455979}
+    - target: {fileID: 1361350053023752, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632989942495876, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114787379823386164, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.048727296
+      objectReference: {fileID: 0}
+    - target: {fileID: 114787379823386164, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.11058207
+      objectReference: {fileID: 0}
+    - target: {fileID: 114787379823386164, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.14150941
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007438425919396, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.41960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007438425919396, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007438425919396, guid: 79de77b574fcaea40a7fea743957c85b,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114956958039596128, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
@@ -1227,6 +1265,10 @@ Prefab:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 1478137180}
+    - target: {fileID: 1377007966296800, guid: 9b9f54bb78434824f8f8f64544f0d282, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b9f54bb78434824f8f8f64544f0d282, type: 2}
   m_IsPrefabAsset: 0
