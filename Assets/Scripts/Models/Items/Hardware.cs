@@ -3,6 +3,7 @@ using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using System;
+using System.Collections.Generic;
 using TextEncoding;
 
 namespace Items
@@ -39,7 +40,7 @@ namespace Items
 
     public class Hardware : FlexEntity, IHardware
     {
-        private enum HardwareState
+        public enum HardwareState
         {
             Unequipped = 0,
             Equipped = 1
@@ -47,9 +48,21 @@ namespace Items
 
         public override void CalculateDialogue(IRoom room)
         {
-            DialogueContent = DialogueBuilder.Init()
-                .AddMainText($"Its a {GetLinkText()}")    
-                .Build();
+            switch (CurrentState)
+            {
+                case (int)HardwareState.Unequipped:
+                    DialogueContent = DialogueBuilder.Init()
+                        .AddMainText($"{GetLinkText()}")
+                        .AddOption("Pickup", new PickupHardwareAction(room.PlayerShip, this))
+                        .Build();
+                    break;
+                case (int)HardwareState.Equipped:
+                    DialogueContent = DialogueBuilder.Init()
+                        .AddMainText($"{GetLinkText()}")
+                        .AddOption("Drop", new DropHardwareAction(room.PlayerShip, this))
+                        .Build();
+                    break;
+            }
         }
 
         public override TagString GetLookText()
@@ -152,5 +165,58 @@ namespace Items
     {
         public const string Key = "hazard_mitigation";
         public string Name => "Hazard Plating";
+    }
+
+    public class DropHardwareAction : SimpleAction
+    {
+        public DropHardwareAction(IRoomActor src, IRoomActor target)
+        {
+            if (target is Hardware)
+                Target = target;
+            else
+                throw new InvalidOperationException();
+
+            Source = src;
+        }
+
+        public override IEnumerable<TagString> Execute(IRoom room)
+        {
+            var hardware = (Hardware)Target;
+
+            if (Source == room.PlayerShip)
+                room.PlayerShip.DropHardware(hardware);
+
+            hardware.IsDestroyed = false;
+            room.AddEntity(hardware);
+            hardware.ChangeState((int)Hardware.HardwareState.Unequipped);
+
+            return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet();
+        }
+    }
+
+    public class PickupHardwareAction : SimpleAction
+    {
+        public PickupHardwareAction(IRoomActor src, IRoomActor target)
+        {
+            if (target is Hardware)
+                Target = target;
+            else
+                throw new InvalidOperationException();
+
+            Source = src;
+        }
+
+        public override IEnumerable<TagString> Execute(IRoom room)
+        {
+            var hardware = (Hardware)Target;
+
+            if (Source == room.PlayerShip)
+                room.PlayerShip.EquipHardware(hardware);
+
+            hardware.IsDestroyed = true;
+            hardware.ChangeState((int)Hardware.HardwareState.Equipped);
+
+            return $"You pickup the <>".Encode(Target, LinkColors.Gatherable).ToTagSet();
+        }
     }
 }

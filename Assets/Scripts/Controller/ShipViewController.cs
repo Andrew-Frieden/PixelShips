@@ -59,7 +59,7 @@ namespace Controller
 
             foreach (var hardware in ship.Hardware)
             {
-                shipData.Add($"<>".Encode(hardware, LinkColors.Player).Tag());
+                shipData.Add($"<>".Encode(hardware, LinkColors.Gatherable).Tag());
             }
 			
 			if (ship.Stats[StatKeys.Scrap] > 0)

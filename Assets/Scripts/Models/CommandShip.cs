@@ -246,7 +246,7 @@ namespace Models
 
         public void DropHardware(Hardware h)
         {
-            _hardware.Remove(h);
+            _hardware.Remove(h);            
         }
 
         public bool CheckHardware<T>() where T : Hardware
