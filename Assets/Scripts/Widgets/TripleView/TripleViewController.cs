@@ -13,7 +13,7 @@ public class TripleViewController : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 targetPosition;
 
-    [SerializeField] private List<GameObject> Views;
+    [SerializeField] protected List<GameObject> Views;
     [SerializeField] private GameObject StartingView;
     [SerializeField] private RectTransform ViewBase;
     [SerializeField] private Canvas Canvas;
@@ -36,7 +36,7 @@ public class TripleViewController : MonoBehaviour
         startPosition = ViewBase.transform.position;
         targetPosition = startPosition;
         
-        ShowView(Views[(int) TripleView.Left]);
+        //ShowView(Views[(int) TripleView.Left]);
     }
 
     void Update()
