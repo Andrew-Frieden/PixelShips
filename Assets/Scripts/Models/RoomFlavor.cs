@@ -1,6 +1,6 @@
 ﻿public enum RoomFlavor
 {
-    Empty,
-    Nebula,
-    Kelp
+    Empty = 0,
+    Kelp = 1,
+    Nebula = 2
 }

@@ -37,9 +37,9 @@ namespace Models
                         [StatKeys.MachineParts] = 0,
                         [StatKeys.PulsarCoreFragments] = 0,
                         [StatKeys.Credits] = 0,
-                        [StatKeys.MaxHardwareSlots] = 2,
                         [StatKeys.Energy] = 10,
-                        [StatKeys.MaxEnergy] = 10
+                        [StatKeys.MaxEnergy] = 10,
+                        [StatKeys.MaxHardwareSlots] = 5
                     };
                 }
                 return _stats;
@@ -209,6 +209,9 @@ namespace Models
             //  temporary testing
             EquipHardware(new HazardDetector());
             EquipHardware(new MobDetector());
+            EquipHardware(new TownDetector());
+            EquipHardware(new GatheringBoost());
+            EquipHardware(new HazardMitigation());
         }
 
         private string PickRandomCaptainName()

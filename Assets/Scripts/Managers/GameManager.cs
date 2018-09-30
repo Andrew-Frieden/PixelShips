@@ -2,6 +2,7 @@
 using Common;
 using Events;
 using Models;
+using GameData;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -62,10 +63,13 @@ public class GameManager : Singleton<GameManager>
 	public void StartNewMission()
 	{
 		UpdateState(GamePhase.MISSION);
-		
-		//if (Player has a save file)
-		//GameState = _saveLoadController.Load();
-		
+
+        //if (Player has a save file)
+        //GameState = _saveLoadController.Load();
+
+        var data = InjectableGameData.SometimesDamageHazards;
+        _saveLoadController.SerializeContent(data);
+        
 		GameState = _saveLoadController.CreateNewGameState();
 	}
 }

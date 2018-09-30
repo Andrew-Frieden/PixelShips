@@ -11,7 +11,7 @@ namespace Models
 {
     public class SaveLoadController
     {
-        private string SaveFilePath = Application.dataPath + "/SaveData.json";
+        private string SaveFilePath = UnityEngine.Application.dataPath + "/SaveData.json";
 
         public GameState Load()
         {
@@ -26,13 +26,33 @@ namespace Models
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
         }
+        
+        public void SerializeContent(List<FlexData> data)
+        {
+            Debug.Log($"serializing game content to {SaveFilePath}");
+            var json = JsonConvert.SerializeObject(data);
+            File.WriteAllText(SaveFilePath, json);
+            Debug.Log("serialize complete.");
+        }
 
         public GameState CreateNewGameState()
         {
             return new GameState
             {
-                CommandShip = FactoryContainer.ShipFactory.GenerateCommandShip(),
-                Room = FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp))
+                CurrentExpedition = new Expedition
+                {
+                    CmdShip = FactoryContainer.ShipFactory.GenerateCommandShip(),
+                    Room = (Room)FactoryContainer.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp)),
+                    CurrentMission = new Mission { MissionLevel = 1 },
+                    Ticks = 0,
+                    Jumps = 0
+                },
+                Home = new Homeworld
+                {
+                    PlanetName = "Galvanius",
+                    DeepestExpedition = 0,
+                    HardestMonsterSlainScore = 0
+                }
             };
         }
 
@@ -40,7 +60,7 @@ namespace Models
         {
             return new SaveState
             {
-                Room = state.Room.ToDto(),
+                Room = state.CurrentExpedition.Room.ToDto(),
                 SaveTime = DateTime.Now
             };
         }
@@ -49,11 +69,11 @@ namespace Models
         {
             var state = new GameState()
             {
-                Room = save.Room.FromDto(),
-                CommandShip = save.CommandShip.FromDto()
+              //  Room = (Room)save.Room.FromDto(),
+              //  CommandShip = save.CommandShip.FromDto()
             };
 
-            state.Room.SetPlayerShip(state.CommandShip);
+            //state.Room.SetPlayerShip(state.CommandShip);
 
             //  grab all the mob dtos and build mob entities
             //var mobs = new List<Mob>();
@@ -64,7 +84,7 @@ namespace Models
             //entities.AddRange(mobs);
 
             //  add all the entities to the room
-            entities.ForEach(e => state.Room.AddEntity(e));
+            //entities.ForEach(e => state.Room.AddEntity(e));
 
             var contents = save.Room.GetContent();
 
@@ -72,7 +92,7 @@ namespace Models
             //save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));
 
             //  setup the DialogueContent for the player ship
-            state.CommandShip.CalculateDialogue(state.Room);
+            //state.CommandShip.CalculateDialogue(state.Room);
 
             state.CurrentTime = DateTime.Now;
             return state;

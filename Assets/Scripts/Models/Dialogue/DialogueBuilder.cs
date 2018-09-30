@@ -141,11 +141,11 @@ namespace Models.Dialogue
                 text += "Hostile Detected" + Env.l;
             }
 
-            //if (t.ActorFlavors.Contains(RoomActorFlavor.Town)
-            //    && ship.CheckHardware<TownDetector>())
-            //{
-            //    text += "Nearby Starport Detected" + Env.l;
-            //}
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Town)
+                && ship.CheckHardware<TownDetector>())
+            {
+                text += "Starport Detected" + Env.l;
+            }
 
             return text;
         }
