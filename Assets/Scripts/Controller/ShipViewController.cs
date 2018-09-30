@@ -42,7 +42,7 @@ namespace Controller
             {
                 new TagString()
                 {
-                    Text = "Name: <> " + ship.Values[ShipStats.CaptainName]
+                    Text = "Name: " + ship.Values[ShipStats.CaptainName]
                 },
                 new TagString()
                 {
