@@ -86,12 +86,6 @@ public class SometimesDamageHazard : FlexEntity
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             var actualDamage = BaseDamage;
-
-            if (Target.Stats.ContainsKey(StatKeys.ExampleDamageMitigationStat))
-            {
-                actualDamage -= Target.Stats[StatKeys.ExampleDamageMitigationStat];
-                actualDamage = Math.Max(actualDamage, 1);
-            }
             
             Target.TakeDamage(actualDamage);
             

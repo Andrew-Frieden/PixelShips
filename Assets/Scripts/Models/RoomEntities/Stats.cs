@@ -12,7 +12,7 @@ namespace Models.Stats
         public const string Hull = "current_hull";
         public const string MaxHull = "max_hull";
         public const string Captainship = "captainship";
-        public const string ExampleDamageMitigationStat = "damage_mitigation";
+        public const string DamageMitigationStat = "damage_mitigation";
         public const string HazardDamageAmount = "hazard_damage_amount";
         public const string HazardDamageChance = "hazard_damage_chance";
         public const string MaxShields = "max_shields";
