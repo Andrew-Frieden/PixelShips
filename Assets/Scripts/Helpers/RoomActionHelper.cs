@@ -1,4 +1,5 @@
 ﻿using System;
+using Items;
 using Models;
 using Models.Stats;
 
@@ -41,6 +42,82 @@ namespace Helpers
             }
 
             return damage;
+        }
+
+        public static Loot LootGatherable(this IRoomActor actor)
+        {
+            var lootDrop = UnityEngine.Random.Range(0, 10);
+
+            string lootType;
+            int lootAmount = 0;
+
+            switch (lootDrop)
+            {
+                case 0:
+                    lootType = StatKeys.Resourcium;
+                    lootAmount = 15;
+                    break;
+                case 1:
+                    lootType = StatKeys.Resourcium;
+                    lootAmount = 5;
+                    break;
+                case 2:
+                    lootType = StatKeys.Scrap;
+                    lootAmount = 15;
+                    break;
+                case 3:
+                    lootType = StatKeys.Resourcium;
+                    lootAmount = 25;
+                    break;
+                case 4:
+                    lootType = StatKeys.Scrap;
+                    lootAmount = 25;
+                    break;
+                case 5:
+                    lootType = StatKeys.Scrap;
+                    lootAmount = 50;
+                    break;
+                case 6:
+                    lootType = StatKeys.Scrap;
+                    lootAmount = 75;
+                    break;
+                case 7:
+                    lootType = StatKeys.Scrap;
+                    lootAmount = 100;
+                    break;
+                case 8:
+                    lootType = StatKeys.Resourcium;
+                    lootAmount = 1;
+                    break;        
+                default:
+                    lootType = StatKeys.Scrap;
+                    lootAmount = 1;
+                    break;        
+            }
+
+            if (actor is CommandShip)
+            {
+                var cmdShip = (CommandShip) actor;
+                var booster = cmdShip.GetHardware<GatheringBoost>();
+
+                booster?.ApplyBoost(ref lootAmount);
+            }
+
+            actor.Stats[lootType] += lootAmount;
+
+            return new Loot(lootAmount, lootType);
+        }
+    }
+
+    public class Loot
+    {
+        public int Amount { get; }
+        public string Type { get; }
+        
+        public Loot(int amount, string type)
+        {
+            Amount = amount;
+            Type = type;
         }
     }
 }

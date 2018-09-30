@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Helpers;
 using Items;
 using Models.Actions;
 using Models.Dialogue;
@@ -84,71 +85,12 @@ namespace Models
 
             public override IEnumerable<TagString> Execute(IRoom room)
             {
-                var lootDrop = UnityEngine.Random.Range(0, 10);
                 var results = new List<TagString>();
                     
                 Target.ChangeState((int)NpcState.Empty);
-
-                string lootType;
-                int lootAmount = 0;
-
-                switch (lootDrop)
-                {
-                    case 0:
-                        lootType = StatKeys.Resourcium;
-                        lootAmount = 15;
-                        break;
-                    case 1:
-                        lootType = StatKeys.Resourcium;
-                        lootAmount = 5;
-                        break;
-                    case 2:
-                        lootType = StatKeys.Scrap;
-                        lootAmount = 15;
-                        break;
-                    case 3:
-                        lootType = StatKeys.Resourcium;
-                        lootAmount = 25;
-                        break;
-                    case 4:
-                        lootType = StatKeys.Scrap;
-                        lootAmount = 25;
-                        break;
-                    case 5:
-                        lootType = StatKeys.Scrap;
-                        lootAmount = 50;
-                        break;
-                    case 6:
-                        lootType = StatKeys.Scrap;
-                        lootAmount = 75;
-                        break;
-                    case 7:
-                        lootType = StatKeys.Scrap;
-                        lootAmount = 100;
-                        break;
-                    case 8:
-                        lootType = StatKeys.Resourcium;
-                        lootAmount = 1;
-                        break;        
-                    default:
-                        lootType = StatKeys.Scrap;
-                        lootAmount = 1;
-                        break;        
-                }
-
-                if (Source is CommandShip)
-                {
-                    var cmdShip = (CommandShip)Source;
-                    var booster = cmdShip.GetHardware<GatheringBoost>();
-
-                    if (booster != null)
-                    {
-                        booster.ApplyBoost(ref lootAmount);
-                    }
-                }
-
-                Source.Stats[lootType] += lootAmount;
-                var text = $"You gathered {lootAmount} {lootType}.";
+                
+                var loot = Source.LootGatherable();
+                var text = $"You gathered {loot.Amount} {loot.Type}.";
 
                 results.Add(new TagString()
                 {
