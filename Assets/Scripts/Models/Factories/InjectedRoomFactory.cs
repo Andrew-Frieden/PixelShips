@@ -139,7 +139,6 @@ public class InjectedRoomFactory : IRoomFactory
                         actors.Add(new VerdantObserverMob());
                         actors.Add(new VerdantObserverMob());
                     }
-                    
                 }
                 else if (template.Difficulty <= 15)
                 {

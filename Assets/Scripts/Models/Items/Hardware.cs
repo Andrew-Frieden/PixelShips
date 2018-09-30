@@ -9,37 +9,29 @@ using TextEncoding;
 
 namespace Items
 {
-    public static class HardwareFactory
-    {
-        public static IHardware GetHardware(string key)
-        {
-            if (string.IsNullOrEmpty(key))
-                return new EmptyHardware();
+    //public static class HardwareFactory
+    //{
+    //    public static Hardware GetHardware(string key)
+    //    {
+    //        switch (key)
+    //        {
+    //            case TownDetector.Key:
+    //                return new TownDetector();
+    //            case HazardDetector.Key:
+    //                return new HazardDetector();
+    //            case MobDetector.Key:
+    //                return new MobDetector();
+    //            case GatheringBoost.Key:
+    //                return new GatheringBoost();
+    //            case HazardMitigation.Key:
+    //                return new HazardMitigation();
+    //        }
 
-            switch (key)
-            {
-                case TownDetector.Key:
-                    return new TownDetector();
-                case HazardDetector.Key:
-                    return new HazardDetector();
-                case MobDetector.Key:
-                    return new MobDetector();
-                case GatheringBoost.Key:
-                    return new GatheringBoost();
-                case HazardMitigation.Key:
-                    return new HazardMitigation();
-            }
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
-            throw new NotImplementedException();
-        }
-    }
-
-    public interface IHardware
-    {
-        string Name { get; }
-    }
-
-    public class Hardware : FlexEntity, IHardware
+    public class Hardware : FlexEntity
     {
         public enum HardwareState
         {
@@ -125,21 +117,26 @@ namespace Items
         }
     }
 
-    public class EmptyHardware : IHardware
+    public class EmptyHardware
     {
         public const string Key = "empty_hardware";
         public string Name => "Empty Hardware";
     }
 
-    public class TownDetector : IHardware
+    public class TownDetector : Hardware
     {
-        public const string Key = "town_detector";
-        public string Name => "Cartographic Processor";
+        //public const string Key = "town_detector";
+
+        public TownDetector() : base()
+        {
+            Name = "Cartographic Processor";
+            Description = "Quantum mapping device that identifies nearby space stations.";
+        }
     }
 
     public class HazardDetector : Hardware
     {
-        public const string Key = "hazard_detector";
+        //public const string Key = "hazard_detector";
 
         public HazardDetector() : base()
         {
@@ -150,7 +147,7 @@ namespace Items
 
     public class MobDetector : Hardware
     {
-        public const string Key = "mob_detector";
+        //public const string Key = "mob_detector";
 
         public MobDetector() : base()
         {
@@ -161,11 +158,12 @@ namespace Items
 
     public class GatheringBoost : Hardware
     {
-        public const string Key = "gathering_boost";
+        //public const string Key = "gathering_boost";
 
         public GatheringBoost() : base()
         {
             Name = "Robotic Manipulator";
+            Description = "An advanced gathering tool capable of crushing rock.";
         }
 
         private const float boost = 0.5f;
@@ -176,10 +174,15 @@ namespace Items
         }
     }
 
-    public class HazardMitigation : IHardware
+    public class HazardMitigation : Hardware
     {
-        public const string Key = "hazard_mitigation";
-        public string Name => "Hazard Plating";
+        //public const string Key = "hazard_mitigation";
+
+        public HazardMitigation() : base()
+        {
+            Name = "Hazard Plating";
+            Description = "Advanced hull reinforcements that provide significant resistance to the hazards of space.";
+        }
     }
 
     public class DropHardwareAction : SimpleAction
