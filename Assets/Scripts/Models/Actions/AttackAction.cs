@@ -37,12 +37,6 @@ namespace Models.Actions
         {
             var actualDamage = Damage;
                 
-            if (Target.Stats.ContainsKey(StatKeys.ExampleDamageMitigationStat))
-            {
-                actualDamage -= Target.Stats[StatKeys.ExampleDamageMitigationStat];
-                actualDamage = Math.Max(actualDamage, 1);
-            }
-            
             Target.TakeDamage(actualDamage);
             Target.IsHostile = true;
             
