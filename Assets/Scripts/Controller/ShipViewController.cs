@@ -36,7 +36,7 @@ namespace Controller
 
 		private IEnumerable<TagString> GetShipData()
 		{
-			var ship = GameManager.Instance.GameState.CommandShip;
+            var ship = GameManager.Instance.GameState.CurrentExpedition.CmdShip;
 
             var shipData = new List<TagString>
             {

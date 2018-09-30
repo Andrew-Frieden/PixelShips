@@ -39,8 +39,8 @@ namespace Controller
         public void StartCommandView()
         {
             //Get our initial room and ship from the game state
-            _room = GameManager.Instance.GameState.Room;
-            _room.SetPlayerShip(GameManager.Instance.GameState.CommandShip);
+            _room = GameManager.Instance.GameState.CurrentExpedition.Room;
+            _room.SetPlayerShip(GameManager.Instance.GameState.CurrentExpedition.CmdShip);
             
             RoomController.StartNextRoom(_room, _room);
             
