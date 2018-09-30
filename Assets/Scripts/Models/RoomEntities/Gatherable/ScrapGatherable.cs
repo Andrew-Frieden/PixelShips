@@ -48,9 +48,9 @@ namespace Models
                             .AddActionA(new LootAction(room.PlayerShip, this))
                         .Build();
                     break;
+                default:
+                    throw new NotSupportedException();
             }
-
-            throw new NotSupportedException();
         }
 
         public override TagString GetLookText()
