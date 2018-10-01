@@ -40,43 +40,29 @@ namespace Controller
 
             var shipData = new List<TagString>
             {
-                new TagString()
-                {
-                    Text = "Name: " + ship.Values[ShipStats.CaptainName]
-                },
-                new TagString()
-                {
-                    Text = "Hull: " + ship.Stats[StatKeys.Hull] + "/" + ship.Stats[StatKeys.MaxHull]
-                },
-                new TagString($"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}"),
-                new TagString($"Captainship: {ship.Stats[StatKeys.Captainship]}"),
-                new TagString()
-                {
-                    Text = "WarpDriveReady: " + (ship.Stats[ShipStats.WarpDriveReady] == 1)
-                },
-                new TagString($"Credits: {ship.Stats[StatKeys.Credits]}")
-			};
+                $"--- Ship ---".Tag(),
+                $"Captain: {ship.Values[ShipStats.CaptainName]}".Tag(),
+                $"Hull: {ship.Stats[StatKeys.Hull]}/{ship.Stats[StatKeys.MaxHull]}".Tag(),
+                $"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}".Tag(),
+                $"Warp Drive: {(ship.Stats[ShipStats.WarpDriveReady] == 1 ? "Ready" : "Cold")}".Tag()
+            };
 
+            shipData.Add($"--- Hardware ---".Tag());
+            int emptySlots = ship.Stats[StatKeys.MaxHardwareSlots];
             foreach (var hardware in ship.Hardware)
             {
+                emptySlots--;
                 shipData.Add($"<>".Encode(hardware, LinkColors.Gatherable).Tag());
             }
-			
-			if (ship.Stats[StatKeys.Scrap] > 0)
-			{
-				shipData.Add(new TagString()
-				{
-					Text = "Scrap: " + ship.Stats[StatKeys.Scrap]
-				});
-			}
+            for (int i = 0; i < emptySlots; i++)
+            {
+                shipData.Add($"[Empty Hardware Slot]".Tag());
+            }
 
-			if (ship.Stats[StatKeys.Resourcium] > 0)
-			{
-				shipData.Add(new TagString()
-				{
-					Text = "Resourcium: " + ship.Stats[StatKeys.Resourcium]
-				});
-			}
+            shipData.Add("--- Cargo ---".Tag());
+            shipData.Add($"Credits: {ship.Stats[StatKeys.Credits]}".Tag());
+            shipData.Add($"Resourcium: {ship.Stats[StatKeys.Resourcium]}".Tag());
+            shipData.Add($"Scrap: {ship.Stats[StatKeys.Scrap]}".Tag());
 			
 			if (ship.Stats[StatKeys.Techanite] > 0)
 			{

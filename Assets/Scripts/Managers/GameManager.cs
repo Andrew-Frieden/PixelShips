@@ -67,8 +67,8 @@ public class GameManager : Singleton<GameManager>
         //if (Player has a save file)
         //GameState = _saveLoadController.Load();
 
-        var data = InjectableGameData.SometimesDamageHazards;
-        _saveLoadController.SerializeContent(data);
+        //var data = InjectableGameData.SometimesDamageHazards;
+        //_saveLoadController.SerializeContent(data);
         
 		GameState = _saveLoadController.CreateNewGameState();
 	}

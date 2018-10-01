@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.EventSystems;
 using Widgets.Scroller;
+using System.Collections.Generic;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
@@ -45,11 +46,42 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
     {
         if (!_isClickable)
             return;
-        
-        var result = TMP_TextUtilities.FindIntersectingLink(EncodedText, eventData.position, UIManager.Instance.UICamera);
-        if (result >= 0)
+
+        var gridOffsets = new List<Vector2>()
         {
-            linkTouchedEvent?.Invoke(EncodedText.textInfo.linkInfo[result].GetLinkID());
+            new Vector2(0, 0),
+            new Vector2(1, 0),
+            new Vector2(-1, 0),
+            new Vector2(0, 1),
+            new Vector2(0, -1),
+            new Vector2(1, 1),
+            new Vector2(-1, -1),
+            new Vector2(1, -1),
+            new Vector2(-1, 1)
+        };
+
+        //  calculate a distance that is 2% of the screen width.
+        var distance = 2f * 0.01f * (float)UIManager.Instance.UICamera.scaledPixelWidth;
+
+        var origin = eventData.position;
+        var positionsToTest = new List<Vector2>();
+
+        foreach (var pos in gridOffsets)
+        {
+            positionsToTest.Add(origin + (distance * pos));
+            positionsToTest.Add(origin + (2f * distance * pos));
+        }
+
+        int result;
+        foreach (var pos in positionsToTest)
+        {
+            result = TMP_TextUtilities.FindIntersectingLink(EncodedText, pos, UIManager.Instance.UICamera);
+            //Debug.Log($"OnPointerClick -> r:{result} || pos:{pos} || int:{i}");
+            if (result >= 0)
+            {
+                linkTouchedEvent?.Invoke(EncodedText.textInfo.linkInfo[result].GetLinkID());
+                break;
+            }
         }
     }
 
