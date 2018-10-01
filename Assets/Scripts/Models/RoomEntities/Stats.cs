@@ -18,6 +18,8 @@ namespace Models.Stats
         public const string MaxShields = "max_shields";
         public const string Shields = "current_shields";
         public const string MaxHardwareSlots = "max_flex_slots";
+        public const string Energy = "energy";
+        public const string MaxEnergy = "max_energy";
 
         #endregion
 
