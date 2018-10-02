@@ -24,29 +24,34 @@ namespace Models.Actions
 
         private string Weapon;
 
-        public AttackAction(IRoomActor source, IRoomActor target, int damage, string weapon)
+        public AttackAction(IRoomActor source, IRoomActor target, int damage, string weapon, int energy)
         {
             Source = source;
             Target = target;
             Stats = new Dictionary<string, int>();
             Damage = damage;
             Weapon = weapon;
+            Energy = energy;
         }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
+            base.Execute(room);
+            
             var actualDamage = Target.TakeDamage(Damage);
             Target.IsHostile = true;
             
             if (Source is CommandShip)
             {
+                ActionTags.Add(EventTag.Damage);
+                    
                 //TODO - add target link?
                 return new List<TagString>()
                 {
                     new TagString()
                     {
                         Text = ("< > deal " + actualDamage + " damage to the target with your " + Weapon + ".").Encode(Source.GetLinkText(), Source.Id, LinkColors.Player),
-                        Tags = new List<EventTag> { EventTag.Damage }
+                        Tags = ActionTags
                     }
                 };
             }

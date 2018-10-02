@@ -36,7 +36,7 @@ namespace Items
 
         public IRoomAction GetAction(IRoomActor src, IRoomActor target)
         {
-            return new AttackAction(src, target, 2, Name);
+            return new AttackAction(src, target, 2, Name, 0);
         }
     }
 
@@ -47,7 +47,7 @@ namespace Items
 
         public IRoomAction GetAction(IRoomActor src, IRoomActor target)
         {
-            return new CreateDelayedAttackActorAction(src, target, 1, 8, Name);
+            return new CreateDelayedAttackActorAction(src, target, 1, 8, Name, 2);
         }
     }
 }

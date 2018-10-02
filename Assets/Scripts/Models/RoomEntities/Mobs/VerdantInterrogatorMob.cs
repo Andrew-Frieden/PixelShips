@@ -55,10 +55,10 @@ public class VerdantInterrogatorMob : FlexEntity
 
             var actionList = new List<IRoomAction>();
 
-            actionList.Add(new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon"));
-            actionList.Add(new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon"));
-            actionList.Add(new CreateDelayedAttackActorAction(this, room.PlayerShip, 2, 8, "Leech Torpedo"));
-            actionList.Add(new AttackAction(this, room.PlayerShip, 12, "Great Blossom Cannon"));
+            actionList.Add(new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon", 0));
+            actionList.Add(new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon", 0));
+            actionList.Add(new CreateDelayedAttackActorAction(this, room.PlayerShip, 2, 8, "Leech Torpedo", 0));
+            actionList.Add(new AttackAction(this, room.PlayerShip, 12, "Great Blossom Cannon", 0));
 
             return actionList.OrderBy(d => System.Guid.NewGuid()).First();
         }

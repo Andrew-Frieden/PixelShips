@@ -36,7 +36,7 @@ namespace Models.Actors
             if (Stats[TimeToLiveKey] == 1)
             {
                 Stats[TimeToLiveKey]--;
-                return new AttackAction(_source, _target, _damage, _name);
+                return new AttackAction(_source, _target, _damage, _name, 0);
             }
             else
             {

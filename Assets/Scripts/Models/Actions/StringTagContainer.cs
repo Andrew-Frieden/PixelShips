@@ -27,6 +27,7 @@ namespace Models.Actions
     public enum EventTag
     {
         Damage,
-        Heal
+        Heal,
+        Energy
     }
 }

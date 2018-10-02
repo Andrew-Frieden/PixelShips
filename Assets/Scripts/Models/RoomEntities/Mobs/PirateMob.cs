@@ -75,7 +75,7 @@ Empty your cargo or we'll dust ya!")
         }
         else if (IsHostile)
         {
-            return new AttackAction(this, room.PlayerShip, 2, "Pirate Cannon");
+            return new AttackAction(this, room.PlayerShip, 2, "Pirate Cannon", 0);
         }
         return new DoNothingAction(this);
     }

@@ -4,7 +4,7 @@ using Controller;
 
 namespace Models.Actions
 {
-    public class WarpAction : IRoomAction
+    public class WarpAction : SimpleAction
     {
         private readonly RoomTemplate _template;
         
@@ -13,7 +13,7 @@ namespace Models.Actions
             _template = template;
         }
         
-        public IEnumerable<TagString> Execute(IRoom room)
+        public override IEnumerable<TagString> Execute(IRoom room)
         {
             room.PlayerShip.WarpDriveReady = false;
             room.PlayerShip.WarpTarget = _template;

@@ -78,7 +78,12 @@ namespace Controller
             {
                 return;
             }
-            
+
+            if (result.Tags.Contains(EventTag.Energy))
+            {
+                shipHudController.UpdateEnergy();
+            }
+
             if (result.Tags.Contains(EventTag.Damage))
             {
                 shipHudController.UpdateShield();

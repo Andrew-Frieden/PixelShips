@@ -1,6 +1,7 @@
 ﻿using Models.Actions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ABDialogueController : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class ABDialogueController : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI DialogueText;
     [SerializeField] private TextMeshProUGUI OptionAText;
     [SerializeField] private TextMeshProUGUI OptionBText;
+    
+    [SerializeField] private Image OptionAViewImage;
+    [SerializeField] private Image OptionBViewImage;
 
     private ABDialogueMode mode;
 
@@ -72,14 +76,14 @@ public class ABDialogueController : MonoBehaviour {
             case JoyEdge.Center:
                 break;
             case JoyEdge.Left:
-                if (mode == ABDialogueMode.ABCancel || mode == ABDialogueMode.ACancel)
+                if (mode == ABDialogueMode.ABCancel || mode == ABDialogueMode.ACancel && _actionA.IsValid())
                 {
                     onRoomActionSelect?.Invoke(_actionA);
                     DismissControl();
                 }
                 break;
             case JoyEdge.Right:
-                if (mode == ABDialogueMode.ABCancel)
+                if (mode == ABDialogueMode.ABCancel && _actionB.IsValid())
                 {
                     onRoomActionSelect?.Invoke(_actionB);
                     DismissControl();
@@ -110,6 +114,8 @@ public class ABDialogueController : MonoBehaviour {
         //  animate the display of content
         textTyper.TypeText(0.2f);
         //  wait for user input
+        
+        SetABBackgrounds(content);
     }
 
     //  hide the control from view. this gets called by the 'back' option.
@@ -118,6 +124,26 @@ public class ABDialogueController : MonoBehaviour {
         TargetLocation = OffScreen;
     }
 
+    private void SetABBackgrounds(ABDialogueContent content)
+    {
+        if (content == null)
+            return;
+
+        if (content.OptionAAction != null)
+        {
+            OptionAViewImage.color = !content.OptionAAction.IsValid() 
+                ? new Color(150/255f, 150/255f, 150/255f, 48/255f) 
+                : new Color(100/255f, 200/255f, 250/255f, 48/255f);
+        }
+
+        if (content.OptionBAction == null) 
+            return;
+
+        OptionBViewImage.color = content.OptionBAction != null && !content.OptionBAction.IsValid()
+            ? new Color(150 / 255f, 150 / 255f, 150 / 255f, 48 / 255f)
+            : new Color(214 / 255f, 130 / 255f, 124 / 255f, 48 / 255f);
+    }
+    
     //  populate the text and options on the control with the given content
     private void PopulateControl(ABDialogueContent content)
     {

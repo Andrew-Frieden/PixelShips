@@ -12,6 +12,7 @@ namespace Models.Actions
         public CreateWarpDriveActorAction(int timeToLive)
         {
             ActionName = ACTION_NAME;
+            
             _timeToLive = timeToLive;
         }
         

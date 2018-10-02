@@ -25,8 +25,6 @@ public class VerdantObserverMob : FlexEntity
             "Hull: " +Stats[StatKeys.Hull]+ " / 3\n" +
             "A ship so overgrown it's hard to make out what model it originally was.\n" +
             "You can take them.", this, room);
-
-    
     }
 
     public override TagString GetLookText()
@@ -53,7 +51,7 @@ public class VerdantObserverMob : FlexEntity
         }
         else if (IsHostile)
         {
-            return new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon");
+            return new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon", 0);
         }
         return new DoNothingAction(this);
     }

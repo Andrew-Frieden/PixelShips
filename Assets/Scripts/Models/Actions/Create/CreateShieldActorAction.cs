@@ -14,10 +14,12 @@ namespace Models.Actions
         public CreateShieldActorAction(IRoomActor source, IRoomActor target, int timeToLive, int damageReduction)
         {
             ActionName = ACTION_NAME;
+            
             _timeToLive = timeToLive;
+            _damageReduction = damageReduction; 
+
             Source = source;
             Target = target;
-            _damageReduction = damageReduction; 
         }
         
         public override IEnumerable<TagString> Execute(IRoom room)

@@ -51,7 +51,7 @@ public class VerdantInformantMob : FlexEntity
         }
         else if (IsHostile)
         {
-            return new CreateDelayedAttackActorAction(this, room.PlayerShip, 2, 8, "Leech Torpedo");
+            return new CreateDelayedAttackActorAction(this, room.PlayerShip, 2, 8, "Leech Torpedo", 0);
         }
         return new DoNothingAction(this);
     }

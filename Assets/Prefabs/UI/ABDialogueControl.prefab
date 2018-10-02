@@ -636,6 +636,8 @@ MonoBehaviour:
   DialogueText: {fileID: 114140718751348346}
   OptionAText: {fileID: 114923150055345068}
   OptionBText: {fileID: 114480744244861986}
+  OptionAViewImage: {fileID: 114316277492162354}
+  OptionBViewImage: {fileID: 114085895611052100}
   canvas: {fileID: 0}
 --- !u!114 &114480744244861986
 MonoBehaviour:
