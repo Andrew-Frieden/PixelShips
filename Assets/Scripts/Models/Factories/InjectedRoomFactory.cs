@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using EnumerableExtensions;
 using System.Collections.Generic;
+using Models.RoomEntities.Mobs.Kelp;
 using UnityEngine;
 
 public class InjectedRoomFactory : IRoomFactory
