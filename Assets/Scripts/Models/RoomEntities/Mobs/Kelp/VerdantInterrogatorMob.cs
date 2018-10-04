@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Models.RoomEntities.Mobs.Kelp
 {
-    public class VerdantInterrogatorMob : Verdant
+    public class VerdantInterrogatorMob : Mob
     {
         public VerdantInterrogatorMob()
         {

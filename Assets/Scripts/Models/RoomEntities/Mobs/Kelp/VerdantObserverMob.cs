@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Models.RoomEntities.Mobs.Kelp
 {
-    public class VerdantObserverMob : Verdant
+    public class VerdantObserverMob : Mob
     {
         public VerdantObserverMob()
         {

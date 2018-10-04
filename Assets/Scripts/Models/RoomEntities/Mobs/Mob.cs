@@ -24,6 +24,15 @@ namespace Models.RoomEntities.Mobs
             };
         }
         
+        public override IRoomAction CleanupStep(IRoom room)
+        {
+            if (IsDestroyed)
+            {
+                return new DropGatherableAction(this, new ScrapGatherable("Kelp Fiber"));
+            }
+            return new DoNothingAction(this);
+        }
+        
         protected Mob() { }
 
         protected Mob(FlexEntityDto dto, IRoom room) : base(dto, room) { }
