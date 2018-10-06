@@ -1,26 +1,94 @@
-﻿using System.Collections;
+﻿using Models;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour, IPointerClickHandler
 {
-	[SerializeField] private Button _startButton;
-	[SerializeField] private Button _optionsButton;
-	
-	private void Start () 
+    [SerializeField] private TextMeshProUGUI StartOrContinue;
+    [SerializeField] private TextMeshProUGUI Settings;
+    [SerializeField] private TextMeshProUGUI Reset;
+    [SerializeField] private TextMeshProUGUI SaveData;
+
+    private List<TextMeshProUGUI> menuText;
+    private ISaveManager saveManager;
+
+    private void Start () 
 	{
-		_startButton.onClick.AddListener(OnClickStartButton);
-		_optionsButton.onClick.AddListener(OnClickOptionsButton);
+        menuText = new List<TextMeshProUGUI>
+        {
+            StartOrContinue,
+            Settings,
+            Reset
+        };
+
+        saveManager = GameManager.Instance;
+        SetupMenu();
 	}
+
+    private void SetupMenu()
+    {
+        if (saveManager.HasSaveFile)
+        {
+            StartOrContinue.text = "[Continue]";
+            Reset.text = "[Reset]";
+
+            var save = saveManager.SaveFile;
+            SaveData.text = $"Current Save:{Environment.NewLine}Time:{save.SaveTime}{Environment.NewLine}Path:{saveManager.SavePath}";
+        }
+        else
+        {
+            StartOrContinue.text = "[Begin]";
+            Reset.text = "";
+            SaveData.text = "";
+        }
+    }
 	
-	private void OnClickStartButton()
-	{
-		GameManager.Instance.StartNewMission();
-	}
-	
-	private void OnClickOptionsButton()
-	{
-		Debug.Log("Options Button Clicked");
-	}
+    private void StartOrContinueClick()
+    {
+        GameManager.Instance.StartNewMission();
+    }
+
+    private void ResetClick()
+    {
+        saveManager.ResetSaveData();
+        SetupMenu();
+    }
+
+    private void MenuSelected(TextMeshProUGUI text)
+    {
+        if (text == StartOrContinue)
+        {
+            Debug.Log("StartOrContinue Clicked");
+            StartOrContinueClick();
+        }
+        else if (text == Settings)
+        {
+            Debug.Log("Settings Clicked");
+        }
+        else if (text == Reset)
+        {
+            Debug.Log("Reset Clicked");
+            ResetClick();
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        int result;
+
+        foreach (var menuItem in menuText)
+        {
+            result = TMP_TextUtilities.FindIntersectingWord(menuItem, eventData.position, UIManager.Instance.UICamera);
+            if (result >= 0)
+            {
+                MenuSelected(menuItem);
+                return;
+            }
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Models.Actions;
+﻿using Common;
+using Models.Actions;
 using Models.Dtos;
 using Models.Factories;
 using Newtonsoft.Json;
@@ -11,22 +12,44 @@ namespace Models
 {
     public class SaveLoadController
     {
-        private string SaveFilePath = UnityEngine.Application.dataPath + "/SaveData.json";
+        public static string SaveFilePath = UnityEngine.Application.dataPath + "/SaveData.json";
+        public bool HasSaveData => File.Exists(SaveFilePath);
+        public SaveState SaveData;
+
+        public void Init()
+        {
+            if (HasSaveData)
+            {
+                var jsonData = File.ReadAllText(SaveFilePath);
+                SaveData = JsonConvert.DeserializeObject<SaveState>(jsonData);
+            }
+        }
+
+        public void Delete()
+        {
+            if (HasSaveData)
+            {
+                File.Delete(SaveFilePath);
+
+                var metaFile = SaveFilePath + ".meta";
+                if (File.Exists(metaFile))
+                    File.Delete(metaFile);
+            }
+        }
 
         public GameState Load()
         {
-            var jsonData = File.ReadAllText(SaveFilePath);
-            var saveState = JsonConvert.DeserializeObject<SaveState>(jsonData);
-            return LoadGameState(saveState);
+            return BuildGameStateFromSaveState(SaveData);
         }
         
         public void Save(GameState state)
         {
-            var saveState = BuildSaveState(state);
+            var saveState = BuildSaveStateFromGameState(state);
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
         }
         
+        //  testing for development
         public void SerializeContent(List<FlexData> data)
         {
             Debug.Log($"serializing game content to {SaveFilePath}");
@@ -35,6 +58,7 @@ namespace Models
             Debug.Log("serialize complete.");
         }
 
+        //  hack together a valid gamestate
         public GameState CreateNewGameState()
         {
             return new GameState
@@ -56,7 +80,7 @@ namespace Models
             };
         }
 
-        private SaveState BuildSaveState(GameState state)
+        private SaveState BuildSaveStateFromGameState(GameState state)
         {
             return new SaveState
             {
@@ -65,7 +89,7 @@ namespace Models
             };
         }
 
-        private GameState LoadGameState(SaveState save)
+        private GameState BuildGameStateFromSaveState(SaveState save)
         {
             var state = new GameState()
             {

@@ -151,7 +151,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.ManaFactory.PixelShips
+    Android: com.ManaFactory.SpaceBarbarians
     iOS: com.TheManaFactory.PixelShips
   buildNumber: {}
   AndroidBundleVersionCode: 1

@@ -4,7 +4,7 @@ using Events;
 using Models;
 using GameData;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : Singleton<GameManager>, ISaveManager
 {
 	public enum GamePhase
 	{
@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
 	{
         // Disable screen dimming
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
         StartGame();
 	}
 
@@ -55,12 +54,21 @@ public class GameManager : Singleton<GameManager>
 
 	private void StartGame()
 	{
-		UpdateState(GamePhase.PREGAME);
-		
-		_saveLoadController = new SaveLoadController();
+        _saveLoadController = new SaveLoadController();
+        _saveLoadController.Init();
+        UpdateState(GamePhase.PREGAME);
 	}
-	
-	public void StartNewMission()
+
+    //  expose some save stuff for the main menu
+    public bool HasSaveFile =>_saveLoadController.HasSaveData;
+    public SaveState SaveFile => _saveLoadController.SaveData;
+    public string SavePath => SaveLoadController.SaveFilePath;
+    public void ResetSaveData()
+    {
+        _saveLoadController.Delete();
+    }
+
+    public void StartNewMission()
 	{
 		UpdateState(GamePhase.MISSION);
 
@@ -72,4 +80,20 @@ public class GameManager : Singleton<GameManager>
         
 		GameState = _saveLoadController.CreateNewGameState();
 	}
+
+    void OnApplicationPause(bool pauseStatus)
+    {
+        Debug.Log($"GameManager OnAppPause: {pauseStatus}");
+
+        if (GameState != null && pauseStatus)
+            _saveLoadController.Save(GameState);
+    }
+}
+
+public interface ISaveManager
+{
+    bool HasSaveFile { get; }
+    SaveState SaveFile { get; }
+    string SavePath { get; }
+    void ResetSaveData();
 }

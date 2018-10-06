@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private MainMenu MainMenu;
+    [SerializeField] private GameObject MainMenu;
     [SerializeField] private Canvas TripleView;
 
     public Camera UICamera;
