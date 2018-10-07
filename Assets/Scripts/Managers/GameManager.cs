@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using Common;
+using Controller;
 using Events;
 using Models;
 using GameData;
+using Models.Factories;
 
 public class GameManager : Singleton<GameManager>, ISaveManager
 {
@@ -16,11 +18,15 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	public EventGameState OnGameStateChanged;
 
 	private SaveLoadController _saveLoadController;
+	private ContentLoadController _contentLoadController;
 	
 	private GamePhase _currentGamePhase = GamePhase.BOOT;
 	public GamePhase CurrentGamePhase => _currentGamePhase;
 	
 	public GameState GameState { get; private set; }
+
+	public static RoomFactory RoomFactory;
+	public static ShipFactory ShipFactory;
 
 	private void Start()
 	{
@@ -55,7 +61,11 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	private void StartGame()
 	{
         _saveLoadController = new SaveLoadController();
-        _saveLoadController.Init();
+		_saveLoadController.Init();
+		
+		RoomFactory = new RoomFactory(new ContentLoadController().Load());
+		ShipFactory = new ShipFactory();
+			
         UpdateState(GamePhase.PREGAME);
 	}
 
@@ -76,7 +86,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         //GameState = _saveLoadController.Load();
 
         //var data = InjectableGameData.SometimesDamageHazards;
-        //_saveLoadController.SerializeContent(data);
+		//_contentLoadController.SerializeContent(data);
         
 		GameState = _saveLoadController.CreateNewGameState();
 	}

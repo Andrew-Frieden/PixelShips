@@ -1,72 +1,232 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Factories.Helpers;
-using Repository;
+using EnumerableExtensions;
+using GameData;
+using Models.Dtos;
+using Models.RoomEntities.Mobs.Kelp;
 
 namespace Models.Factories
 {
-    public sealed class RoomFactory : IRoomFactory
+    public class RoomFactory : IRoomFactory
     {
-        private readonly IEnumerable<IRoom> _rooms;
+        //  these could get adjusted based on the mission or jump distance
+        private float CHANCE_ROOM_DANGEROUS = 0.75f;
+        private float CHANCE_FOR_HAZARD = 0.66f;    //  given the room is dangerous, what is the chance it contains a hazard
+        private float CHANCE_FOR_MOB = 0.66f;       // given the room is dangerous, what is the chance it contains a mob
+        private float CHANCE_FOR_TOWN = 0.25f;
+        private float CHANCE_FOR_GATHERABLE = 0.25f;
+        private float CHANCE_FOR_NPC = 0.25f;
 
-        public RoomFactory()
+        private int ROOM_ACTOR_CAPACITY = 4;
+
+        private float CHANCE_TRANSITION_FROM_EMPTY = 0.33f; //  the chance that at least one of the exits of a room in empty space will lead to a non-empty flavor room
+        private float CHANCE_TRANSITION_TO_EMPTY = 0.2f;    //  the chance that at least one of the exits in a non-empty flavored room will lead to empty space
+        
+        public static IEnumerable<FlexData> Hazards { get; private set; }
+        public static IEnumerable<FlexData> Mobs { get; private set; }
+        public static IEnumerable<FlexData> Gatherables { get; private set; }
+        
+        public RoomFactory(GameContentDto gameContent)
         {
+            Hazards = gameContent.Hazards;
+            Mobs = gameContent.Mobs;
+            Gatherables = gameContent.Gatherables;
         }
-
+        
         public IRoom GenerateRoom(RoomTemplate template)
         {
-            var randomRoomText = RoomRepository.ExampleRoomText.OrderBy(t => Guid.NewGuid()).First();
-            //var room = new Room(randomRoomText[0], randomRoomText[1]);
+            //  first get the injectable flavor for the room
+            var lookText = InjectableGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
+            var descriptionText = InjectableGameData.InjectableRoomDescriptions[template.Flavor].GetRandom();
+            var roomInject = new RoomInjectable(template.Flavor, lookText, descriptionText);
 
-            //TODO: need to figure out how to calculate the next templates
-            var roomTemplate1 = new RoomTemplate(1, RoomFlavor.Kelp);
-            var roomTemplate2 = new RoomTemplate(1, RoomFlavor.Kelp);
-            var exits = new List<RoomTemplate>() { roomTemplate1, roomTemplate2 };
-            
-            foreach (var actor in GetActors(template))
-            {
-                //room.AddEntity(actor);
-            }
-            throw new NotImplementedException();
-            //return room;
+            //  add exits
+            var exits = CalculateExits(template);
+
+            //  add actors
+            var actors = CalculateActors(template);
+
+            return new Room(roomInject, exits, actors);
         }
 
-        private IEnumerable<IRoomActor> GetActors(RoomTemplate template)
+        private IEnumerable<RoomTemplate> CalculateExits(RoomTemplate template)
         {
-            switch (template.Flavor)
+            var exits = new List<RoomTemplate>();
+
+            if (template.Flavor == RoomFlavor.Empty)
             {
-                case RoomFlavor.Kelp:
-                    return RoomFactoryHelper.BuildKelpForestActors(template);
-                case RoomFlavor.Nebula:
-                    return RoomFactoryHelper.BuildKelpForestActors(template);
-                case RoomFlavor.Empty:
-                    return RoomFactoryHelper.BuildKelpForestActors(template);
+                exits.Add(BuildRoomExit(template, false));
+
+                if (CHANCE_TRANSITION_FROM_EMPTY.Rng())
+                    exits.Add(BuildRoomExit(template, true));
+                else
+                    exits.Add(BuildRoomExit(template, false));
             }
-            
-            throw new NotSupportedException();
+            else
+            {
+                exits.Add(BuildRoomExit(template, false));
+
+                if (CHANCE_TRANSITION_TO_EMPTY.Rng())
+                    exits.Add(BuildRoomExit(template, true));
+                else
+                    exits.Add(BuildRoomExit(template, false));
+            }
+
+            return exits;
         }
 
-        private static string RandomizeLeadIn()
+        private RoomTemplate BuildRoomExit(RoomTemplate template, bool IsZoneTransition)
         {
-            var leadInTexts = new List<string>
+            //  figure out what kind of actors will be in adjacent rooms
+            var entityFlavors = new List<RoomActorFlavor>();
+
+            if (CHANCE_ROOM_DANGEROUS.Rng())
             {
-                "Your jump leaves you in a < >. ",
-                "Your ship arrives in a < >. ",
-                "Your sensors indicate that the system you’ve entered is a < >. ",
-                "Out the window you see a < >. ",
-                "Your command viewport resolves into a view of a < >. ",
-                "As your jump drives spin down, you look out to see a < >. ",
-                "Jump drives still whirring, a < > fills your screen. ",
-                "As your ship decelerates rapidly, a < > comes into view. ",
-                "\"Captain!  We've spotted a nearby < >,\" your first mate shouts. ",
-                "\"We have arrived at your destination... a < >... thank you for flying jump drive spacelines!\" "
+                var dangerous = new List<RoomActorFlavor>();
 
-            };
+                if (CHANCE_FOR_HAZARD.Rng())
+                    dangerous.Add(RoomActorFlavor.Hazard);
 
-            return leadInTexts[UnityEngine.Random.Range(0, leadInTexts.Count)];
+                if (CHANCE_FOR_MOB.Rng())
+                    dangerous.Add(RoomActorFlavor.Mob);
+
+                if (!dangerous.Any())
+                {
+                    if (CHANCE_FOR_HAZARD.Rng())
+                        dangerous.Add(RoomActorFlavor.Hazard);
+                    else
+                        dangerous.Add(RoomActorFlavor.Mob);
+                }
+
+                entityFlavors.AddRange(dangerous);
+            }
+
+            if (CHANCE_FOR_TOWN.Rng())
+                entityFlavors.Add(RoomActorFlavor.Town);
+
+            if (CHANCE_FOR_NPC.Rng())
+                entityFlavors.Add(RoomActorFlavor.Npc);
+
+            if (CHANCE_FOR_GATHERABLE.Rng())
+                entityFlavors.Add(RoomActorFlavor.Gatherable);
+
+            //  keep the room flavor the same unless its a zone transition
+            var nextRoomFlavor = template.Flavor;
+            if (IsZoneTransition)
+            {
+                if (nextRoomFlavor == RoomFlavor.Empty)
+                {
+                    nextRoomFlavor = RoomFlavor.Kelp;
+                }
+                else
+                {
+                    nextRoomFlavor = RoomFlavor.Empty;
+                }
+            }
+
+            //  increase the difficulty of the exit by 1
+            return new RoomTemplate(template.Difficulty + 1, nextRoomFlavor, entityFlavors);
+        }
+
+        private List<IRoomActor> CalculateActors(RoomTemplate template)
+        {
+            var actors = new List<IRoomActor>();
+
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
+            {
+                //  do something hacky for now
+                if (template.Flavor == RoomFlavor.Kelp)
+                {
+                    if (template.Difficulty <= 5)
+                    {
+                        actors.Add(new VerdantObserverMob());
+                    }
+                    else if (template.Difficulty <= 10)
+                    {
+                        if (7 <= UnityEngine.Random.Range(0, 11))
+                        {
+                            actors.Add(new VerdantInformantMob());
+                        } else
+                        {
+                            actors.Add(new VerdantObserverMob());
+                            actors.Add(new VerdantObserverMob());
+                        }
+                    }
+                    else if (template.Difficulty <= 15)
+                    {
+
+                        if (7 <= UnityEngine.Random.Range(0, 11))
+                        {
+                            actors.Add(new VerdantInterrogatorMob());
+                        }
+                        else
+                        {
+                            actors.Add(new VerdantInformantMob());
+                            actors.Add(new VerdantObserverMob());
+                        }
+                    }
+                    else if (template.Difficulty <= 20)
+                    {
+
+                        if (7 <= UnityEngine.Random.Range(0, 11))
+                        {
+                            actors.Add(new VerdantInterrogatorMob());
+                            actors.Add(new VerdantInformantMob());
+                        }
+                        else
+                        {
+                            actors.Add(new VerdantInformantMob());
+                            actors.Add(new VerdantObserverMob());
+                            actors.Add(new VerdantObserverMob());
+                        }
+                    }
+                }
+                else
+                {
+                    actors.Add(new PirateMob());
+                }
+            }
+
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Town))
+            {
+                actors.Add(new SpaceStationNpc());
+            }
+
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))
+            {
+                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor)).GetRandom();
+                actors.Add(new SometimesDamageHazard(data.Stats, data.Values));
+            }
+
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Npc))
+            {
+                if (template.Flavor == RoomFlavor.Kelp)
+                {
+                    actors.Add(new NeedsHelpNpc());
+                }
+            }
+
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Gatherable))
+            {
+                //  do something hacky for now
+                if (template.Flavor == RoomFlavor.Empty)
+                {
+                    if (0.5f.Rng())
+                    {
+                        actors.Add(new SingleUseGatherable("Shiny Comet"));
+                    }
+                    else
+                    {
+                        actors.Add(new ScrapGatherable());
+                    }
+                }
+                else if (template.Flavor == RoomFlavor.Kelp)
+                {
+                    actors.Add(new SingleUseGatherable("Kelp Fiber"));
+                }
+            }
+
+            return actors;
         }
     }
 }
