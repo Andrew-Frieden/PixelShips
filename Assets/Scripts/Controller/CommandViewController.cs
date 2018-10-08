@@ -113,7 +113,7 @@ namespace Controller
             
             _scrollView.ClearScreen();
 
-            var nextRoom = FactoryContainer.RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
+            var nextRoom = GameManager.RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
             RoomController.StartNextRoom(nextRoom, _room);
             _room = nextRoom;
                 
