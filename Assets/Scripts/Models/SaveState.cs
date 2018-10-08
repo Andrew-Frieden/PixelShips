@@ -11,4 +11,6 @@ namespace Models
         public HomeworldDto HomeworldData;
         public List<string> CmdViewCellData;
     }
+
+    public class InvalidSaveState : SaveState { }
 }

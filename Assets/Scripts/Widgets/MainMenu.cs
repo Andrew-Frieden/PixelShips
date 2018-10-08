@@ -37,8 +37,15 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
             StartOrContinue.text = "[Continue]";
             Reset.text = "[Reset]";
 
-            var save = saveManager.SaveFile;
-            SaveData.text = $"Current Save:{Environment.NewLine}Time:{save.SaveTime}{Environment.NewLine}Path:{saveManager.SavePath}";
+            if (saveManager.SaveFile is InvalidSaveState)
+            {
+                SaveData.text = "Invalid Save File Found.";
+            }
+            else
+            {
+                var save = saveManager.SaveFile;
+                SaveData.text = $"Current Save:{Environment.NewLine}Time:{save.SaveTime}{Environment.NewLine}Path:{saveManager.SavePath}";
+            }
         }
         else
         {
@@ -63,16 +70,14 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     {
         if (text == StartOrContinue)
         {
-            Debug.Log("StartOrContinue Clicked");
             StartOrContinueClick();
         }
         else if (text == Settings)
         {
-            Debug.Log("Settings Clicked");
+            Debug.Log("Settings Selected");
         }
         else if (text == Reset)
         {
-            Debug.Log("Reset Clicked");
             ResetClick();
         }
     }

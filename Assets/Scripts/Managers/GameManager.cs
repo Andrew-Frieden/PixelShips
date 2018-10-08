@@ -85,16 +85,11 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         //if (Player has a save file)
         //GameState = _saveLoadController.Load();
 
-        //var data = InjectableGameData.SometimesDamageHazards;
-		//_contentLoadController.SerializeContent(data);
-        
 		GameState = _saveLoadController.CreateNewGameState();
 	}
 
     void OnApplicationPause(bool pauseStatus)
     {
-        Debug.Log($"GameManager OnAppPause: {pauseStatus}");
-
         if (GameState != null && pauseStatus)
             _saveLoadController.Save(GameState);
     }

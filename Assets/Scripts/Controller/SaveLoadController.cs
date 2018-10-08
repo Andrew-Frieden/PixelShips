@@ -21,7 +21,15 @@ namespace Models
             if (HasSaveData)
             {
                 var jsonData = File.ReadAllText(SaveFilePath);
-                SaveData = JsonConvert.DeserializeObject<SaveState>(jsonData);
+                try
+                {
+                    SaveData = JsonConvert.DeserializeObject<SaveState>(jsonData);
+                }
+                catch(Exception ex)
+                {
+                    //  deserialize failed
+                    SaveData = new InvalidSaveState();
+                }
             }
         }
 
