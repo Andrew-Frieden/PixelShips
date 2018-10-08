@@ -9,12 +9,12 @@ namespace Controller
 {
     public class ContentLoadController
     {
-        private const string HazardsContentFilePath = "/Hazards_Content.json";
-        private const string MobsContentFilePath = "/Mobs_Content.json";
-        private const string GatherablesContentFilePath = "/Gatherables_Content.json";
-
-        public List<FlexData> Content { get; private set; }
+        private const string BaseFolderPath = "Content";
         
+        private const string HazardsContentFilePath = "/Hazards";
+        private const string MobsContentFilePath = "/Mobs";
+        private const string GatherablesContentFilePath = "/Gatherables";
+
         //Dont Delete: Useful for outputing JSON
         //
         //public void SerializeContent(List<FlexData> data)
@@ -27,14 +27,14 @@ namespace Controller
         
         public GameContentDto Load()
         {
-            var hazardsJsonData = File.ReadAllText(UnityEngine.Application.dataPath + HazardsContentFilePath);
-            var hazards =  JsonConvert.DeserializeObject<List<FlexData>>(hazardsJsonData);
+            var hazardsJsonData = Resources.Load<TextAsset>(BaseFolderPath + HazardsContentFilePath);
+            var hazards =  JsonConvert.DeserializeObject<List<FlexData>>(hazardsJsonData.text);
             
-            var mobsJsonData = File.ReadAllText(UnityEngine.Application.dataPath + MobsContentFilePath);
-            var mobs =  JsonConvert.DeserializeObject<List<FlexData>>(mobsJsonData);
+            var mobsJsonData = Resources.Load<TextAsset>(BaseFolderPath + MobsContentFilePath);
+            var mobs =  JsonConvert.DeserializeObject<List<FlexData>>(mobsJsonData.text);
             
-            var gatherablesJsonData = File.ReadAllText(UnityEngine.Application.dataPath + GatherablesContentFilePath);
-            var gatherables =  JsonConvert.DeserializeObject<List<FlexData>>(gatherablesJsonData);
+            var gatherablesJsonData =Resources.Load<TextAsset>(BaseFolderPath + GatherablesContentFilePath);
+            var gatherables =  JsonConvert.DeserializeObject<List<FlexData>>(gatherablesJsonData.text);
 
             return new GameContentDto(hazards, mobs, gatherables);
         }
