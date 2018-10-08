@@ -4,7 +4,7 @@ namespace Models.Dtos
 {
     public class SimpleActionDto
     {
-        public string ActionName;
+        public string ActionType;
         public string TargetId;
         public string SourceId;
         public Dictionary<string, int> Stats;

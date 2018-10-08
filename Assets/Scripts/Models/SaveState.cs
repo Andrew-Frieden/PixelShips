@@ -1,14 +1,14 @@
 ﻿using Models.Dtos;
 using System;
+using System.Collections.Generic;
 
 namespace Models
 {
     public class SaveState
     {
         public DateTime SaveTime;
-        public RoomDto Room;
-        public ShipDto CommandShip;
-        //  current expedition
-        //  homeworld
+        public ExpeditionDto ExpeditionData;
+        public HomeworldDto HomeworldData;
+        public List<string> CmdViewCellData;
     }
 }

@@ -8,8 +8,8 @@ namespace Models
 {
     public class Room : IRoom
     {
-        private string Name;
-        private string LookText;
+        public string Name;
+        public string LookText;
         private string description;
 
         public string Id { get; }

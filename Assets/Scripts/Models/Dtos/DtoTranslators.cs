@@ -5,40 +5,70 @@ using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public static class DtoTranslators
+    public static partial class DtoTranslators
     {
         #region ToDto
-        public static RoomDto ToDto(this IRoom room)
+        public static RoomDto ToDto(this Room room)
         {
-            var roomDto = new RoomDto
+            var dto = new RoomDto
             {
-                //Mobs = new List<MobDto>()
+                Id = room.Id,
+                Description = room.Description,
+                Flavor = room.Flavor,
+                LookText = room.LookText,
+                Name = room.Name,
+                Entities = new List<FlexEntityDto>(),
+                ExitDtos = new List<RoomTemplateDto>(),
+                ContentDto = room.DialogueContent?.ToDto()
             };
+
+            foreach (var exit in room.Exits)
+            {
+                dto.ExitDtos.Add(exit.ToDto());
+            }
 
             foreach (var entity in room.Entities)
             {
-                //if (entity is Mob)
-                //{
-                //    var mob = (Mob)entity;
-                //    roomDto.Mobs.Add(mob.ToDto());
-                //}
-                //else if (entity is Hazard)
-                //{
-                //    var hazard = (Hazard)entity;
-                //    roomDto.Hazards.Add(hazard.ToDto());
-                //}
+                if (entity is FlexEntity)
+                {
+                    dto.Entities.Add(((FlexEntity)entity).ToDto());
+                }
+                else
+                {
+                    throw new NotSupportedException("Room.ToDto() found a unsupported entity in the room.");
+                }
             }
 
-            return roomDto;
+            return dto;
+        }
+
+        public static RoomTemplateDto ToDto(this RoomTemplate template)
+        {
+            return new RoomTemplateDto
+            {
+                ActorFlavors = new List<RoomActorFlavor>(template.ActorFlavors),
+                Difficulty = template.Difficulty,
+                Flavor = template.Flavor
+            };
         }
 
         public static ShipDto ToDto(this CommandShip ship)
         {
-            return new ShipDto
+            var dto = new ShipDto
             {
                 Id = ship.Id,
-                ContentDto = ship.DialogueContent?.ToDto()
+                Stats = ship.Stats,
+                Values = ship.Values,
+                ContentDto = ship.DialogueContent?.ToDto(),
+                HardwareData = new List<FlexEntityDto>()
             };
+
+            foreach (var h in ship.Hardware)
+            {
+                dto.HardwareData.Add(h.ToDto());
+            }
+
+            return dto;
         }
 
         public static ABContentDto ToDto(this ABDialogueContent content)
@@ -79,11 +109,11 @@ namespace Models.Dtos
         {
             return new SimpleActionDto
             {
-                ActionName = simpleAction.ActionName,
+                ActionType = simpleAction.GetType().FullName,
                 Stats = simpleAction.Stats,
                 Values = simpleAction.Values,
-                SourceId = simpleAction.Source.Id,
-                TargetId = simpleAction.Target.Id
+                SourceId = simpleAction.Source?.Id,
+                TargetId = simpleAction.Target?.Id
             };
         }
         
@@ -94,10 +124,41 @@ namespace Models.Dtos
                 EntityType = entity.GetType().FullName,
                 Id = entity.Id,
                 Values = entity.Values,
-                Stats = entity.Stats
+                Stats = entity.Stats,
+                ContentDto = entity.DialogueContent?.ToDto()
             };
         }
-        
+
+        public static ExpeditionDto ToDto(this Expedition exp)
+        {
+            var dto = new ExpeditionDto
+            {
+                Jumps = exp.Jumps,
+                Ticks = exp.Ticks,
+                MissionData = exp.CurrentMission.ToDto(),
+                ShipData = exp.CmdShip.ToDto(),
+                RoomData = exp.Room.ToDto()
+            };
+            return dto;
+        }
+
+        public static HomeworldDto ToDto(this Homeworld home)
+        {
+            return new HomeworldDto
+            {
+                DeepestExpedition = home.DeepestExpedition,
+                HardestMonsterSlainScore = home.HardestMonsterSlainScore,
+                PlanetName = home.PlanetName
+            };
+        }
+
+        public static MissionDto ToDto(this Mission m)
+        {
+            return new MissionDto
+            {
+                MissionLevel = m.MissionLevel
+            };
+        }
         #endregion
 
         #region FromDto

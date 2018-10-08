@@ -1,7 +1,7 @@
-﻿using System;
-namespace Application
+﻿namespace Models.Dtos
 {
     public class MissionDto
     {
+        public int MissionLevel;
     }
 }

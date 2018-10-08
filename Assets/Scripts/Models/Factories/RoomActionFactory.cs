@@ -13,7 +13,7 @@ namespace Models.Factories
     
         public static IRoomAction FromDto(this SimpleActionDto dto, IRoom _room)
         {
-            return (IRoomAction)Activator.CreateInstance(Type.GetType(dto.ActionName), new { dto, _room });
+            return (IRoomAction)Activator.CreateInstance(Type.GetType(dto.ActionType), new { dto, _room });
         }
     }
 }

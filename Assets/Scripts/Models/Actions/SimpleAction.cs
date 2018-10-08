@@ -56,10 +56,14 @@ namespace Models.Actions
             return null;
         }
         
-        protected SimpleAction(SimpleActionDto dto, IRoom room)
+        public SimpleAction(SimpleActionDto dto, IRoom room)
         {
-            Source = (IRoomActor)room.FindEntity(dto.SourceId);
-            Target = (IRoomActor)room.FindEntity(dto.TargetId);
+            if (!string.IsNullOrEmpty(dto.SourceId))
+                Source = (IRoomActor)room.FindEntity(dto.SourceId);
+
+            if (!string.IsNullOrEmpty(dto.TargetId))
+                Target = (IRoomActor)room.FindEntity(dto.TargetId);
+
             Stats = dto.Stats;
             Values = dto.Values;
         }

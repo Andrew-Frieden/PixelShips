@@ -6,19 +6,18 @@ namespace Models.Dtos
     {
         public string Description;
         public RoomFlavor Flavor;
-        public string Link;
         public string Id;
+        public List<FlexEntityDto> Entities;
+        public string Name;
+        public string LookText;
+        public ABContentDto ContentDto;
+        public List<RoomTemplateDto> ExitDtos;
     }
 
-    public static partial class DtoHelpers
+    public class RoomTemplateDto
     {
-        public static IEnumerable<ABContentDto> GetContent(this RoomDto dto)
-        {
-            var contents = new List<ABContentDto>();
-
-            //dto.Mobs.ForEach(m => contents.Add(m.Content));
-
-            return contents;
-        }
+        public int Difficulty;
+        public RoomFlavor Flavor;
+        public List<RoomActorFlavor> ActorFlavors;
     }
 }

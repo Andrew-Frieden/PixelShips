@@ -12,7 +12,7 @@ namespace Models
 {
     public class SaveLoadController
     {
-        public static string SaveFilePath = UnityEngine.Application.dataPath + "/SaveData.json";
+        public static string SaveFilePath = UnityEngine.Application.persistentDataPath + "/SaveData.json";
         public bool HasSaveData => File.Exists(SaveFilePath);
         public SaveState SaveData;
 
@@ -49,15 +49,6 @@ namespace Models
             File.WriteAllText(SaveFilePath, jsonData);
         }
         
-        //  testing for development
-        public void SerializeContent(List<FlexData> data)
-        {
-            Debug.Log($"serializing game content to {SaveFilePath}");
-            var json = JsonConvert.SerializeObject(data);
-            File.WriteAllText(SaveFilePath, json);
-            Debug.Log("serialize complete.");
-        }
-
         //  hack together a valid gamestate
         public GameState CreateNewGameState()
         {
@@ -82,11 +73,14 @@ namespace Models
 
         private SaveState BuildSaveStateFromGameState(GameState state)
         {
-            return new SaveState
+            var saveData = new SaveState
             {
-                Room = state.CurrentExpedition.Room.ToDto(),
-                SaveTime = DateTime.Now
+                HomeworldData = state.Home.ToDto(),
+                ExpeditionData = state.CurrentExpedition.ToDto(),
+                SaveTime = DateTime.Now,
+                CmdViewCellData = new List<string>()
             };
+            return saveData;
         }
 
         private GameState BuildGameStateFromSaveState(SaveState save)
@@ -110,7 +104,7 @@ namespace Models
             //  add all the entities to the room
             //entities.ForEach(e => state.Room.AddEntity(e));
 
-            var contents = save.Room.GetContent();
+            //var contents = save.Room.GetContent();
 
             //  setup the DialogueContent for every mob
             //save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));

@@ -8,6 +8,7 @@ namespace Models
 {
     public abstract class FlexEntity : IRoomActor
     {
+        //  TODO back this in Stats dictionary
         public bool IsHidden { get; protected set; }
 
         public bool IsHostile
