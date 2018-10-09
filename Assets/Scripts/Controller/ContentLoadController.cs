@@ -19,9 +19,9 @@ namespace Controller
         //
         //public void SerializeContent(List<FlexData> data)
         //{
-        //    Debug.Log($"serializing game content to {ContentFilePath}");
+        //    Debug.Log($"serializing game content to {HazardsContentFilePath}");
         //    var json = JsonConvert.SerializeObject(data);
-        //    File.WriteAllText(ContentFilePath, json);
+        //    File.WriteAllText(HazardsContentFilePath, json);
         //    Debug.Log("serialize complete.");
         //}
         

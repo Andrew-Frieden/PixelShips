@@ -5,38 +5,22 @@ using Models;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
+using Models.RoomEntities.Hazards;
 using TextEncoding;
 using Models.Stats;
 
-public class SometimesDamageHazard : FlexEntity
+public class SometimesDamageHazard : Hazard
 {
-    public override void CalculateDialogue(IRoom room)
-    {
-        DialogueContent = DialogueBuilder.Init()
-            .AddMainText(Values[ValueKeys.DialogueText].Encode(Name, Id, LinkColors.Hazard))
-            .Build();
-    }
-
-    public override TagString GetLookText()
-    {
-        return new TagString()
-        {
-            Text = Values[ValueKeys.LookText].Encode(Name, Id, LinkColors.Hazard)
-        };
-    }
-
     public override IRoomAction MainAction(IRoom room)
     {
-        var damage_occurred = Stats[StatKeys.HazardDamageChance] > UnityEngine.Random.Range(1, 100);
+        var damageOccurred = Stats[StatKeys.HazardDamageChance] > UnityEngine.Random.Range(1, 100);
 
-        if (damage_occurred)
+        if (damageOccurred)
         {
             return new HazardDamageAction(this, room.PlayerShip, Stats[StatKeys.HazardDamageAmount], Values[ValueKeys.HazardDamageText]);
         }
-        else
-        {
-            return new DoNothingAction(this);
-        }
+
+        return new DoNothingAction(this);
     }
 
     public SometimesDamageHazard(FlexEntityDto dto, IRoom room) : base(dto, room)
@@ -50,16 +34,15 @@ public class SometimesDamageHazard : FlexEntity
 
     private class HazardDamageAction : SimpleAction
     {
-        private const string BaseDamageKey = "base_damage";
         private int BaseDamage
         {
             get
             {
-                return Stats[BaseDamageKey];
+                return Stats[StatKeys.BaseDamageKey];
             }
             set
             {
-                Stats[BaseDamageKey] = value;
+                Stats[StatKeys.BaseDamageKey] = value;
             }
         }
 
@@ -74,7 +57,7 @@ public class SometimesDamageHazard : FlexEntity
 
             Stats = new Dictionary<string, int>
             {
-                [BaseDamageKey] = amount
+                [StatKeys.BaseDamageKey] = amount
             };
 
             Values = new Dictionary<string, string>
@@ -89,7 +72,6 @@ public class SometimesDamageHazard : FlexEntity
             
             Target.TakeDamage(actualDamage);
             
-            //var exampleText = "An energy surge from a <> scorches your hull for {0} damage!";
             var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);
             
             return new List<TagString>()

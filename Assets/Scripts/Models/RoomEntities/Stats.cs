@@ -22,6 +22,13 @@ namespace Models.Stats
         public const string MaxEnergy = "max_energy";
 
         #endregion
+        
+        #region Actions
+        
+        public const string TimeToLiveKey = "timetolive";
+        public const string BaseDamageKey = "base_damage";
+        
+        #endregion
 
         #region Cargo
 
@@ -42,6 +49,7 @@ namespace Models.Stats
         public static readonly string LookTextAggro = "look_text_aggro";
         public static readonly string DialogueText = "dialogue_text";
         public static readonly string HazardDamageText = "hazard_damage_text";
+        public static readonly string TelegraphDamageText = "telegraph_damage_text";
 
         public static readonly string LightWeapon = "light_weapon";
         public static readonly string HeavyWeapon = "heavy_weapon";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.Actions;
+using Models.Stats;
 
 namespace Models.Actors
 {
@@ -24,7 +25,7 @@ namespace Models.Actors
         public WarpDriveActor(int timeToLive) : base()
         {
             IsHidden = true;
-            Stats[TimeToLiveKey] = timeToLive;
+            Stats[StatKeys.TimeToLiveKey] = timeToLive;
         }
 
         public override void CalculateDialogue(IRoom room)
@@ -41,7 +42,7 @@ namespace Models.Actors
 
         public override IRoomAction MainAction(IRoom s)
         {
-            if (Stats[TimeToLiveKey] == 1)
+            if (Stats[StatKeys.TimeToLiveKey] == 1)
             {
                 return new WarpDriveReadyAction(s.PlayerShip);
             }
