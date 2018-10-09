@@ -19,6 +19,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
 	private SaveLoadController _saveLoadController;
 	private ContentLoadController _contentLoadController;
+
+    //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
 
     private GamePhase _currentGamePhase = GamePhase.BOOT;
@@ -83,6 +85,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     {
         UpdateState(GamePhase.MISSION);
         GameState = _saveLoadController.Load();
+
+        //  TODO refactor this hacky thing. Should be event driven probs?
         _commandViewController.StartCommandView();
     }
 

@@ -126,6 +126,7 @@ namespace Models
 
     public class FlexData
     {
+        public string EntityType;
         public Dictionary<string, int> Stats;
         public Dictionary<string, string> Values;
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Models.Actors;
+using Models.Stats;
 
 namespace Models.Actions
 {
@@ -30,7 +30,7 @@ namespace Models.Actions
 
             if (actor != null)
             {
-                actor.Stats[TemporaryEntity.TimeToLiveKey]--;
+                actor.Stats[StatKeys.TimeToLiveKey]--;
             }
 
             if (_description != null)
@@ -39,7 +39,7 @@ namespace Models.Actions
                 {
                     new TagString()
                     {
-                        Text = _description + $"in {actor.Stats[TemporaryEntity.TimeToLiveKey]} ticks." ,
+                        Text = _description + $"in {actor.Stats[StatKeys.TimeToLiveKey]} ticks." ,
                         Tags = new List<EventTag> { }
                     }
                 };

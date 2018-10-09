@@ -1,19 +1,18 @@
 ﻿using Models.Actions;
+using Models.Stats;
 using UnityEngine;
 
 namespace Models.Actors
 {
     public abstract class TemporaryEntity : FlexEntity
     {
-        public const string TimeToLiveKey = "timetolive";
-
         protected TemporaryEntity() : base()
         {
         }
 
         public override IRoomAction CleanupStep(IRoom room)
         {
-            if (Stats[TimeToLiveKey] == 0)
+            if (Stats[StatKeys.TimeToLiveKey] == 0)
             {
                 IsDestroyed = true;
             }

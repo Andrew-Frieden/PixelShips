@@ -1,57 +1,58 @@
-[
-  {
-    "ActorFlavors": [
-      2
-    ],
-    "RoomFlavors": [
-      0,
-      2
-    ],
-    "Stats": {
-      "hazard_damage_amount": 2,
-      "hazard_damage_chance": 75
-    },
-    "Values": {
-      "dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-      "hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!",
-      "look_text": "A <> crackles through this sector.",
-      "name": "Plasma Storm"
-    }
-  },
-  {
-    "ActorFlavors": [
-      2
-    ],
-    "RoomFlavors": [
-      1
-    ],
-    "Stats": {
-      "hazard_damage_amount": 3,
-      "hazard_damage_chance": 50
-    },
-    "Values": {
-      "dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-      "hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!",
-      "look_text": "An undulating <> will be hard to navigate.",
-      "name": "Dense Kelp Tangle"
-    }
-  },
-  {
-    "ActorFlavors": [
-      2
-    ],
-    "RoomFlavors": [
-      0
-    ],
-    "Stats": {
-      "hazard_damage_amount": 6,
-      "hazard_damage_chance": 25
-    },
-    "Values": {
-      "dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-      "hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!",
-      "look_text": "The sector is saturated with an <>",
-      "name": "Asteroid Field"
-    }
-  }
-]
+[{
+	"EntityType": "SometimesDamageHazard",
+	"Stats": {
+		"hazard_damage_amount": 2,
+		"hazard_damage_chance": 75
+	},
+	"Values": {
+		"name": "Plasma Storm",
+		"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
+		"look_text": "A <> crackles through this sector.",
+		"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
+	},
+	"RoomFlavors": [0, 2],
+	"ActorFlavors": [2]
+}, {
+	"EntityType": "SometimesDamageHazard",
+	"Stats": {
+		"hazard_damage_amount": 3,
+		"hazard_damage_chance": 50
+	},
+	"Values": {
+		"name": "Dense Kelp Tangle",
+		"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
+		"look_text": "An undulating <> will be hard to navigate.",
+		"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
+	},
+	"RoomFlavors": [1],
+	"ActorFlavors": [2]	
+}, {
+	"EntityType": "SometimesDamageHazard",
+	"Stats": {
+		"hazard_damage_amount": 6,
+		"hazard_damage_chance": 25
+	},
+	"Values": {
+		"name": "Asteroid Field",
+		"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
+		"look_text": "The sector is saturated with an <>",
+		"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
+	},
+	"RoomFlavors": [0],
+	"ActorFlavors": [2]
+},{
+	"EntityType": "TelegraphedDamageHazard",
+	"Stats": {
+		"hazard_damage_amount": 2,
+		"time_to_live": 4
+	},
+	"Values": {
+		"name": "Plasma Discharge",
+		"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
+		"look_text": "A <> is growing in strength.",
+		"hazard_damage_text": "The <> explodes with power, destroying it and slamming into your hull for {0} damage!",
+		"telegraph_damage_text": "A great energy discharge from a <> will release next tick!"
+	},
+	"RoomFlavors": [0, 2],
+	"ActorFlavors": [2]
+}]
