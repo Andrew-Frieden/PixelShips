@@ -23,7 +23,7 @@ namespace Models
             { NpcState.HelpFail, "A <> is irreparably trapped in the dense kelp." }
         };
         
-        public NeedsHelpNpc(FlexEntityDto dto, IRoom room) : base(dto, room)
+        public NeedsHelpNpc(FlexEntityDto dto) : base(dto)
         {
         }
 

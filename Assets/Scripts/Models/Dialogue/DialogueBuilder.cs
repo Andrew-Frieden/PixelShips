@@ -73,13 +73,7 @@ namespace Models.Dialogue
 
             public ABDialogueContent Build()
             {
-                if (content.OptionAAction != null && content.OptionBAction != null)
-                    content.Mode = ABDialogueMode.ABCancel;
-                else if (content.OptionAAction != null && content.OptionBAction == null)
-                    content.Mode = ABDialogueMode.ACancel;
-                else if (content.OptionAAction == null && content.OptionBAction == null)
-                    content.Mode = ABDialogueMode.Cancel;
-
+                content.CalculateMode();
                 return content;
             }
         }

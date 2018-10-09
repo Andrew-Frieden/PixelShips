@@ -8,6 +8,8 @@ using System.Linq;
 using EnumerableExtensions;
 using Items;
 using UnityEngine;
+using Models.Dtos;
+using Models.Factories;
 
 namespace Models
 {
@@ -196,7 +198,8 @@ namespace Models
             DialogueContent = DialogueBuilder.Init()
                 .AddMainText("Your ship looks like a standard frigate.")
                 .AddTextA("Shields Up")
-                .AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
+                //.AddActionA(new CreateShieldActorAction(room.PlayerShip, room.PlayerShip, 3, 5))
+                .AddActionA(new GiveASpeechAction(this))
                 .AddTextB(passText)
                 .AddActionB(passAction)
                 .Build();
@@ -205,13 +208,27 @@ namespace Models
         public CommandShip()
         {
             Id = Guid.NewGuid().ToString();
-            
+            _hardware = new List<Hardware>();
+
             //  temporary testing
             EquipHardware(new HazardDetector());
             EquipHardware(new MobDetector());
             EquipHardware(new TownDetector());
             EquipHardware(new GatheringBoost());
             EquipHardware(new HazardMitigation());
+        }
+
+        public CommandShip(ShipDto dto)
+        {
+            Id = dto.Id;
+            Stats = dto.Stats;
+            Values = dto.Values;
+
+            _hardware = new List<Hardware>();
+            foreach (var h in dto.HardwareData)
+            {
+                _hardware.Add((Hardware)h.FromDto());
+            }
         }
 
         private string PickRandomCaptainName()
@@ -238,7 +255,7 @@ namespace Models
             return new DoNothingAction(this);
         }
 
-        private List<Hardware> _hardware = new List<Hardware>();
+        private List<Hardware> _hardware;
         public IEnumerable<Hardware> Hardware { get { return _hardware; } }
 
         public void EquipHardware(Hardware h)

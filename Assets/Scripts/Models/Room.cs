@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Models.Actions;
 using Models.Dialogue;
+using Models.Dtos;
+using Models.Factories;
 using TextEncoding;
 
 namespace Models
@@ -12,7 +14,7 @@ namespace Models
         public string LookText;
         private string description;
 
-        public string Id { get; }
+        public string Id { get; private set; }
         public string Description { get { return description; } }
 
         public IEnumerable<RoomTemplate> Exits { get; private set; }
@@ -21,8 +23,9 @@ namespace Models
         public List<IRoomActor> Entities { get; private set; }
         public ABDialogueContent DialogueContent { get; set; }
 
-        public Room(RoomInjectable inject, IEnumerable<RoomTemplate> exits, List<IRoomActor> entities) : this()
+        public Room(RoomInjectable inject, IEnumerable<RoomTemplate> exits, List<IRoomActor> entities)
         {
+            Id = Guid.NewGuid().ToString();
             Name = GetNameForFlavor(inject.Flavor);
             description = inject.Description;
             LookText = inject.LookText;
@@ -30,10 +33,20 @@ namespace Models
             Entities = entities;
         }
 
-        private Room()
+        public Room(RoomDto dto)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = dto.Id;
+            description = dto.Description;
+            LookText = dto.LookText;
+            Name = dto.Name;
+            Flavor = dto.Flavor;
+
             Entities = new List<IRoomActor>();
+            dto.Entities.ForEach(n => Entities.Add(n.FromDto()));
+
+            var roomExits = new List<RoomTemplate>();
+            dto.ExitDtos.ForEach(x => roomExits.Add(new RoomTemplate(x)));
+            Exits = roomExits;
         }
 
         public void SetPlayerShip(CommandShip ship)

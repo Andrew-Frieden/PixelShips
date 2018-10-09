@@ -24,7 +24,7 @@ namespace Models
             { NpcState.Empty, "Your scanners detect a nearby <> but it is depleted." }
         };
         
-        public SingleUseGatherable(FlexEntityDto dto, IRoom room) : base(dto, room)
+        public SingleUseGatherable(FlexEntityDto dto) : base(dto)
         {
         }
 

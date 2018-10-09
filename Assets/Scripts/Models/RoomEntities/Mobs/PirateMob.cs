@@ -89,7 +89,7 @@ Empty your cargo or we'll dust ya!")
         return new DoNothingAction(this);
     }
 
-    public PirateMob(FlexEntityDto dto, IRoom room) : base(dto, room)
+    public PirateMob(FlexEntityDto dto) : base(dto)
     {
     }
 

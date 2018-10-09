@@ -53,7 +53,7 @@ namespace Models
         
         public Dictionary<string, int> Stats { get; protected set; }
         public Dictionary<string, string> Values { get; protected set; }
-        public ABDialogueContent DialogueContent { get; protected set; }
+        public ABDialogueContent DialogueContent { get; set; }
 
         const string CurrentStateKey = "current_state"; 
         protected int CurrentState 
@@ -87,21 +87,21 @@ namespace Models
             Stats[CurrentStateKey] = nextState;
         }
 
-        protected FlexEntity(FlexEntityDto dto, IRoom room)
+        public FlexEntity(FlexEntityDto dto)
         {
             Values = dto.Values;
             Stats = dto.Stats;
             Id = dto.Id;
         }
 
-        protected FlexEntity()
+        public FlexEntity()
         {
             Id = Guid.NewGuid().ToString();
             Stats = new Dictionary<string, int>();
             Values = new Dictionary<string, string>();
         }
 
-        protected FlexEntity(Dictionary<string, int> stats, Dictionary<string, string> values)
+        public FlexEntity(Dictionary<string, int> stats, Dictionary<string, string> values)
         {
             Id = Guid.NewGuid().ToString();
             Stats = stats;

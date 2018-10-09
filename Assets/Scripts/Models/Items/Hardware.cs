@@ -80,7 +80,7 @@ namespace Items
             return new DoNothingAction(this);
         }
 
-        public Hardware(FlexEntityDto dto, IRoom room) : base(dto, room)
+        public Hardware(FlexEntityDto dto) : base(dto)
         {
         }
 
@@ -132,6 +132,8 @@ namespace Items
             Name = "Cartographic Processor";
             Description = "Quantum mapping device that identifies nearby space stations.";
         }
+
+        public TownDetector(FlexEntityDto dto) : base(dto) { } 
     }
 
     public class HazardDetector : Hardware
@@ -143,6 +145,8 @@ namespace Items
             Name = "Deep Field Scanner";
             Description = "A sophisticated navigation device capable of detecting nearby hazards.";
         }
+
+        public HazardDetector(FlexEntityDto dto) : base(dto) { }
     }
 
     public class MobDetector : Hardware
@@ -154,6 +158,8 @@ namespace Items
             Name = "Signature Detector";
             Description = "Standard-issue military hardware for detecting nearby weapon signatures.";
         }
+
+        public MobDetector(FlexEntityDto dto) : base(dto) { }
     }
 
     public class GatheringBoost : Hardware
@@ -165,6 +171,8 @@ namespace Items
             Name = "Robotic Manipulator";
             Description = "An advanced gathering tool capable of crushing rock.";
         }
+
+        public GatheringBoost(FlexEntityDto dto) : base(dto) { }
 
         private const float boost = 0.5f;
 
@@ -183,10 +191,14 @@ namespace Items
             Name = "Hazard Plating";
             Description = "Advanced hull reinforcements that provide significant resistance to the hazards of space.";
         }
+
+        public HazardMitigation(FlexEntityDto dto) : base(dto) { }
     }
 
     public class DropHardwareAction : SimpleAction
     {
+        public DropHardwareAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
+
         public DropHardwareAction(IRoomActor src, IRoomActor target)
         {
             if (target is Hardware)
@@ -215,6 +227,8 @@ namespace Items
 
     public class PickupHardwareAction : SimpleAction
     {
+        public PickupHardwareAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
+
         public PickupHardwareAction(IRoomActor src, IRoomActor target)
         {
             if (target is Hardware)

@@ -21,10 +21,6 @@ namespace Models
             { NpcState.Full, "There is some floating <> nearby." }
         };
         
-        public ScrapGatherable(FlexEntityDto dto, IRoom room) : base(dto, room)
-        {
-        }
-
         public ScrapGatherable(string name = "Scrap") : base()
         {
             Name = name;

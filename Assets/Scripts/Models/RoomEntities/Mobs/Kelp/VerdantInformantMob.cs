@@ -38,7 +38,7 @@ namespace Models.RoomEntities.Mobs.Kelp
             return new CreateDelayedAttackActorAction(this, room.PlayerShip, 2, 8, "Leech Torpedo", 0);
         }
 
-        public VerdantInformantMob(FlexEntityDto dto, IRoom room) : base(dto, room) { }
+        public VerdantInformantMob(FlexEntityDto dto) : base(dto) { }
 
         public VerdantInformantMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values) { }
     }

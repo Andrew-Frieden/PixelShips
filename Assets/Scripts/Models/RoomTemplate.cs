@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Models.Dtos;
+using System.Collections.Generic;
 
 namespace Models
 {
@@ -20,6 +21,13 @@ namespace Models
             Difficulty = difficulty;
             Flavor = flavor;
             ActorFlavors = new RoomActorFlavor[0];
+        }
+
+        public RoomTemplate(RoomTemplateDto dto)
+        {
+            Difficulty = dto.Difficulty;
+            Flavor = dto.Flavor;
+            ActorFlavors = dto.ActorFlavors;
         }
     }
 

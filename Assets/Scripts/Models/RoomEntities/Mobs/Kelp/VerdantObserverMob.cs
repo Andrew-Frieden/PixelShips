@@ -38,7 +38,7 @@ namespace Models.RoomEntities.Mobs.Kelp
             return new AttackAction(this, room.PlayerShip, 2, "Blossom Cannon", 0);
         }
 
-        public VerdantObserverMob(FlexEntityDto dto, IRoom room) : base(dto, room) { }
+        public VerdantObserverMob(FlexEntityDto dto) : base(dto) { }
 
         public VerdantObserverMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values) { }
     }

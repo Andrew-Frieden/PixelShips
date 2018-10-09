@@ -19,8 +19,9 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
 	private SaveLoadController _saveLoadController;
 	private ContentLoadController _contentLoadController;
-	
-	private GamePhase _currentGamePhase = GamePhase.BOOT;
+    [SerializeField] private CommandViewController _commandViewController;
+
+    private GamePhase _currentGamePhase = GamePhase.BOOT;
 	public GamePhase CurrentGamePhase => _currentGamePhase;
 	
 	public GameState GameState { get; private set; }
@@ -76,6 +77,13 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     public void ResetSaveData()
     {
         _saveLoadController.Delete();
+    }
+
+    public void StartFromSave()
+    {
+        UpdateState(GamePhase.MISSION);
+        GameState = _saveLoadController.Load();
+        _commandViewController.StartCommandView();
     }
 
     public void StartNewMission()

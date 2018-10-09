@@ -57,7 +57,21 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
 	
     private void StartOrContinueClick()
     {
-        GameManager.Instance.StartNewMission();
+        if (saveManager.HasSaveFile)
+        {
+            if (saveManager.SaveFile is InvalidSaveState)
+            {
+                GameManager.Instance.StartNewMission();
+            }
+            else
+            {
+                GameManager.Instance.StartFromSave();
+            }
+        }
+        else
+        {
+            GameManager.Instance.StartNewMission();
+        }
     }
 
     private void ResetClick()

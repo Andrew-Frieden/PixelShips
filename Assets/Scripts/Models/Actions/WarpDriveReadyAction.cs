@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Models.Dtos;
+using System.Collections.Generic;
 using TextEncoding;
 
 namespace Models.Actions
@@ -9,6 +10,8 @@ namespace Models.Actions
         {
             Source = source;
         }
+
+        public WarpDriveReadyAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
         
         public override IEnumerable<TagString> Execute(IRoom room)
         {

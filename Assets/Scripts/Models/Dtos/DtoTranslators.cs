@@ -162,6 +162,23 @@ namespace Models.Dtos
         #endregion
 
         #region FromDto
+        public static Homeworld FromDto(this HomeworldDto dto)
+        {
+            return new Homeworld
+            {
+                DeepestExpedition = dto.DeepestExpedition,
+                HardestMonsterSlainScore = dto.HardestMonsterSlainScore,
+                PlanetName = dto.PlanetName
+            };
+        }
+
+        public static Mission FromDto(this MissionDto dto)
+        {
+            return new Mission
+            {
+                MissionLevel = dto.MissionLevel
+            };
+        }
 
         public static IRoom FromDto(this RoomDto dto)
         {
@@ -178,19 +195,27 @@ namespace Models.Dtos
         /// <summary>
         /// this requires the room to already contain all room entities
         /// </summary>
-        public static ABDialogueContent FromDto(this ABContentDto content, IRoom room)
+        public static ABDialogueContent FromDto(this ABContentDto dto, IRoom room)
         {
-            var actionA = content.OptionAActionSimple.FromDto(room);
-            var actionB = content.OptionBActionSimple.FromDto(room);
+            IRoomAction actionA = null;
+            IRoomAction actionB = null;
 
-            return new ABDialogueContent
+            if (dto.OptionAActionSimple != null)
+                actionA = dto.OptionAActionSimple.FromDto(room);
+
+            if (dto.OptionBActionSimple != null)
+                actionB = dto.OptionBActionSimple.FromDto(room);
+
+            var content = new ABDialogueContent
             {
-                MainText = content.MainText,
-                OptionAText = content.OptionAText,
-                OptionBText = content.OptionBText,
+                MainText = dto.MainText,
+                OptionAText = dto.OptionAText,
+                OptionBText = dto.OptionBText,
                 OptionAAction = actionA,
                 OptionBAction = actionB
             };
+            content.CalculateMode();
+            return content;
         }
         #endregion
     }

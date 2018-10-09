@@ -47,7 +47,7 @@ namespace Models.RoomEntities.Mobs.Kelp
             return actionList.OrderBy(d => System.Guid.NewGuid()).First();
         }
 
-        public VerdantInterrogatorMob(FlexEntityDto dto, IRoom room) : base(dto, room) { }
+        public VerdantInterrogatorMob(FlexEntityDto dto) : base(dto) { }
 
         public VerdantInterrogatorMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values) { }
     }

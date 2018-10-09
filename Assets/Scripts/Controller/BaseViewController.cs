@@ -10,8 +10,10 @@ namespace Controller
         public void SpawnNewShip()
         {
             //This will re-write the game state
-            GameManager.Instance.StartNewMission();
+
             
+            GameManager.Instance.StartNewMission();
+
             _commandViewController.StartCommandView();
         }
     }

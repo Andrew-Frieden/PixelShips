@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Linq;
 
 namespace Models
 {
@@ -52,6 +53,7 @@ namespace Models
         
         public void Save(GameState state)
         {
+
             var saveState = BuildSaveStateFromGameState(state);
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
@@ -91,34 +93,40 @@ namespace Models
             return saveData;
         }
 
-        private GameState BuildGameStateFromSaveState(SaveState save)
+        private GameState BuildGameStateFromSaveState(SaveState saveData)
         {
             var state = new GameState()
             {
-              //  Room = (Room)save.Room.FromDto(),
-              //  CommandShip = save.CommandShip.FromDto()
+                Home = saveData.HomeworldData.FromDto()
             };
 
-            //state.Room.SetPlayerShip(state.CommandShip);
+            var expData = saveData.ExpeditionData;
+            var exp = new Expedition()
+            {
+                Ticks = expData.Ticks,
+                Jumps = expData.Jumps,
+                CurrentMission = expData.MissionData.FromDto()
+            };
+            state.CurrentExpedition = exp;
 
-            //  grab all the mob dtos and build mob entities
-            //var mobs = new List<Mob>();
-            //save.Room.Mobs.ForEach(dto => mobs.Add(new Mob(dto.Description, dto.Link, dto.Hull, null)));
+            exp.CmdShip = new CommandShip(expData.ShipData);
+            exp.Room = new Room(expData.RoomData);
+            exp.Room.SetPlayerShip(exp.CmdShip);
 
-            //  create a collection to put all entities into (mobs, npcs, hazards)
-            var entities = new List<IRoomActor>();
-            //entities.AddRange(mobs);
+            //  setup all the dialogue content which requires building actions that have references to entities
+            exp.Room.DialogueContent = expData.RoomData.ContentDto.FromDto(exp.Room);
+            foreach (var dto in expData.RoomData.Entities)
+            {
+                var entity = exp.Room.Entities.Single(e => e.Id == dto.Id);
+                entity.DialogueContent = dto.ContentDto.FromDto(exp.Room);
+            }
 
-            //  add all the entities to the room
-            //entities.ForEach(e => state.Room.AddEntity(e));
-
-            //var contents = save.Room.GetContent();
-
-            //  setup the DialogueContent for every mob
-            //save.Room.Mobs.ForEach(dto => state.Room.FindEntity(dto.Id).DialogueContent = dto.Content.FromDto(state.Room));
-
-            //  setup the DialogueContent for the player ship
-            //state.CommandShip.CalculateDialogue(state.Room);
+            exp.CmdShip.DialogueContent = expData.ShipData.ContentDto.FromDto(exp.Room);
+            foreach (var dto in expData.ShipData.HardwareData)
+            {
+                var hardware = exp.CmdShip.Hardware.Single(h => h.Id == dto.Id);
+                hardware.DialogueContent = dto.ContentDto.FromDto(exp.Room);
+            }
 
             state.CurrentTime = DateTime.Now;
             return state;

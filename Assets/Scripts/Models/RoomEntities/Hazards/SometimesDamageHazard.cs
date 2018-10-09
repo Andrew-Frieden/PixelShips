@@ -39,7 +39,7 @@ public class SometimesDamageHazard : FlexEntity
         }
     }
 
-    public SometimesDamageHazard(FlexEntityDto dto, IRoom room) : base(dto, room)
+    public SometimesDamageHazard(FlexEntityDto dto) : base(dto)
     {
     }
 

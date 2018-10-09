@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Models.Dtos;
+using System.Collections.Generic;
 using System.Linq;
 using TextEncoding;
 
@@ -23,6 +24,8 @@ namespace Models.Actions
                 }
             };
         }
+
+        public GiveASpeechAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         private string GetSpeechText()
         {

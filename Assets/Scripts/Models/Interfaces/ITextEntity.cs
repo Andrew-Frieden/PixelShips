@@ -7,6 +7,6 @@ namespace Models
         string Id { get; }
         TagString GetLookText();
         string GetLinkText(); 
-        ABDialogueContent DialogueContent { get; }
+        ABDialogueContent DialogueContent { get; set; }
     }
 }

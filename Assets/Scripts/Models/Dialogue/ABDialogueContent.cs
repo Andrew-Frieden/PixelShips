@@ -8,6 +8,16 @@ public class ABDialogueContent
     public IRoomAction OptionAAction;
     public IRoomAction OptionBAction;
     public ABDialogueMode Mode;
+
+    public void CalculateMode()
+    {
+        if (OptionAAction != null && OptionBAction != null)
+            Mode = ABDialogueMode.ABCancel;
+        else if (OptionAAction != null && OptionBAction == null)
+            Mode = ABDialogueMode.ACancel;
+        else if (OptionAAction == null && OptionBAction == null)
+            Mode = ABDialogueMode.Cancel;
+    }
 }
 
 public enum ABDialogueMode
