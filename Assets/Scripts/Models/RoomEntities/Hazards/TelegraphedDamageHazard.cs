@@ -11,7 +11,20 @@ namespace Models.RoomEntities.Hazards
     {
         public override IRoomAction MainAction(IRoom room)
         {
-            return null;
+            Stats[StatKeys.TimeToLiveKey]--;
+
+            if (Stats[StatKeys.TimeToLiveKey] == 2)
+            {
+                return new TelegraphedDamageAction(this, room.PlayerShip, Values[ValueKeys.TelegraphDamageText]);
+            }
+                
+            if (Stats[StatKeys.TimeToLiveKey] == 1)
+            {
+                IsDestroyed = true;
+                return new HazardDamageAction(this, room.PlayerShip, Stats[StatKeys.HazardDamageAmount], Values[ValueKeys.HazardDamageText]);
+            }
+                
+            return new DoNothingAction(this);
         }
         
         public TelegraphedDamageHazard(FlexEntityDto dto, IRoom room) : base(dto, room)
@@ -25,69 +38,30 @@ namespace Models.RoomEntities.Hazards
 
         private class TelegraphedDamageAction : SimpleAction
         {
-            private int BaseDamage
-            {
-                get { return Stats[StatKeys.BaseDamageKey]; }
-                set { Stats[StatKeys.BaseDamageKey] = value; }
-            }
+            private readonly string _telegraphText;
 
             public TelegraphedDamageAction(SimpleActionDto dto, IRoom room) : base(dto, room)
             {
             }
 
-            public TelegraphedDamageAction(IRoomActor source, IRoomActor target, int amount, int timeToLive, string telegraphText, string flavorText)
+            public TelegraphedDamageAction(IRoomActor source, IRoomActor target, string telegraphText)
             {
                 Source = source;
                 Target = target;
 
-                Stats = new Dictionary<string, int>
-                {
-                    [StatKeys.BaseDamageKey] = amount,
-                    [StatKeys.TimeToLiveKey] = timeToLive,
-                };
-
-                Values = new Dictionary<string, string>
-                {
-                    [ValueKeys.HazardDamageText] = flavorText,
-                    [ValueKeys.TelegraphDamageText] = flavorText
-                };
+                _telegraphText = telegraphText;
             }
 
             public override IEnumerable<TagString> Execute(IRoom room)
             {
-                Stats[StatKeys.TimeToLiveKey]--;
-
-                if (Stats[StatKeys.TimeToLiveKey] == 2)
+                return new List<TagString>()
                 {
-                    return new List<TagString>()
+                    new TagString()
                     {
-                        new TagString()
-                        {
-                            Text = Values[ValueKeys.TelegraphDamageText].Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
-                            Tags = new List<EventTag> { }
-                        }
-                    };
-                }
-                
-                if (Stats[StatKeys.TimeToLiveKey] == 1)
-                {
-                    var actualDamage = BaseDamage;
-                    
-                    Target.TakeDamage(actualDamage);
-            
-                    var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);
-            
-                    return new List<TagString>()
-                    {
-                        new TagString()
-                        {
-                            Text = resultText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
-                            Tags = new List<EventTag> { EventTag.Damage }
-                        }
-                    };
-                }
-                
-                return new DoNothingAction(Source).Execute(room);
+                        Text = _telegraphText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
+                        Tags = new List<EventTag> { }
+                    }
+                };
             }
         }
     }

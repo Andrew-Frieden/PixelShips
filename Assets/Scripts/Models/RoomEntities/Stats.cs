@@ -25,7 +25,7 @@ namespace Models.Stats
         
         #region Actions
         
-        public const string TimeToLiveKey = "timetolive";
+        public const string TimeToLiveKey = "time_to_live";
         public const string BaseDamageKey = "base_damage";
         
         #endregion

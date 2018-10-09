@@ -25,7 +25,7 @@
 		"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
 	},
 	"RoomFlavors": [1],
-	"ActorFlavors": [2]
+	"ActorFlavors": [2]	
 }, {
 	"EntityType": "SometimesDamageHazard",
 	"Stats": {
@@ -50,8 +50,8 @@
 		"name": "Plasma Discharge",
 		"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
 		"look_text": "A <> is growing in strength.",
-		"hazard_damage_text": "An energy discharge from a <> slams into your hull for {0} damage!",
-		"telegraph_damage_text": "An energy discharge from a <> will release next tick!"
+		"hazard_damage_text": "The <> explodes with power, destroying it and slamming into your hull for {0} damage!",
+		"telegraph_damage_text": "A great energy discharge from a <> will release next tick!"
 	},
 	"RoomFlavors": [0, 2],
 	"ActorFlavors": [2]

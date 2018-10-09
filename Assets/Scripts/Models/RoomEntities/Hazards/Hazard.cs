@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Helpers;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
@@ -31,6 +32,59 @@ namespace Models.RoomEntities.Hazards
         public Hazard(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
         {
             IsHostile = true;
+        }
+        
+        protected class HazardDamageAction : SimpleAction
+        {
+            private int BaseDamage
+            {
+                get
+                {
+                    return Stats[StatKeys.BaseDamageKey];
+                }
+                set
+                {
+                    Stats[StatKeys.BaseDamageKey] = value;
+                }
+            }
+
+            public HazardDamageAction(SimpleActionDto dto, IRoom room) : base(dto, room)
+            {
+            }
+
+            public HazardDamageAction(IRoomActor source, IRoomActor target, int amount, string flavorText)
+            {
+                Source = source;
+                Target = target;
+
+                Stats = new Dictionary<string, int>
+                {
+                    [StatKeys.BaseDamageKey] = amount
+                };
+
+                Values = new Dictionary<string, string>
+                {
+                    [ValueKeys.HazardDamageText] = flavorText
+                };
+            }
+
+            public override IEnumerable<TagString> Execute(IRoom room)
+            {
+                var actualDamage = BaseDamage;
+            
+                Target.TakeDamage(actualDamage);
+            
+                var resultText = string.Format(Values[ValueKeys.HazardDamageText], actualDamage);
+            
+                return new List<TagString>()
+                {
+                    new TagString()
+                    {
+                        Text = resultText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
+                        Tags = new List<EventTag> { EventTag.Damage }
+                    }
+                };
+            }
         }
     }
 }
