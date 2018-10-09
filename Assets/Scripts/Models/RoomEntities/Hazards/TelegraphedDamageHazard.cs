@@ -27,9 +27,7 @@ namespace Models.RoomEntities.Hazards
             return new DoNothingAction(this);
         }
         
-        public TelegraphedDamageHazard(FlexEntityDto dto, IRoom room) : base(dto, room)
-        {
-        }
+        public TelegraphedDamageHazard(FlexEntityDto dto) : base(dto) { }
 
         public TelegraphedDamageHazard(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
         {
