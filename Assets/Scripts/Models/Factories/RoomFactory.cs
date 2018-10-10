@@ -195,7 +195,7 @@ namespace Models.Factories
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))
             {
-                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor)).GetRandom();
+                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.DifficultyRating < 5).GetRandom();
                 actors.Add(data.FromFlexData());
             }
 
