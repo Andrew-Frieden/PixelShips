@@ -27,7 +27,7 @@ namespace Models.RoomEntities.Hazards
         
         public Hazard(FlexEntityDto dto) : base(dto) { }
         
-        public Hazard(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
+        public Hazard(FlexData data) : base(data)
         {
             IsHostile = true;
         }

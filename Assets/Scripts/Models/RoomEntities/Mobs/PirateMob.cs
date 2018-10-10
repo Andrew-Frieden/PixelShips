@@ -93,7 +93,7 @@ Empty your cargo or we'll dust ya!")
     {
     }
 
-    public PirateMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
+    public PirateMob(FlexData data) : base(data)
     {
     }
 

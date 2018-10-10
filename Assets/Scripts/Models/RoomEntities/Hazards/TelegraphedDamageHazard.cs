@@ -29,9 +29,8 @@ namespace Models.RoomEntities.Hazards
         
         public TelegraphedDamageHazard(FlexEntityDto dto) : base(dto) { }
 
-        public TelegraphedDamageHazard(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
+        public TelegraphedDamageHazard(FlexData data) : base(data)
         {
-            IsHostile = true;
         }
 
         private class TelegraphedDamageAction : SimpleAction

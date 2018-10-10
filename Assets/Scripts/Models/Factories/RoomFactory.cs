@@ -196,15 +196,7 @@ namespace Models.Factories
             if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))
             {
                 var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor)).GetRandom();
-
-                if (data.EntityType == typeof(SometimesDamageHazard).Name)
-                {
-                    actors.Add(new SometimesDamageHazard(data.Stats, data.Values));
-                }
-                else if (data.EntityType == typeof(TelegraphedDamageHazard).Name)
-                {
-                    actors.Add(new TelegraphedDamageHazard(data.Stats, data.Values));
-                }
+                actors.Add(data.FromFlexData());
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Npc))
