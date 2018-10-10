@@ -12,7 +12,7 @@ namespace Models.Actors
 
         public override IRoomAction CleanupStep(IRoom room)
         {
-            if (Stats[StatKeys.TimeToLiveKey] == 0)
+            if (Stats[StatKeys.TimeToLive] == 0)
             {
                 IsDestroyed = true;
             }

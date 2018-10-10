@@ -11,14 +11,14 @@ namespace Models.RoomEntities.Hazards
     {
         public override IRoomAction MainAction(IRoom room)
         {
-            Stats[StatKeys.TimeToLiveKey]--;
+            Stats[StatKeys.TimeToLive]--;
 
-            if (Stats[StatKeys.TimeToLiveKey] == 2)
+            if (Stats[StatKeys.TimeToLive] == 2)
             {
                 return new TelegraphedDamageAction(this, room.PlayerShip, Values[ValueKeys.TelegraphDamageText]);
             }
                 
-            if (Stats[StatKeys.TimeToLiveKey] == 1)
+            if (Stats[StatKeys.TimeToLive] == 1)
             {
                 IsDestroyed = true;
                 return new HazardDamageAction(this, room.PlayerShip, Stats[StatKeys.HazardDamageAmount], Values[ValueKeys.HazardDamageText]);

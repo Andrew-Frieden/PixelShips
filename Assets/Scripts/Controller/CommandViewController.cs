@@ -116,6 +116,9 @@ namespace Controller
             var nextRoom = GameManager.RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
             RoomController.StartNextRoom(nextRoom, _room);
             _room = nextRoom;
+
+            //  TODO find a better way to update the GameState's current room
+            GameManager.Instance.GameState.CurrentExpedition.Room = (Room)_room;
                 
             _scrollView.AddCells(CalculateLookText(_room));
 

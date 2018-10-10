@@ -38,11 +38,11 @@ namespace Models.RoomEntities.Hazards
             {
                 get
                 {
-                    return Stats[StatKeys.BaseDamageKey];
+                    return Stats[StatKeys.BaseDamage];
                 }
                 set
                 {
-                    Stats[StatKeys.BaseDamageKey] = value;
+                    Stats[StatKeys.BaseDamage] = value;
                 }
             }
 
@@ -57,7 +57,7 @@ namespace Models.RoomEntities.Hazards
 
                 Stats = new Dictionary<string, int>
                 {
-                    [StatKeys.BaseDamageKey] = amount
+                    [StatKeys.BaseDamage] = amount
                 };
 
                 Values = new Dictionary<string, string>

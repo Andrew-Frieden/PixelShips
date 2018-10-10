@@ -2,6 +2,7 @@
 using Models;
 using Models.Actions;
 using Models.Dialogue;
+using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
 
@@ -33,12 +34,14 @@ public class SpaceStationNpc : FlexEntity
         return new DoNothingAction(this);
     }
 
+    public SpaceStationNpc(FlexEntityDto dto) : base(dto) { }
+
     public SpaceStationNpc(string name = "Starport")
     {
         Name = name;
     }
 
-    private class RepairAction : SimpleAction
+    public class RepairAction : SimpleAction
     {
         public static int CalculateRepairCost(CommandShip ship)
         {
@@ -60,6 +63,8 @@ public class SpaceStationNpc : FlexEntity
             Source = source;
             Cost = cost;
         }
+
+        public RepairAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
@@ -117,6 +122,8 @@ public class SpaceStationNpc : FlexEntity
             Source = source;
             Profit = profit;
         }
+
+        public TradeCommoditiesAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {

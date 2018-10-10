@@ -13,7 +13,7 @@ namespace Models.Actors
 
         public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage, string name) : base()
         {
-            Stats[StatKeys.TimeToLiveKey] = timeToLive;
+            Stats[StatKeys.TimeToLive] = timeToLive;
             _source = source;
             _target = target;
             _damage = damage;
@@ -23,7 +23,7 @@ namespace Models.Actors
         public override void CalculateDialogue(IRoom room)
         {
             DialogueContent = DialogueBuilder.Init()
-                 .AddMainText("The " + _name + " will strike in " + Stats[StatKeys.TimeToLiveKey] + " turns.")
+                 .AddMainText("The " + _name + " will strike in " + Stats[StatKeys.TimeToLive] + " turns.")
                   .Build();
         }
 
@@ -34,9 +34,9 @@ namespace Models.Actors
 
         public override IRoomAction MainAction(IRoom s)
         {
-            if (Stats[StatKeys.TimeToLiveKey] == 1)
+            if (Stats[StatKeys.TimeToLive] == 1)
             {
-                Stats[StatKeys.TimeToLiveKey]--;
+                Stats[StatKeys.TimeToLive]--;
                 return new AttackAction(_source, _target, _damage, _name, 0);
             }
             else

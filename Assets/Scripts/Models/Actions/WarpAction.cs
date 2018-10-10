@@ -6,6 +6,16 @@ namespace Models.Actions
 {
     public class WarpAction : SimpleAction
     {
+        //  bring on the hacks
+        //  instead of figuring out how to serialize a RoomTemplate as part of a SimpleAction
+        //  or build a non-SimpleAction,
+        //  just stuff all the RoomTemplate properties 
+        private const string ActorFlavor1 = "ActorFlavor1";
+        private const string ActorFlavor2 = "ActorFlavor2";
+        private const string ActorFlavor3 = "ActorFlavor3";
+        private const string Difficulty = "ActorFlavor3";
+        private const string RoomFlavor = "RoomFlavor";
+
         private readonly RoomTemplate _template;
         
         public WarpAction(RoomTemplate template)

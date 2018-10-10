@@ -30,7 +30,7 @@ namespace Models.Actions
 
             if (actor != null)
             {
-                actor.Stats[StatKeys.TimeToLiveKey]--;
+                actor.Stats[StatKeys.TimeToLive]--;
             }
 
             if (_description != null)
@@ -39,7 +39,7 @@ namespace Models.Actions
                 {
                     new TagString()
                     {
-                        Text = _description + $"in {actor.Stats[StatKeys.TimeToLiveKey]} ticks." ,
+                        Text = _description + $"in {actor.Stats[StatKeys.TimeToLive]} ticks." ,
                         Tags = new List<EventTag> { }
                     }
                 };

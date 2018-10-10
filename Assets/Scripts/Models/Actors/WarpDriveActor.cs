@@ -25,7 +25,7 @@ namespace Models.Actors
         public WarpDriveActor(int timeToLive) : base()
         {
             IsHidden = true;
-            Stats[StatKeys.TimeToLiveKey] = timeToLive;
+            Stats[StatKeys.TimeToLive] = timeToLive;
         }
 
         public override void CalculateDialogue(IRoom room)
@@ -42,7 +42,7 @@ namespace Models.Actors
 
         public override IRoomAction MainAction(IRoom s)
         {
-            if (Stats[StatKeys.TimeToLiveKey] == 1)
+            if (Stats[StatKeys.TimeToLive] == 1)
             {
                 return new WarpDriveReadyAction(s.PlayerShip);
             }

@@ -7,7 +7,41 @@ namespace Models.Actions
 {
     public abstract class SimpleAction : IRoomAction
     {
-        public string ActionName;
+        protected int BaseDamage
+        {
+            get
+            {
+                return Stats[StatKeys.BaseDamage];
+            }
+            set
+            {
+                Stats[StatKeys.BaseDamage] = value;
+            }
+        }
+
+        protected int TimeToLive
+        {
+            get
+            {
+                return Stats[StatKeys.TimeToLive];
+            }
+            set
+            {
+                Stats[StatKeys.TimeToLive] = value;
+            }
+        }
+
+        protected string Name
+        {
+            get
+            {
+                return Values[ValueKeys.Name];
+            }
+            set
+            {
+                Values[ValueKeys.Name] = value;
+            }
+        }
 
         public IRoomActor Target;
         public IRoomActor Source;
@@ -37,7 +71,7 @@ namespace Models.Actions
                 }
                 
                 _actionTags = new List<EventTag>();
-                if (Energy > 0)
+                if (Energy > 0 && Source != null && Source is CommandShip)
                 {
                     _actionTags.Add(EventTag.Energy);
                 }

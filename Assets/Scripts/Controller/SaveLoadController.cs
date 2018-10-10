@@ -53,12 +53,11 @@ namespace Models
         
         public void Save(GameState state)
         {
-
             var saveState = BuildSaveStateFromGameState(state);
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
         }
-        
+
         //  hack together a valid gamestate
         public GameState CreateNewGameState()
         {

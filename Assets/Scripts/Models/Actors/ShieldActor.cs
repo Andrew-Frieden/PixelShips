@@ -12,7 +12,7 @@ namespace Models.Actors
 
         public ShieldActor(IRoomActor source, IRoomActor target, int timeToLive, int damageReduction) : base()
         {
-            Stats[StatKeys.TimeToLiveKey] = timeToLive;
+            Stats[StatKeys.TimeToLive] = timeToLive;
             _source = source;
             _target = target;
             _damageReduction = damageReduction;
