@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Models.Dtos;
+using System.Collections.Generic;
 using System.Linq;
 using TextEncoding;
 
@@ -11,6 +12,8 @@ namespace Models.Actions
             Source = source;
             Stats = new Dictionary<string, int>();
         }
+
+        public BarrellRollAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
