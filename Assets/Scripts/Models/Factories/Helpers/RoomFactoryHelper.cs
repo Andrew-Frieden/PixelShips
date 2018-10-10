@@ -51,7 +51,7 @@ namespace Models.Factories.Helpers
                 if ((3 < randomCount) && !hasHazard)
                 {
                     var data = InjectableGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
-                    entities.Add(new SometimesDamageHazard(data.Stats, data.Values));
+                    entities.Add(new SometimesDamageHazard(data));
                     hasHazard = true;
 
                 } else if ((5 < randomCount) && !hasBoss)

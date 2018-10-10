@@ -40,6 +40,6 @@ namespace Models.RoomEntities.Mobs.Kelp
 
         public VerdantInformantMob(FlexEntityDto dto) : base(dto) { }
 
-        public VerdantInformantMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values) { }
+        public VerdantInformantMob(FlexData data) : base(data) { }
     }
 }

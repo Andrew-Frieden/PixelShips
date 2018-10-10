@@ -37,6 +37,6 @@ namespace Models.RoomEntities.Mobs
 
         protected Mob(FlexEntityDto dto) : base(dto) { }
 
-        protected Mob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values) { }
+        protected Mob(FlexData data) : base(data) { }
     }
 }

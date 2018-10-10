@@ -101,11 +101,11 @@ namespace Models
             Values = new Dictionary<string, string>();
         }
 
-        public FlexEntity(Dictionary<string, int> stats, Dictionary<string, string> values)
+        public FlexEntity(FlexData data)
         {
             Id = Guid.NewGuid().ToString();
-            Stats = stats;
-            Values = values;
+            Stats = data.Stats;
+            Values = data.Values;
         }
 
         public string GetLinkText()
@@ -127,6 +127,7 @@ namespace Models
     public class FlexData
     {
         public string EntityType;
+        public int DifficultyRating;
         public Dictionary<string, int> Stats;
         public Dictionary<string, string> Values;
 

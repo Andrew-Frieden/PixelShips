@@ -27,8 +27,7 @@ public class SometimesDamageHazard : Hazard
     {
     }
 
-    public SometimesDamageHazard(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values)
+    public SometimesDamageHazard(FlexData data) : base(data)
     {
-        IsHostile = true;
     }
 }

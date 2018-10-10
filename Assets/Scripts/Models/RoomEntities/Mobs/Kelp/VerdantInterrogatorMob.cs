@@ -49,6 +49,6 @@ namespace Models.RoomEntities.Mobs.Kelp
 
         public VerdantInterrogatorMob(FlexEntityDto dto) : base(dto) { }
 
-        public VerdantInterrogatorMob(Dictionary<string, int> stats, Dictionary<string, string> values) : base(stats, values) { }
+        public VerdantInterrogatorMob(FlexData data) : base(data) { }
     }
 }
