@@ -623,6 +623,7 @@ MonoBehaviour:
   ScrollCellPrefab: {fileID: 1335280065934312, guid: d55090a05f3d9554ca0e5dbf370c1429,
     type: 2}
   CellHolder: {fileID: 1401312714428498}
+  RespondsToEventTags: 1
 --- !u!114 &114084391173632206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1689,6 +1690,7 @@ MonoBehaviour:
   ScrollCellPrefab: {fileID: 1335280065934312, guid: d55090a05f3d9554ca0e5dbf370c1429,
     type: 2}
   CellHolder: {fileID: 1646813748591174}
+  RespondsToEventTags: 0
 --- !u!114 &114557269514891680
 MonoBehaviour:
   m_ObjectHideFlags: 1

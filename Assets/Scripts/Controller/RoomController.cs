@@ -62,39 +62,11 @@ namespace Controller
 
                 foreach (var result in results)
                 {
-                    //  TODO this should actually happen when the scroll cell writes out the text, not when everything is executed
-                    DoUIReaction(result, shipHudController, scrollView);
-                    
                     actionResults.Add(result);
                 }
             }
 
             return actionResults;
-        }
-
-        private static void DoUIReaction(TagString result, ShipHudController shipHudController, ScrollViewController scrollView)
-        {
-            if (result.Tags == null)
-            {
-                return;
-            }
-
-            if (result.Tags.Contains(EventTag.Energy))
-            {
-                shipHudController.UpdateEnergy();
-            }
-
-            if (result.Tags.Contains(EventTag.Damage))
-            {
-                shipHudController.UpdateShield();
-                shipHudController.UpdateHull();
-                scrollView.Shake();
-            }
-                    
-            if (result.Tags.Contains(EventTag.Heal))
-            {
-                shipHudController.UpdateShield();
-            }
         }
 
         private static void CalculateDialogues(IRoom room)

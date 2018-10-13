@@ -3,6 +3,10 @@ using TMPro;
 using UnityEngine.EventSystems;
 using Widgets.Scroller;
 using System.Collections.Generic;
+using Models.Actions;
+using EnumerableExtensions;
+using TextSpace.Events;
+using System.Collections;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
@@ -15,6 +19,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
     public RectTransform RectTransform;
     [SerializeField] private TextMeshProUGUI EncodedText;
     [SerializeField] private ScrollCellTextTyper Typer;
+    private TagString tagString;
 
     public delegate void LinkTouchedEvent(string guid);
     public static event LinkTouchedEvent linkTouchedEvent;
@@ -25,17 +30,26 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
         EncodedText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public float SetupScrollCell(string encodedCellText, bool start)
+    public float SetupScrollCell(TagString encodedCellData, bool start)
     {
-        EncodedText.text = encodedCellText;
+        tagString = encodedCellData;
+        EncodedText.text = tagString.Text;
         Typer.HideText();
         if (start)
         {
+            OnCellStarted();
             Typer.TypeText(0.1f); 
         }
 
         return EncodedText.GetPreferredValues().y + Spacing;
     }
+
+    public void OnCellStarted()
+    {
+        tagString.Tags.ForEach(t => EventTagBroadcaster.Broadcast(t));
+    }
+
+    public float CellHeight => EncodedText.GetPreferredValues().y + Spacing;
 
     public void DisableClickEvents()
     {

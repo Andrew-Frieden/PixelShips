@@ -73,7 +73,7 @@ namespace Models.Actions
                 _actionTags = new List<EventTag>();
                 if (Energy > 0 && Source != null && Source is CommandShip)
                 {
-                    _actionTags.Add(EventTag.Energy);
+                    _actionTags.Add(EventTag.PlayerEnergyConsumed);
                 }
 
                 return _actionTags;

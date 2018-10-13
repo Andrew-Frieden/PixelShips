@@ -2,6 +2,7 @@
 using System.Linq;
 using EnumerableExtensions;
 using Models.Actions;
+using TextSpace.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,9 +23,29 @@ public class ScrollViewController : MonoBehaviour {
     
     public delegate void CellAddedEvent();
     public static event CellAddedEvent cellAddedEvent;
-    
-	// Use this for initialization
-	void Awake () {
+
+    public bool RespondsToEventTags;
+
+    private void Start()
+    {
+        EventTagBroadcaster.EventTagTrigger += RespondToEventTag;
+    }
+
+    private void RespondToEventTag(EventTag tag)
+    {
+        if (!RespondsToEventTags)
+            return;
+
+        switch (tag)
+        {
+            case EventTag.PlayerDamaged:
+                Shake();
+                break;
+        }
+    }
+
+    // Use this for initialization
+    void Awake () {
 
         ScrollRect = GetComponent<ScrollRect>();
 
@@ -56,7 +77,8 @@ public class ScrollViewController : MonoBehaviour {
         var cell = GetNextRecycledCell();
 
         cell.gameObject.SetActive(true);
-        var verticalSize = cell.SetupScrollCell(result.Text, _first);
+        var verticalSize = cell.SetupScrollCell(result, _first);
+        //var verticalSize = cell.CellHeight;
         cell.RectTransform.localScale = Vector2.one;
         cell.RectTransform.SetSiblingIndex(CellCount - 1);
         cell.Dim(false);

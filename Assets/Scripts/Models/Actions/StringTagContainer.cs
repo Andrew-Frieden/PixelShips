@@ -7,8 +7,8 @@ namespace Models.Actions
         public string Text;
         public IEnumerable<EventTag> Tags;
 
-        public TagString() { }
-        public TagString(string text) { Text = text; }
+        public TagString() { Tags = new List<EventTag>(); }
+        public TagString(string text) { Text = text; Tags = new List<EventTag>(); }
     }
 
     public static class TagStringExtensions
@@ -26,8 +26,8 @@ namespace Models.Actions
 
     public enum EventTag
     {
-        Damage,
-        Heal,
-        Energy
+        PlayerDamaged,
+        PlayerShieldsRecovered,
+        PlayerEnergyConsumed
     }
 }

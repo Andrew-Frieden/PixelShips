@@ -54,7 +54,7 @@ namespace Models.Actions
             }
             else
             {
-                ActionTags.Add(EventTag.Damage);
+                ActionTags.Add(EventTag.PlayerDamaged);
                 return new List<TagString>()
                 {
 

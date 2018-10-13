@@ -43,11 +43,17 @@ namespace Widgets.Scroller
                             yield break;
                         }
                     
-                        var nextScrollCell = gameObject.transform.parent.parent.GetChild(i + 1);
-                        var textTyper = nextScrollCell.GetChild(0) != null ? nextScrollCell.GetChild(0).GetComponent<TextTyper>() : null;
+                        //  TODO don't search for components at runtime like this. We should setup previous/next references between scrollcells
+                        var nextScrollCellTransform = gameObject.transform.parent.parent.GetChild(i + 1);
+                        var textTyper = nextScrollCellTransform.GetComponentInChildren<TextTyper>();
+                        var nextCell = nextScrollCellTransform.GetComponent<ScrollCell>();
+
                         if (textTyper != null && textTyper.isActiveAndEnabled)
                         {
-                            textTyper.TypeText(0.1f);
+                            if (nextCell != null)
+                                nextCell.OnCellStarted();
+
+                            textTyper.TypeText(delay);
                             yield break;
                         }
                     }

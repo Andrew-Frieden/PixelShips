@@ -29,7 +29,7 @@ namespace Controller
 
         private void Start()
         {
-            //TODO: A more organized way to track these event listeners
+            //TODO: A more organized way to track these event listeners (cmdviewcontroller probably shouldn't know about scrollcells - maybe do something like EventTagBroadcaster)
             ScrollCell.linkTouchedEvent += HandleLinkTouchedEvent;
             ABDialogueController.onRoomActionSelect += HandlePlayerChoseAction;
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
@@ -44,6 +44,7 @@ namespace Controller
             
             RoomController.StartNextRoom(_room, _room);
             
+            //  TODO make this event based so cmdviewcontroller doesn't need to call this or know about shiphudcontroller
             _shipHudController.InitializeShipHud(_room);
             
             _scrollView.ClearScreen();

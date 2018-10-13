@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using Models;
+using Models.Actions;
 using Models.Stats;
 using TextEncoding;
+using TextSpace.Events;
 using TMPro;
 using UnityEngine;
 
@@ -43,9 +45,31 @@ namespace Controller
 			_shield.text = "Shield: " + PlayerShip.Stats[StatKeys.Shields] + "/" + PlayerShip.Stats[StatKeys.MaxShields];
 			_hull.text = "Hull: " + PlayerShip.Stats[StatKeys.Hull] + "/" + PlayerShip.Stats[StatKeys.MaxHull];
 			_energy.text = "Energy: " + PlayerShip.Stats[StatKeys.Energy] + "/" + PlayerShip.Stats[StatKeys.MaxEnergy];
-			
+
             UpdateSector(room);
 		}
+
+        private void Start()
+        {
+            EventTagBroadcaster.EventTagTrigger += RespondToEventTag;
+        }
+
+        private void RespondToEventTag(EventTag tag)
+        {
+            switch (tag)
+            {
+                case EventTag.PlayerDamaged:
+                    UpdateShield();
+                    UpdateHull();
+                    break;
+                case EventTag.PlayerShieldsRecovered:
+                    UpdateShield();
+                    break;
+                case EventTag.PlayerEnergyConsumed:
+                    UpdateEnergy();
+                    break;
+            }
+        }
 
 		public void UpdateHull()
 		{

@@ -404,21 +404,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114611609140947954, guid: 79de77b574fcaea40a7fea743957c85b,
-        type: 2}
-      propertyPath: _abController
-      value: 
-      objectReference: {fileID: 779667226}
     - target: {fileID: 114134559185046144, guid: 79de77b574fcaea40a7fea743957c85b,
         type: 2}
       propertyPath: Canvas
       value: 
       objectReference: {fileID: 48996330}
-    - target: {fileID: 224940598853244178, guid: 79de77b574fcaea40a7fea743957c85b,
+    - target: {fileID: 114611609140947954, guid: 79de77b574fcaea40a7fea743957c85b,
         type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.00006102557
-      objectReference: {fileID: 0}
+      propertyPath: _abController
+      value: 
+      objectReference: {fileID: 779667226}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
   m_IsPrefabAsset: 0
