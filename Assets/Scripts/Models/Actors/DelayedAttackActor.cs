@@ -39,10 +39,20 @@ namespace Models.Actors
                 Stats[StatKeys.TimeToLive]--;
                 return new AttackAction(_source, _target, _damage, _name, 0);
             }
-            else
+            
+            return new DelayedAction($"A {_name} will hit {_target.GetLinkText()} ", Id);
+        }
+
+        public override IRoomAction CleanupStep(IRoom room)
+        {
+            base.CleanupStep(room);
+
+            if (_target.IsDestroyed)
             {
-                return new DelayedAction($"A {_name} will hit {_target.GetLinkText()} ", Id);
+                IsDestroyed = true;
             }
+
+            return new DoNothingAction(this);
         }
     }
 }

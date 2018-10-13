@@ -600,7 +600,7 @@
 		}
 	},
 	{
-		"EntityType": "TelegraphedDamageHazard",
+		"EntityType": "Models.RoomEntities.Hazards.TelegraphedDamageHazard",
 		"Stats": {
 			"hazard_damage_amount": 2,
 			"time_to_live": 4

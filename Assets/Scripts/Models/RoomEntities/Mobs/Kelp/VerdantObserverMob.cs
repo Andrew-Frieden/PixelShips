@@ -6,24 +6,20 @@ using Models.Stats;
 using TextEncoding;
 using UnityEngine;
 
-namespace Models.RoomEntities.Mobs.Kelp
+namespace Models.RoomEntities.Mobs
 {
     public class VerdantObserverMob : Mob
     {
         public VerdantObserverMob()
         {
-            Name = "Verdant Observer";
             IsHostile = false;
             IsAttackable = true;
-            Values[ValueKeys.LookText] = "A <> is in the sector, guns at the ready.";
-            Values[ValueKeys.LookTextAggro] = "A <> is maneuvering to attack position.";
-            Stats[StatKeys.Hull] = 3;
         }
 
         public override void CalculateDialogue(IRoom room)
         {
-            DialogueContent = DialogueBuilder.PlayerAttackDialogue("Verdant Observer\n" +
-                                                                   "Hull: " + Stats[StatKeys.Hull] + " / 3\n" +
+            DialogueContent = DialogueBuilder.PlayerAttackDialogue(Values[ValueKeys.Name] + "\n" +
+                                                                   "Hull: " + Stats[StatKeys.Hull] + " / " + Stats[StatKeys.MaxHull] + "\n" +
                                                                    "A ship so overgrown it's hard to make out what model it originally was.\n" +
                                                                    "You can take them.", this, room);
         }

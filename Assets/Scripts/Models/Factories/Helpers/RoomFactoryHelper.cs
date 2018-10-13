@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Models.RoomEntities.Mobs.Kelp;
+using Models.RoomEntities.Mobs;
 
 namespace Models.Factories.Helpers
 {

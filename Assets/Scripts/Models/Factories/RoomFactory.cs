@@ -3,8 +3,6 @@ using System.Linq;
 using EnumerableExtensions;
 using GameData;
 using Models.Dtos;
-using Models.RoomEntities.Hazards;
-using Models.RoomEntities.Mobs.Kelp;
 
 namespace Models.Factories
 {
@@ -125,8 +123,8 @@ namespace Models.Factories
                 }
             }
 
-            //  increase the difficulty of the exit by 1
-            return new RoomTemplate(template.Difficulty + 1, nextRoomFlavor, entityFlavors);
+            //  increase the difficulty of the exit by 5
+            return new RoomTemplate(template.Difficulty + 5, nextRoomFlavor, entityFlavors);
         }
 
         private List<IRoomActor> CalculateActors(RoomTemplate template)
@@ -138,48 +136,16 @@ namespace Models.Factories
                 //  do something hacky for now
                 if (template.Flavor == RoomFlavor.Kelp)
                 {
-                    if (template.Difficulty <= 5)
+                    var data = Mobs.Where(h => h.RoomFlavors.Contains(template.Flavor));
+                    
+                    if (7 <= UnityEngine.Random.Range(0, 11))
                     {
-                        actors.Add(new VerdantObserverMob());
+                        actors.Add(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom().FromFlexData());
                     }
-                    else if (template.Difficulty <= 10)
+                    else
                     {
-                        if (7 <= UnityEngine.Random.Range(0, 11))
-                        {
-                            actors.Add(new VerdantInformantMob());
-                        } else
-                        {
-                            actors.Add(new VerdantObserverMob());
-                            actors.Add(new VerdantObserverMob());
-                        }
-                    }
-                    else if (template.Difficulty <= 15)
-                    {
-
-                        if (7 <= UnityEngine.Random.Range(0, 11))
-                        {
-                            actors.Add(new VerdantInterrogatorMob());
-                        }
-                        else
-                        {
-                            actors.Add(new VerdantInformantMob());
-                            actors.Add(new VerdantObserverMob());
-                        }
-                    }
-                    else if (template.Difficulty <= 20)
-                    {
-
-                        if (7 <= UnityEngine.Random.Range(0, 11))
-                        {
-                            actors.Add(new VerdantInterrogatorMob());
-                            actors.Add(new VerdantInformantMob());
-                        }
-                        else
-                        {
-                            actors.Add(new VerdantInformantMob());
-                            actors.Add(new VerdantObserverMob());
-                            actors.Add(new VerdantObserverMob());
-                        }
+                        actors.Add(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom().FromFlexData());
+                        actors.Add(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom().FromFlexData());
                     }
                 }
                 else

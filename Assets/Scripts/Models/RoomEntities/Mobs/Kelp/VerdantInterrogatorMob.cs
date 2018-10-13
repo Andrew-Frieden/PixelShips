@@ -7,24 +7,20 @@ using Models.Stats;
 using TextEncoding;
 using UnityEngine;
 
-namespace Models.RoomEntities.Mobs.Kelp
+namespace Models.RoomEntities.Mobs
 {
     public class VerdantInterrogatorMob : Mob
     {
         public VerdantInterrogatorMob()
         {
-            Name = "Verdant Interrogator";
             IsHostile = false;
             IsAttackable = true;
-            Values[ValueKeys.LookText] = "A <> is in the sector, guns at the ready.";
-            Values[ValueKeys.LookTextAggro] = "A <> is maneuvering to attack position.";
-            Stats[StatKeys.Hull] = 35;
         }
 
         public override void CalculateDialogue(IRoom room)
         {
-            DialogueContent = DialogueBuilder.PlayerAttackDialogue("Verdant Interrogator\n" +
-                                                                   "Hull: " + Stats[StatKeys.Hull] + " / 35\n" +
+            DialogueContent = DialogueBuilder.PlayerAttackDialogue(Values[ValueKeys.Name] + "\n" +
+                                                                   "Hull: " + Stats[StatKeys.Hull] + " / " + Stats[StatKeys.MaxHull] + "\n" +
                                                                    "An overgrown captial class ship that wants to \"ask\" you some \"questions\".\n" +
                                                                    "They will probably destroy you.", this, room);
         }

@@ -6,7 +6,7 @@ using Models.Stats;
 using TextEncoding;
 using UnityEngine;
 
-namespace Models.RoomEntities.Mobs.Kelp
+namespace Models.RoomEntities.Mobs
 {
     public class VerdantInformantMob : Mob
     {
@@ -15,15 +15,12 @@ namespace Models.RoomEntities.Mobs.Kelp
             Name = "Verdant Informant";
             IsHostile = false;
             IsAttackable = true;
-            Values[ValueKeys.LookText] = "A <> is in the sector, guns at the ready.";
-            Values[ValueKeys.LookTextAggro] = "A <> is maneuvering to attack position.";
-            Stats[StatKeys.Hull] = 8;
         }
 
         public override void CalculateDialogue(IRoom room)
         {
-            DialogueContent = DialogueBuilder.PlayerAttackDialogue("Verdant Informant\n" +
-                                                                   "Hull: " + Stats[StatKeys.Hull] + " / 8\n" +
+            DialogueContent = DialogueBuilder.PlayerAttackDialogue(Values[ValueKeys.Name] + "\n" +
+                                                                   "Hull: " + Stats[StatKeys.Hull] + " / " + Stats[StatKeys.MaxHull] + "\n" +
                                                                    "This ship is definitely up to something, but it's very difficult to tell what.\n" +
                                                                    "You can probably take them.", this, room);
         }
