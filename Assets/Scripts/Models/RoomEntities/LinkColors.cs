@@ -9,6 +9,7 @@
         public static readonly string Room = "#0cffa5"; // blue-green
         public static readonly string Gatherable = "#003bff"; // blue
         public static readonly string Hazard = "#ce00fc"; // purple
+        public static readonly string Weapon = "#fc00ac"; // pink
     }
 }
 

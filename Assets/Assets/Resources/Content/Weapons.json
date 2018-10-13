@@ -1,0 +1,30 @@
+[
+	{
+		"EntityType": "Items.DirectDamageWeapon",
+		"Stats": {
+			"weapon_type": 0,
+			"base_damage": 2,
+			"energy": 0
+		},
+		"Values": {
+			"name": "Blossom Cannon",
+			"look_text": "A <> drifts through space.",
+			"dialogue_unequipped_text": "A <> is floating through space. It looks like a simple cannon.",
+			"dialogue_equipped_text": "A <> is currently equipped to your ship. You cannot drop it, it must be replaced."
+		}
+	},
+	{
+		"EntityType": "Items.DirectDamageWeapon",
+		"Stats": {
+			"weapon_type": 1,
+			"base_damage": 6,
+			"energy": 2
+		},
+		"Values": {
+			"name": "Heavy Blossom Cannon",
+			"look_text": "A <> drifts through space.",
+			"dialogue_unequipped_text": "A <> is floating through space. It looks like a heavy cannon.",
+			"dialogue_equipped_text": "A <> is currently equipped to your ship. You cannot drop it, it must be replaced."
+		}
+	}
+]

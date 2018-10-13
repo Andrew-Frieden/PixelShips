@@ -59,13 +59,13 @@ namespace Models
         }
 
         //  hack together a valid gamestate
-        public GameState CreateNewGameState()
+        public GameState CreateNewGameState(RoomFactory roomFactory)
         {
             return new GameState
             {
                 CurrentExpedition = new Expedition
                 {
-                    CmdShip = GameManager.ShipFactory.GenerateCommandShip(),
+                    CmdShip = GameManager.ShipFactory.GenerateCommandShip(roomFactory),
                     Room = (Room) GameManager.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp)),
                     CurrentMission = new Mission { MissionLevel = 1 },
                     Ticks = 0,

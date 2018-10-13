@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Items;
 using Models.Actions;
 using Models.Dtos;
 using Models.Stats;
@@ -67,6 +68,8 @@ namespace Models
                 return Stats[CurrentStateKey]; 
             }
         }
+
+        public int DependentActorId { get; }
 
         public virtual bool IsDestroyed
         {
