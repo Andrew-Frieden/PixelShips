@@ -104,8 +104,8 @@ namespace Models
         public FlexEntity(FlexData data)
         {
             Id = Guid.NewGuid().ToString();
-            Stats = data.Stats;
-            Values = data.Values;
+            Stats = new Dictionary<string, int>(data.Stats);
+            Values = new Dictionary<string, string>(data.Values);
         }
 
         public string GetLinkText()

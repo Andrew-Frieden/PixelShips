@@ -15,7 +15,7 @@
 		"Values": {
 			"name": "Verdant Informant",
 			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_aggro_text": "A <> is maneuvering to attack position."
+			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
 	},
 	{
@@ -34,26 +34,7 @@
 		"Values": {
 			"name": "Verdant Interrogator",
 			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_aggro_text": "A <> is maneuvering to attack position."
-		}
-	},
-	{
-		"EntityType": "Models.RoomEntities.Mobs.VerdantInterrogatorMob",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0, 1
-		],
-		"Stats": {
-			"max_hull": 35,
-			"current_hull": 35
-		},
-		"DifficultyRating": 11,
-		"Values": {
-			"name": "Verdant Interrogator",
-			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_aggro_text": "A <> is maneuvering to attack position."
+			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
 	},
 	{
@@ -72,7 +53,7 @@
 		"Values": {
 			"name": "Verdant Observer",
 			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_aggro_text": "A <> is maneuvering to attack position."
+			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
 	}
 ]
