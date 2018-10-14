@@ -14,6 +14,7 @@ namespace Controller
         private const string HazardsContentFilePath = "/Hazards";
         private const string MobsContentFilePath = "/Mobs";
         private const string GatherablesContentFilePath = "/Gatherables";
+        private const string WeaponsContentFilePath = "/Weapons";
 
         //Dont Delete: Useful for outputing JSON
         //
@@ -35,8 +36,11 @@ namespace Controller
             
             var gatherablesJsonData =Resources.Load<TextAsset>(BaseFolderPath + GatherablesContentFilePath);
             var gatherables =  JsonConvert.DeserializeObject<List<FlexData>>(gatherablesJsonData.text);
+            
+            var weaponsJsonData = Resources.Load<TextAsset>(BaseFolderPath + WeaponsContentFilePath);
+            var weapons =  JsonConvert.DeserializeObject<List<FlexData>>(weaponsJsonData.text);
 
-            return new GameContentDto(hazards, mobs, gatherables);
+            return new GameContentDto(hazards, mobs, gatherables, weapons);
         }
     }
 }

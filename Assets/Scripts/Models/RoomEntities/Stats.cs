@@ -41,6 +41,12 @@ namespace Models.Stats
         public const string PulsarCoreFragments = "pulsar_core_fragment";
             
         #endregion
+        
+        #region Items
+        
+        public const string WeaponType = "weapon_type";
+        
+        #endregion
     }
 
     public static class ValueKeys
@@ -51,7 +57,10 @@ namespace Models.Stats
         public static readonly string DialogueText = "dialogue_text";
         public static readonly string HazardDamageText = "hazard_damage_text";
         public static readonly string TelegraphDamageText = "telegraph_damage_text";
-
+        
+        public static readonly string DialogueUnequippedText = "dialogue_unequipped_text";
+        public static readonly string DialogueEquippedText = "dialogue_equipped_text";
+        
         public static readonly string LightWeapon = "light_weapon";
         public static readonly string HeavyWeapon = "heavy_weapon";
     }

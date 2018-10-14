@@ -62,8 +62,8 @@ namespace Models
                     _values = new Dictionary<string, string>()
                     {
                         [ShipStats.CaptainName] = PickRandomCaptainName(),
-                        [ValueKeys.LightWeapon] = PulseLaser.Key,
-                        [ValueKeys.HeavyWeapon] = PlasmaTorpedo.Key
+                        [ValueKeys.LightWeapon] = LightWeapon.Name,
+                        [ValueKeys.HeavyWeapon] = HeavyWeapon.Name
                     };
                 }
                 return _values;
@@ -105,6 +105,8 @@ namespace Models
         public RoomTemplate WarpTarget;
 
         public bool IsAttackable { get { return true; } set { throw new Exception("Tried to set CommandShip CanCombat to true"); } }
+
+        public int DependentActorId { get; }
 
         public bool IsDestroyed
         {
@@ -160,10 +162,7 @@ namespace Models
                 Stats[StatKeys.MaxHull] = value;
             }
         }
-
-        public IWeapon LightWeapon => WeaponFactory.GetWeapon(Values[ValueKeys.LightWeapon]);
-        public IWeapon HeavyWeapon => WeaponFactory.GetWeapon(Values[ValueKeys.HeavyWeapon]);
-
+        
         public string GetLinkText()
         {
             return "You";
@@ -205,7 +204,7 @@ namespace Models
                 .Build();
         }
         
-        public CommandShip()
+        public CommandShip(Weapon lightWeapon, Weapon heavyWeapon)
         {
             Id = Guid.NewGuid().ToString();
             _hardware = new List<Hardware>();
@@ -216,6 +215,9 @@ namespace Models
             EquipHardware(new TownDetector());
             EquipHardware(new GatheringBoost());
             EquipHardware(new HazardMitigation());
+            
+            LightWeapon = lightWeapon;
+            HeavyWeapon = heavyWeapon;
         }
 
         public CommandShip(ShipDto dto)
@@ -253,6 +255,24 @@ namespace Models
         public IRoomAction CleanupStep(IRoom room)
         {
             return new DoNothingAction(this);
+        }
+        
+        public Weapon LightWeapon { get; private set; }
+        public Weapon HeavyWeapon { get; private set; }
+        public Weapon EquipWeapon(Weapon weapon)
+        {
+            if (weapon.WeaponType == Weapon.WeaponTypes.Light)
+            {
+                var previous = LightWeapon;
+                LightWeapon = weapon;
+                return previous;
+            }
+            else
+            {
+                var previous = HeavyWeapon;
+                HeavyWeapon = weapon;
+                return previous;
+            }
         }
 
         private List<Hardware> _hardware;

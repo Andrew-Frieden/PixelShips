@@ -1,10 +1,13 @@
 using System.Collections.Generic;
- using Models.Actions;
+using Items;
+using Models.Actions;
 
 namespace Models
 {
     public interface IRoomActor : ITextEntity
     {
+        int DependentActorId { get; }
+        
         bool IsDestroyed { get; set; }
         bool IsHidden { get; }
         bool IsHostile { get; set; }

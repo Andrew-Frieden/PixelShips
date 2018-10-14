@@ -2,7 +2,9 @@
 using System.Linq;
 using EnumerableExtensions;
 using GameData;
+using Items;
 using Models.Dtos;
+using Models.Stats;
 
 namespace Models.Factories
 {
@@ -15,6 +17,8 @@ namespace Models.Factories
         private float CHANCE_FOR_TOWN = 0.25f;
         private float CHANCE_FOR_GATHERABLE = 0.25f;
         private float CHANCE_FOR_NPC = 0.25f;
+        private float CHANCE_FOR_LIGHT_WEAPON = 0.01f;
+        private float CHANCE_FOR_HEAVY_WEAPON = 0.01f;
 
         private int ROOM_ACTOR_CAPACITY = 4;
 
@@ -24,12 +28,19 @@ namespace Models.Factories
         public static IEnumerable<FlexData> Hazards { get; private set; }
         public static IEnumerable<FlexData> Mobs { get; private set; }
         public static IEnumerable<FlexData> Gatherables { get; private set; }
+        public static IEnumerable<FlexData> Weapons { get; private set; }
         
         public RoomFactory(GameContentDto gameContent)
         {
             Hazards = gameContent.Hazards;
             Mobs = gameContent.Mobs;
             Gatherables = gameContent.Gatherables;
+            Weapons = gameContent.Weapons;
+        }
+
+        public Weapon GetRandomWeapon(Weapon.WeaponTypes type)
+        {
+            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type).GetRandom().FromFlexData();
         }
         
         public IRoom GenerateRoom(RoomTemplate template)
@@ -131,6 +142,16 @@ namespace Models.Factories
         {
             var actors = new List<IRoomActor>();
 
+            if (CHANCE_FOR_LIGHT_WEAPON.Rng())
+            {
+                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Light));
+            }
+            
+            if (CHANCE_FOR_HEAVY_WEAPON.Rng())
+            {
+                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Heavy));
+            }
+            
             if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
             {
                 //  do something hacky for now
