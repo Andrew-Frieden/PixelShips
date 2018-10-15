@@ -50,7 +50,7 @@ namespace Models.Factories.Helpers
                 var randomCount = Random.Range(1, 10);
                 if ((3 < randomCount) && !hasHazard)
                 {
-                    var data = InjectableGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
+                    var data = ExampleGameData.SometimesDamageHazards.OrderBy(d => System.Guid.NewGuid()).First();
                     entities.Add(new SometimesDamageHazard(data));
                     hasHazard = true;
 

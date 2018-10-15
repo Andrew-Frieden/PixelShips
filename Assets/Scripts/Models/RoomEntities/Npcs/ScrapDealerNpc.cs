@@ -12,16 +12,12 @@ namespace TextSpace.RoomEntities
 {
     public class ScrapDealerNpc : FlexEntity
     {
-        public ScrapDealerNpc() : base()
+        public ScrapDealerNpc(FlexData data) : base(data)
         {
-            Name = "Scrap Dealer";
             IsAttackable = false;
             IsHostile = false;
             ChangeState((int)ScrapDealerNpcState.HasDeals);
-            Values[ValueKeys.DialogueStateText(nameof(ScrapDealerNpcState.HasDeals))] = $"The <> trade vessel looks pretty shoddy. Cables and spare parts are everywhere.";
         }
-
-        public ScrapDealerNpc(FlexData data) : base(data) { }
 
         public ScrapDealerNpc(FlexEntityDto dto) : base(dto) { }
 
@@ -38,7 +34,7 @@ namespace TextSpace.RoomEntities
                 case (int)ScrapDealerNpcState.HasDeals:
                     var sellAction = new SellScrapAction(room.PlayerShip, this, 10);
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText(Values[ValueKeys.DialogueStateText(nameof(ScrapDealerNpcState.HasDeals)).Encode(this, LinkColors.NPC)])
+                        .AddMainText(DialogueText.Encode(this, LinkColors.NPC))
                         .AddOption(sellAction.OptionText(room), sellAction)
                         .Build();
                     break;

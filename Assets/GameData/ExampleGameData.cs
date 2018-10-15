@@ -4,8 +4,36 @@ using System.Collections.Generic;
 
 namespace GameData
 {
-    public static class InjectableGameData
+    public static class ExampleGameData
     {
+        public static List<FlexData> ScrapDealerData => new List<FlexData>
+        {
+            new FlexData()
+            {
+                EntityType = "TextSpace.RoomEntities.ScrapDealerNpc",
+                ActorFlavors = new RoomActorFlavor[] { RoomActorFlavor.Npc },
+                RoomFlavors = new RoomFlavor[] { RoomFlavor.Empty, RoomFlavor.Nebula },
+                Values = new Dictionary<string, string>
+                {
+                    { ValueKeys.Name, "Scrap Dealer" },
+                    { ValueKeys.DialogueText, $"The <> trade vessel looks pretty shoddy. Cables and spare parts are everywhere." },
+                },
+                Stats = new Dictionary<string, int> { }
+            },
+            new FlexData()
+            {
+                EntityType = "TextSpace.RoomEntities.ScrapDealerNpc",
+                ActorFlavors = new RoomActorFlavor[] { RoomActorFlavor.Npc },
+                RoomFlavors = new RoomFlavor[] { RoomFlavor.Empty, RoomFlavor.Nebula },
+                Values = new Dictionary<string, string>
+                {
+                    { ValueKeys.Name, "Shady Scrap Dealer" },
+                    { ValueKeys.DialogueText, $"The <> trade vessel looks real shoddy. Cables and spare parts are everywhere." },
+                },
+                Stats = new Dictionary<string, int> { }
+            }
+        };
+
         public static List<FlexData> SometimesDamageHazards => new List<FlexData>
         {
             new FlexData()

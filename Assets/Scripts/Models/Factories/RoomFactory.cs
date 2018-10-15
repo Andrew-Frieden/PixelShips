@@ -47,8 +47,8 @@ namespace Models.Factories
         public IRoom GenerateRoom(RoomTemplate template)
         {
             //  first get the injectable flavor for the room
-            var lookText = InjectableGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
-            var descriptionText = InjectableGameData.InjectableRoomDescriptions[template.Flavor].GetRandom();
+            var lookText = ExampleGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
+            var descriptionText = ExampleGameData.InjectableRoomDescriptions[template.Flavor].GetRandom();
             var roomInject = new RoomInjectable(template.Flavor, lookText, descriptionText);
 
             //  add exits
@@ -216,7 +216,8 @@ namespace Models.Factories
             }
 
             //  hardcode adding scrap dealer for testing
-            actors.Add(new ScrapDealerNpc());
+            var dealer = ExampleGameData.ScrapDealerData.GetRandom().FromFlexData();
+            actors.Add(dealer);
 
             return actors;
         }

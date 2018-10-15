@@ -51,7 +51,31 @@ namespace Models
                 Values[ValueKeys.Name] = value;
             }
         }
-        
+
+        protected string LookText
+        {
+            get
+            {
+                return Values[ValueKeys.LookText];
+            }
+            set
+            {
+                Values[ValueKeys.LookText] = value;
+            }
+        }
+
+        protected string DialogueText
+        {
+            get
+            {
+                return Values[ValueKeys.DialogueText];
+            }
+            set
+            {
+                Values[ValueKeys.DialogueText] = value;
+            }
+        }
+
         public Dictionary<string, int> Stats { get; protected set; }
         public Dictionary<string, string> Values { get; protected set; }
         public ABDialogueContent DialogueContent { get; set; }

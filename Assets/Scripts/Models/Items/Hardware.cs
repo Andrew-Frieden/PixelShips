@@ -9,28 +9,6 @@ using TextEncoding;
 
 namespace Items
 {
-    //public static class HardwareFactory
-    //{
-    //    public static Hardware GetHardware(string key)
-    //    {
-    //        switch (key)
-    //        {
-    //            case TownDetector.Key:
-    //                return new TownDetector();
-    //            case HazardDetector.Key:
-    //                return new HazardDetector();
-    //            case MobDetector.Key:
-    //                return new MobDetector();
-    //            case GatheringBoost.Key:
-    //                return new GatheringBoost();
-    //            case HazardMitigation.Key:
-    //                return new HazardMitigation();
-    //        }
-
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
     public class Hardware : FlexEntity
     {
         public enum HardwareState
@@ -39,31 +17,19 @@ namespace Items
             Equipped = 1
         }
 
-        public string Description
-        {
-            get
-            {
-                return Values[ValueKeys.DialogueText];
-            }
-            protected set
-            {
-                Values[ValueKeys.DialogueText] = value;
-            }
-        }
-
         public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
                 case (int)HardwareState.Unequipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"<>{Env.ll}{Description}{Env.ll}This hardware is drifting through space.".Encode(this, LinkColors.Gatherable))
+                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}This hardware is drifting through space.".Encode(this, LinkColors.Gatherable))
                         .AddOption("Pickup", new PickupHardwareAction(room.PlayerShip, this))
                         .Build();
                     break;
                 case (int)HardwareState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"<>{Env.ll}{Description}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Gatherable))
+                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Gatherable))
                         .AddOption("Drop", new DropHardwareAction(room.PlayerShip, this))
                         .Build();
                     break;
@@ -130,7 +96,7 @@ namespace Items
         public TownDetector() : base()
         {
             Name = "Cartographic Processor";
-            Description = "Quantum mapping device that identifies nearby space stations.";
+            DialogueText = "Quantum mapping device that identifies nearby space stations.";
         }
 
         public TownDetector(FlexEntityDto dto) : base(dto) { } 
@@ -143,7 +109,7 @@ namespace Items
         public HazardDetector() : base()
         {
             Name = "Deep Field Scanner";
-            Description = "A sophisticated navigation device capable of detecting nearby hazards.";
+            DialogueText = "A sophisticated navigation device capable of detecting nearby hazards.";
         }
 
         public HazardDetector(FlexEntityDto dto) : base(dto) { }
@@ -156,7 +122,7 @@ namespace Items
         public MobDetector() : base()
         {
             Name = "Signature Detector";
-            Description = "Standard-issue military hardware for detecting nearby weapon signatures.";
+            DialogueText = "Standard-issue military hardware for detecting nearby weapon signatures.";
         }
 
         public MobDetector(FlexEntityDto dto) : base(dto) { }
@@ -169,7 +135,7 @@ namespace Items
         public GatheringBoost() : base()
         {
             Name = "Robotic Manipulator";
-            Description = "An advanced gathering tool capable of crushing rock.";
+            DialogueText = "An advanced gathering tool capable of crushing rock.";
         }
 
         public GatheringBoost(FlexEntityDto dto) : base(dto) { }
@@ -189,7 +155,7 @@ namespace Items
         public HazardMitigation() : base()
         {
             Name = "Hazard Plating";
-            Description = "Advanced hull reinforcements that provide significant resistance to the hazards of space.";
+            DialogueText = "Advanced hull reinforcements that provide significant resistance to the hazards of space.";
         }
 
         public HazardMitigation(FlexEntityDto dto) : base(dto) { }
