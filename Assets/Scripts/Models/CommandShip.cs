@@ -18,6 +18,59 @@ namespace Models
         public string Id { get; }
         public ABDialogueContent DialogueContent { get; set; }
 
+        #region Stats
+        public int Hull
+        {
+            get
+            {
+                return Stats[StatKeys.Hull];
+            }
+
+            set
+            {
+                Stats[StatKeys.Hull] = value;
+            }
+        }
+
+        public int MaxHull
+        {
+            get
+            {
+                return Stats[StatKeys.MaxHull];
+            }
+
+            set
+            {
+                Stats[StatKeys.MaxHull] = value;
+            }
+        }
+
+        public int Scrap
+        {
+            get
+            {
+                return Stats[StatKeys.Scrap];
+            }
+
+            set
+            {
+                Stats[StatKeys.Scrap] = value;
+            }
+        }
+
+        public int Resourcium
+        {
+            get
+            {
+                return Stats[StatKeys.Resourcium];
+            }
+
+            set
+            {
+                Stats[StatKeys.Resourcium] = value;
+            }
+        }
+
         private Dictionary<string, int> _stats;
         public Dictionary<string, int> Stats
         {
@@ -32,8 +85,8 @@ namespace Models
                         [StatKeys.MaxShields] = 20,
                         [StatKeys.Shields] = 20,
                         [StatKeys.Captainship] = 11,
-                        [ShipStats.WarpDriveReady] = 0,
-                        [StatKeys.Scrap] = 0,
+                        [StatKeys.WarpDriveReady] = 0,
+                        [StatKeys.Scrap] = 21,
                         [StatKeys.Resourcium] = 0,
                         [StatKeys.Techanite] = 0,
                         [StatKeys.MachineParts] = 0,
@@ -61,7 +114,7 @@ namespace Models
                 {
                     _values = new Dictionary<string, string>()
                     {
-                        [ShipStats.CaptainName] = PickRandomCaptainName(),
+                        [ValueKeys.CaptainName] = PickRandomCaptainName(),
                         [ValueKeys.LightWeapon] = LightWeapon.Name,
                         [ValueKeys.HeavyWeapon] = HeavyWeapon.Name
                     };
@@ -73,6 +126,7 @@ namespace Models
                 _values = value;
             }
         }
+        #endregion
 
         public bool IsHidden { get; }
 
@@ -94,11 +148,11 @@ namespace Models
         {
             get
             {
-                return Stats[ShipStats.WarpDriveReady] != 0;
+                return Stats[StatKeys.WarpDriveReady] != 0;
             }
             set
             {
-                Stats[ShipStats.WarpDriveReady] = value ? 1 : 0;
+                Stats[StatKeys.WarpDriveReady] = value ? 1 : 0;
             }
         }
 
@@ -121,19 +175,6 @@ namespace Models
             }
         }
 
-        public int Hull
-        {
-            get
-            {
-                return Stats[StatKeys.Hull];
-            }
-
-            set
-            {
-                Stats[StatKeys.Hull] = value;
-            }
-        }
-
         public TagString GetLookText()
         {
             var texts = new List<string>
@@ -148,19 +189,6 @@ namespace Models
             {
                 Text = texts.GetRandom()
             };
-        }
-        
-        public int MaxHull
-        {
-            get
-            {
-                return Stats[StatKeys.MaxHull];
-            }
-
-            set
-            {
-                Stats[StatKeys.MaxHull] = value;
-            }
         }
         
         public string GetLinkText()
@@ -256,7 +284,8 @@ namespace Models
         {
             return new DoNothingAction(this);
         }
-        
+
+        #region Weapons
         public Weapon LightWeapon { get; private set; }
         public Weapon HeavyWeapon { get; private set; }
         public Weapon EquipWeapon(Weapon weapon)
@@ -274,7 +303,9 @@ namespace Models
                 return previous;
             }
         }
+        #endregion
 
+        #region Hardware
         private List<Hardware> _hardware;
         public IEnumerable<Hardware> Hardware { get { return _hardware; } }
 
@@ -300,11 +331,6 @@ namespace Models
         {
             return (T)Hardware.FirstOrDefault(h => h is T);
         }
-
-        public static partial class ShipStats
-        {
-            public const string WarpDriveReady = "warp_drive_ready";
-            public const string CaptainName = "captain_name";
-        }
+        #endregion
     }
 }

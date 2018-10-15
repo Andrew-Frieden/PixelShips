@@ -5,6 +5,7 @@ using GameData;
 using Items;
 using Models.Dtos;
 using Models.Stats;
+using TextSpace.RoomEntities;
 
 namespace Models.Factories
 {
@@ -213,6 +214,8 @@ namespace Models.Factories
                     actors.Add(new SingleUseGatherable("Kelp Fiber"));
                 }
             }
+
+            actors.Add(new ScrapDealerNpc());
 
             return actors;
         }

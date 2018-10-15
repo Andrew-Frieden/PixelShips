@@ -69,6 +69,7 @@ namespace Models
             }
         }
 
+        //  TODO this needs to be backed by Values dictionary
         public int DependentActorId { get; }
 
         public virtual bool IsDestroyed

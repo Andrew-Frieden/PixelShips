@@ -45,7 +45,13 @@ namespace Models.Stats
         #region Items
         
         public const string WeaponType = "weapon_type";
-        
+
+        #endregion
+
+        #region CommandShip
+
+        public const string WarpDriveReady = "warp_drive_ready";
+
         #endregion
     }
 
@@ -63,7 +69,16 @@ namespace Models.Stats
         
         public static readonly string LightWeapon = "light_weapon";
         public static readonly string HeavyWeapon = "heavy_weapon";
+
+        public const string CaptainName = "captain_name";
+
+        public static string DialogueStateText(string state)
+        {
+            return $"{DialogueText}_{state}";
+        }
     }
+
+    
 
     public static class StatsHelper
     {
