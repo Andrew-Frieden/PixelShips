@@ -215,6 +215,7 @@ namespace Models.Factories
                 }
             }
 
+            //  hardcode adding scrap dealer for testing
             actors.Add(new ScrapDealerNpc());
 
             return actors;
