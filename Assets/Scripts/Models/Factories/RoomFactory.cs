@@ -238,17 +238,26 @@ namespace Models.Factories
                 if (mob.Values.ContainsKey(weaponKey))
                 {
                     hasWeapon = true;
-                    
-                    var weapon = Weapons.First(wpn => wpn.Values[ValueKeys.WeaponId] == mob.Values[weaponKey]).FromFlexData();
 
-                    if (!(weapon is Weapon))
+                    var weaponFlexData = Weapons.First(wpn => wpn.Values[ValueKeys.WeaponId] == mob.Values[weaponKey]);
+
+                    if (weaponFlexData != null)
                     {
-                        throw new InvalidCastException("FlexData is not an instance of Weapon");
-                    }
+                        var weapon = weaponFlexData.FromFlexData();
+                        
+                        if (!(weapon is Weapon))
+                        {
+                            throw new InvalidCastException("FlexData is not an instance of Weapon");
+                        }
 
-                    ((Weapon) weapon).SetHidden(true);
-                    ((Weapon) weapon).WithDependentId(mob.Id);
-                    actors.Add(weapon);
+                        ((Weapon) weapon).SetHidden(true);
+                        ((Weapon) weapon).WithDependentId(mob.Id);
+                        actors.Add(weapon);
+                    }
+                    else
+                    {
+                        Debug.Log($"Error: No weapon found for key on mob: {mob.Values[ValueKeys.Name]}");
+                    }
                 }
             }
 

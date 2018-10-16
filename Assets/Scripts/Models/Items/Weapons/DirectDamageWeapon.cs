@@ -29,7 +29,7 @@ namespace Items
             {
                 case (int) WeaponState.Unequipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText(Values[ValueKeys.DialogueUnequippedText].Encode(this, LinkColors.Weapon))
+                        .AddMainText(Values[ValueKeys.DialogueText].Encode(this, LinkColors.Weapon))
                         .AddOption("Pickup", new PickupWeaponAction(room.PlayerShip, this))
                         .Build();
                     break;

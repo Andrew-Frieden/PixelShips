@@ -72,9 +72,6 @@ namespace Models.Stats
         public const string HazardDamageText = "hazard_damage_text";
         public const string TelegraphDamageText = "telegraph_damage_text";
 
-        public const string DialogueUnequippedText = "dialogue_unequipped_text";
-        public const string DialogueEquippedText = "dialogue_equipped_text";
-
         public const string LightWeapon = "light_weapon";
         public const string HeavyWeapon = "heavy_weapon";
         
@@ -94,19 +91,5 @@ namespace Models.Stats
             "weapon_id_3",
             "weapon_id_4"
         };
-    }
-
-    public static class StatsHelper
-    {
-        public static Dictionary<string, int> EmptyStatsBlock()
-        {
-            return new Dictionary<string, int>
-            {
-                { StatKeys.IsHostile, 0 },
-                { StatKeys.IsAttackable, 0 },
-                { StatKeys.Hull, 0 },
-                { StatKeys.Captainship, 0 },
-            };
-        }
     }
 }

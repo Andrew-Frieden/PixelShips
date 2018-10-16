@@ -15,7 +15,7 @@
 		"DifficultyRating": 4,
 		"Values": {
 			"name": "Verdant Informant",
-			"weapon_id_0": "blossom_cannon",
+			"weapon_id_0": "BlossomCannon1",
 			"look_text": "A <> is in the sector, guns at the ready.",
 			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
@@ -37,8 +37,8 @@
 		"DifficultyRating": 11,
 		"Values": {
 			"name": "Verdant Interrogator",
-			"weapon_id_0": "blossom_cannon",
-			"weapon_id_1": "heavy_blossom_cannon",
+			"weapon_id_0": "BlossomCannon1",
+			"weapon_id_1": "HvyBlossomCannon1",
 			"look_text": "A <> is in the sector, guns at the ready.",
 			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
@@ -59,7 +59,7 @@
 		"DifficultyRating": 2,
 		"Values": {
 			"name": "Verdant Observer",
-			"weapon_id_0": "blossom_cannon",
+			"weapon_id_0": "BlossomCannon1",
 			"look_text": "A <> is in the sector, guns at the ready.",
 			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
