@@ -41,10 +41,10 @@ namespace Controller
             var shipData = new List<TagString>
             {
                 $"--- Ship ---".Tag(),
-                $"Captain: {ship.Values[ShipStats.CaptainName]}".Tag(),
+                $"Captain: {ship.Values[ValueKeys.CaptainName]}".Tag(),
                 $"Hull: {ship.Stats[StatKeys.Hull]}/{ship.Stats[StatKeys.MaxHull]}".Tag(),
                 $"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}".Tag(),
-                $"Warp Drive: {(ship.Stats[ShipStats.WarpDriveReady] == 1 ? "Ready" : "Cold")}".Tag()
+                $"Warp Drive: {(ship.Stats[StatKeys.WarpDriveReady] == 1 ? "Ready" : "Cold")}".Tag()
             };
 
             shipData.Add($"--- Hardware ---".Tag());
@@ -61,8 +61,8 @@ namespace Controller
 
             shipData.Add("--- Cargo ---".Tag());
             shipData.Add($"Credits: {ship.Stats[StatKeys.Credits]}".Tag());
-            shipData.Add($"Resourcium: {ship.Stats[StatKeys.Resourcium]}".Tag());
-            shipData.Add($"Scrap: {ship.Stats[StatKeys.Scrap]}".Tag());
+            shipData.Add($"Resourcium: {ship.Resourcium}".Tag());
+            shipData.Add($"Scrap: {ship.Scrap}".Tag());
 			
 			if (ship.Stats[StatKeys.Techanite] > 0)
 			{

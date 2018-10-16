@@ -23,18 +23,6 @@ namespace Items
             Heavy = 1
         }
         
-        public string Description
-        {
-            get
-            {
-                return Values[ValueKeys.DialogueText];
-            }
-            protected set
-            {
-                Values[ValueKeys.DialogueText] = value;
-            }
-        }
-        
         public WeaponTypes WeaponType
         {
             get
@@ -71,6 +59,18 @@ namespace Items
             }
         }
         
+        public string Description
+        {
+            get
+            {
+                return Values[ValueKeys.DialogueText];
+            }
+            protected set
+            {
+                Values[ValueKeys.DialogueText] = value;
+            }
+        }
+        
         public Weapon(FlexEntityDto dto) : base(dto) { }
 
         public Weapon(FlexData data) : base(data) { }
@@ -89,7 +89,7 @@ namespace Items
         
         public override TagString GetLookText()
         {
-            return Values[ValueKeys.LookText].Encode(this, LinkColors.Weapon).Tag();
+            return LookText.Encode(this, LinkColors.Weapon).Tag();
         }
         
         public class PickupWeaponAction : SimpleAction

@@ -45,8 +45,21 @@ namespace Models.Stats
         #region Items
         
         public const string WeaponType = "weapon_type";
+
+        public static readonly string[] WeaponWeights = {
+            "weapon_id_0_weight",
+            "weapon_id_1_weight",
+            "weapon_id_2_weight",
+            "weapon_id_3_weight",
+            "weapon_id_4_weight"
+        };
         
-        
+        #endregion
+
+        #region CommandShip
+
+        public const string WarpDriveReady = "warp_drive_ready";
+
         #endregion
     }
 
@@ -66,26 +79,25 @@ namespace Models.Stats
         public const string HeavyWeapon = "heavy_weapon";
         
         public const string WeaponId = "weapon_id";
-    }
+        
+        public const string CaptainName = "captain_name";
 
-    public static class StatsHelper
-    {
-        public static string[] WeaponIds = {
+        public static string DialogueStateText(string state)
+        {
+            return $"{DialogueText}_{state}";
+        }
+        
+        public static readonly string[] WeaponIds = {
             "weapon_id_0",
             "weapon_id_1",
             "weapon_id_2",
             "weapon_id_3",
             "weapon_id_4"
         };
-        
-        public static string[] WeaponWeights = {
-            "weapon_id_0_weight",
-            "weapon_id_1_weight",
-            "weapon_id_2_weight",
-            "weapon_id_3_weight",
-            "weapon_id_4_weight"
-        };
-        
+    }
+
+    public static class StatsHelper
+    {
         public static Dictionary<string, int> EmptyStatsBlock()
         {
             return new Dictionary<string, int>

@@ -43,11 +43,6 @@ namespace Models.Actions
             }
         }
 
-        public IRoomActor Target;
-        public IRoomActor Source;
-        public Dictionary<string, int> Stats;
-        public Dictionary<string, string> Values;
-        
         public int Energy
         {
             get
@@ -59,6 +54,11 @@ namespace Models.Actions
                 Stats[StatKeys.Energy] = value;
             }
         }
+
+        public IRoomActor Target;
+        public IRoomActor Source;
+        public Dictionary<string, int> Stats;
+        public Dictionary<string, string> Values;
 
         private List<EventTag> _actionTags;
         protected List<EventTag> ActionTags
@@ -87,6 +87,7 @@ namespace Models.Actions
                 Source.Stats[StatKeys.Energy] -= Energy;
             }
 
+            //  TODO this is wierd. we should use the template pattern so we can always call this logic
             return null;
         }
         
