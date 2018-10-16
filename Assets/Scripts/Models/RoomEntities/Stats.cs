@@ -46,27 +46,46 @@ namespace Models.Stats
         
         public const string WeaponType = "weapon_type";
         
+        
         #endregion
     }
 
     public static class ValueKeys
     {
-        public static readonly string Name = "name";
-        public static readonly string LookText = "look_text";
-        public static readonly string LookTextAggro = "look_text_aggro";
-        public static readonly string DialogueText = "dialogue_text";
-        public static readonly string HazardDamageText = "hazard_damage_text";
-        public static readonly string TelegraphDamageText = "telegraph_damage_text";
+        public const string Name = "name";
+        public const string LookText = "look_text";
+        public const string LookTextAggro = "look_text_aggro";
+        public const string DialogueText = "dialogue_text";
+        public const string HazardDamageText = "hazard_damage_text";
+        public const string TelegraphDamageText = "telegraph_damage_text";
+
+        public const string DialogueUnequippedText = "dialogue_unequipped_text";
+        public const string DialogueEquippedText = "dialogue_equipped_text";
+
+        public const string LightWeapon = "light_weapon";
+        public const string HeavyWeapon = "heavy_weapon";
         
-        public static readonly string DialogueUnequippedText = "dialogue_unequipped_text";
-        public static readonly string DialogueEquippedText = "dialogue_equipped_text";
-        
-        public static readonly string LightWeapon = "light_weapon";
-        public static readonly string HeavyWeapon = "heavy_weapon";
+        public const string WeaponId = "weapon_id";
     }
 
     public static class StatsHelper
     {
+        public static string[] WeaponIds = {
+            "weapon_id_0",
+            "weapon_id_1",
+            "weapon_id_2",
+            "weapon_id_3",
+            "weapon_id_4"
+        };
+        
+        public static string[] WeaponWeights = {
+            "weapon_id_0_weight",
+            "weapon_id_1_weight",
+            "weapon_id_2_weight",
+            "weapon_id_3_weight",
+            "weapon_id_4_weight"
+        };
+        
         public static Dictionary<string, int> EmptyStatsBlock()
         {
             return new Dictionary<string, int>

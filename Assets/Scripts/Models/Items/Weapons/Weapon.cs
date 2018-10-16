@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Models;
 using Models.Actions;
 using Models.Dtos;
@@ -74,7 +75,17 @@ namespace Items
 
         public Weapon(FlexData data) : base(data) { }
 
-        public abstract IRoomAction GetAttackAction(IRoomActor src, IRoomActor target);
+        public abstract IRoomAction GetAttackAction(IRoom room, IRoomActor src, IRoomActor target);
+
+        public void WithDependentId(string id)
+        {
+            DependentActorId = id;
+        }
+        
+        public void SetHidden(bool hidden)
+        {
+            IsHidden = hidden;
+        }
         
         public override TagString GetLookText()
         {
@@ -101,7 +112,7 @@ namespace Items
 
                 if (Source == room.PlayerShip)
                 {
-                    var previousWeapon = room.PlayerShip.EquipWeapon(weapon);
+                    var previousWeapon = room.PlayerShip.SwapWeapon(weapon);
                     weapon.IsDestroyed = true;
                     weapon.ChangeState((int) WeaponState.Equipped);
 
@@ -110,16 +121,8 @@ namespace Items
                     
                     return new List<TagString>()
                     {
-                        new TagString()
-                        {
-                            Text = $"You pickup the <>".Encode(weapon, LinkColors.Weapon),
-                            Tags = new List<EventTag> { }
-                        },
-                        new TagString()
-                        {
-                            Text = $"You drop your <>".Encode(previousWeapon, LinkColors.Weapon),
-                            Tags = new List<EventTag> { }
-                        },
+                        $"You pickup the <>".Encode(weapon, LinkColors.Weapon).Tag(),
+                        $"You drop your <>".Encode(previousWeapon, LinkColors.Weapon).Tag()
                     };
                 }
                 

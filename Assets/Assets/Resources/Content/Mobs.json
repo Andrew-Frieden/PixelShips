@@ -1,6 +1,6 @@
 [
 	{
-		"EntityType": "Models.RoomEntities.Mobs.VerdantInformantMob",
+		"EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
 		"ActorFlavors": [
 			2
 		],
@@ -9,17 +9,19 @@
 		],
 		"Stats": {
 			"max_hull": 8,
-			"current_hull": 8
+			"current_hull": 8,
+			"weapon_id_0_weight": "100",
 		},
 		"DifficultyRating": 4,
 		"Values": {
 			"name": "Verdant Informant",
+			"weapon_id_0": "blossom_cannon",
 			"look_text": "A <> is in the sector, guns at the ready.",
 			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
 	},
 	{
-		"EntityType": "Models.RoomEntities.Mobs.VerdantInterrogatorMob",
+		"EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
 		"ActorFlavors": [
 			2
 		],
@@ -28,17 +30,21 @@
 		],
 		"Stats": {
 			"max_hull": 35,
-			"current_hull": 35
+			"current_hull": 35,
+			"weapon_id_0_weight": 50,
+			"weapon_id_1_weight": 50
 		},
 		"DifficultyRating": 11,
 		"Values": {
 			"name": "Verdant Interrogator",
+			"weapon_id_0": "blossom_cannon",
+			"weapon_id_1": "heavy_blossom_cannon",
 			"look_text": "A <> is in the sector, guns at the ready.",
 			"look_text_aggro": "A <> is maneuvering to attack position."
 		}
 	},
 	{
-		"EntityType": "Models.RoomEntities.Mobs.VerdantObserverMob",
+		"EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
 		"ActorFlavors": [
 			2
 		],
@@ -47,11 +53,13 @@
 		],
 		"Stats": {
 			"max_hull": 3,
-			"current_hull": 3
+			"current_hull": 3,
+			"weapon_id_0_weight": "100",
 		},
 		"DifficultyRating": 2,
 		"Values": {
 			"name": "Verdant Observer",
+			"weapon_id_0": "blossom_cannon",
 			"look_text": "A <> is in the sector, guns at the ready.",
 			"look_text_aggro": "A <> is maneuvering to attack position."
 		}

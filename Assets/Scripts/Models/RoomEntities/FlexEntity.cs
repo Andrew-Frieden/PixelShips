@@ -69,7 +69,7 @@ namespace Models
             }
         }
 
-        public int DependentActorId { get; }
+        public string DependentActorId { get; protected set; }
 
         public virtual bool IsDestroyed
         {
@@ -118,6 +118,7 @@ namespace Models
 
         public abstract IRoomAction MainAction(IRoom room);
         public abstract void CalculateDialogue(IRoom room);
+        
         public abstract TagString GetLookText();
 
         public virtual IRoomAction CleanupStep(IRoom room)

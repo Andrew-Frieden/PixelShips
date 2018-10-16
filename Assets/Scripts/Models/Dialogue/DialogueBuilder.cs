@@ -91,8 +91,8 @@ namespace Models.Dialogue
 
             return Init()
                 .AddMainText(mainText)
-                .AddOption(lightWeapon.Name, lightWeapon.GetAttackAction(playerShip, target))
-                .AddOption(heavyWeapon.Name, heavyWeapon.GetAttackAction(playerShip, target))
+                .AddOption(lightWeapon.Name, lightWeapon.GetAttackAction(room, playerShip, target))
+                .AddOption(heavyWeapon.Name, heavyWeapon.GetAttackAction(room, playerShip, target))
                     .Build();
         }
 

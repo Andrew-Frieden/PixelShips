@@ -8,8 +8,18 @@ namespace Models.Factories
     {
         public CommandShip GenerateCommandShip(RoomFactory roomFactory)
         {
-            return new CommandShip(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Light), 
-                                   roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Heavy));
+            var ship = new CommandShip();
+            
+            ship.SwapWeapon(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Light));
+            ship.SwapWeapon(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Heavy));
+            
+            ship.EquipHardware(new HazardDetector());
+            ship.EquipHardware(new MobDetector());
+            ship.EquipHardware(new TownDetector());
+            ship.EquipHardware(new GatheringBoost());
+            ship.EquipHardware(new HazardMitigation());
+            
+            return ship;
         }
     }
 }

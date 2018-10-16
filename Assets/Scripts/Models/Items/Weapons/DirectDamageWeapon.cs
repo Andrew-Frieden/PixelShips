@@ -18,7 +18,7 @@ namespace Items
             return new DoNothingAction(this);
         }
 
-        public override IRoomAction GetAttackAction(IRoomActor src, IRoomActor target)
+        public override IRoomAction GetAttackAction(IRoom room, IRoomActor src, IRoomActor target)
         {
             return new AttackAction(src, target, BaseDamage, Name, Energy);
         }
@@ -35,7 +35,7 @@ namespace Items
                     break;
                 case (int) WeaponState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText(Values[ValueKeys.DialogueEquippedText].Encode(this, LinkColors.Weapon))
+                        .AddMainText($"<>{Env.ll}{Description}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Weapon))
                         .Build();
                     break;
             }

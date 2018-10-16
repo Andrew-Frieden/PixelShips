@@ -7,10 +7,11 @@
 			"energy": 0
 		},
 		"Values": {
+			"weapon_id": "blossom_cannon",
 			"name": "Blossom Cannon",
 			"look_text": "A <> drifts through space.",
-			"dialogue_unequipped_text": "A <> is floating through space. It looks like a simple cannon.",
-			"dialogue_equipped_text": "A <> is currently equipped to your ship. You cannot drop it, it must be replaced."
+			"dialogue_text": "This is a basic verdant cannon.",
+			"dialogue_unequipped_text": "A <> is floating through space."
 		}
 	},
 	{
@@ -21,10 +22,11 @@
 			"energy": 2
 		},
 		"Values": {
+			"weapon_id": "heavy_blossom_cannon",
 			"name": "Heavy Blossom Cannon",
 			"look_text": "A <> drifts through space.",
-			"dialogue_unequipped_text": "A <> is floating through space. It looks like a heavy cannon.",
-			"dialogue_equipped_text": "A <> is currently equipped to your ship. You cannot drop it, it must be replaced."
+			"dialogue_text": "This is a sophisticated verdant cannon.",
+			"dialogue_unequipped_text": "A <> is floating through space. It looks like a heavy cannon."
 		}
 	}
 ]

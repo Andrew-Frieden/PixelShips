@@ -6,7 +6,7 @@ namespace Models
 {
     public interface IRoomActor : ITextEntity
     {
-        int DependentActorId { get; }
+        string DependentActorId { get; }
         
         bool IsDestroyed { get; set; }
         bool IsHidden { get; }

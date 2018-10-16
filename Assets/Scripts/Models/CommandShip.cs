@@ -106,7 +106,7 @@ namespace Models
 
         public bool IsAttackable { get { return true; } set { throw new Exception("Tried to set CommandShip CanCombat to true"); } }
 
-        public int DependentActorId { get; }
+        public string DependentActorId { get; }
 
         public bool IsDestroyed
         {
@@ -204,20 +204,10 @@ namespace Models
                 .Build();
         }
         
-        public CommandShip(Weapon lightWeapon, Weapon heavyWeapon)
+        public CommandShip()
         {
             Id = Guid.NewGuid().ToString();
             _hardware = new List<Hardware>();
-
-            //  temporary testing
-            EquipHardware(new HazardDetector());
-            EquipHardware(new MobDetector());
-            EquipHardware(new TownDetector());
-            EquipHardware(new GatheringBoost());
-            EquipHardware(new HazardMitigation());
-            
-            LightWeapon = lightWeapon;
-            HeavyWeapon = heavyWeapon;
         }
 
         public CommandShip(ShipDto dto)
@@ -231,6 +221,9 @@ namespace Models
             {
                 _hardware.Add((Hardware)h.FromDto());
             }
+
+            LightWeapon = (Weapon) dto.LightWeapon.FromDto();
+            HeavyWeapon = (Weapon) dto.HeavyWeapon.FromDto();
         }
 
         private string PickRandomCaptainName()
@@ -259,7 +252,7 @@ namespace Models
         
         public Weapon LightWeapon { get; private set; }
         public Weapon HeavyWeapon { get; private set; }
-        public Weapon EquipWeapon(Weapon weapon)
+        public Weapon SwapWeapon(Weapon weapon)
         {
             if (weapon.WeaponType == Weapon.WeaponTypes.Light)
             {

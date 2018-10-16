@@ -44,4 +44,15 @@ public static class RoomHelpers
             return null;
         }
     }
+
+    public static IEnumerable<IRoomActor> FindDependentActors(this IRoom room, string parentId)
+    {
+        var actors = room.Entities.Where(e => e.DependentActorId == parentId).ToList();
+
+        if (!actors.Any())
+        {
+            Debug.Log($"Warning: Cannot find actor for parent id: {parentId}");
+        }
+        return actors;
+    }
 }

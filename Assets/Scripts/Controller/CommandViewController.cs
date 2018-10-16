@@ -69,7 +69,13 @@ namespace Controller
                 }
             };
 
-            room.Entities.ForEach(e => lookResults.Add(e.GetLookText()));
+            foreach (var entity in room.Entities)
+            {
+                if (!entity.IsHidden)
+                {
+                    lookResults.Add(entity.GetLookText());
+                }
+            }
             return lookResults;
         }
 

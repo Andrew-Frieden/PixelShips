@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EnumerableExtensions;
 using GameData;
 using Items;
 using Models.Dtos;
+using Models.RoomEntities.Mobs;
 using Models.Stats;
+using UnityEngine;
 
 namespace Models.Factories
 {
@@ -159,14 +162,14 @@ namespace Models.Factories
                 {
                     var data = Mobs.Where(h => h.RoomFlavors.Contains(template.Flavor));
                     
-                    if (7 <= UnityEngine.Random.Range(0, 11))
+                    if (2 <= UnityEngine.Random.Range(0, 11))
                     {
-                        actors.Add(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom().FromFlexData());
+                        actors.AddRange(CreateMob(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom()));
                     }
                     else
                     {
-                        actors.Add(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom().FromFlexData());
-                        actors.Add(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom().FromFlexData());
+                        actors.AddRange(CreateMob(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom()));
+                        actors.AddRange(CreateMob(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom()));
                     }
                 }
                 else
@@ -214,6 +217,48 @@ namespace Models.Factories
                 }
             }
 
+            return actors;
+        }
+
+        //Creates a Mob and its dependent weapon entities (with dependent Id's set)
+        private IEnumerable<IRoomActor> CreateMob(FlexData mobData)
+        {
+            //Just for debugging
+            var hasWeapon = false;
+            
+            var actors = new List<IRoomActor>();
+            var mob = mobData.FromFlexData();
+           
+            foreach (var weaponKey in StatsHelper.WeaponIds)
+            {
+                if (mob.Values.ContainsKey(weaponKey))
+                {
+                    hasWeapon = true;
+                    
+                    var weapon = Weapons.First(wpn => wpn.Values[ValueKeys.WeaponId] == mob.Values[weaponKey]).FromFlexData();
+
+                    if (!(weapon is Weapon))
+                    {
+                        throw new InvalidCastException("FlexData is not an instance of Weapon");
+                    }
+
+                    ((Weapon) weapon).SetHidden(true);
+                    ((Weapon) weapon).WithDependentId(mob.Id);
+                    actors.Add(weapon);
+                }
+            }
+
+            if (!hasWeapon)
+            {
+                Debug.Log("Warning: Mob created with no weapons.");
+            }
+
+            if (!(mob is Mob))
+            {
+                throw new InvalidCastException("FlexData is not an instance of Mob");
+            }
+            
+            actors.Add(mob);
             return actors;
         }
     }

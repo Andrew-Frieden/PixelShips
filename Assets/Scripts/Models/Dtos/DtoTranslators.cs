@@ -60,7 +60,9 @@ namespace Models.Dtos
                 Stats = ship.Stats,
                 Values = ship.Values,
                 ContentDto = ship.DialogueContent?.ToDto(),
-                HardwareData = new List<FlexEntityDto>()
+                HardwareData = new List<FlexEntityDto>(),
+                LightWeapon = ship.LightWeapon.ToDto(),
+                HeavyWeapon = ship.HeavyWeapon.ToDto()
             };
 
             foreach (var h in ship.Hardware)

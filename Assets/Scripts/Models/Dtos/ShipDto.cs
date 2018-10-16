@@ -8,6 +8,8 @@ namespace Models.Dtos
         public Dictionary<string, int> Stats;
         public Dictionary<string, string> Values;
         public List<FlexEntityDto> HardwareData;
+        public FlexEntityDto LightWeapon;
+        public FlexEntityDto HeavyWeapon;
         public ABContentDto ContentDto;
     }
 }
