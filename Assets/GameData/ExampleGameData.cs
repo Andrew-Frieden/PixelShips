@@ -10,6 +10,7 @@ namespace GameData
         {
             new FlexData()
             {
+                Powerlevel = 1,
                 EntityType = "TextSpace.RoomEntities.ScrapDealerNpc",
                 ActorFlavors = new RoomActorFlavor[] { RoomActorFlavor.Npc },
                 RoomFlavors = new RoomFlavor[] { RoomFlavor.Empty, RoomFlavor.Nebula },
@@ -17,11 +18,16 @@ namespace GameData
                 {
                     { ValueKeys.Name, "Scrap Dealer" },
                     { ValueKeys.DialogueText, $"The <> trade vessel looks pretty shoddy. Cables and spare parts are everywhere." },
+                    { ValueKeys.LookText, "A <> looks to be open for business." }
                 },
-                Stats = new Dictionary<string, int> { }
+                Stats = new Dictionary<string, int> 
+                {
+                    { StatKeys.ScrapToResourcium, 8 }
+                }
             },
             new FlexData()
             {
+                Powerlevel = 1,
                 EntityType = "TextSpace.RoomEntities.ScrapDealerNpc",
                 ActorFlavors = new RoomActorFlavor[] { RoomActorFlavor.Npc },
                 RoomFlavors = new RoomFlavor[] { RoomFlavor.Empty, RoomFlavor.Nebula },
@@ -29,8 +35,12 @@ namespace GameData
                 {
                     { ValueKeys.Name, "Shady Scrap Dealer" },
                     { ValueKeys.DialogueText, $"The <> trade vessel looks real shoddy. Cables and spare parts are everywhere." },
+                    { ValueKeys.LookText, "A <> looks a bit sketchy." }
                 },
-                Stats = new Dictionary<string, int> { }
+                Stats = new Dictionary<string, int> 
+                {
+                    { StatKeys.ScrapToResourcium, 10 }
+                }
             }
         };
 

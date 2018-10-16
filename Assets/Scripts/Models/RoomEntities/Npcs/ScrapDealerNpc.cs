@@ -12,6 +12,12 @@ namespace TextSpace.RoomEntities
 {
     public class ScrapDealerNpc : FlexEntity
     {
+        private int ScrapToResourcium
+        {
+            get { return Stats[StatKeys.ScrapToResourcium]; }
+            set { Stats[StatKeys.ScrapToResourcium] = value; }
+        }
+    
         public ScrapDealerNpc(FlexData data) : base(data)
         {
             IsAttackable = false;
@@ -32,7 +38,7 @@ namespace TextSpace.RoomEntities
             switch (CurrentState)
             {
                 case (int)ScrapDealerNpcState.HasDeals:
-                    var sellAction = new SellScrapAction(room.PlayerShip, this, 10);
+                    var sellAction = new SellScrapAction(room.PlayerShip, this, ScrapToResourcium);
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText(DialogueText.Encode(this, LinkColors.NPC))
                         .AddOption(sellAction.OptionText(room), sellAction)
@@ -47,7 +53,7 @@ namespace TextSpace.RoomEntities
 
         public override TagString GetLookText()
         {
-            return "A <> looks to be open for business.".Encode(this, LinkColors.NPC).Tag();
+            return LookText.Encode(this, LinkColors.NPC).Tag();
         }
 
         public override IRoomAction MainAction(IRoom room)
@@ -59,17 +65,10 @@ namespace TextSpace.RoomEntities
     public class SellScrapAction : SimpleAction
     {
         //  about 10:1
-        private const string scrapToResourcumKey = "scrapToResourcium";
-        public int ScrapToResourcium
+        private int ScrapToResourcium
         {
-            get
-            {
-                return Stats[scrapToResourcumKey];
-            }
-            set
-            {
-                Stats[scrapToResourcumKey] = value;
-            }
+            get { return Stats[StatKeys.ScrapToResourcium]; }
+            set { Stats[StatKeys.ScrapToResourcium] = value; }
         }
 
         public SellScrapAction(IRoomActor src, IRoomActor target, int scrapToResourcium) : base()
@@ -102,7 +101,7 @@ namespace TextSpace.RoomEntities
             }
             else
             {
-                return $"Trade scrap for resourcium.{Env.l}(Not enough scrap)";
+                return $"Trade scrap for resourcium.{Env.ll}(Not enough scrap)";
             }
         }
 

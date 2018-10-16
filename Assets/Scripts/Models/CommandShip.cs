@@ -10,6 +10,7 @@ using Items;
 using UnityEngine;
 using Models.Dtos;
 using Models.Factories;
+using TextSpace.Events;
 
 namespace Models
 {
@@ -36,9 +37,10 @@ namespace Models
         {
             get
             {
-                return Stats[StatKeys.MaxHull];
+                var maxHull = Stats[StatKeys.MaxHull];
+                maxHull += CheckHardware<MaxHullBonus>() ? MaxHullBonus.HullBonus : 0;
+                return maxHull;
             }
-
             set
             {
                 Stats[StatKeys.MaxHull] = value;
@@ -88,7 +90,7 @@ namespace Models
                         [StatKeys.WarpDriveReady] = 0,
                         [StatKeys.Scrap] = 21,
                         [StatKeys.Resourcium] = 0,
-                        [StatKeys.Techanite] = 0,
+                        //[StatKeys.Techanite] = 0,
                         [StatKeys.MachineParts] = 0,
                         [StatKeys.PulsarCoreFragments] = 0,
                         [StatKeys.Credits] = 0,
@@ -307,12 +309,23 @@ namespace Models
             if (_hardware.Count < Stats[StatKeys.MaxHardwareSlots])
             {
                 _hardware.Add(h);
+
+                if (h is MaxHullBonus)
+                    EventTagBroadcaster.Broadcast(EventTag.PlayerHullModified);
             }
         }
 
         public void DropHardware(Hardware h)
         {
-            _hardware.Remove(h);            
+            _hardware.Remove(h);
+
+            if (h is MaxHullBonus)
+            {
+                if (Hull > MaxHull)
+                    Hull = MaxHull;
+
+                EventTagBroadcaster.Broadcast(EventTag.PlayerHullModified);
+            }
         }
 
         public bool CheckHardware<T>() where T : Hardware

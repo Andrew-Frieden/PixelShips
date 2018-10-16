@@ -2,7 +2,6 @@
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
-using Models.Stats;
 using System;
 using System.Collections.Generic;
 using TextEncoding;
@@ -45,21 +44,14 @@ namespace Items
         {
             return new DoNothingAction(this);
         }
-
-        public Hardware(FlexEntityDto dto) : base(dto)
+        
+        public Hardware(FlexData data) : base(data)
         {
-        }
-
-        public Hardware(bool equipped) : base()
-        {
-            IsAttackable = false;
             IsHostile = false;
-
-            if (equipped)
-                ChangeState((int)HardwareState.Equipped);
-            else
-                ChangeState((int)HardwareState.Unequipped);
+            IsAttackable = false;
         }
+
+        public Hardware(FlexEntityDto dto) : base(dto) { }
 
         public Hardware() : base()
         {
@@ -83,16 +75,8 @@ namespace Items
         }
     }
 
-    public class EmptyHardware
-    {
-        public const string Key = "empty_hardware";
-        public string Name => "Empty Hardware";
-    }
-
     public class TownDetector : Hardware
     {
-        //public const string Key = "town_detector";
-
         public TownDetector() : base()
         {
             Name = "Cartographic Processor";
@@ -100,12 +84,11 @@ namespace Items
         }
 
         public TownDetector(FlexEntityDto dto) : base(dto) { } 
+        public TownDetector(FlexData data) : base(data) { } 
     }
 
     public class HazardDetector : Hardware
     {
-        //public const string Key = "hazard_detector";
-
         public HazardDetector() : base()
         {
             Name = "Deep Field Scanner";
@@ -113,12 +96,11 @@ namespace Items
         }
 
         public HazardDetector(FlexEntityDto dto) : base(dto) { }
+        public HazardDetector(FlexData data) : base(data) { } 
     }
 
     public class MobDetector : Hardware
     {
-        //public const string Key = "mob_detector";
-
         public MobDetector() : base()
         {
             Name = "Signature Detector";
@@ -126,12 +108,11 @@ namespace Items
         }
 
         public MobDetector(FlexEntityDto dto) : base(dto) { }
+        public MobDetector(FlexData data) : base(data) { } 
     }
 
     public class GatheringBoost : Hardware
     {
-        //public const string Key = "gathering_boost";
-
         public GatheringBoost() : base()
         {
             Name = "Robotic Manipulator";
@@ -139,6 +120,7 @@ namespace Items
         }
 
         public GatheringBoost(FlexEntityDto dto) : base(dto) { }
+        public GatheringBoost(FlexData data) : base(data) { } 
 
         private const float boost = 0.5f;
 
@@ -150,15 +132,28 @@ namespace Items
 
     public class HazardMitigation : Hardware
     {
-        //public const string Key = "hazard_mitigation";
-
         public HazardMitigation() : base()
         {
             Name = "Hazard Plating";
-            DialogueText = "Advanced hull reinforcements that provide significant resistance to the hazards of space.";
+            DialogueText = "Advanced hull polarization that provides significant resistance to the hazards of space.";
         }
 
         public HazardMitigation(FlexEntityDto dto) : base(dto) { }
+        public HazardMitigation(FlexData data) : base(data) { }
+    }
+    
+    public class MaxHullBonus : Hardware
+    {
+        public static readonly int HullBonus = 10;
+        
+        public MaxHullBonus() : base()
+        {
+            Name = "Armor Plating";
+            DialogueText = "Hull plating that provides additional durability.";
+        }
+        
+        public MaxHullBonus(FlexEntityDto dto) : base(dto) { }
+        public MaxHullBonus(FlexData data) : base(data) { }
     }
 
     public class DropHardwareAction : SimpleAction

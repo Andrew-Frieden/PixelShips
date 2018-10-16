@@ -17,7 +17,8 @@ namespace Models.Factories
             ship.EquipHardware(new MobDetector());
             ship.EquipHardware(new TownDetector());
             ship.EquipHardware(new GatheringBoost());
-            ship.EquipHardware(new HazardMitigation());
+            ship.EquipHardware(new MaxHullBonus());
+            //ship.EquipHardware(new HazardMitigation());
             
             return ship;
         }

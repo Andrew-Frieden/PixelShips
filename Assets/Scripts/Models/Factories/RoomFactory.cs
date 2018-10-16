@@ -164,12 +164,12 @@ namespace Models.Factories
                     
                     if (2 <= UnityEngine.Random.Range(0, 11))
                     {
-                        actors.AddRange(CreateMob(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom()));
+                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel < template.Difficulty).GetRandom()));
                     }
                     else
                     {
-                        actors.AddRange(CreateMob(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom()));
-                        actors.AddRange(CreateMob(data.Where(d => d.DifficultyRating < template.Difficulty).GetRandom()));
+                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel < template.Difficulty).GetRandom()));
+                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel < template.Difficulty).GetRandom()));
                     }
                 }
                 else
@@ -185,7 +185,7 @@ namespace Models.Factories
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))
             {
-                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.DifficultyRating < 5).GetRandom();
+                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel < 5).GetRandom();
                 actors.Add(data.FromFlexData());
             }
 

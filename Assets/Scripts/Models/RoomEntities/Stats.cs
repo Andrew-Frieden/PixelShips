@@ -28,8 +28,13 @@ namespace Models.Stats
         public const string TimeToLive = "time_to_live";
         public const string BaseDamage = "base_damage";
         public const string DamageReduction = "damage_reduction";
-        
+
         #endregion
+
+        #region NPCs
+        public const string ScrapToResourcium = "scrap_to_resourcium";
+        #endregion
+
 
         #region Cargo
 

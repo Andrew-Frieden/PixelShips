@@ -30,7 +30,8 @@ namespace Controller
 		private CommandShip PlayerShip { get; set; }
 
 		//These track the ships 'current' before any actions/tick changes the values
-		private int CurrentHull { get; set; }
+        private int CurrentHull { get; set; }
+		private int CurrentMaxHull { get; set; }
 		private int CurrentShield { get; set; }
 		private int CurrentEnergy { get; set; }
 
@@ -38,12 +39,13 @@ namespace Controller
 		{
 			PlayerShip = room.PlayerShip;
 		
-			CurrentHull = PlayerShip.Stats[StatKeys.Hull];
+			CurrentHull = PlayerShip.Hull;
+            CurrentMaxHull = PlayerShip.MaxHull;
 			CurrentShield = PlayerShip.Stats[StatKeys.Shields];
 			CurrentEnergy = PlayerShip.Stats[StatKeys.Energy];
 		
 			_shield.text = "Shield: " + PlayerShip.Stats[StatKeys.Shields] + "/" + PlayerShip.Stats[StatKeys.MaxShields];
-			_hull.text = "Hull: " + PlayerShip.Stats[StatKeys.Hull] + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+			_hull.text = "Hull: " + PlayerShip.Hull + "/" + PlayerShip.MaxHull;
 			_energy.text = "Energy: " + PlayerShip.Stats[StatKeys.Energy] + "/" + PlayerShip.Stats[StatKeys.MaxEnergy];
 
             UpdateSector(room);
@@ -56,8 +58,14 @@ namespace Controller
 
         private void RespondToEventTag(EventTag tag)
         {
+            if (PlayerShip == null)
+                return;
+                
             switch (tag)
             {
+                case EventTag.PlayerHullModified:
+                    UpdateHull();
+                    break;
                 case EventTag.PlayerDamaged:
                     UpdateShield();
                     UpdateHull();
@@ -114,26 +122,34 @@ namespace Controller
 			}
 		}
 	
+        
+    
 		private IEnumerator UpdateHullText()
-		{
-			if (CurrentHull > PlayerShip.Stats[StatKeys.Hull])
+		{        
+			if (CurrentHull > PlayerShip.Hull)
 			{
-				while (PlayerShip.Stats[StatKeys.Hull]  < CurrentHull)
+				while (PlayerShip.Hull  < CurrentHull)
 				{
 					CurrentHull -= 1;
-					_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+					_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.MaxHull;
 					yield return new WaitForSeconds(0.25f);
 				}
 			}
-			else
+			else 
 			{
-				while (PlayerShip.Stats[StatKeys.Hull]  > CurrentHull)
+				while (PlayerShip.Hull  > CurrentHull)
 				{
 					CurrentHull += 1;
-					_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.Stats[StatKeys.MaxHull];
+					_hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.MaxHull;
 					yield return new WaitForSeconds(0.25f);
 				}
 			}
+            
+            if (CurrentMaxHull != PlayerShip.MaxHull)
+            {
+                CurrentMaxHull = PlayerShip.MaxHull;
+                _hull.text = "Hull: " + CurrentHull + "/" + PlayerShip.MaxHull;
+            }
 		}
 		
 		private IEnumerator UpdateEnergyText()

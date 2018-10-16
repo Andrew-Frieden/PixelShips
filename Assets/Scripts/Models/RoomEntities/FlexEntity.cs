@@ -155,12 +155,11 @@ namespace Models
     public class FlexData
     {
         public string EntityType;
-        public int DifficultyRating;
-        public Dictionary<string, int> Stats;
-        public Dictionary<string, string> Values;
-
-        //  TODO not sure if this is the right place to put these - they also probably need to be on the FlexEntity themselves
+        public int Powerlevel;
         public IEnumerable<RoomFlavor> RoomFlavors;
         public IEnumerable<RoomActorFlavor> ActorFlavors;
+
+        public Dictionary<string, int> Stats;
+        public Dictionary<string, string> Values;
     }
 }

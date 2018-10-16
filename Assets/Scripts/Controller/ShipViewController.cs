@@ -42,7 +42,7 @@ namespace Controller
             {
                 $"--- Ship ---".Tag(),
                 $"Captain: {ship.Values[ValueKeys.CaptainName]}".Tag(),
-                $"Hull: {ship.Stats[StatKeys.Hull]}/{ship.Stats[StatKeys.MaxHull]}".Tag(),
+                $"Hull: {ship.Hull}/{ship.MaxHull}".Tag(),
                 $"Shields: {ship.Stats[StatKeys.Shields]}/{ship.Stats[StatKeys.MaxShields]}".Tag(),
                 $"Warp Drive: {(ship.Stats[StatKeys.WarpDriveReady] == 1 ? "Ready" : "Cold")}".Tag()
             };
@@ -64,29 +64,29 @@ namespace Controller
             shipData.Add($"Resourcium: {ship.Resourcium}".Tag());
             shipData.Add($"Scrap: {ship.Scrap}".Tag());
 			
-			if (ship.Stats[StatKeys.Techanite] > 0)
-			{
-				shipData.Add(new TagString()
-				{
-					Text = "Techanite: " + ship.Stats[StatKeys.Techanite]
-				});
-			}
+			//if (ship.Stats[StatKeys.Techanite] > 0)
+			//{
+			//	shipData.Add(new TagString()
+			//	{
+			//		Text = "Techanite: " + ship.Stats[StatKeys.Techanite]
+			//	});
+			//}
 			
-			if (ship.Stats[StatKeys.MachineParts] > 0)
-			{
-				shipData.Add(new TagString()
-				{
-					Text = "Machine Parts: " + ship.Stats[StatKeys.MachineParts]
-				});
-			}
+			//if (ship.Stats[StatKeys.MachineParts] > 0)
+			//{
+			//	shipData.Add(new TagString()
+			//	{
+			//		Text = "Machine Parts: " + ship.Stats[StatKeys.MachineParts]
+			//	});
+			//}
 			
-			if (ship.Stats[StatKeys.PulsarCoreFragments] > 0)
-			{	
-				shipData.Add(new TagString()
-				{
-					Text = "Pulsar Core Fragments: " + ship.Stats[StatKeys.PulsarCoreFragments]
-				});
-			}
+			//if (ship.Stats[StatKeys.PulsarCoreFragments] > 0)
+			//{	
+			//	shipData.Add(new TagString()
+			//	{
+			//		Text = "Pulsar Core Fragments: " + ship.Stats[StatKeys.PulsarCoreFragments]
+			//	});
+			//}
 
 			return shipData;
 		}
