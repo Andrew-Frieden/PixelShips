@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
+	[SerializeField] private BaseViewController _baseViewController;
 
     private GamePhase _currentGamePhase = GamePhase.BOOT;
 	public GamePhase CurrentGamePhase => _currentGamePhase;
@@ -65,9 +66,13 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	{
         _saveLoadController = new SaveLoadController();
 		_saveLoadController.Init();
+
+		var gameContentDto = new ContentLoadController().Load();
 		
-		RoomFactory = new RoomFactory(new ContentLoadController().Load());
+		RoomFactory = new RoomFactory(gameContentDto);
 		ShipFactory = new ShipFactory();
+		
+		_baseViewController.InitContentLoadResults(gameContentDto);
 			
         UpdateState(GamePhase.PREGAME);
 	}
