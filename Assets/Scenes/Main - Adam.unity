@@ -414,7 +414,8 @@ Prefab:
       propertyPath: _abController
       value: 
       objectReference: {fileID: 779667226}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114895234946494828, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 79de77b574fcaea40a7fea743957c85b, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1331084176
