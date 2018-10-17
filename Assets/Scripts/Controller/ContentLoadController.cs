@@ -15,16 +15,6 @@ namespace Controller
         private const string MobsContentFilePath = "/Mobs";
         private const string GatherablesContentFilePath = "/Gatherables";
         private const string WeaponsContentFilePath = "/Weapons";
-
-        //Dont Delete: Useful for outputing JSON
-        //
-        //public void SerializeContent(List<FlexData> data)
-        //{
-        //    Debug.Log($"serializing game content to {HazardsContentFilePath}");
-        //    var json = JsonConvert.SerializeObject(data);
-        //    File.WriteAllText(HazardsContentFilePath, json);
-        //    Debug.Log("serialize complete.");
-        //}
         
         public GameContentDto Load()
         {
