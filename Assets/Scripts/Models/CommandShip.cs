@@ -90,7 +90,7 @@ namespace Models
                         [StatKeys.WarpDriveReady] = 0,
                         [StatKeys.Scrap] = 21,
                         [StatKeys.Resourcium] = 0,
-                        //[StatKeys.Techanite] = 0,
+                        [StatKeys.Techanite] = 0,
                         [StatKeys.MachineParts] = 0,
                         [StatKeys.PulsarCoreFragments] = 0,
                         [StatKeys.Credits] = 0,
