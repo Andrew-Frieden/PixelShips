@@ -21,10 +21,14 @@ namespace Items
             switch (CurrentState)
             {
                 case (int)HardwareState.Unequipped:
-                    DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}This hardware is drifting through space.".Encode(this, LinkColors.Gatherable))
-                        .AddOption("Pickup", new PickupHardwareAction(room.PlayerShip, this))
-                        .Build();
+
+                    var builder = DialogueBuilder.Init()
+                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}This hardware is drifting through space.".Encode(this, LinkColors.Gatherable));
+
+                    if (room.PlayerShip.OpenHardwareSlots > 0)
+                        builder.AddOption("Pickup", new PickupHardwareAction(room.PlayerShip, this));
+
+                    DialogueContent = builder.Build();
                     break;
                 case (int)HardwareState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
@@ -142,18 +146,30 @@ namespace Items
         public HazardMitigation(FlexData data) : base(data) { }
     }
     
-    public class MaxHullBonus : Hardware
+    public class MaxHullPlating : Hardware
     {
-        public static readonly int HullBonus = 10;
+        public const string MaxHullBonusKey = "max_hull_bonus";
+        public int MaxHullBonus
+        {
+            get
+            {
+                return Stats[MaxHullBonusKey];
+            }
+            protected set
+            {
+                Stats[MaxHullBonusKey] = value;
+            }
+        }
         
-        public MaxHullBonus() : base()
+        public MaxHullPlating() : base()
         {
             Name = "Armor Plating";
             DialogueText = "Hull plating that provides additional durability.";
+            MaxHullBonus = 10;
         }
         
-        public MaxHullBonus(FlexEntityDto dto) : base(dto) { }
-        public MaxHullBonus(FlexData data) : base(data) { }
+        public MaxHullPlating(FlexEntityDto dto) : base(dto) { }
+        public MaxHullPlating(FlexData data) : base(data) { }
     }
 
     public class DropHardwareAction : SimpleAction

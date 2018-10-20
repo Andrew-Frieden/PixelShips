@@ -36,7 +36,6 @@ namespace Models.Stats
         public const string ScrapToResourcium = "scrap_to_resourcium";
         #endregion
 
-
         #region Cargo
 
         public const string Credits = "credits";

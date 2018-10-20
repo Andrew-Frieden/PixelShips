@@ -38,7 +38,11 @@ namespace Models
             get
             {
                 var maxHull = Stats[StatKeys.MaxHull];
-                maxHull += CheckHardware<MaxHullBonus>() ? MaxHullBonus.HullBonus : 0;
+
+                var maxHullHardware = GetHardware<MaxHullPlating>();
+                foreach (var hw in maxHullHardware)
+                    maxHull += hw.MaxHullBonus;
+
                 return maxHull;
             }
             set
@@ -312,13 +316,21 @@ namespace Models
         private List<Hardware> _hardware;
         public IEnumerable<Hardware> Hardware { get { return _hardware; } }
 
+        public int OpenHardwareSlots
+        {
+            get
+            {
+                return Stats[StatKeys.MaxHardwareSlots] - _hardware.Count;
+            }
+        }
+
         public void EquipHardware(Hardware h)
         {
-            if (_hardware.Count < Stats[StatKeys.MaxHardwareSlots])
+            if (OpenHardwareSlots > 0)
             {
                 _hardware.Add(h);
 
-                if (h is MaxHullBonus)
+                if (h is MaxHullPlating)
                     EventTagBroadcaster.Broadcast(EventTag.PlayerHullModified);
             }
         }
@@ -327,7 +339,7 @@ namespace Models
         {
             _hardware.Remove(h);
 
-            if (h is MaxHullBonus)
+            if (h is MaxHullPlating)
             {
                 if (Hull > MaxHull)
                     Hull = MaxHull;
@@ -341,9 +353,9 @@ namespace Models
             return Hardware.Any(h => h is T);
         }
 
-        public T GetHardware<T>() where T : Hardware
+        public IEnumerable<T> GetHardware<T>() where T : Hardware
         {
-            return (T)Hardware.FirstOrDefault(h => h is T);
+            return Hardware.Where(h => h is T).Select(i => (T)i);
         }
         #endregion
     }

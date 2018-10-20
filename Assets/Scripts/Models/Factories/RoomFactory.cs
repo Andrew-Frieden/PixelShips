@@ -32,13 +32,15 @@ namespace Models.Factories
         public static IEnumerable<FlexData> Mobs { get; private set; }
         public static IEnumerable<FlexData> Gatherables { get; private set; }
         public static IEnumerable<FlexData> Weapons { get; private set; }
-        
+        public static IEnumerable<FlexData> HardwareData { get; private set; }
+
         public RoomFactory(GameContentDto gameContent)
         {
             Hazards = gameContent.Hazards;
             Mobs = gameContent.Mobs;
             Gatherables = gameContent.Gatherables;
             Weapons = gameContent.Weapons;
+            HardwareData = gameContent.Hardware;
         }
 
         public Weapon GetRandomWeapon(Weapon.WeaponTypes type)
@@ -218,8 +220,17 @@ namespace Models.Factories
             }
 
             //  hardcode adding scrap dealer for testing
-            var dealer = ExampleGameData.ScrapDealerData.GetRandom().FromFlexData();
-            actors.Add(dealer);
+            //var dealer = ExampleGameData.ScrapDealerData.GetRandom().FromFlexData();
+            //actors.Add(dealer);
+
+            if (template.Difficulty == 1)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    var demoHardware = HardwareData.GetRandom().FromFlexData();
+                    actors.Add(demoHardware);
+                }
+            }
 
             return actors;
         }

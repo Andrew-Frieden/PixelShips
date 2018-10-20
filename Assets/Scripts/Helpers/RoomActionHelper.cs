@@ -98,9 +98,10 @@ namespace Helpers
             if (actor is CommandShip)
             {
                 var cmdShip = (CommandShip) actor;
-                var booster = cmdShip.GetHardware<GatheringBoost>();
+                var boosters = cmdShip.GetHardware<GatheringBoost>();
 
-                booster?.ApplyBoost(ref lootAmount);
+                foreach (var boost in boosters)
+                    boost.ApplyBoost(ref lootAmount);
             }
 
             actor.Stats[lootType] += lootAmount;

@@ -1,0 +1,67 @@
+[
+    {
+      "EntityType": "Items.TownDetector",
+      "Values": {
+        "name": "Cartographic Processor",
+        "dialogue_text": "Quantum mapping device that identifies nearby space stations."
+      },
+      "Stats": {
+      }
+    },
+    {
+      "EntityType": "Items.HazardDetector",
+      "Values": {
+        "name": "Deep Field Scanner",
+        "dialogue_text": "A sophisticated navigation device capable of detecting nearby hazards."
+      },
+      "Stats": {
+      }
+    },
+	{
+      "EntityType": "Items.MobDetector",
+      "Values": {
+        "name": "Signature Detector",
+        "dialogue_text": "Standard-issue military hardware for detecting nearby weapon signatures."
+      },
+      "Stats": {
+      }
+    },
+	{
+      "EntityType": "Items.GatheringBoost",
+      "Values": {
+        "name": "Robotic Manipulator",
+        "dialogue_text": "An advanced gathering tool capable of crushing rock."
+      },
+      "Stats": {
+      }
+    },
+	{
+      "EntityType": "Items.HazardMitigation",
+      "Values": {
+        "name": "Hazard Plating",
+        "dialogue_text": "Advanced hull polarization that provides significant resistance to the hazards of space."
+      },
+      "Stats": {
+      }
+    },
+	{
+      "EntityType": "Items.MaxHullPlating",
+      "Values": {
+        "name": "Armor Plating",
+        "dialogue_text": "Hull plating that provides additional durability."
+      },
+      "Stats": {
+		"max_hull_bonus": 10
+      }
+    },
+	{
+      "EntityType": "Items.MaxHullPlating",
+      "Values": {
+        "name": "Super Armor Plating",
+        "dialogue_text": "Hull plating that provides lots of additional durability."
+      },
+      "Stats": {
+		"max_hull_bonus": 20
+      }
+    }
+  ]
