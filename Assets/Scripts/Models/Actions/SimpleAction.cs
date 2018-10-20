@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Models.Dtos;
 using Models.Stats;
 
@@ -47,6 +46,8 @@ namespace Models.Actions
         {
             get
             {
+                if (!Stats.ContainsKey(StatKeys.Energy))
+                    Energy = 0;
                 return Stats[StatKeys.Energy];
             }
             protected set

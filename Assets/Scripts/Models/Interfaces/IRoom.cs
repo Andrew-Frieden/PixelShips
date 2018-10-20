@@ -24,25 +24,14 @@ public static class RoomHelpers
         if (string.IsNullOrEmpty(id))
             return null;
 
+        //  include all the places we should look for entities
         var entities = new List<ITextEntity>() { room, room.PlayerShip };
         entities.AddRange(room.Entities);
         entities.AddRange(room.PlayerShip.Hardware);
+        entities.Add(room.PlayerShip.LightWeapon);
+        entities.Add(room.PlayerShip.HeavyWeapon);
 
         return entities.FirstOrDefault(ent => ent.Id == id);
-    }
-
-    public static IRoomActor FindActor(this IRoom room, string id)
-    {
-        var entity = room.Entities.FirstOrDefault(e => e.Id == id) ?? (ITextEntity) room.PlayerShip;
-        if (entity is IRoomActor)
-        {
-            return (IRoomActor) entity;
-        }
-        else
-        {
-            Debug.Log($"Error: Cannot find actor by id: {id}");
-            return null;
-        }
     }
 
     public static IEnumerable<IRoomActor> FindDependentActors(this IRoom room, string parentId)

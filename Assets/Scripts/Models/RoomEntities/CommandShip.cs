@@ -283,20 +283,28 @@ namespace Models
         #region Weapons
         public Weapon LightWeapon { get; private set; }
         public Weapon HeavyWeapon { get; private set; }
+
         public Weapon SwapWeapon(Weapon weapon)
         {
+            Weapon previous;
+
             if (weapon.WeaponType == Weapon.WeaponTypes.Light)
             {
-                var previous = LightWeapon;
+                previous = LightWeapon;
                 LightWeapon = weapon;
-                return previous;
             }
             else
             {
-                var previous = HeavyWeapon;
+                previous = HeavyWeapon;
                 HeavyWeapon = weapon;
-                return previous;
             }
+
+            weapon.ChangeState((int)Weapon.WeaponState.Equipped);
+
+            if (previous != null)
+                previous.ChangeState((int)Weapon.WeaponState.Unequipped);
+
+            return previous;
         }
         #endregion
 

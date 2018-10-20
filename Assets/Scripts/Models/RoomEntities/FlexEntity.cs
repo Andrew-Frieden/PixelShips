@@ -104,7 +104,19 @@ namespace Models
             }
         }
 
-        public string DependentActorId { get; protected set; }
+        public string DependentActorId
+        {
+            get
+            {
+                if (!Values.ContainsKey(ValueKeys.DependentActorId))
+                    return string.Empty;
+                return Values[ValueKeys.DependentActorId];
+            }
+            protected set
+            {
+                Values[ValueKeys.DependentActorId] = value;
+            }
+        }
 
         public virtual bool IsDestroyed
         {

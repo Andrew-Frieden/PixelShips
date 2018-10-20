@@ -47,6 +47,10 @@ namespace Controller
                 $"Warp Drive: {(ship.Stats[StatKeys.WarpDriveReady] == 1 ? "Ready" : "Cold")}".Tag()
             };
 
+            shipData.Add($"--- Weapons ---".Tag());
+            shipData.Add($"<>".Encode(ship.LightWeapon, LinkColors.Weapon).Tag());
+            shipData.Add($"<>".Encode(ship.HeavyWeapon, LinkColors.Weapon).Tag());
+
             shipData.Add($"--- Hardware ---".Tag());
             int emptySlots = ship.Stats[StatKeys.MaxHardwareSlots];
             foreach (var hardware in ship.Hardware)

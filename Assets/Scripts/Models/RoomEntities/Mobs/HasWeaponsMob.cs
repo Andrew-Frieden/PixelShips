@@ -11,8 +11,6 @@ namespace Models.RoomEntities.Mobs
 {
     public class HasWeaponsMob: Mob
     {
-        private IRoomAction AttackAction;
-        
         public HasWeaponsMob()
         {
             IsHostile = true;
@@ -29,25 +27,22 @@ namespace Models.RoomEntities.Mobs
         //TODO: Get weighting working and check IsValid
         public override IRoomAction MainAction(IRoom room)
         {
-            if (AttackAction == null)
-            {
-                var dependentActors = room.FindDependentActors(Id);
+            var dependentActors = room.FindDependentActors(Id);
 
-                foreach (var actor in dependentActors)
+            foreach (var actor in dependentActors)
+            {
+                if (actor is Weapon)
                 {
-                    if (actor is Weapon)
-                    {
                         
-                        AttackAction = ((Weapon) actor).GetAttackAction(room, this, room.PlayerShip);
-                    }
-                    else
-                    {
-                        throw new NotImplementedException();
-                    }
+                    return ((Weapon) actor).GetAttackAction(room, this, room.PlayerShip);
+                }
+                else
+                {
+                    throw new NotImplementedException();
                 }
             }
-            
-            return AttackAction;
+
+            throw new NotImplementedException();
         }
 
         public HasWeaponsMob(FlexEntityDto dto) : base(dto) { }

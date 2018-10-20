@@ -22,23 +22,5 @@ namespace Items
         {
             return new AttackAction(src, target, BaseDamage, Name, Energy);
         }
-
-        public override void CalculateDialogue(IRoom room)
-        {
-            switch (CurrentState)
-            {
-                case (int) WeaponState.Unequipped:
-                    DialogueContent = DialogueBuilder.Init()
-                        .AddMainText(DialogueText.Encode(this, LinkColors.Weapon))
-                        .AddOption("Pickup", new PickupWeaponAction(room.PlayerShip, this))
-                        .Build();
-                    break;
-                case (int) WeaponState.Equipped:
-                    DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Weapon))
-                        .Build();
-                    break;
-            }
-        }
     }
 }

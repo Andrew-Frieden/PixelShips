@@ -71,11 +71,16 @@ namespace Controller
 
         private static void CalculateDialogues(IRoom room)
         {
+            //  calculate dialogues for every entity in the room
             room.Entities.ForEach(n => n.CalculateDialogue(room));
             
+            //  calculate dialogues for the player ship and all sub-entities on it
             room.PlayerShip.CalculateDialogue(room);
             room.PlayerShip.Hardware.ForEach(h => h.CalculateDialogue(room));
+            room.PlayerShip.LightWeapon.CalculateDialogue(room);
+            room.PlayerShip.HeavyWeapon.CalculateDialogue(room);
 
+            //  calculate dialogue for the room itself
             room.CalculateDialogue();
         }
 

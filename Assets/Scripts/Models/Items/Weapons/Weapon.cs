@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Models;
 using Models.Actions;
+using Models.Dialogue;
 using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
@@ -74,44 +75,62 @@ namespace Items
         {
             return LookText.Encode(this, LinkColors.Weapon).Tag();
         }
-        
-        public class PickupWeaponAction : SimpleAction
+
+        public override void CalculateDialogue(IRoom room)
         {
-            public PickupWeaponAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
-            public PickupWeaponAction(IRoomActor src, IRoomActor target)
+            switch (CurrentState)
             {
-                if (target is Weapon)
-                    Target = target;
-                else
-                    throw new InvalidOperationException();
-
-                Source = src;
+                case (int)WeaponState.Unequipped:
+                    DialogueContent = DialogueBuilder.Init()
+                        .AddMainText(DialogueText.Encode(this, LinkColors.Weapon))
+                        .AddOption("Pickup", new PickupWeaponAction(room.PlayerShip, this))
+                        .Build();
+                    break;
+                case (int)WeaponState.Equipped:
+                    DialogueContent = DialogueBuilder.Init()
+                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Weapon))
+                        .Build();
+                    break;
             }
+        }
+    }
 
-            public override IEnumerable<TagString> Execute(IRoom room)
+    public class PickupWeaponAction : SimpleAction
+    {
+        public PickupWeaponAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
+
+        public PickupWeaponAction(IRoomActor src, IRoomActor target)
+        {
+            if (target is Weapon)
+                Target = target;
+            else
+                throw new InvalidOperationException();
+
+            Source = src;
+        }
+
+        public override IEnumerable<TagString> Execute(IRoom room)
+        {
+            var weapon = (Weapon)Target;
+
+            if (Source == room.PlayerShip)
             {
-                var weapon = (Weapon)Target;
+                var previousWeapon = room.PlayerShip.SwapWeapon(weapon);
+                weapon.IsDestroyed = true;
+                weapon.ChangeState((int)Weapon.WeaponState.Equipped);
 
-                if (Source == room.PlayerShip)
+                room.AddEntity(previousWeapon);
+                previousWeapon.ChangeState((int)Weapon.WeaponState.Unequipped);
+
+                return new List<TagString>()
                 {
-                    var previousWeapon = room.PlayerShip.SwapWeapon(weapon);
-                    weapon.IsDestroyed = true;
-                    weapon.ChangeState((int) WeaponState.Equipped);
-
-                    room.AddEntity(previousWeapon);
-                    previousWeapon.ChangeState((int) WeaponState.Unequipped);
-                    
-                    return new List<TagString>()
-                    {
-                        $"You pickup the <>".Encode(weapon, LinkColors.Weapon).Tag(),
-                        $"You drop your <>".Encode(previousWeapon, LinkColors.Weapon).Tag()
-                    };
-                }
-                
-                //This means a non-Playship is trying to equip a weapon. This is not implemented.
-                throw new NotImplementedException();
+                    $"You pickup the <>".Encode(weapon, LinkColors.Weapon).Tag(),
+                    $"You drop your <>".Encode(previousWeapon, LinkColors.Weapon).Tag()
+                };
             }
+
+            //This means a non-Playship is trying to equip a weapon. This is not implemented.
+            throw new NotImplementedException();
         }
     }
 }

@@ -78,6 +78,8 @@ namespace Models.Stats
         public const string HazardDamageText = "hazard_damage_text";
         public const string TelegraphDamageText = "telegraph_damage_text";
 
+        public const string DependentActorId = "dependent_actor_id";
+
         public const string LightWeapon = "light_weapon";
         public const string HeavyWeapon = "heavy_weapon";
         
