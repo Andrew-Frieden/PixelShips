@@ -9,6 +9,7 @@ namespace Models.Stats
         public const string IsDestroyed = "destroyed";
         public const string IsAttackable = "attackable"; //  1 if the entity is capable of participating in combat
         public const string IsHostile = "hostile";     //  1 if the entity is actively attacking or being attacked
+        public const string IsHidden = "hidden";
         public const string Hull = "current_hull";
         public const string MaxHull = "max_hull";
         public const string Captainship = "captainship";

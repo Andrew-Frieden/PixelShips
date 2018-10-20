@@ -9,15 +9,26 @@ namespace Models
 {
     public abstract class FlexEntity : IRoomActor
     {
-        //  TODO back this in Stats dictionary
-        public bool IsHidden { get; protected set; }
+        public bool IsHidden
+        {
+            get
+            {
+                if (!Stats.ContainsKey(StatKeys.IsHidden))
+                    IsHidden = false;
+                return Stats[StatKeys.IsHidden] != 0;
+            }
+            set
+            {
+                Stats[StatKeys.IsHidden] = value ? 1 : 0;
+            }
+        }
 
         public bool IsHostile
         {
             get
             {
                 if (!Stats.ContainsKey(StatKeys.IsHostile))
-                    Stats[StatKeys.IsHostile] = 0;
+                    IsHostile = false;
                 return Stats[StatKeys.IsHostile] != 0;
             }
             set

@@ -59,32 +59,15 @@ namespace Items
             }
         }
         
-        public string Description
-        {
-            get
-            {
-                return Values[ValueKeys.DialogueText];
-            }
-            protected set
-            {
-                Values[ValueKeys.DialogueText] = value;
-            }
-        }
-        
         public Weapon(FlexEntityDto dto) : base(dto) { }
 
         public Weapon(FlexData data) : base(data) { }
 
         public abstract IRoomAction GetAttackAction(IRoom room, IRoomActor src, IRoomActor target);
 
-        public void WithDependentId(string id)
+        public void SetDependentActorId(string id)
         {
             DependentActorId = id;
-        }
-        
-        public void SetHidden(bool hidden)
-        {
-            IsHidden = hidden;
         }
         
         public override TagString GetLookText()

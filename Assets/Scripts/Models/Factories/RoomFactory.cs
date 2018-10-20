@@ -243,15 +243,9 @@ namespace Models.Factories
 
                     if (weaponFlexData != null)
                     {
-                        var weapon = weaponFlexData.FromFlexData();
-                        
-                        if (!(weapon is Weapon))
-                        {
-                            throw new InvalidCastException("FlexData is not an instance of Weapon");
-                        }
-
-                        ((Weapon) weapon).SetHidden(true);
-                        ((Weapon) weapon).WithDependentId(mob.Id);
+                        var weapon = (Weapon)weaponFlexData.FromFlexData();
+                        weapon.IsHidden = true;
+                        weapon.SetDependentActorId(mob.Id);
                         actors.Add(weapon);
                     }
                     else

@@ -29,13 +29,13 @@ namespace Items
             {
                 case (int) WeaponState.Unequipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText(Values[ValueKeys.DialogueText].Encode(this, LinkColors.Weapon))
+                        .AddMainText(DialogueText.Encode(this, LinkColors.Weapon))
                         .AddOption("Pickup", new PickupWeaponAction(room.PlayerShip, this))
                         .Build();
                     break;
                 case (int) WeaponState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
-                        .AddMainText($"<>{Env.ll}{Description}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Weapon))
+                        .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Weapon))
                         .Build();
                     break;
             }
