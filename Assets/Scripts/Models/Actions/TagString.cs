@@ -29,6 +29,7 @@ namespace Models.Actions
         PlayerDamaged,
         PlayerShieldsRecovered,
         PlayerEnergyConsumed,
-        PlayerHullModified
+        PlayerHullModified,
+        PlayerHealed
     }
 }
