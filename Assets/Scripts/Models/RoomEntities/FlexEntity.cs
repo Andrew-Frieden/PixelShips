@@ -112,7 +112,7 @@ namespace Models
                     return string.Empty;
                 return Values[ValueKeys.DependentActorId];
             }
-            protected set
+            set
             {
                 Values[ValueKeys.DependentActorId] = value;
             }

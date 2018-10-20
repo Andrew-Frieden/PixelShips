@@ -7,6 +7,7 @@ using Items;
 using Models.Dtos;
 using Models.RoomEntities.Mobs;
 using Models.Stats;
+using TextSpace.RoomEntities;
 using UnityEngine;
 
 namespace Models.Factories
@@ -32,7 +33,7 @@ namespace Models.Factories
         public static IEnumerable<FlexData> Mobs { get; private set; }
         public static IEnumerable<FlexData> Gatherables { get; private set; }
         public static IEnumerable<FlexData> Weapons { get; private set; }
-        public static IEnumerable<FlexData> HardwareData { get; private set; }
+        public static IEnumerable<FlexData> HardwareContent { get; private set; }
 
         public RoomFactory(GameContentDto gameContent)
         {
@@ -40,7 +41,7 @@ namespace Models.Factories
             Mobs = gameContent.Mobs;
             Gatherables = gameContent.Gatherables;
             Weapons = gameContent.Weapons;
-            HardwareData = gameContent.Hardware;
+            HardwareContent = gameContent.Hardware;
         }
 
         public Weapon GetRandomWeapon(Weapon.WeaponTypes type)
@@ -227,7 +228,7 @@ namespace Models.Factories
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    var demoHardware = HardwareData.GetRandom().FromFlexData();
+                    var demoHardware = HardwareContent.GetRandom().FromFlexData();
                     actors.Add(demoHardware);
                 }
             }
@@ -256,7 +257,7 @@ namespace Models.Factories
                     {
                         var weapon = (Weapon)weaponFlexData.FromFlexData();
                         weapon.IsHidden = true;
-                        weapon.SetDependentActorId(mob.Id);
+                        weapon.DependentActorId = mob.Id;
                         actors.Add(weapon);
                     }
                     else
@@ -277,6 +278,38 @@ namespace Models.Factories
             }
             
             actors.Add(mob);
+            return actors;
+        }
+
+        private IEnumerable<IRoomActor> CreateNpc(FlexData npcData)
+        {
+            var actors = new List<IRoomActor>();
+            var npc = npcData.FromFlexData();
+            actors.Add(npc);
+
+            if (npc is ItemDealerNpc)
+            {
+                //  now randomly grab hardware or weapons of appropriate powerlevel to sell
+                var itemPool = new List<FlexData>
+                {
+                    HardwareContent.GetRandom(),
+                    HardwareContent.GetRandom(),
+                    Weapons.GetRandom(),
+                    Weapons.GetRandom()
+                };
+
+                var firstItem = itemPool.GetRandom().FromFlexData();
+                var secondItem = itemPool.GetRandom().FromFlexData();
+
+                firstItem.IsHidden = true;
+                firstItem.DependentActorId = npc.Id;
+                secondItem.IsHidden = true;
+                secondItem.DependentActorId = npc.Id;
+
+                actors.Add(firstItem);
+                actors.Add(secondItem);
+            }
+
             return actors;
         }
     }

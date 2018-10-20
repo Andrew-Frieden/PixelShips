@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Models;
 using Models.Actions;
 using Models.Dialogue;
@@ -65,11 +64,6 @@ namespace Items
         public Weapon(FlexData data) : base(data) { }
 
         public abstract IRoomAction GetAttackAction(IRoom room, IRoomActor src, IRoomActor target);
-
-        public void SetDependentActorId(string id)
-        {
-            DependentActorId = id;
-        }
         
         public override TagString GetLookText()
         {

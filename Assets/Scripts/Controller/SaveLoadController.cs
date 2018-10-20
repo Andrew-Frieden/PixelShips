@@ -113,19 +113,19 @@ namespace Models
             exp.Room.SetPlayerShip(exp.CmdShip);
 
             //  setup all the dialogue content which requires building actions that have references to entities
-            exp.Room.DialogueContent = expData.RoomData.ContentDto.FromDto(exp.Room);
-            foreach (var dto in expData.RoomData.Entities)
-            {
-                var entity = exp.Room.Entities.Single(e => e.Id == dto.Id);
-                entity.DialogueContent = dto.ContentDto.FromDto(exp.Room);
-            }
+            //exp.Room.DialogueContent = expData.RoomData.ContentDto.FromDto(exp.Room);
+            //foreach (var dto in expData.RoomData.Entities)
+            //{
+            //    var entity = exp.Room.Entities.Single(e => e.Id == dto.Id);
+            //    entity.DialogueContent = dto.ContentDto.FromDto(exp.Room);
+            //}
 
-            exp.CmdShip.DialogueContent = expData.ShipData.ContentDto.FromDto(exp.Room);
-            foreach (var dto in expData.ShipData.HardwareData)
-            {
-                var hardware = exp.CmdShip.Hardware.Single(h => h.Id == dto.Id);
-                hardware.DialogueContent = dto.ContentDto.FromDto(exp.Room);
-            }
+            //exp.CmdShip.DialogueContent = expData.ShipData.ContentDto.FromDto(exp.Room);
+            //foreach (var dto in expData.ShipData.HardwareData)
+            //{
+            //    var hardware = exp.CmdShip.Hardware.Single(h => h.Id == dto.Id);
+            //    hardware.DialogueContent = dto.ContentDto.FromDto(exp.Room);
+            //}
 
             state.CurrentTime = DateTime.Now;
             return state;

@@ -6,10 +6,10 @@ namespace Models
 {
     public interface IRoomActor : ITextEntity
     {
-        string DependentActorId { get; }
+        string DependentActorId { get; set; }
         
         bool IsDestroyed { get; set; }
-        bool IsHidden { get; }
+        bool IsHidden { get; set; }
         bool IsHostile { get; set; }
         bool IsAttackable { get; set; }
 

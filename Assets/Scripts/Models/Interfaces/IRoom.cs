@@ -44,4 +44,9 @@ public static class RoomHelpers
         }
         return actors;
     }
+
+    public static IEnumerable<IRoomActor> FindDependentActors(this IRoom room, IRoomActor parent)
+    {
+        return FindDependentActors(room, parent.Id);
+    }
 }

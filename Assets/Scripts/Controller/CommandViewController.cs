@@ -83,7 +83,7 @@ namespace Controller
         {
             var entity = _room.FindEntity(guid);
             var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue();
-            _abController.ShowControl(content);
+            _abController.ShowControl(content); // pass room in here so we can calculate IsValid() ?
         }
 
         private void HandlePlayerChoseAction(IRoomAction playerAction)

@@ -1,9 +1,6 @@
 ﻿using Models;
 using Models.Actions;
-using Models.Dialogue;
 using Models.Dtos;
-using Models.Stats;
-using TextEncoding;
 
 namespace Items
 {
@@ -11,7 +8,7 @@ namespace Items
     {
         public DirectDamageWeapon(FlexEntityDto dto) : base(dto) { }
 
-        public DirectDamageWeapon(FlexData data) : base(data) { }
+        public DirectDamageWeapon(FlexData data) : base(data) { } 
         
         public override IRoomAction MainAction(IRoom room)
         {

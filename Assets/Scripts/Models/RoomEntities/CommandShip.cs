@@ -134,7 +134,7 @@ namespace Models
         }
         #endregion
 
-        public bool IsHidden { get; }
+        public bool IsHidden { get; set; }
 
         public bool IsHostile
         {
@@ -165,8 +165,6 @@ namespace Models
         public RoomTemplate WarpTarget;
 
         public bool IsAttackable { get { return true; } set { throw new Exception("Tried to set CommandShip CanCombat to true"); } }
-
-        public string DependentActorId { get; }
 
         public bool IsDestroyed
         {
@@ -323,6 +321,8 @@ namespace Models
                 return Stats[StatKeys.MaxHardwareSlots] - _hardware.Count;
             }
         }
+
+        public string DependentActorId { get; set; }
 
         public void EquipHardware(Hardware h)
         {
