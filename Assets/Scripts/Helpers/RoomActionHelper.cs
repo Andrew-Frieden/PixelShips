@@ -44,6 +44,21 @@ namespace Helpers
             return damage;
         }
 
+        public static int HealDamage(this IRoomActor actor, int heal)
+        {
+            if (actor.Stats[StatKeys.Hull] + heal > actor.Stats[StatKeys.MaxHull])
+            {
+                heal = actor.Stats[StatKeys.MaxHull] - actor.Stats[StatKeys.Hull];
+                actor.Stats[StatKeys.Hull] = actor.Stats[StatKeys.MaxHull];
+            }
+            else
+            {
+                actor.Stats[StatKeys.Hull] += heal;
+            }
+
+            return heal;
+        }
+
         public static Loot LootGatherable(this IRoomActor actor)
         {
             var lootDrop = UnityEngine.Random.Range(0, 10);
