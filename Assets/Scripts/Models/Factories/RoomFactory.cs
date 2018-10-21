@@ -230,6 +230,12 @@ namespace Models.Factories
                 }
             }
 
+            if (template.Difficulty == 1)
+            {
+                var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
+                actors.Add(devHardware.FromFlexData());
+            }
+
             return actors;
         }
 

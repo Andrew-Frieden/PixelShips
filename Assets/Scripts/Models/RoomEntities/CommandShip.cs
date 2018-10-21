@@ -100,7 +100,7 @@ namespace Models
                         [StatKeys.Credits] = 0,
                         [StatKeys.Energy] = 10,
                         [StatKeys.MaxEnergy] = 10,
-                        [StatKeys.MaxHardwareSlots] = 5
+                        [StatKeys.MaxHardwareSlots] = 3
                     };
                 }
                 return _stats;

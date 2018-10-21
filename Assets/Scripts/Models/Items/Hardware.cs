@@ -103,6 +103,11 @@ namespace Items
         public HazardDetector(FlexData data) : base(data) { } 
     }
 
+    public class SuperDetector : Hardware
+    {
+        public SuperDetector(FlexData data) : base(data) { }
+    }
+
     public class MobDetector : Hardware
     {
         public MobDetector() : base()

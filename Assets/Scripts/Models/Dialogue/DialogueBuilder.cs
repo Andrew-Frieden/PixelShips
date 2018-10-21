@@ -131,19 +131,19 @@ namespace Models.Dialogue
             var text = $"Warp to {Room.GetNameForFlavor(t.Flavor)}{Env.ll}";
 
             if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard) 
-                && ship.CheckHardware<HazardDetector>())
+                && (ship.CheckHardware<HazardDetector>() || ship.CheckHardware<SuperDetector>()))
             {
                 text += "Hazard Detected" + Env.l;
             }
 
             if (t.ActorFlavors.Contains(RoomActorFlavor.Mob)
-                && ship.CheckHardware<MobDetector>())
+                && (ship.CheckHardware<MobDetector>() || ship.CheckHardware<SuperDetector>()))
             {
                 text += "Hostile Detected" + Env.l;
             }
 
             if (t.ActorFlavors.Contains(RoomActorFlavor.Town)
-                && ship.CheckHardware<TownDetector>())
+                && (ship.CheckHardware<TownDetector>() || ship.CheckHardware<SuperDetector>()))
             {
                 text += "Starport Detected" + Env.l;
             }

@@ -27,6 +27,15 @@
       }
     },
 	{
+      "EntityType": "Items.SuperDetector",
+      "Values": {
+        "name": "Developer Detector",
+        "dialogue_text": "Super technology hacked together by some nerd. It detects everything."
+      },
+      "Stats": {
+      }
+    },
+	{
       "EntityType": "Items.GatheringBoost",
       "Values": {
         "name": "Robotic Manipulator",
