@@ -15,7 +15,7 @@ public class SpaceStationNpc : FlexEntity
 
         DialogueContent = DialogueBuilder.Init()
             .AddMainText("The busy <> is blinking with activity. Trade vessels constantly come and go. Comms light up with public chatter.".Encode(Name, Id, LinkColors.NPC))
-            .AddOption($"Repair your ship.{Env.ll}Costs {repairPrice} credits." , new RepairAction(room.PlayerShip, repairPrice))
+            .AddOption($"Repair your ship.{Env.ll}Costs {repairPrice} resourcium." , new RepairAction(room.PlayerShip, repairPrice))
             .AddOption($"Trade commodities for {tradeValue} credits.", new TradeCommoditiesAction(room.PlayerShip, tradeValue))
             .Build(room);
     }
@@ -46,7 +46,7 @@ public class SpaceStationNpc : FlexEntity
         public static int CalculateRepairCost(CommandShip ship)
         {
             var hullToRepair = ship.MaxHull - ship.Hull;
-            var pricePerHull = 5;
+            var pricePerHull = 1;
             return hullToRepair * pricePerHull;
         }
 
@@ -72,9 +72,9 @@ public class SpaceStationNpc : FlexEntity
 
             var repairAmount = ship.MaxHull - ship.Hull;
 
-            if (ship.Stats[StatKeys.Credits] >= Cost)
+            if (ship.Resourcium >= Cost)
             {
-                ship.Stats[StatKeys.Credits] -= Cost;
+                ship.Resourcium -= Cost;
                 ship.Hull = ship.MaxHull;
                 
                 return new List<TagString>()

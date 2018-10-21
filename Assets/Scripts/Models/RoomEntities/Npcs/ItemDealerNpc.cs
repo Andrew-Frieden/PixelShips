@@ -16,23 +16,16 @@ namespace TextSpace.RoomEntities
         {
             IsAttackable = false;
             IsHostile = false;
-            ChangeState((int)ScrapDealerNpcState.HasDeals);
+            ChangeState((int)NpcDealerState.HasDeals);
         }
 
         public ItemDealerNpc(FlexEntityDto dto) : base(dto) { }
-
-        private enum ScrapDealerNpcState
-        {
-            HasDeals = 0,
-            FinishedDealing = 1
-        }
 
         public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
-                case (int)ScrapDealerNpcState.HasDeals:
-
+                case (int)NpcDealerState.HasDeals:
                     var itemsToSell = room.FindDependentActors(this);
                     var dealsBuilder = DialogueBuilder.Init().AddMainText(DialogueText.Encode(this, LinkColors.NPC));
                     foreach (var item in itemsToSell)
@@ -42,8 +35,8 @@ namespace TextSpace.RoomEntities
                     }
                     DialogueContent = dealsBuilder.Build(room);
                     break;
-                case (int)ScrapDealerNpcState.FinishedDealing:
-                    var doneBuilder = DialogueBuilder.Init().AddMainText("<> I'm done selling!".Encode(this, LinkColors.NPC));
+                case (int)NpcDealerState.FinishedDealing:
+                    var doneBuilder = DialogueBuilder.Init().AddMainText($"<> has nothing else to sell.".Encode(this, LinkColors.NPC));
                     DialogueContent = doneBuilder.Build(room);
                     break;
                 default:
@@ -91,6 +84,12 @@ namespace TextSpace.RoomEntities
                 room.PlayerShip.SwapWeapon(item);
                 item.DependentActorId = string.Empty;
             }
+
+            if (room.FindDependentActors(Source).Count == 0)
+            {
+                Source.ChangeState((int)NpcDealerState.FinishedDealing);
+            }
+
             return $"{entitySource.Name} trades you <> for {Resourcium} resourcium."
                 .Encode(Target, (Target is Weapon) ? LinkColors.Weapon : LinkColors.Gatherable)
                 .ToTagSet();

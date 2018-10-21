@@ -21,31 +21,23 @@ namespace TextSpace.RoomEntities
         {
             IsAttackable = false;
             IsHostile = false;
-            ChangeState((int)ScrapDealerNpcState.HasDeals);
+            ChangeState((int)NpcDealerState.HasDeals);
         }
 
         public ScrapDealerNpc(FlexEntityDto dto) : base(dto) { }
-
-        private enum ScrapDealerNpcState
-        {
-            HasDeals = 0,
-            FinishedDealing = 1
-        }
 
         public override void CalculateDialogue(IRoom room)
         {
             switch (CurrentState)
             {
-                case (int)ScrapDealerNpcState.HasDeals:
+                case (int)NpcDealerState.HasDeals:
                     var sellAction = new SellScrapAction(room.PlayerShip, this, ScrapToResourcium);
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText(DialogueText.Encode(this, LinkColors.NPC))
                         .AddOption(sellAction.OptionText(room), sellAction)
                         .Build(room);
                     break;
-                case (int)ScrapDealerNpcState.FinishedDealing:
-                    break;
-                default:
+                case (int)NpcDealerState.FinishedDealing:
                     throw new NotSupportedException();
             }
         }

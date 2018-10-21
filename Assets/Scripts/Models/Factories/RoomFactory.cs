@@ -290,6 +290,8 @@ namespace Models.Factories
             var npc = npcData.FromFlexData();
             actors.Add(npc);
 
+            //  TODO maybe some tech debt here around allowing an NPC to dictate what other entities it gets spawned with
+            //  the current implementation here relies on us dropping in entities for the dealer to find
             if (npc is ItemDealerNpc)
             {
                 //  now randomly grab hardware or weapons of appropriate powerlevel to sell

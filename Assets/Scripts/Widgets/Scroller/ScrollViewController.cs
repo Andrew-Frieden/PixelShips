@@ -121,7 +121,7 @@ public class ScrollViewController : MonoBehaviour {
     {
         foreach (var cell in ActiveCells)
         {
-            cell.DisableClickEvents();
+            cell.DisableTouchEvents = true;
         }
     }
     

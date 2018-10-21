@@ -10,7 +10,8 @@ using System.Collections;
 
 public class ScrollCell : MonoBehaviour, IPointerClickHandler
 {
-    private bool _isClickable = true;
+    public bool DisableTouchEvents { get; set; }
+
     private const int Spacing = 5;
     private bool dimmed;
     private const float DimScale = 0.55f;
@@ -32,6 +33,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
 
     public float SetupScrollCell(TagString encodedCellData, bool start)
     {
+        DisableTouchEvents = false;
         tagString = encodedCellData;
         EncodedText.text = tagString.Text;
         Typer.HideText();
@@ -51,14 +53,10 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
 
     public float CellHeight => EncodedText.GetPreferredValues().y + Spacing;
 
-    public void DisableClickEvents()
-    {
-        _isClickable = false;
-    }
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!_isClickable)
+        if (DisableTouchEvents)
             return;
 
         var gridOffsets = new List<Vector2>()

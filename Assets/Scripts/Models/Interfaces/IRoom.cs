@@ -34,7 +34,7 @@ public static class RoomHelpers
         return entities.FirstOrDefault(ent => ent.Id == id);
     }
 
-    public static IEnumerable<IRoomActor> FindDependentActors(this IRoom room, string parentId)
+    public static ICollection<IRoomActor> FindDependentActors(this IRoom room, string parentId)
     {
         var actors = room.Entities.Where(e => e.DependentActorId == parentId).ToList();
 
@@ -45,7 +45,7 @@ public static class RoomHelpers
         return actors;
     }
 
-    public static IEnumerable<IRoomActor> FindDependentActors(this IRoom room, IRoomActor parent)
+    public static ICollection<IRoomActor> FindDependentActors(this IRoom room, IRoomActor parent)
     {
         return FindDependentActors(room, parent.Id);
     }
