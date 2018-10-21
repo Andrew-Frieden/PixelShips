@@ -116,34 +116,22 @@ namespace Models.Actions
 
         public virtual void CalculateValid(IRoom room)
         {
-            try
+            if (Source == null)
             {
-                if (Source == null)
-                {
-                    IsValid = true;
-                    return;
-                }
-
-                //if (Source.Stats == null)
-                //{
-                //    IsValid = true;
-                //}
-
-                //TODO: possible that one has energy and other doesnt, this should throw an exception
-                if (!Source.Stats.ContainsKey(StatKeys.Energy) || !Stats.ContainsKey(StatKeys.Energy))
-                {
-                    IsValid = true;
-                }
-                else
-                {
-                    IsValid = Source.Stats[StatKeys.Energy] >= Stats[StatKeys.Energy];
-                }
+                IsValid = true;
+                return;
             }
-            catch(Exception ex)
+
+            //TODO: possible that one has energy and other doesnt, this should throw an exception
+            if (!Source.Stats.ContainsKey(StatKeys.Energy) || !Stats.ContainsKey(StatKeys.Energy))
             {
-                Debug.Log($"CalcValid Error! {ex.Message} {this.GetType().FullName}");
-                IsValid = false;
+                IsValid = true;
             }
+            else
+            {
+                IsValid = Source.Stats[StatKeys.Energy] >= Stats[StatKeys.Energy];
+            }
+        }
         }
     }
 }
