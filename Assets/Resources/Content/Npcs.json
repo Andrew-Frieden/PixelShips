@@ -81,20 +81,6 @@
         "dialogue_text": "A cybernetic Artificer greets you over the comms. Looks like he has some tech to unload.",
 		"look_text": "An Artificer <> cruises through broadcasting offers",
 		"npc_deal_a": "BuyHardware",
-		"npc_deal_b": "BuyWeapon"
-      },
-      "Stats": {
-      }
-    },
-	{
-      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
-	  "ActorFlavors": [ 5 ],
-	  "RoomFlavors": [ 0 ],
-      "Values": {
-        "name": "Trade Vessel",
-        "dialogue_text": "A cybernetic Artificer greets you over the comms. Looks like he has some tech to unload.",
-		"look_text": "An Artificer <> cruises through broadcasting offers",
-		"npc_deal_a": "BuyHardware",
 		"npc_deal_b": "BuyHardware"
       },
       "Stats": {
