@@ -5,6 +5,7 @@ using Models.Dialogue;
 using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
+using TextSpace.RoomEntities;
 
 public class SpaceStationNpc : FlexEntity
 {
@@ -39,61 +40,6 @@ public class SpaceStationNpc : FlexEntity
     public SpaceStationNpc(string name = "Starport")
     {
         Name = name;
-    }
-
-    public class RepairAction : SimpleAction
-    {
-        public static int CalculateRepairCost(CommandShip ship)
-        {
-            var hullToRepair = ship.MaxHull - ship.Hull;
-            var pricePerHull = 1;
-            return hullToRepair * pricePerHull;
-        }
-
-        private const string CostKey = "cost";
-
-        private int Cost
-        {
-            get { return Stats[CostKey]; }
-            set { Stats[CostKey] = value; }
-        }
-
-        public RepairAction(IRoomActor source, int cost) : base()
-        {
-            Source = source;
-            Cost = cost;
-        }
-
-        public RepairAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
-        public override IEnumerable<TagString> Execute(IRoom room)
-        {
-            var ship = (CommandShip)Source;
-
-            var repairAmount = ship.MaxHull - ship.Hull;
-
-            if (ship.Resourcium >= Cost)
-            {
-                ship.Resourcium -= Cost;
-                ship.Hull = ship.MaxHull;
-                
-                return new List<TagString>()
-                {
-                    new TagString()
-                    {
-                        Text = $"Your ship is repaired {repairAmount} hull."
-                    }
-                };
-            }
-            
-            return new List<TagString>()
-            {
-                new TagString()
-                {
-                    Text = "You try to make a deal but turn up empty handed."
-                }
-            };
-        }
     }
 
     private class TradeCommoditiesAction : SimpleAction

@@ -48,10 +48,10 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 25,
+			"hazard_damage_amount": 12,
 			"hazard_damage_chance": 50
 		},
-		"DifficultyRating": 13,
+		"DifficultyRating": 20,
 		"Values": {
 			"name": "Dense Kelp Tangle",
 			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
@@ -68,10 +68,10 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 63,
+			"hazard_damage_amount": 16,
 			"hazard_damage_chance": 50
 		},
-		"DifficultyRating": 32,
+		"DifficultyRating": 35,
 		"Values": {
 			"name": "Dense Kelp Tangle",
 			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
@@ -88,7 +88,7 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 156,
+			"hazard_damage_amount": 19,
 			"hazard_damage_chance": 50
 		},
 		"DifficultyRating": 78,
@@ -108,7 +108,7 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 391,
+			"hazard_damage_amount": 14,
 			"hazard_damage_chance": 50
 		},
 		"DifficultyRating": 196,
@@ -148,7 +148,7 @@
 			2
 		],
 		"Stats": {
-			"hazard_damage_amount": 25,
+			"hazard_damage_amount": 14,
 			"hazard_damage_chance": 20
 		},
 		"DifficultyRating": 5,
@@ -168,7 +168,7 @@
 			2
 		],
 		"Stats": {
-			"hazard_damage_amount": 63,
+			"hazard_damage_amount": 14,
 			"hazard_damage_chance": 20
 		},
 		"DifficultyRating": 13,
@@ -188,7 +188,7 @@
 			2
 		],
 		"Stats": {
-			"hazard_damage_amount": 156,
+			"hazard_damage_amount": 17,
 			"hazard_damage_chance": 20
 		},
 		"DifficultyRating": 31,
@@ -208,7 +208,7 @@
 			2
 		],
 		"Stats": {
-			"hazard_damage_amount": 391,
+			"hazard_damage_amount": 19,
 			"hazard_damage_chance": 20
 		},
 		"DifficultyRating": 78,
@@ -228,7 +228,7 @@
 			2
 		],
 		"Stats": {
-			"hazard_damage_amount": 977,
+			"hazard_damage_amount": 23,
 			"hazard_damage_chance": 20
 		},
 		"DifficultyRating": 195,
@@ -288,7 +288,7 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 21,
+			"hazard_damage_amount": 11,
 			"hazard_damage_chance": 30
 		},
 		"DifficultyRating": 6,
@@ -308,7 +308,7 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 52,
+			"hazard_damage_amount": 16,
 			"hazard_damage_chance": 30
 		},
 		"DifficultyRating": 16,
@@ -328,7 +328,7 @@
 			1
 		],
 		"Stats": {
-			"hazard_damage_amount": 130,
+			"hazard_damage_amount": 13,
 			"hazard_damage_chance": 30
 		},
 		"DifficultyRating": 39,

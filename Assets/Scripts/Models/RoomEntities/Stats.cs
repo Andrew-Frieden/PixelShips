@@ -86,6 +86,9 @@ namespace Models.Stats
         
         public const string CaptainName = "captain_name";
 
+        public const string NpcDealA = "npc_deal_a";
+        public const string NpcDealB = "npc_deal_b";
+
         public static string DialogueStateText(string state)
         {
             return $"{DialogueText}_{state}";

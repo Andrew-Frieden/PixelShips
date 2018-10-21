@@ -1,44 +1,117 @@
 [
     {
-      "EntityType": "TextSpace.RoomEntities.ItemDealerNpc",
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 5 ],
+	  "RoomFlavors": [ 0 ],
       "Values": {
-        "name": "Hardware Dealer",
-        "dialogue_text": "A cybernetic Artificer greets you over the comms. Looks like he has some hardware to unload.",
-		"look_text": "A <> is selling his wares."
+        "name": "Big Joe's Gun Shack",
+        "dialogue_text": "A burly Agrinaut gestures towards the racks of weapons for sale.",
+		"look_text": "The neon glow of a <> illuminates your scanners.",
+		"npc_deal_a": "BuyWeapon",
+		"npc_deal_b": "BuyWeapon"
       },
       "Stats": {
       }
     },
-    {
-      "EntityType": "TextSpace.RoomEntities.ItemDealerNpc",
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 4, 5 ],
+	  "RoomFlavors": [ 1 ],
       "Values": {
-        "name": "Shady Hardware Dealer",
-        "dialogue_text": "A shady cybernetic Artificer greets you over the comms. Looks like he has some hardware to unload.",
-		"look_text": "A <> is selling his wares."
-      },
-      "Stats": {
-	  }
-    },
-    {
-      "EntityType": "TextSpace.RoomEntities.ScrapDealerNpc",
-      "Values": {
-        "name": "Scrap Dealer",
-        "dialogue_text": "The <> trade vessel looks worn down. Cables and spare parts are everywhere.",
-		"look_text": "A <> looks to be open for business."
+        "name": "Kelp Splicing Facility",
+        "dialogue_text": "The facility is crawling with industrial vehicles and large mechanical splicers. Looks like there are a few maintenance ports.",
+		"look_text": "Smog from a <> radiates through the area.",
+		"npc_deal_a": "SellScrap",
+		"npc_deal_b": "Repair"
       },
       "Stats": {
 		"scrap_to_resourcium": 8
       }
     },
-    {
-      "EntityType": "TextSpace.RoomEntities.ScrapDealerNpc",
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 4, 5 ],
+	  "RoomFlavors": [ 0 ],
       "Values": {
-         "name": "Shady Scrap Dealer",
-        "dialogue_text": "The <> trade vessel is mostly rusted over. Broken components lay around with no organization.",
-		"look_text": "A <> looks to be open for business."
+        "name": "Starport",
+        "dialogue_text": "The busy <> is blinking with activity. Trade vessels constantly come and go. Comms light up with public chatter.",
+		"look_text": "A slowly rotating <> orbits a nearby system.",
+		"npc_deal_a": "BuyHardware",
+		"npc_deal_b": "Repair"
       },
       "Stats": {
-	  "scrap_to_resourcium": 10
       }
-	}
+    },
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 4, 5 ],
+	  "RoomFlavors": [ 0 ],
+      "Values": {
+        "name": "Space Station",
+        "dialogue_text": "An industrial <> has plenty of maintenance ports to stop at.",
+		"look_text": "A blinking <> is built into a nearby asteroid.",
+		"npc_deal_a": "SellScrap",
+		"npc_deal_b": "Repair"
+      },
+      "Stats": {
+		"scrap_to_resourcium": 7
+      }
+    },
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 5 ],
+	  "RoomFlavors": [ 0 ],
+      "Values": {
+        "name": "Scrap Trawler",
+        "dialogue_text": "The worn down <> is almost completely rusted over. Spare parts and cables seem to hold the thing together.",
+		"look_text": "A rusty <> makes its way through.",
+		"npc_deal_a": "SellScrap",
+		"npc_deal_b": "None"
+      },
+      "Stats": {
+		"scrap_to_resourcium": 5
+      }
+    },
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 5 ],
+	  "RoomFlavors": [ 0 ],
+      "Values": {
+        "name": "Trade Vessel",
+        "dialogue_text": "A cybernetic Artificer greets you over the comms. Looks like he has some tech to unload.",
+		"look_text": "An Artificer <> cruises through broadcasting offers",
+		"npc_deal_a": "BuyHardware",
+		"npc_deal_b": "BuyWeapon"
+      },
+      "Stats": {
+      }
+    },
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 5 ],
+	  "RoomFlavors": [ 0 ],
+      "Values": {
+        "name": "Trade Vessel",
+        "dialogue_text": "A cybernetic Artificer greets you over the comms. Looks like he has some tech to unload.",
+		"look_text": "An Artificer <> cruises through broadcasting offers",
+		"npc_deal_a": "BuyHardware",
+		"npc_deal_b": "BuyHardware"
+      },
+      "Stats": {
+      }
+    },
+	{
+      "EntityType": "TextSpace.RoomEntities.GenericDealerNpc",
+	  "ActorFlavors": [ 5 ],
+	  "RoomFlavors": [ 1 ],
+      "Values": {
+        "name": "Kelp Poacher",
+        "dialogue_text": "The shady <> looks like he might have a deal for you.",
+		"look_text": "A <> darts through trying to avoid detection.",
+		"npc_deal_a": "BuyWeapon",
+		"npc_deal_b": "None"
+      },
+      "Stats": {
+      }
+    }
 ]

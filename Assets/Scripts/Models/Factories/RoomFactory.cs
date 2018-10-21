@@ -185,13 +185,24 @@ namespace Models.Factories
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Town))
             {
-                actors.Add(new SpaceStationNpc());
+                //actors.Add(new SpaceStationNpc());
+                var townData = NpcContent
+                        .Where(c => c.ActorFlavors.Contains(RoomActorFlavor.Town))
+                        .Where(t => t.RoomFlavors.Contains(template.Flavor) || t.RoomFlavors.Contains(RoomFlavor.Empty))
+                        .GetRandom();
+                actors.AddRange(CreateNpc(townData));
 
-                //  make npcs pretty likely with starports/towns
-                if (0.66f.Rng())
-                    actors.AddRange(CreateNpc(NpcContent.GetRandom()));
-                if (0.66f.Rng())
-                    actors.AddRange(CreateNpc(NpcContent.GetRandom()));
+                var otherNpcs = NpcContent
+                            .Where(c => !c.ActorFlavors.Contains(RoomActorFlavor.Town))
+                            .Where(t => t.RoomFlavors.Contains(template.Flavor) || t.RoomFlavors.Contains(RoomFlavor.Empty))
+                            .OrderBy(o => Guid.NewGuid())
+                            .Take(2).ToList();
+
+                for (int i = 0; i < otherNpcs.Count; i++)
+                {
+                    if (0.7f.Rng())
+                        actors.AddRange(CreateNpc(otherNpcs[i]));
+                }
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))
@@ -202,12 +213,11 @@ namespace Models.Factories
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Npc))
             {
-                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
-
-                //if (template.Flavor == RoomFlavor.Kelp)
-                //{
-                //    actors.Add(new NeedsHelpNpc());
-                //}
+                var npc = NpcContent
+                            .Where(c => !c.ActorFlavors.Contains(RoomActorFlavor.Town))
+                            .Where(t => t.RoomFlavors.Contains(template.Flavor) || t.RoomFlavors.Contains(RoomFlavor.Empty))
+                            .GetRandom();
+                actors.AddRange(CreateNpc(npc));
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Gatherable))
@@ -234,6 +244,10 @@ namespace Models.Factories
             {
                 var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
                 actors.Add(devHardware.FromFlexData());
+
+                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
+                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
+                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
             }
 
             return actors;
@@ -290,29 +304,21 @@ namespace Models.Factories
             var npc = npcData.FromFlexData();
             actors.Add(npc);
 
-            //  TODO maybe some tech debt here around allowing an NPC to dictate what other entities it gets spawned with
-            //  the current implementation here relies on us dropping in entities for the dealer to find
-            if (npc is ItemDealerNpc)
+            if (npc is IHaveDependents)
             {
-                //  now randomly grab hardware or weapons of appropriate powerlevel to sell
-                var itemPool = new List<FlexData>
+                var parent = (IHaveDependents)npc;
+
+                var dependents = new List<FlexData>();
+                dependents.AddRange(parent.FindHardwareDependents(HardwareContent));
+                dependents.AddRange(parent.FindWeaponDependents(Weapons));
+
+                foreach (var d in dependents)
                 {
-                    HardwareContent.GetRandom(),
-                    HardwareContent.GetRandom(),
-                    Weapons.GetRandom(),
-                    Weapons.GetRandom()
-                };
-
-                var firstItem = itemPool.GetRandom().FromFlexData();
-                var secondItem = itemPool.GetRandom().FromFlexData();
-
-                firstItem.IsHidden = true;
-                firstItem.DependentActorId = npc.Id;
-                secondItem.IsHidden = true;
-                secondItem.DependentActorId = npc.Id;
-
-                actors.Add(firstItem);
-                actors.Add(secondItem);
+                    var dependent = d.FromFlexData();
+                    dependent.IsHidden = true;
+                    dependent.DependentActorId = npc.Id;
+                    actors.Add(dependent);
+                }
             }
 
             return actors;
