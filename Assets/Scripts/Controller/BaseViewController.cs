@@ -24,7 +24,9 @@ namespace Controller
             DevToolsContentLoaded.text = "Mobs Loaded: " + (gameContentDto.Mobs != null ? gameContentDto.Mobs.Count().ToString() : "0") + "\n" +
                                          "Hazards Loaded: " + (gameContentDto.Hazards != null ? gameContentDto.Hazards.Count().ToString() : "0") + "\n" +
                                          "Gatherables Loaded: " + (gameContentDto.Gatherables != null ? gameContentDto.Gatherables.Count().ToString() : "0") + "\n" +
-                                         "Weapons Loaded: " + (gameContentDto.Weapons != null ? gameContentDto.Weapons.Count().ToString() : "0");
+                                         "Weapons Loaded: " + (gameContentDto.Weapons != null ? gameContentDto.Weapons.Count().ToString() : "0") + "\n" +
+                                         "Hardware Loaded: " + (gameContentDto.Hardware != null ? gameContentDto.Hardware.Count().ToString() : "0") + "\n" +
+                                         "Npcs Loaded: " + (gameContentDto.Npcs != null ? gameContentDto.Npcs.Count().ToString() : "0");
         }
     }
 }
