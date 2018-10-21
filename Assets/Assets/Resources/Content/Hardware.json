@@ -29,7 +29,7 @@
 	{
       "EntityType": "Items.SuperDetector",
       "Values": {
-        "name": "Developer Detector",
+        "name": "Developer Scanner",
         "dialogue_text": "Super technology hacked together by some nerd. It detects everything."
       },
       "Stats": {
