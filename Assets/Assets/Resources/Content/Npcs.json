@@ -13,10 +13,32 @@
       "EntityType": "TextSpace.RoomEntities.ItemDealerNpc",
       "Values": {
         "name": "Shady Hardware Dealer",
-        "dialogue_text": "A dark cybernetic Artificer greets you over the comms. Looks like he has some hardware to unload.",
-		"look_text": "A grungy <> is selling his wares."
+        "dialogue_text": "A shady cybernetic Artificer greets you over the comms. Looks like he has some hardware to unload.",
+		"look_text": "A <> is selling his wares."
       },
       "Stats": {
+	  }
+    },
+    {
+      "EntityType": "TextSpace.RoomEntities.ScrapDealerNpc",
+      "Values": {
+        "name": "Scrap Dealer",
+        "dialogue_text": "The <> trade vessel looks worn down. Cables and spare parts are everywhere.",
+		"look_text": "A <> looks to be open for business."
+      },
+      "Stats": {
+		"scrap_to_resourcium": 8
       }
-    }
+    },
+    {
+      "EntityType": "TextSpace.RoomEntities.ScrapDealerNpc",
+      "Values": {
+         "name": "Shady Scrap Dealer",
+        "dialogue_text": "The <> trade vessel is mostly rusted over. Broken components lay around with no organization.",
+		"look_text": "A <> looks to be open for business."
+      },
+      "Stats": {
+	  "scrap_to_resourcium": 10
+      }
+	}
 ]

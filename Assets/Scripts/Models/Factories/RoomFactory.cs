@@ -20,7 +20,7 @@ namespace Models.Factories
         private float CHANCE_FOR_MOB = 0.66f;       // given the room is dangerous, what is the chance it contains a mob
         private float CHANCE_FOR_TOWN = 0.25f;
         private float CHANCE_FOR_GATHERABLE = 0.25f;
-        private float CHANCE_FOR_NPC = 0.25f;
+        private float CHANCE_FOR_NPC = 0.4f;
         private float CHANCE_FOR_LIGHT_WEAPON = 0.01f;
         private float CHANCE_FOR_HEAVY_WEAPON = 0.01f;
 
@@ -196,10 +196,12 @@ namespace Models.Factories
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Npc))
             {
-                if (template.Flavor == RoomFlavor.Kelp)
-                {
-                    actors.Add(new NeedsHelpNpc());
-                }
+                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
+
+                //if (template.Flavor == RoomFlavor.Kelp)
+                //{
+                //    actors.Add(new NeedsHelpNpc());
+                //}
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Gatherable))
@@ -221,22 +223,6 @@ namespace Models.Factories
                     actors.Add(new SingleUseGatherable("Kelp Fiber"));
                 }
             }
-
-            //  hardcode adding scrap dealer for testing
-            //var dealer = ExampleGameData.ScrapDealerData.GetRandom().FromFlexData();
-            //actors.Add(dealer);
-
-            if (template.Difficulty == 1)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    var demoHardware = HardwareContent.GetRandom().FromFlexData();
-                    actors.Add(demoHardware);
-                }
-            }
-
-            var dealer = CreateNpc(NpcContent.GetRandom());
-            actors.AddRange(dealer);
 
             return actors;
         }
