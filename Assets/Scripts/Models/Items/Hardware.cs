@@ -106,6 +106,7 @@ namespace Items
     public class SuperDetector : Hardware
     {
         public SuperDetector(FlexData data) : base(data) { }
+        public SuperDetector(FlexEntityDto dto) : base(dto) { }
     }
 
     public class MobDetector : Hardware

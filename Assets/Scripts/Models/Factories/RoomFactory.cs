@@ -297,8 +297,8 @@ namespace Models.Factories
                 {
                     HardwareContent.GetRandom(),
                     HardwareContent.GetRandom(),
-                    //Weapons.GetRandom(),
-                    //Weapons.GetRandom()
+                    Weapons.GetRandom(),
+                    Weapons.GetRandom()
                 };
 
                 var firstItem = itemPool.GetRandom().FromFlexData();

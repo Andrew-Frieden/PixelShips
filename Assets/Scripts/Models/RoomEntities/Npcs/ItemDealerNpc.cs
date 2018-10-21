@@ -76,23 +76,30 @@ namespace TextSpace.RoomEntities
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
+            var entitySource = (FlexEntity)Source;
+
             if (Target is Hardware)
             {
                 var item = (Hardware)Target;
                 room.PlayerShip.EquipHardware(item);
                 item.DependentActorId = string.Empty;
-                var entitySource = (FlexEntity)Source;
 
-                return $"{entitySource.Name} trades you <> for {Resourcium} resourcium.".Encode(Target, LinkColors.Gatherable).ToTagSet();
             }
-
-            throw new NotSupportedException();
+            else if (Target is Weapon)
+            {
+                var item = (Weapon)Target;
+                room.PlayerShip.SwapWeapon(item);
+                item.DependentActorId = string.Empty;
+            }
+            return $"{entitySource.Name} trades you <> for {Resourcium} resourcium."
+                .Encode(Target, (Target is Weapon) ? LinkColors.Weapon : LinkColors.Gatherable)
+                .ToTagSet();
         }
 
         public string OptionText(IRoom room)
         {
             var item = (FlexEntity)Target;
-            var baseText = $"Buy {item.Name} for {Resourcium} resourcium.";
+            var baseText = $"Buy {item.Name}{Env.l}({Resourcium} resourcium)";
 
             CalculateValid(room);
 
@@ -109,7 +116,7 @@ namespace TextSpace.RoomEntities
                 if (room.PlayerShip.Resourcium < Resourcium)
                     return $"{baseText}{Env.ll}Not enough resourcium.";
 
-                if (room.PlayerShip.OpenHardwareSlots == 0)
+                if (Target is Hardware && room.PlayerShip.OpenHardwareSlots == 0)
                     return $"{baseText}{Env.ll}Hardware at capacity.";
             }
 
@@ -122,7 +129,7 @@ namespace TextSpace.RoomEntities
             var playerHasOpenSlots = room.PlayerShip.OpenHardwareSlots > 0;
             var enoughMoney = room.PlayerShip.Resourcium >= Resourcium;
 
-            if (dealerHasItem && playerHasOpenSlots && enoughMoney)
+            if (dealerHasItem && enoughMoney && (playerHasOpenSlots || Target is Weapon))
             {
                 IsValid = true;
             }
