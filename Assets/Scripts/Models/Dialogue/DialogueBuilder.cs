@@ -71,9 +71,16 @@ namespace Models.Dialogue
                 return this;
             }
 
-            public ABDialogueContent Build()
+            public ABDialogueContent Build(IRoom room)
             {
                 content.CalculateMode();
+
+                if (content.OptionAAction != null)
+                    content.OptionAAction.CalculateValid(room);
+
+                if (content.OptionBAction != null)
+                    content.OptionBAction.CalculateValid(room);
+
                 return content;
             }
         }
@@ -93,7 +100,7 @@ namespace Models.Dialogue
                 .AddMainText(mainText)
                 .AddOption(lightWeapon.Name, lightWeapon.GetAttackAction(room, playerShip, target))
                 .AddOption(heavyWeapon.Name, heavyWeapon.GetAttackAction(room, playerShip, target))
-                    .Build();
+                    .Build(room);
         }
 
         public static ABDialogueContent PlayerNavigateDialogue(IRoom room)
@@ -109,14 +116,14 @@ namespace Models.Dialogue
                     .AddMainText($"{room.Description}{Env.ll}Your warp drive is fully charged.")
                     .AddOption(aText, new WarpAction(templateA))
                     .AddOption(bText, new WarpAction(templateB))
-                    .Build();
+                    .Build(room);
             }
 
             return Init()
                 .AddMainText($"{room.Description}{Env.ll}Your warp drive is cold.")
                 .AddTextA("Spin up warp drive.")
                 .AddActionA(new WarpDriveReadyAction(room.PlayerShip))
-                .Build();
+                .Build(room);
         }
 
         private static string GetRoomExitText(CommandShip ship, RoomTemplate t)
@@ -144,11 +151,11 @@ namespace Models.Dialogue
             return text;
         }
 
-        public static ABDialogueContent EmptyDialogue()
+        public static ABDialogueContent EmptyDialogue(IRoom room)
         {
             return Init()
                 .AddMainText("The scanner signature was lost.")
-                .Build();
+                .Build(room);
         }
     }
     
@@ -163,6 +170,6 @@ namespace Models.Dialogue
         IDialogueBuilder AddOptionA(string text, IRoomAction action);
         IDialogueBuilder AddOptionB(string text, IRoomAction action);
 
-        ABDialogueContent Build();
+        ABDialogueContent Build(IRoom room);
     }
 }

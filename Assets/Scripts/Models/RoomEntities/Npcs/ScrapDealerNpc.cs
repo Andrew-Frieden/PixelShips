@@ -1,5 +1,4 @@
-﻿
-using Models;
+﻿using Models;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
@@ -42,7 +41,7 @@ namespace TextSpace.RoomEntities
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText(DialogueText.Encode(this, LinkColors.NPC))
                         .AddOption(sellAction.OptionText(room), sellAction)
-                        .Build();
+                        .Build(room);
                     break;
                 case (int)ScrapDealerNpcState.FinishedDealing:
                     break;
@@ -93,7 +92,7 @@ namespace TextSpace.RoomEntities
 
         public string OptionText(IRoom room)
         {
-            if (IsValid())
+            if (IsValid)
             {
                 var scrap = ((CommandShip)Source).Scrap;
                 var resourcium = scrap / ScrapToResourcium;
@@ -105,14 +104,15 @@ namespace TextSpace.RoomEntities
             }
         }
 
-        public override bool IsValid()
+        public override void CalculateValid(IRoom room)
         {
+            base.CalculateValid(room);
             if (Source is CommandShip)
             {
                 var cmdShip = (CommandShip)Source;
-                return cmdShip.Scrap >= ScrapToResourcium;
+                IsValid = cmdShip.Scrap >= ScrapToResourcium;
             }
-            return false;
+            IsValid = false;
         }
     }
 }

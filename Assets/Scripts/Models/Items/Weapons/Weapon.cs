@@ -78,12 +78,12 @@ namespace Items
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText(DialogueText.Encode(this, LinkColors.Weapon))
                         .AddOption("Pickup", new PickupWeaponAction(room.PlayerShip, this))
-                        .Build();
+                        .Build(room);
                     break;
                 case (int)WeaponState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Weapon))
-                        .Build();
+                        .Build(room);
                     break;
             }
         }

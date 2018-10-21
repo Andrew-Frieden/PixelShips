@@ -42,7 +42,7 @@ namespace Models
                         .AddMainText("The most ubiquitous and least valuable item in the galaxy.  Worth 1 credit per unit.")
                         .AddTextA("Pick it up")
                             .AddActionA(new LootAction(room.PlayerShip, this))
-                        .Build();
+                        .Build(room);
                     break;
                 default:
                     throw new NotSupportedException();

@@ -233,7 +233,7 @@ namespace Models
                 .AddActionA(new GiveASpeechAction(this))
                 .AddTextB(passText)
                 .AddActionB(passAction)
-                .Build();
+                .Build(room);
         }
         
         public CommandShip()

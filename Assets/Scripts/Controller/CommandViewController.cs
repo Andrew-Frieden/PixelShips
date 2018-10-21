@@ -82,7 +82,7 @@ namespace Controller
         private void HandleLinkTouchedEvent(string guid)
         {
             var entity = _room.FindEntity(guid);
-            var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue();
+            var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue(_room);
             _abController.ShowControl(content); // pass room in here so we can calculate IsValid() ?
         }
 

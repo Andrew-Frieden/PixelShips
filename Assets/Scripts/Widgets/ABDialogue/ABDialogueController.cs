@@ -76,14 +76,14 @@ public class ABDialogueController : MonoBehaviour {
             case JoyEdge.Center:
                 break;
             case JoyEdge.Left:
-                if (mode == ABDialogueMode.ABCancel || mode == ABDialogueMode.ACancel && _actionA.IsValid())
+                if (mode == ABDialogueMode.ABCancel || mode == ABDialogueMode.ACancel && _actionA.IsValid)
                 {
                     onRoomActionSelect?.Invoke(_actionA);
                     DismissControl();
                 }
                 break;
             case JoyEdge.Right:
-                if (mode == ABDialogueMode.ABCancel && _actionB.IsValid())
+                if (mode == ABDialogueMode.ABCancel && _actionB.IsValid)
                 {
                     onRoomActionSelect?.Invoke(_actionB);
                     DismissControl();
@@ -131,7 +131,7 @@ public class ABDialogueController : MonoBehaviour {
 
         if (content.OptionAAction != null)
         {
-            OptionAViewImage.color = !content.OptionAAction.IsValid() 
+            OptionAViewImage.color = !content.OptionAAction.IsValid 
                 ? new Color(150/255f, 150/255f, 150/255f, 48/255f) 
                 : new Color(100/255f, 200/255f, 250/255f, 48/255f);
         }
@@ -139,7 +139,7 @@ public class ABDialogueController : MonoBehaviour {
         if (content.OptionBAction == null) 
             return;
 
-        OptionBViewImage.color = content.OptionBAction != null && !content.OptionBAction.IsValid()
+        OptionBViewImage.color = content.OptionBAction != null && !content.OptionBAction.IsValid
             ? new Color(150 / 255f, 150 / 255f, 150 / 255f, 48 / 255f)
             : new Color(214 / 255f, 130 / 255f, 124 / 255f, 48 / 255f);
     }

@@ -28,13 +28,13 @@ namespace Items
                     if (room.PlayerShip.OpenHardwareSlots > 0)
                         builder.AddOption("Pickup", new PickupHardwareAction(room.PlayerShip, this));
 
-                    DialogueContent = builder.Build();
+                    DialogueContent = builder.Build(room);
                     break;
                 case (int)HardwareState.Equipped:
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText($"<>{Env.ll}{DialogueText}{Env.ll}Currently equipped to your ship.".Encode(this, LinkColors.Gatherable))
                         .AddOption("Drop", new DropHardwareAction(room.PlayerShip, this))
-                        .Build();
+                        .Build(room);
                     break;
             }
         }

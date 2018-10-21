@@ -45,7 +45,7 @@ namespace Models.Actions
             }
         }
 
-        public WarpAction(RoomTemplate template)
+        public WarpAction(RoomTemplate template) : base()
         {
             _template = template;
             StoreTemplateStats();

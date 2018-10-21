@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Models.Dtos;
 using Models.Stats;
+using UnityEngine;
 
 namespace Models.Actions
 {
     public abstract class SimpleAction : IRoomAction
     {
+        public bool IsValid { get; set; }
+
         protected int BaseDamage
         {
             get
@@ -110,20 +114,36 @@ namespace Models.Actions
             Values = new Dictionary<string, string>();
         }
 
-        public virtual bool IsValid()
+        public virtual void CalculateValid(IRoom room)
         {
-            if (Source == null)
+            try
             {
-                return true;
+                if (Source == null)
+                {
+                    IsValid = true;
+                    return;
+                }
+
+                //if (Source.Stats == null)
+                //{
+                //    IsValid = true;
+                //}
+
+                //TODO: possible that one has energy and other doesnt, this should throw an exception
+                if (!Source.Stats.ContainsKey(StatKeys.Energy) || !Stats.ContainsKey(StatKeys.Energy))
+                {
+                    IsValid = true;
+                }
+                else
+                {
+                    IsValid = Source.Stats[StatKeys.Energy] >= Stats[StatKeys.Energy];
+                }
             }
-            
-            //TODO: possible that one has energy and other doesnt, this should throw an exception
-            if (!Source.Stats.ContainsKey(StatKeys.Energy) || !Stats.ContainsKey(StatKeys.Energy))
+            catch(Exception ex)
             {
-                return true;
+                Debug.Log($"CalcValid Error! {ex.Message} {this.GetType().FullName}");
+                IsValid = false;
             }
-            
-            return Source.Stats[StatKeys.Energy] >= Stats[StatKeys.Energy];
         }
     }
 }

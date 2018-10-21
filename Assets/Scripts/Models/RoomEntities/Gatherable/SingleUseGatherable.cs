@@ -48,12 +48,12 @@ namespace Models
                         .AddMainText("Your mining scanners detect some serious resource in this bad boy.")
                         .AddTextA("Attempt to extract resources")
                             .AddActionA(new MiningLootAction(room.PlayerShip, this))
-                        .Build();
+                        .Build(room);
                     break;
                 case (int)NpcState.Empty:
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText($"The {Name} is depleted, it may take eons to grow back.")
-                        .Build();
+                        .Build(room);
                     break;
                 default:
                     throw new NotSupportedException();

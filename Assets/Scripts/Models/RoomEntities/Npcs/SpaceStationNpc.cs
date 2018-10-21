@@ -17,7 +17,7 @@ public class SpaceStationNpc : FlexEntity
             .AddMainText("The busy <> is blinking with activity. Trade vessels constantly come and go. Comms light up with public chatter.".Encode(Name, Id, LinkColors.NPC))
             .AddOption($"Repair your ship.{Env.ll}Costs {repairPrice} credits." , new RepairAction(room.PlayerShip, repairPrice))
             .AddOption($"Trade commodities for {tradeValue} credits.", new TradeCommoditiesAction(room.PlayerShip, tradeValue))
-            .Build();
+            .Build(room);
     }
 
     public override TagString GetLookText()

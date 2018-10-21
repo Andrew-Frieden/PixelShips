@@ -24,7 +24,7 @@ namespace Models.Actors
         {
             DialogueContent = DialogueBuilder.Init()
                  .AddMainText("The " + _name + " will strike in " + Stats[StatKeys.TimeToLive] + " turns.")
-                  .Build();
+                  .Build(room);
         }
 
         public override TagString GetLookText()

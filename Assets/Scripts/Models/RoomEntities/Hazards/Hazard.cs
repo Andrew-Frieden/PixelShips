@@ -14,7 +14,7 @@ namespace Models.RoomEntities.Hazards
         {
             DialogueContent = DialogueBuilder.Init()
                 .AddMainText(Values[ValueKeys.DialogueText].Encode(Name, Id, LinkColors.Hazard))
-                .Build();
+                .Build(room);
         }
 
         public override TagString GetLookText()

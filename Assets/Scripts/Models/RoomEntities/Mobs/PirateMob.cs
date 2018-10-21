@@ -32,13 +32,12 @@ public class PirateMob : FlexEntity
         {
             DialogueContent = DialogueBuilder.Init()
                         .AddMainText(@"A crackle comes through the comms:
-
 Empty your cargo or we'll dust ya!")
                         .AddTextA("Transfer 100 resourcium")
                             .AddActionA(new GetRobbedAction(room.PlayerShip, this, 100)) //  player loses 100 resourcium and pirate ship to CanCombat = true
                         .AddTextB("Talk your way out of it")
                             .AddActionB(new SmoothTalkAction(room.PlayerShip, this, 10))  //  if successful, this action will set the pirate ship to CanCombat = true, failure sets pirate to IsHostile = true
-                        .Build();
+                        .Build(room);
         }
     }
 

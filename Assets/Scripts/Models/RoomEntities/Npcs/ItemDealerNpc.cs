@@ -40,11 +40,11 @@ namespace TextSpace.RoomEntities
                         var sellAction = new SellItemAction(this, item);
                         dealsBuilder.AddOption(sellAction.OptionText(room), sellAction);
                     }
-                    DialogueContent = dealsBuilder.Build();
+                    DialogueContent = dealsBuilder.Build(room);
                     break;
                 case (int)ScrapDealerNpcState.FinishedDealing:
                     var doneBuilder = DialogueBuilder.Init().AddMainText("<> I'm done selling!".Encode(this, LinkColors.NPC));
-                    DialogueContent = doneBuilder.Build();
+                    DialogueContent = doneBuilder.Build(room);
                     break;
                 default:
                     throw new NotSupportedException();
@@ -88,7 +88,7 @@ namespace TextSpace.RoomEntities
         public string OptionText(IRoom room)
         {
             //  TODO include item display stats text here
-            if (IsValid())
+            if (IsValid)
             {
                 return $"Buy this item.";
             }
@@ -98,16 +98,9 @@ namespace TextSpace.RoomEntities
             }
         }
 
-        public void CalculateValid(IRoom room)
+        public override void CalculateValid(IRoom room)
         {
-
-        }
-
-        public override bool IsValid()
-        {
-            //  check if parent of item is still the npc
-            // hmm also need to verify the cmdship has hardware slots...
-            return Target.DependentActorId == Source.Id;
+            IsValid = Target.DependentActorId == Source.Id;
         }
     }
 }

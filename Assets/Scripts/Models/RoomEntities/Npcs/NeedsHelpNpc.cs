@@ -48,17 +48,17 @@ namespace Models
                             .AddActionA(new HelpRiskyAction(room.PlayerShip, this))
                         .AddTextB("Give their vessel a nudge")
                             .AddActionB(new HelpSafeAction(room.PlayerShip, this))
-                        .Build();
+                        .Build(room);
                     break;
                 case (int)NpcState.HelpSuccess:
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText("Yay thanks for the help!")
-                        .Build();
+                        .Build(room);
                     break;
                 case (int)NpcState.HelpFail:
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText("Hey you tried your best. I'll call for backup.")
-                        .Build();
+                        .Build(room);
                     break;
                 default:
                     throw new NotSupportedException();

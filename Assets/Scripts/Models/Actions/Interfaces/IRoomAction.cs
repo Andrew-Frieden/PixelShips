@@ -5,7 +5,7 @@ namespace Models.Actions
     public interface IRoomAction
     {
         IEnumerable<TagString> Execute(IRoom room);
-
-        bool IsValid();
+        void CalculateValid(IRoom room);
+        bool IsValid { get; set; }
     }
 }
