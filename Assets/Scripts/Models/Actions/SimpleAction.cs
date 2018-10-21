@@ -132,6 +132,5 @@ namespace Models.Actions
                 IsValid = Source.Stats[StatKeys.Energy] >= Stats[StatKeys.Energy];
             }
         }
-        }
     }
 }
