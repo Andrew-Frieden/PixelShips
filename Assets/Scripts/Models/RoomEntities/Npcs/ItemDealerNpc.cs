@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Items;
+using Models;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
@@ -33,11 +34,10 @@ namespace TextSpace.RoomEntities
                 case (int)ScrapDealerNpcState.HasDeals:
 
                     var itemsToSell = room.FindDependentActors(this);
-
                     var dealsBuilder = DialogueBuilder.Init().AddMainText(DialogueText.Encode(this, LinkColors.NPC));
                     foreach (var item in itemsToSell)
                     {
-                        var sellAction = new SellItemAction(this, item);
+                        var sellAction = new SellItemAction(this, item, 1);
                         dealsBuilder.AddOption(sellAction.OptionText(room), sellAction);
                     }
                     DialogueContent = dealsBuilder.Build(room);
@@ -64,43 +64,72 @@ namespace TextSpace.RoomEntities
 
     public class SellItemAction : SimpleAction
     {
-        public SellItemAction(IRoomActor src, IRoomActor target) : base()
+        public SellItemAction(IRoomActor src, IRoomActor target, int price) : base()
         {
             //  source is npc, target is item being sold
             Source = src;
             Target = target;
+            Resourcium = price;
         }
 
         public SellItemAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
+            if (Target is Hardware)
+            {
+                var item = (Hardware)Target;
+                room.PlayerShip.EquipHardware(item);
+                item.DependentActorId = string.Empty;
+                var entitySource = (FlexEntity)Source;
 
+                return $"{entitySource.Name} trades you <> for {Resourcium} resourcium.".Encode(Target, LinkColors.Gatherable).ToTagSet();
+            }
 
-            var cmdShip = (CommandShip)Source;
-            var scrap = cmdShip.Scrap;
-            cmdShip.Scrap = 0;
-            var resourcium = 0;
-            cmdShip.Resourcium += resourcium;
-            return $"A <> trades you {resourcium} resourcium for your {scrap} scrap.".Encode(Target, LinkColors.NPC).ToTagSet();
+            throw new NotSupportedException();
         }
 
         public string OptionText(IRoom room)
         {
+            var item = (FlexEntity)Target;
+            var baseText = $"Buy {item.Name} for {Resourcium} resourcium.";
+
+            CalculateValid(room);
+
             //  TODO include item display stats text here
             if (IsValid)
             {
-                return $"Buy this item.";
+                return baseText;
             }
             else
             {
-                return $"Deal already accepted.";
+                if (Target.DependentActorId != Source.Id)
+                    return $"{baseText}{Env.ll}Deal already accepted.";
+
+                if (room.PlayerShip.Resourcium < Resourcium)
+                    return $"{baseText}{Env.ll}Not enough resourcium.";
+
+                if (room.PlayerShip.OpenHardwareSlots == 0)
+                    return $"{baseText}{Env.ll}Hardware at capacity.";
             }
+
+            throw new Exception("ItemDealerNpc OptionText hit an unexpected case");
         }
 
         public override void CalculateValid(IRoom room)
         {
-            IsValid = Target.DependentActorId == Source.Id;
+            var dealerHasItem = Target.DependentActorId == Source.Id;
+            var playerHasOpenSlots = room.PlayerShip.OpenHardwareSlots > 0;
+            var enoughMoney = room.PlayerShip.Resourcium >= Resourcium;
+
+            if (dealerHasItem && playerHasOpenSlots && enoughMoney)
+            {
+                IsValid = true;
+            }
+            else
+            {
+                IsValid = false;
+            }
         }
     }
 }

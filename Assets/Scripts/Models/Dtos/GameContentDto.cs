@@ -9,18 +9,21 @@ namespace Models.Dtos
         public IEnumerable<FlexData> Gatherables { get; private set; }
         public IEnumerable<FlexData> Weapons { get; private set; }
         public IEnumerable<FlexData> Hardware { get; private set; }
+        public IEnumerable<FlexData> Npcs { get; private set; }
 
         public GameContentDto(IEnumerable<FlexData> hazards,
             IEnumerable<FlexData> mobs,
             IEnumerable<FlexData> gatherables,
             IEnumerable<FlexData> weapons,
-            IEnumerable<FlexData> hardware)
+            IEnumerable<FlexData> hardware,
+            IEnumerable<FlexData> npcs)
         {
             Hazards = hazards;
             Mobs = mobs;
             Gatherables = gatherables;
             Weapons = weapons;
             Hardware = hardware;
+            Npcs = npcs;
         }
     }
 }

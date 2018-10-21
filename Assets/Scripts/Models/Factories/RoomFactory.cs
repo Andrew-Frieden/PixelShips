@@ -34,6 +34,7 @@ namespace Models.Factories
         public static IEnumerable<FlexData> Gatherables { get; private set; }
         public static IEnumerable<FlexData> Weapons { get; private set; }
         public static IEnumerable<FlexData> HardwareContent { get; private set; }
+        public static IEnumerable<FlexData> NpcContent { get; private set; }
 
         public RoomFactory(GameContentDto gameContent)
         {
@@ -42,6 +43,7 @@ namespace Models.Factories
             Gatherables = gameContent.Gatherables;
             Weapons = gameContent.Weapons;
             HardwareContent = gameContent.Hardware;
+            NpcContent = gameContent.Npcs;
         }
 
         public Weapon GetRandomWeapon(Weapon.WeaponTypes type)
@@ -226,12 +228,15 @@ namespace Models.Factories
 
             if (template.Difficulty == 1)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     var demoHardware = HardwareContent.GetRandom().FromFlexData();
                     actors.Add(demoHardware);
                 }
             }
+
+            var dealer = CreateNpc(NpcContent.GetRandom());
+            actors.AddRange(dealer);
 
             return actors;
         }
@@ -294,8 +299,8 @@ namespace Models.Factories
                 {
                     HardwareContent.GetRandom(),
                     HardwareContent.GetRandom(),
-                    Weapons.GetRandom(),
-                    Weapons.GetRandom()
+                    //Weapons.GetRandom(),
+                    //Weapons.GetRandom()
                 };
 
                 var firstItem = itemPool.GetRandom().FromFlexData();

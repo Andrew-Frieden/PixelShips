@@ -223,8 +223,8 @@ namespace Items
             if (Source == room.PlayerShip)
                 room.PlayerShip.EquipHardware(hardware);
 
-            hardware.IsDestroyed = true;
-            hardware.ChangeState((int)Hardware.HardwareState.Equipped);
+            //hardware.IsDestroyed = true;
+            //hardware.ChangeState((int)Hardware.HardwareState.Equipped);
 
             return $"You pickup the <>".Encode(Target, LinkColors.Gatherable).ToTagSet();
         }

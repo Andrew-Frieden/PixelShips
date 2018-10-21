@@ -1,0 +1,22 @@
+[
+    {
+      "EntityType": "TextSpace.RoomEntities.ItemDealerNpc",
+      "Values": {
+        "name": "Hardware Dealer",
+        "dialogue_text": "A cybernetic Artificer greets you over the comms. Looks like he has some hardware to unload.",
+		"look_text": "A <> is selling his wares."
+      },
+      "Stats": {
+      }
+    },
+    {
+      "EntityType": "TextSpace.RoomEntities.ItemDealerNpc",
+      "Values": {
+        "name": "Shady Hardware Dealer",
+        "dialogue_text": "A dark cybernetic Artificer greets you over the comms. Looks like he has some hardware to unload.",
+		"look_text": "A grungy <> is selling his wares."
+      },
+      "Stats": {
+      }
+    }
+]

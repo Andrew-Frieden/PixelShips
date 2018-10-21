@@ -60,6 +60,20 @@ namespace Models.Actions
             }
         }
 
+        public int Resourcium
+        {
+            get
+            {
+                if (!Stats.ContainsKey(StatKeys.Resourcium))
+                    Resourcium = 0;
+                return Stats[StatKeys.Resourcium];
+            }
+            protected set
+            {
+                Stats[StatKeys.Resourcium] = value;
+            }
+        }
+
         public IRoomActor Target;
         public IRoomActor Source;
         public Dictionary<string, int> Stats;

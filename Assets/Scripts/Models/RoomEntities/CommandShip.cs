@@ -93,7 +93,7 @@ namespace Models
                         [StatKeys.Captainship] = 11,
                         [StatKeys.WarpDriveReady] = 0,
                         [StatKeys.Scrap] = 21,
-                        [StatKeys.Resourcium] = 0,
+                        [StatKeys.Resourcium] = 3,
                         [StatKeys.Techanite] = 0,
                         [StatKeys.MachineParts] = 0,
                         [StatKeys.PulsarCoreFragments] = 0,
@@ -329,6 +329,9 @@ namespace Models
             if (OpenHardwareSlots > 0)
             {
                 _hardware.Add(h);
+
+                h.IsDestroyed = true;
+                h.ChangeState((int)Items.Hardware.HardwareState.Equipped);
 
                 if (h is MaxHullPlating)
                     EventTagBroadcaster.Broadcast(EventTag.PlayerHullModified);
