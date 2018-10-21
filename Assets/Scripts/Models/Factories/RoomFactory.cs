@@ -186,6 +186,12 @@ namespace Models.Factories
             if (template.ActorFlavors.Contains(RoomActorFlavor.Town))
             {
                 actors.Add(new SpaceStationNpc());
+
+                //  make npcs pretty likely with starports/towns
+                if (0.66f.Rng())
+                    actors.AddRange(CreateNpc(NpcContent.GetRandom()));
+                if (0.66f.Rng())
+                    actors.AddRange(CreateNpc(NpcContent.GetRandom()));
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))

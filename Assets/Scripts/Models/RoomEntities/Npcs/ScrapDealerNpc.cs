@@ -92,6 +92,8 @@ namespace TextSpace.RoomEntities
 
         public string OptionText(IRoom room)
         {
+            CalculateValid(room);
+
             if (IsValid)
             {
                 var scrap = ((CommandShip)Source).Scrap;
@@ -106,11 +108,11 @@ namespace TextSpace.RoomEntities
 
         public override void CalculateValid(IRoom room)
         {
-            base.CalculateValid(room);
             if (Source is CommandShip)
             {
                 var cmdShip = (CommandShip)Source;
                 IsValid = cmdShip.Scrap >= ScrapToResourcium;
+                return;
             }
             IsValid = false;
         }
