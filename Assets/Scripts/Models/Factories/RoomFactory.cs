@@ -244,10 +244,6 @@ namespace Models.Factories
             {
                 var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
                 actors.Add(devHardware.FromFlexData());
-
-                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
-                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
-                actors.AddRange(CreateNpc(NpcContent.GetRandom()));
             }
 
             return actors;
