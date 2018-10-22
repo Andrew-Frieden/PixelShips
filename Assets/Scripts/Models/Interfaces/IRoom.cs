@@ -36,13 +36,7 @@ public static class RoomHelpers
 
     public static ICollection<IRoomActor> FindDependentActors(this IRoom room, string parentId)
     {
-        var actors = room.Entities.Where(e => e.DependentActorId == parentId).ToList();
-
-        if (!actors.Any())
-        {
-            Debug.Log($"Warning: Cannot find actor for parent id: {parentId}");
-        }
-        return actors;
+        return room.Entities.Where(e => e.DependentActorId == parentId).ToList();
     }
 
     public static ICollection<IRoomActor> FindDependentActors(this IRoom room, IRoomActor parent)
