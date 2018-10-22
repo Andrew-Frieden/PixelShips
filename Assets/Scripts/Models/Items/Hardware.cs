@@ -204,7 +204,7 @@ namespace Items
             hardware.ChangeState((int)Hardware.HardwareState.Unequipped);
             //PrimaryTripleViewController.ShowPrimary((int)TripleView.Middle);
 
-            return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ViewCmd, UIResponseTag.HideNavBar });
+            return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ViewCmd });
         }
     }
 
@@ -229,10 +229,7 @@ namespace Items
             if (Source == room.PlayerShip)
                 room.PlayerShip.EquipHardware(hardware);
 
-            //hardware.IsDestroyed = true;
-            //hardware.ChangeState((int)Hardware.HardwareState.Equipped);
-
-            return $"You pickup the <>".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ShowNavBar });
+            return $"You pickup the <>".Encode(Target, LinkColors.Gatherable).ToTagSet();
         }
     }
 }
