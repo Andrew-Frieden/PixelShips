@@ -84,9 +84,15 @@ namespace Models
                 case RoomFlavor.Empty:
                     return "Empty Space";
                 case RoomFlavor.Nebula:
-                    return "Nebula";
+                    return "Nebula Tropics";
                 case RoomFlavor.Kelp:
                     return "Kelp Forest";
+                case RoomFlavor.Grid:
+                    return "Grid Zone";
+                case RoomFlavor.Rural:
+                    return "Rural Expanse";
+                case RoomFlavor.Solar:
+                    return "Solar Proxima";
                 default:
                     return "Null Space";
             }

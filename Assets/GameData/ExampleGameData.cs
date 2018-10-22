@@ -114,7 +114,23 @@ namespace GameData
                 "Giant undulating space flora of a <> obstructs vision.",
                 "A <> teems with life in the vaccum of space.",
                 "Huge viridian stalks of a <> sway back and forth."
+            } },
+            { RoomFlavor.Rural, new string[] {
+                "Soothing vistas of <> stretch beyond vision.",
+                "This bucolic and serene system must be <>.",
+                "Hardworking Agrinauts bustle back and forth through the <>."
+            } },
+            { RoomFlavor.Grid, new string[] {
+                "The <>, a digital frontier to reshape -null- existance.",
+                "The Master Control Program has chosen you to visit the <>.",
+                "In the <>, ships compete for the benefit of the -null-."
+            } },
+            { RoomFlavor.Solar, new string[] {
+                "A bright star shines upon the vast cat empire of the <>.",
+                "Golden pyrammids and obelisks make the <> system glitter.",
+                "Within the <> space itself seems to take on a golden aura."
             } }
+
         };
 
         public static Dictionary<RoomFlavor, IEnumerable<string>> InjectableRoomDescriptions => new Dictionary<RoomFlavor, IEnumerable<string>>
@@ -131,6 +147,17 @@ namespace GameData
             } },
             { RoomFlavor.Kelp, new string[] {
                 "The massive plant life of the ancient Kelp Forest contains many dangers."
+            } },
+            { RoomFlavor.Rural, new string[] {
+                "The deceptive calm of the Agrinaut homeland has lulled many into a false sense of security."
+            } },
+            { RoomFlavor.Grid, new string[] {
+                "A digital frontier stretches beyond view, what unknown treaures and dangers wait within the -XXXXXXXX------ SEG FAULT>>>..."
+            } },
+            { RoomFlavor.Solar, new string[] {
+                "A core world of the Noble Cat Alliance, monumental golden pyramids and obelisks can be seen clearly even from this distance.",
+                "A military installation of the Noble Cat Alliance, the architect was clearly more excited in plating things in gold than adding more defenses.",
+                "Busy trading ships sail in and out while patrol vessels scan furiously for contraband such as techanite or nip."
             } }
         };
     }

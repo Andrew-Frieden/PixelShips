@@ -142,7 +142,12 @@ namespace Models.Factories
             {
                 if (nextRoomFlavor == RoomFlavor.Empty)
                 {
+                    var roomFlavors = Enum.GetValues(typeof(RoomFlavor));
+
+                    // nextRoomFlavor = (RoomFlavor)roomFlavors.GetValue(UnityEngine.Random.Range(0,roomFlavors.Length));
+
                     nextRoomFlavor = RoomFlavor.Kelp;
+
                 }
                 else
                 {

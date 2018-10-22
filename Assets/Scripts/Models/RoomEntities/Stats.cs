@@ -29,6 +29,7 @@ namespace Models.Stats
         public const string TimeToLive = "time_to_live";
         public const string BaseDamage = "base_damage";
         public const string DamageReduction = "damage_reduction";
+        public const string BaseHeal = "base_heal";
 
         #endregion
 
