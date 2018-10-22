@@ -32,7 +32,7 @@ namespace Models.Actions
                 new TagString()
                 {
                     Text = "The march of time continues. Your shields regenerate.",
-                    Tags = new List<EventTag> { EventTag.PlayerShieldsRecovered }
+                    Tags = new List<UIResponseTag> { UIResponseTag.PlayerShieldsRecovered }
                 }
             };
         }

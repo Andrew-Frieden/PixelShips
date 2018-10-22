@@ -1,25 +1,27 @@
-﻿using System.Collections;
+﻿using Models.Actions;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using TextSpace.Events;
 
 public class PrimaryTripleViewController : TripleViewController 
 {
-    private delegate void ShowPrimaryView(int view);
-    private static event ShowPrimaryView ShowPrimaryViewEvent;
-
-    public static void ShowPrimary(int view)
-    {
-        ShowPrimaryViewEvent.Invoke(view);
-    }
-
     private new void Start()
     {
         base.Start();
-        ShowPrimaryViewEvent += ShowView;
+        UIResponseBroadcaster.UIResponseTagTrigger += RespondToUITag;
     }
 
-    private void ShowView(int view)
+    private void RespondToUITag(UIResponseTag tag)
     {
-        ShowView(Views[view]);
+        if (tag == UIResponseTag.ViewCmd)
+        {
+            ShowView(TripleView.Middle);
+        }
+        else if (tag == UIResponseTag.ViewBase)
+        {
+            ShowView(TripleView.Left);
+        }
     }
+
+    private void ShowView(TripleView view) { ShowView(Views[(int)view]); }
 }

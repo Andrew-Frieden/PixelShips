@@ -51,6 +51,17 @@ namespace Models.Factories
             return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type).GetRandom().FromFlexData();
         }
         
+
+        public IRoom GenerateBootstrapRoom(bool includeFTUE)
+        {
+            var room = GenerateRoom(new RoomTemplate(1, RoomFlavor.Empty));
+
+            //  add some bootstrap actor
+            //  set everything hidden?
+
+            return room;
+        }
+
         public IRoom GenerateRoom(RoomTemplate template)
         {
             //  first get the injectable flavor for the room

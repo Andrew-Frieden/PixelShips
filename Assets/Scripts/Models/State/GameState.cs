@@ -39,5 +39,7 @@ namespace Models
     public class Mission
     {
         public int MissionLevel;
+        public int JumpsLeft;
+
     }
 }

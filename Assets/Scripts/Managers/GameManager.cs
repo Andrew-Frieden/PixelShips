@@ -88,8 +88,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     public void StartFromSave()
     {
-        UpdateState(GamePhase.MISSION);
         GameState = _saveLoadController.Load();
+        UpdateState(GamePhase.MISSION);
 
         //  TODO refactor this hacky thing. Should be event driven probs?
         _commandViewController.StartCommandView();
@@ -97,12 +97,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     public void StartNewMission()
 	{
-		UpdateState(GamePhase.MISSION);
-
-        //if (Player has a save file)
-        //GameState = _saveLoadController.Load();
-
-		GameState = _saveLoadController.CreateNewGameState(RoomFactory);
+        GameState = _saveLoadController.CreateNewGameState(RoomFactory);
+        UpdateState(GamePhase.MISSION);
 	}
 
     void OnApplicationPause(bool pauseStatus)

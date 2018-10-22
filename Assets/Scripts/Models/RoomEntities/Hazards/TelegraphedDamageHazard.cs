@@ -56,7 +56,7 @@ namespace Models.RoomEntities.Hazards
                     new TagString()
                     {
                         Text = _telegraphText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
-                        Tags = new List<EventTag> { }
+                        Tags = new List<UIResponseTag> { }
                     }
                 };
             }

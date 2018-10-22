@@ -113,12 +113,12 @@ namespace Controller
                     new TagString()
                     {
                         Text = "You have been destroyed.",
-                        Tags = new List<EventTag> { }
+                        Tags = new List<UIResponseTag> { }
                     },
                     new TagString()
                     {
                         Text = "Navigate to your base to recruit a new captain.",
-                        Tags = new List<EventTag> { }
+                        Tags = new List<UIResponseTag> { }
                     }
                 });
             }

@@ -111,7 +111,7 @@ namespace Models
                         new TagString()
                         {
                             Text = "Hey it worked! Tabby Officer gives you 15 resourcium.",
-                            Tags = new List<EventTag> { }
+                            Tags = new List<UIResponseTag> { }
                         }
                     };
                 }
@@ -124,7 +124,7 @@ namespace Models
                         new TagString()
                         {
                             Text = "Uh oh. That didn't work well.",
-                            Tags = new List<EventTag> { }
+                            Tags = new List<UIResponseTag> { }
                         }
                     };
                 }
@@ -166,7 +166,7 @@ namespace Models
                         new TagString()
                         {
                             Text = "Hey it worked! Tabby Officer gives you 5 resourcium.",
-                            Tags = new List<EventTag> { }
+                            Tags = new List<UIResponseTag> { }
                         }
                     };
                 }
@@ -179,7 +179,7 @@ namespace Models
                         new TagString()
                         {
                             Text = "Uh oh. That didn't work well.",
-                            Tags = new List<EventTag> { }
+                            Tags = new List<UIResponseTag> { }
                         }
                     };
                 }

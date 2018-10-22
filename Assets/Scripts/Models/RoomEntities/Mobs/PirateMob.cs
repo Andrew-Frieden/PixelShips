@@ -136,7 +136,7 @@ Empty your cargo or we'll dust ya!")
                     new TagString()
                     {
                         Text = "<> warms up their weapon systems".Encode(Source.GetLinkText(), Source.Id, LinkColors.HostileEntity),
-                        Tags = new List<EventTag> { }
+                        Tags = new List<UIResponseTag> { }
                     }
                 };
             }
@@ -187,7 +187,7 @@ Empty your cargo or we'll dust ya!")
                     new TagString()
                     {
                         Text = "The <> decides its not worth the trouble and changes course.".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity),
-                        Tags = new List<EventTag> { }
+                        Tags = new List<UIResponseTag> { }
                     }
                 };
             }
@@ -199,7 +199,7 @@ Empty your cargo or we'll dust ya!")
                 new TagString()
                 {
                     Text = "The <> captain mocks your attempt and moves to an attack vector.".Encode(Target.GetLinkText(), Target.Id, LinkColors.HostileEntity),
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
         }
@@ -250,7 +250,7 @@ Empty your cargo or we'll dust ya!")
                 new TagString()
                 {
                     Text = $"You transfer {Amount} resourcium to the <>".Encode(Target.GetLinkText(), Target.Id, LinkColors.CanCombatEntity),
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
         }

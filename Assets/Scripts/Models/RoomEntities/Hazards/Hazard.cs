@@ -79,7 +79,7 @@ namespace Models.RoomEntities.Hazards
                     new TagString()
                     {
                         Text = resultText.Encode(Source.GetLinkText(), Source.Id, LinkColors.Hazard),
-                        Tags = new List<EventTag> { EventTag.PlayerDamaged }
+                        Tags = new List<UIResponseTag> { UIResponseTag.PlayerDamaged }
                     }
                 };
             }

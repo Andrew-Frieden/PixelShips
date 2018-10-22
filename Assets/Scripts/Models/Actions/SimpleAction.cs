@@ -79,8 +79,8 @@ namespace Models.Actions
         public Dictionary<string, int> Stats;
         public Dictionary<string, string> Values;
 
-        private List<EventTag> _actionTags;
-        protected List<EventTag> ActionTags
+        private List<UIResponseTag> _actionTags;
+        protected List<UIResponseTag> ActionTags
         {
             get
             {
@@ -89,10 +89,10 @@ namespace Models.Actions
                     return _actionTags;
                 }
                 
-                _actionTags = new List<EventTag>();
+                _actionTags = new List<UIResponseTag>();
                 if (Energy > 0 && Source != null && Source is CommandShip)
                 {
-                    _actionTags.Add(EventTag.PlayerEnergyConsumed);
+                    _actionTags.Add(UIResponseTag.PlayerEnergyConsumed);
                 }
 
                 return _actionTags;

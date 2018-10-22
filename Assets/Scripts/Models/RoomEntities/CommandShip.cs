@@ -334,7 +334,7 @@ namespace Models
                 h.ChangeState((int)Items.Hardware.HardwareState.Equipped);
 
                 if (h is MaxHullPlating)
-                    EventTagBroadcaster.Broadcast(EventTag.PlayerHullModified);
+                    UIResponseBroadcaster.Broadcast(UIResponseTag.PlayerHullModified);
             }
         }
 
@@ -347,7 +347,7 @@ namespace Models
                 if (Hull > MaxHull)
                     Hull = MaxHull;
 
-                EventTagBroadcaster.Broadcast(EventTag.PlayerHullModified);
+                UIResponseBroadcaster.Broadcast(UIResponseTag.PlayerHullModified);
             }
         }
 

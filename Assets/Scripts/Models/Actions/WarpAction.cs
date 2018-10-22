@@ -66,22 +66,22 @@ namespace Models.Actions
                 new TagString()
                 {
                     Text = "You begin to jump into hyperspace!",
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 },
                 new TagString()
                 {
                     Text = "3...",
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 },
                 new TagString()
                 {
                     Text = "2...",
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 },
                 new TagString()
                 {
                     Text = "1...",
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
         }

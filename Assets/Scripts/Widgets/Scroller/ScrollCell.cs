@@ -48,7 +48,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
 
     public void OnCellStarted()
     {
-        tagString.Tags.ForEach(t => EventTagBroadcaster.Broadcast(t));
+        tagString.Tags.ForEach(t => UIResponseBroadcaster.Broadcast(t));
     }
 
     public float CellHeight => EncodedText.GetPreferredValues().y + Spacing;

@@ -28,17 +28,17 @@ public class ScrollViewController : MonoBehaviour {
 
     private void Start()
     {
-        EventTagBroadcaster.EventTagTrigger += RespondToEventTag;
+        UIResponseBroadcaster.UIResponseTagTrigger += RespondToEventTag;
     }
 
-    private void RespondToEventTag(EventTag tag)
+    private void RespondToEventTag(UIResponseTag tag)
     {
         if (!RespondsToEventTags)
             return;
 
         switch (tag)
         {
-            case EventTag.PlayerDamaged:
+            case UIResponseTag.PlayerDamaged:
                 Shake();
                 break;
         }

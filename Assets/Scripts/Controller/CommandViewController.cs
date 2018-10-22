@@ -60,12 +60,12 @@ namespace Controller
                 new TagString()
                 {
                     Text = room.PlayerShip.GetLookText().Text,
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 },
                 new TagString()
                 {
                     Text = room.GetLookText().Text,
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
 

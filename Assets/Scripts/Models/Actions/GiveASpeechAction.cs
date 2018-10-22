@@ -20,7 +20,7 @@ namespace Models.Actions
                 new TagString()
                 {
                     Text = GetSpeechText().Encode(Source.GetLinkText(), Source.Id, LinkColors.Player),
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
         }

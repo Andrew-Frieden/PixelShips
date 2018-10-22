@@ -48,7 +48,7 @@ namespace Models.Actions
             
             if (Source is CommandShip)
             {
-                ActionTags.Add(EventTag.PlayerHealed);
+                ActionTags.Add(UIResponseTag.PlayerHealed);
                 return new List<TagString>()
                 {
                     new TagString()
@@ -60,7 +60,7 @@ namespace Models.Actions
             }
             else
             {
-                ActionTags.Add(EventTag.PlayerDamaged);
+                ActionTags.Add(UIResponseTag.PlayerDamaged);
                 return new List<TagString>()
                 {
 

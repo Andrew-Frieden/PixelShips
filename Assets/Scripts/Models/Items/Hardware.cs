@@ -202,9 +202,9 @@ namespace Items
             hardware.IsDestroyed = false;
             room.AddEntity(hardware);
             hardware.ChangeState((int)Hardware.HardwareState.Unequipped);
-            PrimaryTripleViewController.ShowPrimary((int)TripleView.Middle);
+            //PrimaryTripleViewController.ShowPrimary((int)TripleView.Middle);
 
-            return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet();
+            return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ViewCmd, UIResponseTag.HideNavBar });
         }
     }
 
@@ -232,7 +232,7 @@ namespace Items
             //hardware.IsDestroyed = true;
             //hardware.ChangeState((int)Hardware.HardwareState.Equipped);
 
-            return $"You pickup the <>".Encode(Target, LinkColors.Gatherable).ToTagSet();
+            return $"You pickup the <>".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ShowNavBar });
         }
     }
 }

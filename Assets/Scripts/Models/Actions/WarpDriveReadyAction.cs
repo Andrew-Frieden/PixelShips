@@ -22,7 +22,7 @@ namespace Models.Actions
                 new TagString()
                 {
                     Text = "<> is ready.".Encode("Warp drive", room.Id, LinkColors.Room),
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
         }

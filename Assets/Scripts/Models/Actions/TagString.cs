@@ -5,10 +5,10 @@ namespace Models.Actions
     public class TagString
     {
         public string Text;
-        public IEnumerable<EventTag> Tags;
+        public IEnumerable<UIResponseTag> Tags;
 
-        public TagString() { Tags = new List<EventTag>(); }
-        public TagString(string text) { Text = text; Tags = new List<EventTag>(); }
+        public TagString() { Tags = new List<UIResponseTag>(); }
+        public TagString(string text) { Text = text; Tags = new List<UIResponseTag>(); }
     }
 
     public static class TagStringExtensions
@@ -22,14 +22,30 @@ namespace Models.Actions
         {
             return new TagString[] { text.Tag() };
         }
+
+        public static TagString Tag(this string text, IEnumerable<UIResponseTag> tags)
+        {
+            return new TagString(text) { Tags = tags };
+        }
+
+        public static IEnumerable<TagString> ToTagSet(this string text, IEnumerable<UIResponseTag> tags)
+        {
+            return new TagString[] { text.Tag(tags) };
+        }
     }
 
-    public enum EventTag
+    public enum UIResponseTag
     {
         PlayerDamaged,
         PlayerShieldsRecovered,
         PlayerEnergyConsumed,
         PlayerHullModified,
-        PlayerHealed
+        PlayerHealed,
+        ViewCmd,
+        ViewBase,
+        ShowHUD,
+        ShowNavBar,
+        HideHUD,
+        HideNavBar
     }
 }

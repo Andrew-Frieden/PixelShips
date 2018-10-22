@@ -95,7 +95,7 @@ namespace Models
                 results.Add(new TagString()
                 {
                     Text = text,
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 });
 
                 return results;

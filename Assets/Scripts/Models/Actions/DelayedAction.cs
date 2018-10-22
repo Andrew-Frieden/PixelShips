@@ -40,7 +40,7 @@ namespace Models.Actions
                     new TagString()
                     {
                         Text = _description + $"in {actor.Stats[StatKeys.TimeToLive]} ticks." ,
-                        Tags = new List<EventTag> { }
+                        Tags = new List<UIResponseTag> { }
                     }
                 };
             }

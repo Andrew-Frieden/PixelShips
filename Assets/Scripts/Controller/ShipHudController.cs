@@ -53,27 +53,27 @@ namespace Controller
 
         private void Start()
         {
-            EventTagBroadcaster.EventTagTrigger += RespondToEventTag;
+            UIResponseBroadcaster.UIResponseTagTrigger += RespondToEventTag;
         }
 
-        private void RespondToEventTag(EventTag tag)
+        private void RespondToEventTag(UIResponseTag tag)
         {
             if (PlayerShip == null)
                 return;
                 
             switch (tag)
             {
-                case EventTag.PlayerHullModified:
+                case UIResponseTag.PlayerHullModified:
                     UpdateHull();
                     break;
-                case EventTag.PlayerDamaged:
+                case UIResponseTag.PlayerDamaged:
                     UpdateShield();
                     UpdateHull();
                     break;
-                case EventTag.PlayerShieldsRecovered:
+                case UIResponseTag.PlayerShieldsRecovered:
                     UpdateShield();
                     break;
-                case EventTag.PlayerEnergyConsumed:
+                case UIResponseTag.PlayerEnergyConsumed:
                     UpdateEnergy();
                     break;
             }

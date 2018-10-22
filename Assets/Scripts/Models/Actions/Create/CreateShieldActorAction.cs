@@ -40,7 +40,7 @@ namespace Models.Actions
                 new TagString()
                 {
                     Text = "<> generate a shield.".Encode("You", Source.Id, "blue"),
-                    Tags = new List<EventTag> { }
+                    Tags = new List<UIResponseTag> { }
                 }
             };
         }

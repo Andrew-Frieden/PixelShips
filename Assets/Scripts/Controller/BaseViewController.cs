@@ -8,14 +8,12 @@ namespace Controller
     public class BaseViewController : MonoBehaviour
     {
         [SerializeField] private CommandViewController _commandViewController;
-
         [SerializeField] private TextMeshProUGUI DevToolsContentLoaded;
         
         public void SpawnNewShip()
         {
             //This will re-write the game state
             GameManager.Instance.StartNewMission();
-
             _commandViewController.StartCommandView();
         }
 
