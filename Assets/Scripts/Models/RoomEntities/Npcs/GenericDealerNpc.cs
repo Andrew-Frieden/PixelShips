@@ -42,7 +42,7 @@ namespace TextSpace.RoomEntities
             }
             protected set
             {
-                Values[ValueKeys.NpcDealA] = nameof(value);
+                Values[ValueKeys.NpcDealA] = value.ToString();
             }
         }
 
@@ -56,7 +56,7 @@ namespace TextSpace.RoomEntities
             }
             protected set
             {
-                Values[ValueKeys.NpcDealB] = nameof(value);
+                Values[ValueKeys.NpcDealB] = value.ToString();
             }
         }
 
