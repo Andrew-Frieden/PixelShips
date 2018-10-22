@@ -257,7 +257,7 @@ namespace Models.Factories
                 }
             }
 
-            if (template.PowerLevel == 1)
+            if (template.PowerLevel == 10)
             {
                 var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
                 actors.Add(devHardware.FromFlexData());
