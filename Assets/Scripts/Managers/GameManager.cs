@@ -5,6 +5,7 @@ using Events;
 using Models;
 using GameData;
 using Models.Factories;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>, ISaveManager
 {
@@ -39,7 +40,27 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         StartGame();
 	}
 
-	private void UpdateState(GamePhase phase)
+    [SerializeField] List<GameObject> StartupDependencies = new List<GameObject>();
+    private List<GameObject> Registrations = new List<GameObject>();
+
+    public void RegisterStartup(GameObject obj)
+    {
+        Registrations.Add(obj);
+
+        var registrationComplete = true;
+        foreach (var dependency in StartupDependencies)
+        {
+            if (!Registrations.Contains(dependency))
+            {
+                registrationComplete = false;
+            }
+        }
+
+        if (registrationComplete)
+            _commandViewController.BootstrapView();
+    }
+
+    private void UpdateState(GamePhase phase)
 	{
 		var previousGameState = _currentGamePhase;
 		_currentGamePhase = phase;
@@ -97,9 +118,11 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     public void StartNewMission()
 	{
-        GameState = _saveLoadController.CreateNewGameState(RoomFactory);
+        GameState = _saveLoadController.CreateBootstrapGameState();
         UpdateState(GamePhase.MISSION);
-	}
+        //_commandViewController.StartCommandView();
+        //_commandViewController.BootstrapView();
+    }
 
     void OnApplicationPause(bool pauseStatus)
     {

@@ -53,6 +53,7 @@ namespace Models
         
         public void Save(GameState state)
         {
+            //  TODO don't save the bootstraping state
             var saveState = BuildSaveStateFromGameState(state);
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
@@ -67,6 +68,27 @@ namespace Models
                 {
                     CmdShip = GameManager.ShipFactory.GenerateCommandShip(roomFactory),
                     Room = (Room) GameManager.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp)),
+                    CurrentMission = new Mission { MissionLevel = 1 },
+                    Ticks = 0,
+                    Jumps = 0
+                },
+                Home = new Homeworld
+                {
+                    PlanetName = "Galvanius",
+                    DeepestExpedition = 0,
+                    HardestMonsterSlainScore = 0
+                }
+            };
+        }
+
+        public GameState CreateBootstrapGameState()
+        {
+            return new GameState
+            {
+                CurrentExpedition = new Expedition
+                {
+                    CmdShip = GameManager.ShipFactory.GenerateCommandShip(GameManager.RoomFactory),
+                    Room = (Room)GameManager.RoomFactory.GenerateBootstrapRoom(false),
                     CurrentMission = new Mission { MissionLevel = 1 },
                     Ticks = 0,
                     Jumps = 0

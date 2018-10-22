@@ -202,7 +202,6 @@ namespace Items
             hardware.IsDestroyed = false;
             room.AddEntity(hardware);
             hardware.ChangeState((int)Hardware.HardwareState.Unequipped);
-            //PrimaryTripleViewController.ShowPrimary((int)TripleView.Middle);
 
             return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ViewCmd });
         }

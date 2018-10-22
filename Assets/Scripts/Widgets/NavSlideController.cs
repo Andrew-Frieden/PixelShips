@@ -2,6 +2,12 @@
 
 public class NavSlideController : SlideResponseController {
 
+    new void Start()
+    {
+        base.Start();
+        GameManager.Instance.RegisterStartup(gameObject);
+    }
+
     protected override void RespondToUITag(UIResponseTag tag)
     {
         if (tag == UIResponseTag.ShowNavBar)

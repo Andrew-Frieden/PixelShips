@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Common;
+using Controller;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private Canvas TripleView;
+    [SerializeField] private CommandViewController cmdCtrl;
 
     public Camera UICamera;
     
@@ -30,8 +32,8 @@ public class UIManager : Singleton<UIManager>
                 TripleView.gameObject.SetActive(false);
                 break;
             case GameManager.GamePhase.MISSION:
-                MainMenu.gameObject.SetActive(false);
                 TripleView.gameObject.SetActive(true);
+                MainMenu.gameObject.SetActive(false);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(currentPhase), currentPhase, null);

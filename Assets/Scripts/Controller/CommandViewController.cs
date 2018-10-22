@@ -8,6 +8,7 @@ using Models.Dialogue;
 using Models.Dtos;
 using Models.Factories;
 using Models.Stats;
+using TextSpace.Events;
 using UnityEngine;
 using Widgets.Scroller;
 using static Models.CommandShip;
@@ -38,19 +39,29 @@ namespace Controller
         //Called the first time the player spawns a ship and goes to the command view.
         public void StartCommandView()
         {
-            //Get our initial room and ship from the game state
+            InitFromGameState();
+            UIResponseBroadcaster.Broadcast(UIResponseTag.ViewCmd);
+            UIResponseBroadcaster.Broadcast(UIResponseTag.ShowHUD);
+            UIResponseBroadcaster.Broadcast(UIResponseTag.ShowNavBar);
+            _scrollView.AddCells(CalculateLookText(_room));
+            StartCoroutine(Blink.BlinkLoop());
+        }
+
+        public void BootstrapView()
+        {
+            InitFromGameState();
+
+            var text = RoomController.ResolveNextTick(_room, new DoNothingAction(_room.PlayerShip), _shipHudController, _scrollView);
+            _scrollView.AddCells(text);
+        }
+
+        private void InitFromGameState()
+        {
             _room = GameManager.Instance.GameState.CurrentExpedition.Room;
             _room.SetPlayerShip(GameManager.Instance.GameState.CurrentExpedition.CmdShip);
-            
-            RoomController.StartNextRoom(_room, _room);
-            
-            //  TODO make this event based so cmdviewcontroller doesn't need to call this or know about shiphudcontroller
-            _shipHudController.InitializeShipHud(_room);
-            
             _scrollView.ClearScreen();
-            _scrollView.AddCells(CalculateLookText(_room));
-            
-            StartCoroutine(Blink.BlinkLoop());
+            _shipHudController.InitializeShipHud(_room);
+            RoomController.StartNextRoom(_room, _room);
         }
 
         private IEnumerable<TagString> CalculateLookText(IRoom room)

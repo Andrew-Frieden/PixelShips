@@ -26,7 +26,7 @@ public class SlideResponseController : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    protected void Start () {
         screenHeight = RectBase.rect.height * canvas.scaleFactor;
         OnScreen = RectBase.anchoredPosition;
         TargetPosition = OnScreen;

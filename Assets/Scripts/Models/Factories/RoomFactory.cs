@@ -55,10 +55,7 @@ namespace Models.Factories
         public IRoom GenerateBootstrapRoom(bool includeFTUE)
         {
             var room = GenerateRoom(new RoomTemplate(1, RoomFlavor.Empty));
-
-            //  add some bootstrap actor
-            //  set everything hidden?
-
+            room.AddEntity(new BootstrapEntity());
             return room;
         }
 
