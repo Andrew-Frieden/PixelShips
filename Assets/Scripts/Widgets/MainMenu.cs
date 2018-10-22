@@ -61,16 +61,16 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         {
             if (saveManager.SaveFile is InvalidSaveState)
             {
-                GameManager.Instance.StartNewMission();
+                GameManager.Instance.BootstrapNewGame();
             }
             else
             {
-                GameManager.Instance.StartFromSave();
+                GameManager.Instance.ContinueFromSave();
             }
         }
         else
         {
-            GameManager.Instance.StartNewMission();
+            GameManager.Instance.BootstrapNewGame();
         }
     }
 

@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     [SerializeField] List<GameObject> StartupDependencies = new List<GameObject>();
     private List<GameObject> Registrations = new List<GameObject>();
+    private bool bootstrapping;
 
     public void RegisterStartup(GameObject obj)
     {
@@ -56,8 +57,11 @@ public class GameManager : Singleton<GameManager>, ISaveManager
             }
         }
 
-        if (registrationComplete)
+        if (registrationComplete && bootstrapping)
+        {
+            bootstrapping = false;
             _commandViewController.BootstrapView();
+        }
     }
 
     private void UpdateState(GamePhase phase)
@@ -107,7 +111,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         _saveLoadController.Delete();
     }
 
-    public void StartFromSave()
+    public void ContinueFromSave()
     {
         GameState = _saveLoadController.Load();
         UpdateState(GamePhase.MISSION);
@@ -116,12 +120,16 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         _commandViewController.StartCommandView();
     }
 
-    public void StartNewMission()
+    public void BootstrapNewGame()
 	{
+        bootstrapping = true;
         GameState = _saveLoadController.CreateBootstrapGameState();
         UpdateState(GamePhase.MISSION);
-        //_commandViewController.StartCommandView();
-        //_commandViewController.BootstrapView();
+    }
+
+    public void StartNewExpedition()
+    {
+        GameState = _saveLoadController.CreateNewGameState();
     }
 
     void OnApplicationPause(bool pauseStatus)
