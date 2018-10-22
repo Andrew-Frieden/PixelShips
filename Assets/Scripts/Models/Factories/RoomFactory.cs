@@ -64,7 +64,10 @@ namespace Models.Factories
             //  first get the injectable flavor for the room
             var lookText = ExampleGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
             var descriptionText = ExampleGameData.InjectableRoomDescriptions[template.Flavor].GetRandom();
+
+            // For debug purposes
             descriptionText += "\n PowerLevel: " + template.PowerLevel;
+
             var roomInject = new RoomInjectable(template.Flavor, lookText, descriptionText);
 
             //  add exits
