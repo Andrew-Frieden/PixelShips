@@ -1,2 +1,2 @@
-# PixelShips
-Multiplayer space roguelike built in Unity
+# Space Barbarians of Tomorrow
+Text-based space roguelike built in Unity
