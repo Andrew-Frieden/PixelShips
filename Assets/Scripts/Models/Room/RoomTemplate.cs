@@ -5,27 +5,27 @@ namespace Models
 {
     public class RoomTemplate
     {
-        public int Difficulty { get; }
+        public int PowerLevel { get; }
         public RoomFlavor Flavor { get; }
         public IEnumerable<RoomActorFlavor> ActorFlavors { get; }
 
-        public RoomTemplate(int difficulty, RoomFlavor flavor, IEnumerable<RoomActorFlavor> actorFlavors)
+        public RoomTemplate(int powerlevel, RoomFlavor flavor, IEnumerable<RoomActorFlavor> actorFlavors)
         {
-            Difficulty = difficulty;
+            PowerLevel = powerlevel;
             Flavor = flavor;
             ActorFlavors = actorFlavors;
         }
 
-        public RoomTemplate(int difficulty, RoomFlavor flavor)
+        public RoomTemplate(int powerlevel, RoomFlavor flavor)
         {
-            Difficulty = difficulty;
+            PowerLevel = powerlevel;
             Flavor = flavor;
             ActorFlavors = new RoomActorFlavor[0];
         }
 
         public RoomTemplate(RoomTemplateDto dto)
         {
-            Difficulty = dto.Difficulty;
+            PowerLevel = dto.PowerLevel;
             Flavor = dto.Flavor;
             ActorFlavors = dto.ActorFlavors;
         }

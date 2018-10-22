@@ -26,7 +26,7 @@ namespace Models.Factories
 
         private int ROOM_ACTOR_CAPACITY = 4;
 
-        private float CHANCE_TRANSITION_FROM_EMPTY = 0.33f; //  the chance that at least one of the exits of a room in empty space will lead to a non-empty flavor room
+        private float CHANCE_TRANSITION_FROM_EMPTY = 0.7f; //  the chance that at least one of the exits of a room in empty space will lead to a non-empty flavor room
         private float CHANCE_TRANSITION_TO_EMPTY = 0.2f;    //  the chance that at least one of the exits in a non-empty flavored room will lead to empty space
         
         public static IEnumerable<FlexData> Hazards { get; private set; }
@@ -64,6 +64,7 @@ namespace Models.Factories
             //  first get the injectable flavor for the room
             var lookText = ExampleGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
             var descriptionText = ExampleGameData.InjectableRoomDescriptions[template.Flavor].GetRandom();
+            descriptionText += "\n PowerLevel: " + template.PowerLevel;
             var roomInject = new RoomInjectable(template.Flavor, lookText, descriptionText);
 
             //  add exits
@@ -144,9 +145,9 @@ namespace Models.Factories
                 {
                     var roomFlavors = Enum.GetValues(typeof(RoomFlavor));
 
-                    // nextRoomFlavor = (RoomFlavor)roomFlavors.GetValue(UnityEngine.Random.Range(0,roomFlavors.Length));
+                    nextRoomFlavor = (RoomFlavor)roomFlavors.GetValue(UnityEngine.Random.Range(0,roomFlavors.Length));
 
-                    nextRoomFlavor = RoomFlavor.Kelp;
+                    // nextRoomFlavor = RoomFlavor.Kelp;
 
                 }
                 else
@@ -155,8 +156,8 @@ namespace Models.Factories
                 }
             }
 
-            //  increase the difficulty of the exit by 5
-            return new RoomTemplate(template.Difficulty + 5, nextRoomFlavor, entityFlavors);
+            //  increase the difficulty of the exit by 2
+            return new RoomTemplate(template.PowerLevel + 2, nextRoomFlavor, entityFlavors);
         }
 
         private List<IRoomActor> CalculateActors(RoomTemplate template)
@@ -182,12 +183,12 @@ namespace Models.Factories
                     
                     if (2 <= UnityEngine.Random.Range(0, 11))
                     {
-                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel < template.Difficulty).GetRandom()));
+                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
                     }
                     else
                     {
-                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel < template.Difficulty).GetRandom()));
-                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel < template.Difficulty).GetRandom()));
+                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
+                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
                     }
                 }
                 else
@@ -220,7 +221,7 @@ namespace Models.Factories
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Hazard))
             {
-                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel < 5).GetRandom();
+                var data = Hazards.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).OrderByDescending(h => h.Powerlevel).First();
                 actors.Add(data.FromFlexData());
             }
 
@@ -253,7 +254,7 @@ namespace Models.Factories
                 }
             }
 
-            if (template.Difficulty == 1)
+            if (template.PowerLevel == 1)
             {
                 var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
                 actors.Add(devHardware.FromFlexData());

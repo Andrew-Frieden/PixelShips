@@ -47,7 +47,7 @@ namespace Models.Dtos
             return new RoomTemplateDto
             {
                 ActorFlavors = new List<RoomActorFlavor>(template.ActorFlavors),
-                Difficulty = template.Difficulty,
+                PowerLevel = template.PowerLevel,
                 Flavor = template.Flavor
             };
         }

@@ -20,7 +20,7 @@ namespace Models.Actions
         private void StoreTemplateStats()
         {
             Stats[RoomFlavorKey] = (int)_template.Flavor;
-            Stats[DifficultyKey] = (int)_template.Difficulty;
+            Stats[DifficultyKey] = (int)_template.PowerLevel;
 
             int flavorCount = 0;
             foreach (var actorFlavor in _template.ActorFlavors)

@@ -1,623 +1,347 @@
 [
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 4,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 2,
-		"Values": {
-			"name": "Dense Kelp Tangle",
-			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-			"look_text": "An undulating <> will be hard to navigate.",
-			"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 10,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 5,
-		"Values": {
-			"name": "Dense Kelp Tangle",
-			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-			"look_text": "An undulating <> will be hard to navigate.",
-			"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 12,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 20,
-		"Values": {
-			"name": "Dense Kelp Tangle",
-			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-			"look_text": "An undulating <> will be hard to navigate.",
-			"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 16,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 35,
-		"Values": {
-			"name": "Dense Kelp Tangle",
-			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-			"look_text": "An undulating <> will be hard to navigate.",
-			"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 19,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 78,
-		"Values": {
-			"name": "Dense Kelp Tangle",
-			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-			"look_text": "An undulating <> will be hard to navigate.",
-			"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 14,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 196,
-		"Values": {
-			"name": "Dense Kelp Tangle",
-			"dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
-			"look_text": "An undulating <> will be hard to navigate.",
-			"hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			2
-		],
-		"Stats": {
-			"hazard_damage_amount": 10,
-			"hazard_damage_chance": 20
-		},
-		"DifficultyRating": 2,
-		"Values": {
-			"name": "Plasma Storm",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> crackles through this sector.",
-			"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			2
-		],
-		"Stats": {
-			"hazard_damage_amount": 14,
-			"hazard_damage_chance": 20
-		},
-		"DifficultyRating": 5,
-		"Values": {
-			"name": "Plasma Storm",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> crackles through this sector.",
-			"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			2
-		],
-		"Stats": {
-			"hazard_damage_amount": 14,
-			"hazard_damage_chance": 20
-		},
-		"DifficultyRating": 13,
-		"Values": {
-			"name": "Plasma Storm",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> crackles through this sector.",
-			"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			2
-		],
-		"Stats": {
-			"hazard_damage_amount": 17,
-			"hazard_damage_chance": 20
-		},
-		"DifficultyRating": 31,
-		"Values": {
-			"name": "Plasma Storm",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> crackles through this sector.",
-			"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			2
-		],
-		"Stats": {
-			"hazard_damage_amount": 19,
-			"hazard_damage_chance": 20
-		},
-		"DifficultyRating": 78,
-		"Values": {
-			"name": "Plasma Storm",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> crackles through this sector.",
-			"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			2
-		],
-		"Stats": {
-			"hazard_damage_amount": 23,
-			"hazard_damage_chance": 20
-		},
-		"DifficultyRating": 195,
-		"Values": {
-			"name": "Plasma Storm",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> crackles through this sector.",
-			"hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 3,
-			"hazard_damage_chance": 30
-		},
-		"DifficultyRating": 1,
-		"Values": {
-			"name": "Flailing Kelp Tangle",
-			"dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
-			"look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
-			"hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 8,
-			"hazard_damage_chance": 30
-		},
-		"DifficultyRating": 2,
-		"Values": {
-			"name": "Flailing Kelp Tangle",
-			"dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
-			"look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
-			"hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 11,
-			"hazard_damage_chance": 30
-		},
-		"DifficultyRating": 6,
-		"Values": {
-			"name": "Flailing Kelp Tangle",
-			"dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
-			"look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
-			"hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 16,
-			"hazard_damage_chance": 30
-		},
-		"DifficultyRating": 16,
-		"Values": {
-			"name": "Flailing Kelp Tangle",
-			"dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
-			"look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
-			"hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 13,
-			"hazard_damage_chance": 30
-		},
-		"DifficultyRating": 39,
-		"Values": {
-			"name": "Flailing Kelp Tangle",
-			"dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
-			"look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
-			"hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 326,
-			"hazard_damage_chance": 30
-		},
-		"DifficultyRating": 98,
-		"Values": {
-			"name": "Flailing Kelp Tangle",
-			"dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
-			"look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
-			"hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 4,
-			"hazard_damage_chance": 75
-		},
-		"DifficultyRating": 3,
-		"Values": {
-			"name": "Razor Kelp Blossoms",
-			"dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
-			"look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
-			"hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 10,
-			"hazard_damage_chance": 75
-		},
-		"DifficultyRating": 8,
-		"Values": {
-			"name": "Razor Kelp Blossoms",
-			"dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
-			"look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
-			"hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 25,
-			"hazard_damage_chance": 75
-		},
-		"DifficultyRating": 19,
-		"Values": {
-			"name": "Razor Kelp Blossoms",
-			"dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
-			"look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
-			"hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 63,
-			"hazard_damage_chance": 75
-		},
-		"DifficultyRating": 47,
-		"Values": {
-			"name": "Razor Kelp Blossoms",
-			"dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
-			"look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
-			"hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 156,
-			"hazard_damage_chance": 75
-		},
-		"DifficultyRating": 117,
-		"Values": {
-			"name": "Razor Kelp Blossoms",
-			"dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
-			"look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
-			"hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			1
-		],
-		"Stats": {
-			"hazard_damage_amount": 391,
-			"hazard_damage_chance": 75
-		},
-		"DifficultyRating": 293,
-		"Values": {
-			"name": "Razor Kelp Blossoms",
-			"dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
-			"look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
-			"hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0
-		],
-		"Stats": {
-			"hazard_damage_amount": 4,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 2,
-		"Values": {
-			"name": "Asteroid Field",
-			"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-			"look_text": "The sector is saturated with an <>",
-			"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0
-		],
-		"Stats": {
-			"hazard_damage_amount": 10,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 5,
-		"Values": {
-			"name": "Asteroid Field",
-			"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-			"look_text": "The sector is saturated with an <>",
-			"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0
-		],
-		"Stats": {
-			"hazard_damage_amount": 25,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 13,
-		"Values": {
-			"name": "Asteroid Field",
-			"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-			"look_text": "The sector is saturated with an <>",
-			"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0
-		],
-		"Stats": {
-			"hazard_damage_amount": 63,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 32,
-		"Values": {
-			"name": "Asteroid Field",
-			"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-			"look_text": "The sector is saturated with an <>",
-			"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0
-		],
-		"Stats": {
-			"hazard_damage_amount": 156,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 78,
-		"Values": {
-			"name": "Asteroid Field",
-			"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-			"look_text": "The sector is saturated with an <>",
-			"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "SometimesDamageHazard",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0
-		],
-		"Stats": {
-			"hazard_damage_amount": 391,
-			"hazard_damage_chance": 50
-		},
-		"DifficultyRating": 196,
-		"Values": {
-			"name": "Asteroid Field",
-			"dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
-			"look_text": "The sector is saturated with an <>",
-			"hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
-		}
-	},
-	{
-		"EntityType": "Models.RoomEntities.Hazards.TelegraphedDamageHazard",
-		"Stats": {
-			"hazard_damage_amount": 2,
-			"time_to_live": 4
-		},
-		"Values": {
-			"name": "Plasma Discharge",
-			"dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
-			"look_text": "A <> is growing in strength.",
-			"hazard_damage_text": "The <> explodes with power, destroying it and slamming into your hull for {0} damage!",
-			"telegraph_damage_text": "A great energy discharge from a <> will release next tick!"
-		},
-		"RoomFlavors": [
-			0,
-			2
-		],
-		"ActorFlavors": [
-			2
-		]
-	}
-]
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Stats": {
+        "hazard_damage_amount": 4,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 10,
+      "Values": {
+        "name": "Dense Kelp Tangle",
+        "dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
+        "look_text": "An undulating <> will be hard to navigate.",
+        "hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Stats": {
+        "hazard_damage_amount": 12,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 25,
+      "Values": {
+        "name": "Dense Kelp Tangle",
+        "dialogue_text": "The wavy field of <> is filled with razor sharp stalks as far as your scanners can detect.",
+        "look_text": "An undulating <> will be hard to navigate.",
+        "hazard_damage_text": "A tentacle surges from a <> and tears into your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        2
+      ],
+      "Stats": {
+        "hazard_damage_amount": 10,
+        "hazard_damage_chance": 20
+      },
+      "PowerLevel": 10,
+      "Values": {
+        "name": "Plasma Storm",
+        "dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
+        "look_text": "A <> crackles through this sector.",
+        "hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        2
+      ],
+      "Stats": {
+        "hazard_damage_amount": 30,
+        "hazard_damage_chance": 20
+      },
+      "PowerLevel": 25,
+      "Values": {
+        "name": "Plasma Storm",
+        "dialogue_text": "The <> looks pretty dangerous. There isn't much you can do about it.",
+        "look_text": "A <> crackles through this sector.",
+        "hazard_damage_text": "An energy surge from a <> scorches your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Stats": {
+        "hazard_damage_amount": 3,
+        "hazard_damage_chance": 30
+      },
+      "PowerLevel": 5,
+      "Values": {
+        "name": "Flailing Kelp Tangle",
+        "dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
+        "look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
+        "hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Stats": {
+        "hazard_damage_amount": 10,
+        "hazard_damage_chance": 30
+      },
+      "PowerLevel": 12,
+      "Values": {
+        "name": "Flailing Kelp Tangle",
+        "dialogue_text": "A massive <> undulates wildly, whipping uncomfortably close to your ship.",
+        "look_text": "The <> writhes and wiggles in an erratic and unpredictable dance.",
+        "hazard_damage_text": "The <> whips your ship, denting your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Stats": {
+        "hazard_damage_amount": 4,
+        "hazard_damage_chance": 75
+      },
+      "PowerLevel": 15,
+      "Values": {
+        "name": "Razor Kelp Blossoms",
+        "dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
+        "look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
+        "hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Stats": {
+        "hazard_damage_amount": 12,
+        "hazard_damage_chance": 75
+      },
+      "PowerLevel": 37,
+      "Values": {
+        "name": "Razor Kelp Blossoms",
+        "dialogue_text": "Floating petals from a nearby <> hang suspended both beautiful and deadly.",
+        "look_text": "Thousands of <> petals float in the area nearby, their serenety and beauty all but mask their deadly nature.",
+        "hazard_damage_text": "A deadly peal from the <> slices your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        0
+      ],
+      "Stats": {
+        "hazard_damage_amount": 4,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 10,
+      "Values": {
+        "name": "Asteroid Field",
+        "dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
+        "look_text": "The sector is saturated with an <>",
+        "hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        0
+      ],
+      "Stats": {
+        "hazard_damage_amount": 12,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 25,
+      "Values": {
+        "name": "Asteroid Field",
+        "dialogue_text": "An uncountable number of masses from the <> whirl through space. It looks like you could get hit at any time.",
+        "look_text": "The sector is saturated with an <>",
+        "hazard_damage_text": "Something massive from the <> smashes into your hull for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        4
+      ],
+      "Stats": {
+        "hazard_damage_amount": 4,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 10,
+      "Values": {
+        "name": "Simulation Corruption",
+        "dialogue_text": "The <> has formed a rift in this sector.",
+        "look_text": "The <> has formed a rift in this sector.",
+        "hazard_damage_text": "Corrupted data from the <> has infected your ship for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        4
+      ],
+      "Stats": {
+        "hazard_damage_amount": 12,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 25,
+      "Values": {
+        "name": "Simulation Corruption",
+        "dialogue_text": "The <> has formed a rift in this sector.",
+        "look_text": "The <> has formed a rift in this sector.",
+        "hazard_damage_text": "Corrupted data from the <> has infected your ship for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        3
+      ],
+      "Stats": {
+        "hazard_damage_amount": 20,
+        "hazard_damage_chance": 10
+      },
+      "PowerLevel": 10,
+      "Values": {
+        "name": "Rogue Comet",
+        "dialogue_text": "<>s have been known to speed through this sector.",
+        "look_text": "<>s have been known to speed through this sector.",
+        "hazard_damage_text": "A <> sideswipes your ship for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        3
+      ],
+      "Stats": {
+        "hazard_damage_amount": 60,
+        "hazard_damage_chance": 10
+      },
+      "PowerLevel": 25,
+      "Values": {
+        "name": "Rogue Comet",
+        "dialogue_text": "<>s have been known to speed through this sector.",
+        "look_text": "<>s have been known to speed through this sector.",
+        "hazard_damage_text": "A <> sideswipes your ship for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        5
+      ],
+      "Stats": {
+        "hazard_damage_amount": 4,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 10,
+      "Values": {
+        "name": "Solar Flare",
+        "dialogue_text": "The giant star in this sector indicates an iminent <>.",
+        "look_text": "The giant star in this sector indicates an iminent <>.",
+        "hazard_damage_text": "The <> irradiates your ship, frying your systems for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        5
+      ],
+      "Stats": {
+        "hazard_damage_amount": 12,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 25,
+      "Values": {
+        "name": "Solar Flare",
+        "dialogue_text": "The giant star in this sector indicates an iminent <>.",
+        "look_text": "The giant star in this sector indicates an iminent <>.",
+        "hazard_damage_text": "The <> irradiates your ship, frying your systems for {0} damage!"
+      }
+    },
+    {
+      "EntityType": "SometimesDamageHazard",
+      "ActorFlavors": [
+        2
+      ],
+      "RoomFlavors": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "Stats": {
+        "hazard_damage_amount": 1,
+        "hazard_damage_chance": 50
+      },
+      "PowerLevel": 1,
+      "Values": {
+        "name": "Shooting Star",
+        "dialogue_text": "<>s have been known to speed through this sector.",
+        "look_text": "<>s have been known to speed through this sector.",
+        "hazard_damage_text": "A <> sideswipes your ship for {0} damage!"
+      }
+    }
+  ]

@@ -67,7 +67,7 @@ namespace Models
                 CurrentExpedition = new Expedition
                 {
                     CmdShip = GameManager.ShipFactory.GenerateCommandShip(GameManager.RoomFactory),
-                    Room = (Room) GameManager.RoomFactory.GenerateRoom(new RoomTemplate(1, RoomFlavor.Kelp)),
+                    Room = (Room) GameManager.RoomFactory.GenerateRoom(new RoomTemplate(10, RoomFlavor.Kelp)),
                     CurrentMission = new Mission { MissionLevel = 1 },
                     Ticks = 0,
                     Jumps = 0

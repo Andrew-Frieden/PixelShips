@@ -16,7 +16,7 @@ namespace Models.Dtos
 
     public class RoomTemplateDto
     {
-        public int Difficulty;
+        public int PowerLevel;
         public RoomFlavor Flavor;
         public List<RoomActorFlavor> ActorFlavors;
     }
