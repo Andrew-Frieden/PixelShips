@@ -20,7 +20,8 @@ namespace Models.RoomEntities.Mobs
         public override void CalculateDialogue(IRoom room)
         {
             DialogueContent = DialogueBuilder.PlayerAttackDialogue(Values[ValueKeys.Name] + "\n" +
-                                                                   "Hull: " + Stats[StatKeys.Hull] + " / " + Stats[StatKeys.MaxHull] + "\n",
+                                                                   "Hull: " + Stats[StatKeys.Hull] + " / " + Stats[StatKeys.MaxHull] + "\n" +
+                                                                   "Shield: " + Stats[StatKeys.Shields] + "/" + Stats[StatKeys.MaxShields] + "\n",
                                                                     this, room);
         }
         

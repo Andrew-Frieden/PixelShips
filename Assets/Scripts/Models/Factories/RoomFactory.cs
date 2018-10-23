@@ -46,9 +46,9 @@ namespace Models.Factories
             NpcContent = gameContent.Npcs;
         }
 
-        public Weapon GetRandomWeapon(Weapon.WeaponTypes type)
+        public Weapon GetRandomWeapon(Weapon.WeaponTypes type, int powerLevel)
         {
-            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type).GetRandom().FromFlexData();
+            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type && w.Powerlevel <= powerLevel).GetRandom().FromFlexData();
         }
         
 
@@ -110,29 +110,35 @@ namespace Models.Factories
             //  figure out what kind of actors will be in adjacent rooms
             var entityFlavors = new List<RoomActorFlavor>();
 
-            if (CHANCE_ROOM_DANGEROUS.Rng())
+            if (CHANCE_FOR_TOWN.Rng())
             {
-                var dangerous = new List<RoomActorFlavor>();
+                entityFlavors.Add(RoomActorFlavor.Town);
+            }
+            else
+            {
 
-                if (CHANCE_FOR_HAZARD.Rng())
-                    dangerous.Add(RoomActorFlavor.Hazard);
-
-                if (CHANCE_FOR_MOB.Rng())
-                    dangerous.Add(RoomActorFlavor.Mob);
-
-                if (!dangerous.Any())
+                if (CHANCE_ROOM_DANGEROUS.Rng())
                 {
+                    var dangerous = new List<RoomActorFlavor>();
+
                     if (CHANCE_FOR_HAZARD.Rng())
                         dangerous.Add(RoomActorFlavor.Hazard);
-                    else
+
+                    if (CHANCE_FOR_MOB.Rng())
                         dangerous.Add(RoomActorFlavor.Mob);
+
+                    if (!dangerous.Any())
+                    {
+                        if (CHANCE_FOR_HAZARD.Rng())
+                            dangerous.Add(RoomActorFlavor.Hazard);
+                        else
+                            dangerous.Add(RoomActorFlavor.Mob);
+                    }
+
+                    entityFlavors.AddRange(dangerous);
                 }
-
-                entityFlavors.AddRange(dangerous);
             }
-
-            if (CHANCE_FOR_TOWN.Rng())
-                entityFlavors.Add(RoomActorFlavor.Town);
+            
 
             if (CHANCE_FOR_NPC.Rng())
                 entityFlavors.Add(RoomActorFlavor.Npc);
@@ -169,35 +175,29 @@ namespace Models.Factories
 
             if (CHANCE_FOR_LIGHT_WEAPON.Rng())
             {
-                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Light));
+                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Light, template.PowerLevel));
             }
             
             if (CHANCE_FOR_HEAVY_WEAPON.Rng())
             {
-                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Heavy));
+                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Heavy, template.PowerLevel));
             }
             
             if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
             {
-                //  do something hacky for now
-                if (template.Flavor == RoomFlavor.Kelp)
+
+                var data = Mobs.Where(h => h.RoomFlavors.Contains(template.Flavor));
+            
+                if (2 <= UnityEngine.Random.Range(0, 11))
                 {
-                    var data = Mobs.Where(h => h.RoomFlavors.Contains(template.Flavor));
-                    
-                    if (2 <= UnityEngine.Random.Range(0, 11))
-                    {
-                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
-                    }
-                    else
-                    {
-                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
-                        actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
-                    }
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
                 }
                 else
                 {
-                    actors.Add(new PirateMob());
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
                 }
+
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Town))

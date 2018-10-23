@@ -1,67 +1,337 @@
 [
-	{
-		"EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0, 1
-		],
-		"Stats": {
-			"max_hull": 8,
-			"current_hull": 8,
-			"weapon_id_0_weight": "100",
-		},
-		"DifficultyRating": 4,
-		"Values": {
-			"name": "Verdant Informant",
-			"weapon_id_0": "BlossomCannon1",
-			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_text_aggro": "A <> is maneuvering to attack position."
-		}
-	},
-	{
-		"EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0, 1
-		],
-		"Stats": {
-			"max_hull": 35,
-			"current_hull": 35,
-			"weapon_id_0_weight": 50,
-			"weapon_id_1_weight": 50
-		},
-		"DifficultyRating": 11,
-		"Values": {
-			"name": "Verdant Interrogator",
-			"weapon_id_0": "BlossomCannon1",
-			"weapon_id_1": "HvyBlossomCannon1",
-			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_text_aggro": "A <> is maneuvering to attack position."
-		}
-	},
-	{
-		"EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
-		"ActorFlavors": [
-			2
-		],
-		"RoomFlavors": [
-			0, 1
-		],
-		"Stats": {
-			"max_hull": 3,
-			"current_hull": 3,
-			"weapon_id_0_weight": "100",
-		},
-		"DifficultyRating": 2,
-		"Values": {
-			"name": "Verdant Observer",
-			"weapon_id_0": "BlossomCannon1",
-			"look_text": "A <> is in the sector, guns at the ready.",
-			"look_text_aggro": "A <> is maneuvering to attack position."
-		}
-	}
-]
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        0,
+        1
+      ],
+      "Values": {
+        "weapon_id_0": "VerdantDirect1",
+        "name": "Verdant Observer",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 3,
+        "current_hull": 3,
+        "max_shields": 2,
+        "current_shields": 2,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 7
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Values": {
+        "weapon_id_0": "VerdantDirect1",
+        "name": "Verdant Informant",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 12,
+        "current_hull": 12,
+        "max_shields": 3,
+        "current_shields": 3,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 12
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        1
+      ],
+      "Values": {
+        "weapon_id_0": "VerdantDirect1",
+        "weapon_id_1": "VerdantHvyDirect2",
+        "name": "Verdant Interragator",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 18,
+        "current_hull": 18,
+        "max_shields": 5,
+        "current_shields": 5,
+        "max_energy": 4,
+        "energy": 4,
+        "weapon_id_0_weight": 50,
+        "weapon_id_1_weight": 50
+      },
+      "PowerLevel": 20
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        0,
+        4
+      ],
+      "Values": {
+        "weapon_id_0": "AgrinautDirect1",
+        "name": "Agrinaut Plowshare",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 4,
+        "current_hull": 4,
+        "max_shields": 3,
+        "current_shields": 3,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 9
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        4
+      ],
+      "Values": {
+        "weapon_id_0": "AgrinautDualDirect1",
+        "name": "Agrinaut Chisel Plow",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 6,
+        "current_hull": 6,
+        "max_shields": 3,
+        "current_shields": 3,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 12
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        4
+      ],
+      "Values": {
+        "weapon_id_0": "AgrinautDualDirect1",
+        "weapon_id_1": "AgrinautHvyDirect2",
+        "name": "Agrinaut Harrow",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 17,
+        "current_hull": 17,
+        "max_shields": 8,
+        "current_shields": 8,
+        "max_energy": 6,
+        "energy": 6,
+        "weapon_id_0_weight": 50,
+        "weapon_id_1_weight": 50
+      },
+      "PowerLevel": 24
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        0,
+        3
+      ],
+      "Values": {
+        "weapon_id_0": "NullDirect1",
+        "name": "-null- Warning",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 2,
+        "current_hull": 2,
+        "max_shields": 3,
+        "current_shields": 3,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 7
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        3
+      ],
+      "Values": {
+        "weapon_id_0": "NullDirect1",
+        "name": "-null- Error",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 3,
+        "current_hull": 3,
+        "max_shields": 9,
+        "current_shields": 9,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 11
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        3
+      ],
+      "Values": {
+        "weapon_id_0": "NullDirect1",
+        "weapon_id_1": "NullHvyDirect2",
+        "name": "-null- Exception",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 5,
+        "current_hull": 5,
+        "max_shields": 13,
+        "current_shields": 13,
+        "max_energy": 2,
+        "energy": 2,
+        "weapon_id_0_weight": 50,
+        "weapon_id_1_weight": 50
+      },
+      "PowerLevel": 17
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        0,
+        5
+      ],
+      "Values": {
+        "weapon_id_0": "NCADirect1",
+        "name": "NCA Cruiser",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 4,
+        "current_hull": 4,
+        "max_shields": 3,
+        "current_shields": 3,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 8
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        5
+      ],
+      "Values": {
+        "weapon_id_0": "NCADualDirect1",
+        "name": "NCA Corvette",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 8,
+        "current_hull": 8,
+        "max_shields": 4,
+        "current_shields": 4,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 12
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        5
+      ],
+      "Values": {
+        "weapon_id_0": "BasicDirect2",
+        "name": "NCA Carrier",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 13,
+        "current_hull": 13,
+        "max_shields": 5,
+        "current_shields": 5,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 18
+    },
+    {
+      "EntityType": "Models.RoomEntities.Mobs.HasWeaponsMob",
+      "ActorFlavors": [
+        1
+      ],
+      "RoomFlavors": [
+        0
+      ],
+      "Values": {
+        "weapon_id_0": "BasicDirect1",
+        "name": "Menacing Privateer",
+        "look_text": "A <> is in the sector, guns at the ready.",
+        "look_text_aggro": "A <> is maneuvering to attack position."
+      },
+      "Stats": {
+        "max_hull": 8,
+        "current_hull": 8,
+        "max_shields": 2,
+        "current_shields": 2,
+        "max_energy": 0,
+        "energy": 0,
+        "weapon_id_0_weight": 100
+      },
+      "PowerLevel": 10
+    }
+  ]

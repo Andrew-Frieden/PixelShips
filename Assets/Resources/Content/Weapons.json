@@ -1,302 +1,322 @@
 [
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Basic Laser",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "BasicLaser1",
-        "dialogue_text": "A very basic laser, it pews but it also pew pews"
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 2
-      },
-      "DifficultyRating": 2
+  {
+    "Values": {
+      "dialogue_text": "A very basic laser, it pews but it also pew pews",
+      "name": "Basic Laser",
+      "weapon_id": "BasicDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 1\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Basic Laser II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "BasicLaser2",
-        "dialogue_text": "A very basic laser, it pews but it also pew pews"
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 4
-      },
-      "DifficultyRating": 4
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 1
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Homemade Blaster",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "HomemadeBlaster1",
-        "dialogue_text": "A well crafted blaster cannon"
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 3
-      },
-      "DifficultyRating": 3
+    "PowerLevel": 7,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A very basic laser, it pews but it also pew pews",
+      "name": "Basic Laser II",
+      "weapon_id": "BasicDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 4\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Homemade Blaster II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "HomemadeBlaster2",
-        "dialogue_text": "A well crafted blaster cannon"
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 6
-      },
-      "DifficultyRating": 6
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 4
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Dual Homemade Blaster",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "DualHomemadeBlaster1",
-        "dialogue_text": "A very basic laser, it pews but it also pew pews"
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 3
-      },
-      "DifficultyRating": 3
+    "PowerLevel": 18,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A well crafted blaster cannon",
+      "name": "Homemade Blaster",
+      "weapon_id": "AgrinautDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 3\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Dual Homemade Blaster II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "DualHomemadeBlaster1",
-        "dialogue_text": "A very basic laser, it pews but it also pew pews"
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 8
-      },
-      "DifficultyRating": 8
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 3
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Blossom Cannon",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "BlossomCannon1",
-        "dialogue_text": "A projectile weapon formed from a flower."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 2
-      },
-      "DifficultyRating": 2
+    "PowerLevel": 12,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A well crafted blaster cannon",
+      "name": "Homemade Blaster II",
+      "weapon_id": "AgrinautDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 7\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Blossom Cannon II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "BlossomCannon2",
-        "dialogue_text": "A projectile weapon formed from a flower."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 5
-      },
-      "DifficultyRating": 5
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 7
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Heavy Blossom Cannon",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "HvyBlossomCannon1",
-        "dialogue_text": "A large projectile weapon formed from a flower."
-      },
-      "Stats": {
-        "weapon_type": 1,
-        "energy": 2,
-        "base_damage": 6
-      },
-      "DifficultyRating": 6
+    "PowerLevel": 31,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "Two well crafted blaster cannons",
+      "name": "Dual Homemade Blaster",
+      "weapon_id": "AgrinautDualDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 3\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Heavy Blossom Cannon II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "HvyBlossomCannon2",
-        "dialogue_text": "A large projectile weapon formed from a flower."
-      },
-      "Stats": {
-        "weapon_type": 1,
-        "energy": 2,
-        "base_damage": 15
-      },
-      "DifficultyRating": 15
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 3
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Data Cannon",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "DataCannon1",
-        "dialogue_text": "A cannon that fires packets of information."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 2
-      },
-      "DifficultyRating": 2
+    "PowerLevel": 15,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "Two well crafted blaster cannons",
+      "name": "Dual Homemade Blaster II",
+      "weapon_id": "AgrinautDualDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 9\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Data Cannon II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "DataCannon2",
-        "dialogue_text": "A cannon that fires packets of information."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 5
-      },
-      "DifficultyRating": 5
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 9
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Handcrafted Railgun",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "HandcraftedRailgun1",
-        "dialogue_text": "This cannon fires an entire rail."
-      },
-      "Stats": {
-        "weapon_type": 1,
-        "energy": 3,
-        "base_damage": 10
-      },
-      "DifficultyRating": 10
+    "PowerLevel": 37,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A projectile weapon formed from a flower.",
+      "name": "Blossom Cannon",
+      "weapon_id": "VerdantDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 2\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Handcrafted Railgun II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "HandcraftedRailgun2",
-        "dialogue_text": "This cannon fires an entire rail."
-      },
-      "Stats": {
-        "weapon_type": 1,
-        "energy": 3,
-        "base_damage": 25
-      },
-      "DifficultyRating": 25
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 2
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Big Data Cannon",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "BigDataCannon1",
-        "dialogue_text": "This cannon launches whole databases."
-      },
-      "Stats": {
-        "weapon_type": 1,
-        "energy": 1,
-        "base_damage": 4
-      },
-      "DifficultyRating": 4
+    "PowerLevel": 10,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A projectile weapon formed from a flower.",
+      "name": "Blossom Cannon II",
+      "weapon_id": "VerdantDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 6\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Big Data Cannon II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "BigDataCannon2",
-        "dialogue_text": "This cannon launches whole databases."
-      },
-      "Stats": {
-        "weapon_type": 1,
-        "energy": 1,
-        "base_damage": 10
-      },
-      "DifficultyRating": 10
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 6
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Standard Laser",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "StdLaser1",
-        "dialogue_text": "A standard, but effective laser weapon."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 2
-      },
-      "DifficultyRating": 2
+    "PowerLevel": 25,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A large projectile weapon formed from a flower.",
+      "name": "Heavy Blossom Cannon",
+      "weapon_id": "VerdantHvyDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 4\\nCost: 2 energy\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Standard Laser II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "StdLaser2",
-        "dialogue_text": "A standard, but effective laser weapon."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 5
-      },
-      "DifficultyRating": 5
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 2,
+      "base_damage": 4
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Dual Standard Laser",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "DualStdLaser1",
-        "dialogue_text": "Two standard, but effective laser weapons."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 3
-      },
-      "DifficultyRating": 3
+    "PowerLevel": 10,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A large projectile weapon formed from a flower.",
+      "name": "Heavy Blossom Cannon II",
+      "weapon_id": "VerdantHvyDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 11\\nCost: 2 energy\\n"
     },
-    {
-      "EntityType": "Items.DirectDamageWeapon",
-      "Values": {
-        "name": "Dual Standard Laser II",
-        "look_text": "A <> drifts through space.",
-        "weapon_id": "DualStdLaser2",
-        "dialogue_text": "Two standard, but effective laser weapons."
-      },
-      "Stats": {
-        "weapon_type": 0,
-        "energy": 0,
-        "base_damage": 6
-      },
-      "DifficultyRating": 6
-    }
-  ]
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 2,
+      "base_damage": 11
+    },
+    "PowerLevel": 25,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A cannon that fires packets of information.",
+      "name": "Data Cannon",
+      "weapon_id": "NullDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 2\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 2
+    },
+    "PowerLevel": 10,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A cannon that fires packets of information.",
+      "name": "Data Cannon II",
+      "weapon_id": "NullDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 6\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 6
+    },
+    "PowerLevel": 25,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "This cannon fires an entire rail.",
+      "name": "Handcrafted Railgun",
+      "weapon_id": "AgrinautHvyDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 6\\nCost: 3 energy\\n"
+    },
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 3,
+      "base_damage": 6
+    },
+    "PowerLevel": 12,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "This cannon fires an entire rail.",
+      "name": "Handcrafted Railgun II",
+      "weapon_id": "AgrinautHvyDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 17\\nCost: 3 energy\\n"
+    },
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 3,
+      "base_damage": 17
+    },
+    "PowerLevel": 31,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "This cannon launches whole databases.",
+      "name": "Big Data Cannon",
+      "weapon_id": "NullHvyDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 3\\nCost: 1 energy\\n"
+    },
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 1,
+      "base_damage": 3
+    },
+    "PowerLevel": 10,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "This cannon launches whole databases.",
+      "name": "Big Data Cannon II",
+      "weapon_id": "NullHvyDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 8\\nCost: 1 energy\\n"
+    },
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 1,
+      "base_damage": 8
+    },
+    "PowerLevel": 25,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A standard, but effective laser weapon.",
+      "name": "Standard Laser",
+      "weapon_id": "NCADirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 2\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 2
+    },
+    "PowerLevel": 10,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "A standard, but effective laser weapon.",
+      "name": "Standard Laser II",
+      "weapon_id": "NCADirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 6\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 6
+    },
+    "PowerLevel": 25,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "Two standard, but effective laser weapons.",
+      "name": "Dual Standard Laser",
+      "weapon_id": "NCADualDirect1",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 3\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 3
+    },
+    "PowerLevel": 12,
+    "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "Two standard, but effective laser weapons.",
+      "name": "Dual Standard Laser II",
+      "weapon_id": "NCADualDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 7\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 7
+    },
+    "PowerLevel": 31,
+    "EntityType": "Items.DirectDamageWeapon"
+  }
+]
