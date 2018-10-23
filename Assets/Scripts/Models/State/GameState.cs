@@ -32,6 +32,7 @@ namespace Models
     public class Homeworld
     {
         public string PlanetName;
+        public string Description;
         public int HardestMonsterSlainScore;
         public int DeepestExpedition;
     }

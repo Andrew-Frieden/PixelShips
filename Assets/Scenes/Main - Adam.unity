@@ -357,6 +357,10 @@ Prefab:
       propertyPath: StartupDependencies.Array.data[1]
       value: 
       objectReference: {fileID: 806887361}
+    - target: {fileID: 1622281711105860, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
   m_IsPrefabAsset: 0

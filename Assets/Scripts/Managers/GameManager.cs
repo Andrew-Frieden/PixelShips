@@ -129,6 +129,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     public void StartNewExpedition()
     {
+        //  this should only start a new expedition, not wipe out the entire gamestate
         GameState = _saveLoadController.CreateNewGameState();
     }
 

@@ -158,7 +158,7 @@ namespace Models
             Values = new Dictionary<string, string>(data.Values);
         }
 
-        public string GetLinkText()
+        public virtual string GetLinkText()
         {
             return Name;
         }

@@ -89,13 +89,13 @@ namespace Models
                 {
                     CmdShip = GameManager.ShipFactory.GenerateCommandShip(GameManager.RoomFactory),
                     Room = (Room)GameManager.RoomFactory.GenerateBootstrapRoom(false),
-                    CurrentMission = new Mission { MissionLevel = 1 },
+                    CurrentMission = new Mission { MissionLevel = 0 },
                     Ticks = 0,
                     Jumps = 0
                 },
                 Home = new Homeworld
                 {
-                    PlanetName = "Galvanius",
+                    PlanetName = "",
                     DeepestExpedition = 0,
                     HardestMonsterSlainScore = 0
                 }

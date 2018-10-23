@@ -54,8 +54,8 @@ namespace Models.Factories
 
         public IRoom GenerateBootstrapRoom(bool includeFTUE)
         {
-            var room = GenerateRoom(new RoomTemplate(1, RoomFlavor.Empty));
-            room.AddEntity(new BootstrapEntity());
+            var room = GenerateRoom(new RoomTemplate(0, RoomFlavor.Empty));
+            room.AddEntity(new BootstrapEntity(includeFTUE));
             return room;
         }
 
