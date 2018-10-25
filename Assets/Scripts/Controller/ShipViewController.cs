@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Models.Actions;
-using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
 using UnityEngine;
-using static Models.CommandShip;
 
 namespace Controller
 {
@@ -38,6 +35,9 @@ namespace Controller
 		{
             var ship = GameManager.Instance.GameState.CurrentExpedition.CmdShip;
 
+            if (ship == null)
+                return new[] { string.Empty.Tag() };
+
             var shipData = new List<TagString>
             {
                 $"--- Ship ---".Tag(),
@@ -64,7 +64,6 @@ namespace Controller
             }
 
             shipData.Add("--- Cargo ---".Tag());
-            shipData.Add($"Credits: {ship.Stats[StatKeys.Credits]}".Tag());
             shipData.Add($"Resourcium: {ship.Resourcium}".Tag());
             shipData.Add($"Scrap: {ship.Scrap}".Tag());
 			

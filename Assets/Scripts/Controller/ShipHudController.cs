@@ -38,7 +38,7 @@ namespace Controller
 		public void InitializeShipHud(IRoom room)
 		{
 			PlayerShip = room.PlayerShip;
-		
+
 			CurrentHull = PlayerShip.Hull;
             CurrentMaxHull = PlayerShip.MaxHull;
 			CurrentShield = PlayerShip.Stats[StatKeys.Shields];
@@ -97,7 +97,7 @@ namespace Controller
         public void UpdateSector(IRoom room)
         {
             _sectorName.text = "<>".Encode(room.GetLinkText(), room.Id, LinkColors.Room);
-            sectorTyper.TypeText(0.1f);
+            sectorTyper.TypeText();
         }
 
 		private IEnumerator UpdateShieldText()

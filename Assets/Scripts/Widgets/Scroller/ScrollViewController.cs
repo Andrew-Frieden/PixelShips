@@ -5,10 +5,13 @@ using Models.Actions;
 using TextSpace.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using Widgets.Scroller;
 
 public class ScrollViewController : MonoBehaviour {
 
-    [SerializeField] public bool ScrollToBottom = false;
+    [SerializeField] private bool ScrollToBottom = false;
+    [SerializeField] private int WordSpeed = 3;
+    [SerializeField] private float TypeDelay = 0.1f;
 
     public int CellCount = 20;
     public GameObject ScrollCellPrefab;
@@ -66,6 +69,8 @@ public class ScrollViewController : MonoBehaviour {
         {
             var cellObject = Instantiate(ScrollCellPrefab);
             var scrollCell = cellObject.GetComponent<ScrollCell>();
+            scrollCell.GetComponentInChildren<ScrollCellTextTyper>().Characters_Per_Interval = WordSpeed;
+            scrollCell.GetComponentInChildren<ScrollCellTextTyper>().Delay = TypeDelay;
             scrollCell.transform.SetParent(CellHolder.transform);
             scrollCell.gameObject.SetActive(false);
             CachedCells.Add(scrollCell);

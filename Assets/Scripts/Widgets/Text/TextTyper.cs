@@ -6,6 +6,7 @@ public class TextTyper : MonoBehaviour
 {
     [SerializeField] protected float TimeToWrite = 5.0f;
     [SerializeField] protected TextMeshProUGUI textMesh;
+    public float Delay = 0.1f;
 
     private Coroutine typingRoutine;
 
@@ -25,19 +26,19 @@ public class TextTyper : MonoBehaviour
             textMesh = GetComponent<TextMeshProUGUI>();
     }
 
-    public void TypeText(float delay)
+    public void TypeText()
     {
         if (typingRoutine != null)
         {
             StopCoroutine(typingRoutine);
             HideText();
         }
-        typingRoutine = StartCoroutine(ShowCharacters(delay));
+        typingRoutine = StartCoroutine(ShowCharacters());
     }
 
-    protected virtual IEnumerator ShowCharacters(float delay)
+    protected virtual IEnumerator ShowCharacters()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(Delay);
 
         // Force an update of the mesh to get valid information.
         textMesh.ForceMeshUpdate();

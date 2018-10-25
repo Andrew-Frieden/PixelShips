@@ -260,21 +260,47 @@ namespace Models
 
         private string PickRandomCaptainName()
         {
-            var random = UnityEngine.Random.Range(0, 5);
-
-            switch (random)
+            var names = new List<string>
             {
-                case 0:
-                    return "Space Pirate Dave";
-                case 1:
-                    return "Space Bro Chad";
-                case 2:
-                    return "Captain P.W. Underpants";
-                case 3:
-                    return "John 'deep space' Robinson";
-                default:
-                    return "The dread pirate spigs";
-            }
+                "Daymar Donnall",
+                "Blorn Terrend",
+                "Kuna Melne",
+                "Tonis Kara",
+                "Jado Vikar",
+                "Cen Carden",
+                "Maro Grenko",
+                "Garo Janren",
+                "Haro Syko",
+                "Orron Gravanc",
+                "Daro Lahkar",
+                "Gil Dellian",
+                "Tenkin Forsey",
+                "Cameron Molasky",
+                "Drake Montegue",
+                "Darius Malvo",
+                "Nolan Nkuna",
+                "Tomas Araujo",
+                "Austin Troyer",
+                "Jonathan Jakkerson",
+                "Colo Hedsard",
+                "Lon Baize",
+                "Gavenk Alen",
+                "Kenth Haren",
+                "Maxir Typhe",
+                "Luca Alon",
+                "Vance Lockley",
+                "Rory Solari",
+                "Stanton Bowdoin",
+                "Monty Breton",
+                "Dorsey Warwick",
+                "Jarred Desai",
+                "Chas Alcantar",
+                "Kennith Severt",
+                "Herschel Sonoda",
+                "Darell Tian"
+            };
+
+            return names[UnityEngine.Random.Range(0, names.Count)];
         }
 
         public IRoomAction CleanupStep(IRoom room)

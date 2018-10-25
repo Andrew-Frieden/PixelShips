@@ -356,6 +356,26 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114945669264886226, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: WordSpeed
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114945669264886226, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: TypeDelay
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 114829704981516588, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: m_Text
+      value: Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 114976536700422476, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: m_Text
+      value: Cmd
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
   m_IsPrefabAsset: 0

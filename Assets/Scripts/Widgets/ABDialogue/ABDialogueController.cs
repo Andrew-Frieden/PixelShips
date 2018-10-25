@@ -112,7 +112,7 @@ public class ABDialogueController : MonoBehaviour {
         //  animate the control into view
         TargetLocation = OnScreen;
         //  animate the display of content
-        textTyper.TypeText(0.2f);
+        textTyper.TypeText();
         //  wait for user input
         
         SetABBackgrounds(content);

@@ -7,10 +7,12 @@ namespace Widgets.Scroller
     {
         public delegate void TyperFinishedEvent();
         public static event TyperFinishedEvent scrollCellTyperFinishedEvent;
+
+        public int Characters_Per_Interval = 3;
         
-        protected override IEnumerator ShowCharacters(float delay)
+        protected override IEnumerator ShowCharacters()
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(Delay);
 
             // Force an update of the mesh to get valid information.
             textMesh.ForceMeshUpdate();
@@ -27,7 +29,7 @@ namespace Widgets.Scroller
 
             while (true)
             {
-                visibleCount = counter % (totalCharacters + 3);
+                visibleCount = counter % (totalCharacters + Characters_Per_Interval);
                 textMesh.maxVisibleCharacters = visibleCount;
 
                 //Start the next cell
@@ -53,13 +55,13 @@ namespace Widgets.Scroller
                             if (nextCell != null)
                                 nextCell.OnCellStarted();
 
-                            textTyper.TypeText(delay);
+                            textTyper.TypeText();
                             yield break;
                         }
                     }
                 }
 
-                counter += 3;
+                counter += Characters_Per_Interval;
                 yield return new WaitForSeconds(timeBetweenCharacters);
             }
         }

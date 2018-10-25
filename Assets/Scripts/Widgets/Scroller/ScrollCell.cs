@@ -40,7 +40,7 @@ public class ScrollCell : MonoBehaviour, IPointerClickHandler
         if (start)
         {
             OnCellStarted();
-            Typer.TypeText(0.1f); 
+            Typer.TypeText(); 
         }
 
         return EncodedText.GetPreferredValues().y + Spacing;
