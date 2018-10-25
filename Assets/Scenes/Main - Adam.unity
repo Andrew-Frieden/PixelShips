@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &806887361 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1918563045750856, guid: f26a9ff0c57f12a44a392b44ef88695c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1679899824}
 --- !u!1 &1390893435
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,23 +273,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: ff71947c061165f4c8ee778676d4ef1a, type: 2}
---- !u!1 &1555620058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1899130016748406, guid: f26a9ff0c57f12a44a392b44ef88695c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1679899824}
---- !u!1001 &1679899824
+--- !u!1001 &2102630175
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114780335783870432, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: StartupDependencies.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4802614922678988, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -327,7 +312,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 223707389352978390, guid: f26a9ff0c57f12a44a392b44ef88695c,
+    - target: {fileID: 114798658039955386, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1478137180}
+    - target: {fileID: 223681390757284328, guid: f26a9ff0c57f12a44a392b44ef88695c,
         type: 2}
       propertyPath: m_Camera
       value: 
@@ -337,29 +327,34 @@ Prefab:
       propertyPath: UICamera
       value: 
       objectReference: {fileID: 1478137180}
-    - target: {fileID: 223681390757284328, guid: f26a9ff0c57f12a44a392b44ef88695c,
+    - target: {fileID: 223707389352978390, guid: f26a9ff0c57f12a44a392b44ef88695c,
         type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1478137180}
-    - target: {fileID: 114798658039955386, guid: f26a9ff0c57f12a44a392b44ef88695c,
+    - target: {fileID: 114445728838495276, guid: f26a9ff0c57f12a44a392b44ef88695c,
         type: 2}
-      propertyPath: Camera
-      value: 
-      objectReference: {fileID: 1478137180}
-    - target: {fileID: 114780335783870432, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: StartupDependencies.Array.data[0]
-      value: 
-      objectReference: {fileID: 1555620058}
-    - target: {fileID: 114780335783870432, guid: f26a9ff0c57f12a44a392b44ef88695c,
-        type: 2}
-      propertyPath: StartupDependencies.Array.data[1]
-      value: 
-      objectReference: {fileID: 806887361}
+      propertyPath: ScrollToBottom
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1622281711105860, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114161795833415772, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114161795833415772, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114161795833415772, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}

@@ -81,14 +81,14 @@ namespace Models
             };
         }
 
-        public GameState CreateBootstrapGameState()
+        public GameState CreateBootstrapGameState(bool devSettingsEnabled)
         {
             return new GameState
             {
                 CurrentExpedition = new Expedition
                 {
                     CmdShip = GameManager.ShipFactory.GenerateCommandShip(GameManager.RoomFactory),
-                    Room = (Room)GameManager.RoomFactory.GenerateBootstrapRoom(false),
+                    Room = (Room)GameManager.RoomFactory.GenerateBootstrapRoom(!devSettingsEnabled),
                     CurrentMission = new Mission { MissionLevel = 0 },
                     Ticks = 0,
                     Jumps = 0

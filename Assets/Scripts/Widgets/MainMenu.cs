@@ -7,25 +7,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour, IPointerClickHandler
+public class MainMenu : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI StartOrContinue;
     [SerializeField] private TextMeshProUGUI Settings;
     [SerializeField] private TextMeshProUGUI Reset;
     [SerializeField] private TextMeshProUGUI SaveData;
 
-    private List<TextMeshProUGUI> menuText;
     private ISaveManager saveManager;
 
     private void Start () 
 	{
-        menuText = new List<TextMeshProUGUI>
-        {
-            StartOrContinue,
-            Settings,
-            Reset
-        };
-
         saveManager = GameManager.Instance;
         SetupMenu();
 	}
@@ -35,7 +27,6 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         if (saveManager.HasSaveFile)
         {
             StartOrContinue.text = "[Continue]";
-            Reset.text = "[Reset]";
 
             if (saveManager.SaveFile is InvalidSaveState)
             {
@@ -50,12 +41,11 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         else
         {
             StartOrContinue.text = "[Begin]";
-            Reset.text = "";
             SaveData.text = "";
         }
     }
 	
-    private void StartOrContinueClick()
+    public void StartOrContinueClick()
     {
         if (saveManager.HasSaveFile)
         {
@@ -74,40 +64,20 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void ResetClick()
+    public void DevStartClick()
+    {
+        GameManager.Instance.BootstrapNewGame(true);
+    }
+
+    public void SettingsClick()
+    {
+        Debug.Log("Settings Clicked.");
+    }
+
+    public void ResetClick()
     {
         saveManager.ResetSaveData();
         SetupMenu();
     }
 
-    private void MenuSelected(TextMeshProUGUI text)
-    {
-        if (text == StartOrContinue)
-        {
-            StartOrContinueClick();
-        }
-        else if (text == Settings)
-        {
-            Debug.Log("Settings Selected");
-        }
-        else if (text == Reset)
-        {
-            ResetClick();
-        }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        int result;
-
-        foreach (var menuItem in menuText)
-        {
-            result = TMP_TextUtilities.FindIntersectingWord(menuItem, eventData.position, UIManager.Instance.UICamera);
-            if (result >= 0)
-            {
-                MenuSelected(menuItem);
-                return;
-            }
-        }
-    }
 }

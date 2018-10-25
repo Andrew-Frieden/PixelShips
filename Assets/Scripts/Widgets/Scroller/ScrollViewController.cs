@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class ScrollViewController : MonoBehaviour {
 
+    [SerializeField] public bool ScrollToBottom = false;
+
     public int CellCount = 20;
     public GameObject ScrollCellPrefab;
     public GameObject CellHolder;
@@ -80,15 +82,23 @@ public class ScrollViewController : MonoBehaviour {
         var verticalSize = cell.SetupScrollCell(result, _first);
         //var verticalSize = cell.CellHeight;
         cell.RectTransform.localScale = Vector2.one;
-        cell.RectTransform.SetSiblingIndex(CellCount - 1);
+        cell.RectTransform.SetSiblingIndex(CellCount);
         cell.Dim(false);
         ActiveCells.Enqueue(cell);
         LastActiveCell = cell;
         
         cell.RectTransform.sizeDelta = new Vector2 (cell.RectTransform.sizeDelta.x, verticalSize);
         _first = false;
-        
+
+        if (ScrollToBottom)
+            Invoke(nameof(ScrollDown), 0.1f);
+
         cellAddedEvent?.Invoke();
+    }
+
+    private void ScrollDown()
+    {
+        ScrollRect.verticalNormalizedPosition = 0f;
     }
 
     public void AddCells(IEnumerable<TagString> text)

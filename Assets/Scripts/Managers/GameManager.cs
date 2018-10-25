@@ -37,8 +37,18 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	{
         // Disable screen dimming
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        StartGame();
-	}
+
+        _saveLoadController = new SaveLoadController();
+        _saveLoadController.Init();
+
+        var gameContentDto = new ContentLoadController().Load();
+        RoomFactory = new RoomFactory(gameContentDto);
+        ShipFactory = new ShipFactory();
+
+        _baseViewController.InitContentLoadResults(gameContentDto);
+
+        UpdateState(GamePhase.PREGAME);
+    }
 
     [SerializeField] List<GameObject> StartupDependencies = new List<GameObject>();
     private List<GameObject> Registrations = new List<GameObject>();
@@ -87,21 +97,6 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 		//void MyGameStateChangedHandler(GameManager.GameState currentState, GmaeManager.GameState previous) { ... }
 	}
 
-	private void StartGame()
-	{
-        _saveLoadController = new SaveLoadController();
-		_saveLoadController.Init();
-
-		var gameContentDto = new ContentLoadController().Load();
-		
-		RoomFactory = new RoomFactory(gameContentDto);
-		ShipFactory = new ShipFactory();
-		
-		_baseViewController.InitContentLoadResults(gameContentDto);
-			
-        UpdateState(GamePhase.PREGAME);
-	}
-
     //  expose some save stuff for the main menu
     public bool HasSaveFile =>_saveLoadController.HasSaveData;
     public SaveState SaveFile => _saveLoadController.SaveData;
@@ -120,10 +115,10 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         _commandViewController.StartCommandView();
     }
 
-    public void BootstrapNewGame()
+    public void BootstrapNewGame(bool devSettingsEnabled = false)
 	{
         bootstrapping = true;
-        GameState = _saveLoadController.CreateBootstrapGameState();
+        GameState = _saveLoadController.CreateBootstrapGameState(devSettingsEnabled);
         UpdateState(GamePhase.MISSION);
     }
 
