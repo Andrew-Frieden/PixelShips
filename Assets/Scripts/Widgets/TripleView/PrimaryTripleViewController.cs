@@ -9,6 +9,8 @@ public class PrimaryTripleViewController : TripleViewController
     {
         base.Start();
         UIResponseBroadcaster.UIResponseTagTrigger += RespondToUITag;
+
+        GameManager.Instance.RegisterStartup(gameObject);
     }
 
     private void RespondToUITag(UIResponseTag tag)

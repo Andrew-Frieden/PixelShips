@@ -113,6 +113,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &169586215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1435556167830744, guid: f26a9ff0c57f12a44a392b44ef88695c,
+    type: 2}
+  m_PrefabInternal: {fileID: 2102630175}
 --- !u!1 &1390893435
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +285,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114780335783870432, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: StartupDependencies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4802614922678988, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -376,6 +386,11 @@ Prefab:
       propertyPath: m_Text
       value: Cmd
       objectReference: {fileID: 0}
+    - target: {fileID: 114780335783870432, guid: f26a9ff0c57f12a44a392b44ef88695c,
+        type: 2}
+      propertyPath: StartupDependencies.Array.data[2]
+      value: 
+      objectReference: {fileID: 169586215}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26a9ff0c57f12a44a392b44ef88695c, type: 2}
   m_IsPrefabAsset: 0
