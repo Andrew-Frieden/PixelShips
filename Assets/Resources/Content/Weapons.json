@@ -318,5 +318,22 @@
     },
     "PowerLevel": 31,
     "EntityType": "Items.DirectDamageWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "Heals you a little.",
+      "name": "Self Heal Cannon",
+      "weapon_id": "NCADualDirect2",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 7\\n Base Heal: 2\\n"
+    },
+    "Stats": {
+      "weapon_type": 0,
+      "energy": 0,
+      "base_damage": 7,
+	  "base_heal": 2
+    },
+    "PowerLevel": 42,
+    "EntityType": "Items.SelfHealWeapon"
   }
 ]

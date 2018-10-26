@@ -44,18 +44,14 @@ namespace Helpers
             return damage;
         }
 
-        public static int HealDamage(this IRoomActor actor, int heal)
+        public static int HealDamage(this IRoomActor actor, int baseHeal)
         {
-            if (actor.Stats[StatKeys.Hull] + heal > actor.Stats[StatKeys.MaxHull])
+            var heal = baseHeal;
+            if (actor.Stats[StatKeys.Shields] + baseHeal > actor.Stats[StatKeys.MaxShields])
             {
-                heal = actor.Stats[StatKeys.MaxHull] - actor.Stats[StatKeys.Hull];
-                actor.Stats[StatKeys.Hull] = actor.Stats[StatKeys.MaxHull];
+                heal = actor.Stats[StatKeys.MaxShields] - actor.Stats[StatKeys.Shields];
             }
-            else
-            {
-                actor.Stats[StatKeys.Hull] += heal;
-            }
-
+            actor.Stats[StatKeys.Shields] += heal;
             return heal;
         }
 

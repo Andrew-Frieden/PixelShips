@@ -42,7 +42,7 @@ namespace Models.Actions
             base.Execute(room);
             
             var actualDamage = Target.TakeDamage(BaseDamage);
-            var actualHeal = Target.HealDamage(BaseHeal);
+            var actualHeal = Source.HealDamage(BaseHeal);
 
             Target.IsHostile = true;
             
