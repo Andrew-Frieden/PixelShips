@@ -34,7 +34,7 @@ public class SlideResponseController : MonoBehaviour {
         var offset = SlideUp ? new Vector2(0, screenHeight) : new Vector2(0, -screenHeight);
         OffScreen = RectBase.anchoredPosition + offset;
 
-        Debug.Log($"OnScreen: {OnScreen} | OffScreen: {OffScreen} | Offset: {offset} | height: {screenHeight}");
+        //Debug.Log($"OnScreen: {OnScreen} | OffScreen: {OffScreen} | Offset: {offset} | height: {screenHeight}");
 
         UIResponseBroadcaster.UIResponseTagTrigger += RespondToUITag;
     }
