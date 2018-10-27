@@ -56,6 +56,11 @@ namespace Models.Factories
             return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == 0 && w.Powerlevel == 42).GetRandom().FromFlexData();
         }
         
+        public Weapon GetDelayedWeapon()
+        {
+            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == 1 && w.Powerlevel == 43).GetRandom().FromFlexData();
+        }
+        
         public IRoom GenerateBootstrapRoom(bool includeFTUE)
         {
             var room = GenerateRoom(new RoomTemplate(0, RoomFlavor.Empty));

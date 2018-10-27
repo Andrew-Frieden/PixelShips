@@ -19,10 +19,7 @@ namespace Models.Actions
             _actorId = actorId;
         }
         
-        public DelayedAction()
-        {
-            
-        }
+        public DelayedAction() { }
         
         public override IEnumerable<TagString> Execute(IRoom room)
         {
@@ -39,8 +36,7 @@ namespace Models.Actions
                 {
                     new TagString()
                     {
-                        Text = _description + $"in {actor.Stats[StatKeys.TimeToLive]} ticks." ,
-                        Tags = new List<UIResponseTag> { }
+                        Text = _description
                     }
                 };
             }

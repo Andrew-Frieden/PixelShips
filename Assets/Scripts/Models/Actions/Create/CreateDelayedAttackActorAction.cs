@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Actors;
 using Models.Dtos;
-using Models.Stats;
 using TextEncoding;
 
 namespace Models.Actions
