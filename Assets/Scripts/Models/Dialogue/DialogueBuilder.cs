@@ -71,7 +71,7 @@ namespace Models.Dialogue
                 return this;
             }
 
-            public ABDialogueContent Build(IRoom room)
+            public ABDialogueContent Build(IRoom room = null)
             {
                 content.CalculateMode();
 
@@ -170,6 +170,6 @@ namespace Models.Dialogue
         IDialogueBuilder AddOptionA(string text, IRoomAction action);
         IDialogueBuilder AddOptionB(string text, IRoomAction action);
 
-        ABDialogueContent Build(IRoom room);
+        ABDialogueContent Build(IRoom room = null);
     }
 }

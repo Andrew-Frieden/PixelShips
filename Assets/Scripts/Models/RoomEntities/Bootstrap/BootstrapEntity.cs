@@ -196,7 +196,6 @@ namespace Models
             }
             Debug.Log("Invalid Bootstrapper State");
             return "".ToTagSet();
-            //throw new Exception("Invalid Bootstrap State");
         }
     }
 
