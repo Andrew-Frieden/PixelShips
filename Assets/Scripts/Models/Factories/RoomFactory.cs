@@ -72,6 +72,8 @@ namespace Models.Factories
         {
             var room = GenerateRoom(new RoomTemplate(0, RoomFlavor.Empty), true);
 
+            var homeworld = new HomeworldNpc(world);
+            room.AddEntity(homeworld);
 
             //  developer hack to add hardware to starting room
             var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
@@ -85,7 +87,7 @@ namespace Models.Factories
             return GenerateRoom(template, false);
         }
 
-        public IRoom GenerateRoom(RoomTemplate template, bool empty)
+        public IRoom GenerateRoom(RoomTemplate template, bool forceEmpty)
         {
             //  first get the injectable flavor for the room
             var lookText = ExampleGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
@@ -101,7 +103,7 @@ namespace Models.Factories
 
             //  add actors
             var actors = new List<IRoomActor>();
-            if (!empty)
+            if (!forceEmpty)
                 actors = CalculateActors(template);
 
             return new Room(roomInject, exits, actors);
@@ -217,12 +219,12 @@ namespace Models.Factories
             
                 if (2 <= UnityEngine.Random.Range(0, 11))
                 {
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First(), template));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).FirstOrDefault(), template));
                 }
                 else
                 {
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First(), template));
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First(), template));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).FirstOrDefault(), template));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).FirstOrDefault(), template));
                 }
             }
 

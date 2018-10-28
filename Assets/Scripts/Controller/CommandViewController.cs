@@ -8,6 +8,7 @@ using Models.Dialogue;
 using Models.Dtos;
 using Models.Factories;
 using Models.Stats;
+using TextEncoding;
 using TextSpace.Events;
 using UnityEngine;
 using Widgets.Scroller;
@@ -36,7 +37,6 @@ namespace Controller
             ScrollCellTextTyper.scrollCellTyperFinishedEvent += HandleScrollCellTyperFinishedEvent;
         }
 
-        //Called the first time the player spawns a ship and goes to the command view.
         public void StartCommandView()
         {
             InitFromGameState();
@@ -45,7 +45,9 @@ namespace Controller
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowHUD);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowNavBar);
 
-            _scrollView.AddCells(CalculateLookText(_room));
+            var startingRoom = _room.Entities.Where(n => n is HomeworldNpc).Any();
+
+            _scrollView.AddCells(CalculateLookText(_room, startingRoom));
             StartCoroutine(Blink.BlinkLoop());
         }
 
@@ -66,21 +68,20 @@ namespace Controller
             RoomController.StartNextRoom(_room, _room);
         }
 
-        private IEnumerable<TagString> CalculateLookText(IRoom room)
+        private IEnumerable<TagString> CalculateLookText(IRoom room, bool startingRoom = false)
         {
-            var lookResults = new List<TagString>()
+            var lookResults = new List<TagString>();
+
+            if (startingRoom)
             {
-                new TagString()
-                {
-                    Text = room.PlayerShip.GetLookText().Text,
-                    Tags = new List<UIResponseTag> { }
-                },
-                new TagString()
-                {
-                    Text = room.GetLookText().Text,
-                    Tags = new List<UIResponseTag> { }
-                }
-            };
+                lookResults.Add("Your <> rests in-system, ready to take on the void.".Encode("starship", room.PlayerShip.Id, LinkColors.Player).Tag());
+            }
+            else
+            {
+                lookResults.Add(room.PlayerShip.GetLookText());
+            }
+
+            lookResults.Add(room.GetLookText());
 
             foreach (var entity in room.Entities)
             {
@@ -89,6 +90,7 @@ namespace Controller
                     lookResults.Add(entity.GetLookText());
                 }
             }
+
             return lookResults;
         }
 

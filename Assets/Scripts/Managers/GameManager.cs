@@ -131,8 +131,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         GameState.CurrentExpedition = new Expedition
         {
             CmdShip = ShipFactory.GenerateCommandShip(RoomFactory),
-            Room = (Room)RoomFactory.GenerateRoom(new RoomTemplate(10, RoomFlavor.Kelp)),
-            CurrentMission = new Mission { MissionLevel = 1 }
+            Room = (Room)RoomFactory.GenerateHomeworldRoom(GameState.Home),
+            CurrentMission = null
         };
         _commandViewController.StartCommandView();
         UIResponseBroadcaster.Broadcast(UIResponseTag.UpdateHomeworld);
@@ -160,7 +160,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
             {
                 CmdShip = BootstrapShip,
                 Room = (Room)RoomFactory.GenerateBootstrapRoom(!devSettingsEnabled),
-                CurrentMission = new Mission { MissionLevel = 0 },
+                CurrentMission = null,
             },
             Home = BootstrapWorld
         };

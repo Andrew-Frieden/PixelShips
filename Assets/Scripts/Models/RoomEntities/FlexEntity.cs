@@ -163,7 +163,11 @@ namespace Models
             return Name;
         }
 
-        public abstract IRoomAction MainAction(IRoom room);
+        public virtual IRoomAction MainAction(IRoom room)
+        {
+            return new DoNothingAction(this);
+        }
+
         public abstract void CalculateDialogue(IRoom room);
         
         public abstract TagString GetLookText();

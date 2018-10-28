@@ -24,7 +24,7 @@ namespace Models
             {
                 case 0:
                 case 1:
-                    return "You";
+                    return "you";
                 case 2:
                     return "Homeworld";
                 default:
@@ -189,7 +189,8 @@ namespace Models
                         $"Your clan continues their ancient impetus.".Tag(),
                         ".".Tag(),
                         ".".Tag(),
-                        "<b>Visit your homeworld to start a new expedition.</b>".Tag(new[] { UIResponseTag.ShowNavBar, UIResponseTag.DisableCmdView })
+                        ".".Tag(),
+                        "<b><align=center>Visit your homeworld to start a new expedition.</align></b>".Tag(new[] { UIResponseTag.ShowNavBar, UIResponseTag.DisableCmdView })
                     };
                 default:
                     break;

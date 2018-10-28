@@ -132,7 +132,7 @@ namespace Models.Dtos
             {
                 Jumps = exp.Jumps,
                 Ticks = exp.Ticks,
-                MissionData = exp.CurrentMission.ToDto(),
+                MissionData = exp.CurrentMission == null ? null : exp.CurrentMission.ToDto(),
                 ShipData = exp.CmdShip.ToDto(),
                 RoomData = exp.Room.ToDto()
             };
@@ -179,18 +179,6 @@ namespace Models.Dtos
             {
                 MissionLevel = dto.MissionLevel
             };
-        }
-
-        public static IRoom FromDto(this RoomDto dto)
-        {
-            //return new Room(dto.Id, dto.Description, dto.Link);
-            throw new NotImplementedException();
-        }
-
-        public static CommandShip FromDto(this ShipDto dto)
-        {
-            throw new NotImplementedException();
-            //return new CommandShip(dto.Id, dto.Gathering, dto.Transport, dto.Intelligence, dto.Combat, dto.Speed, dto.Hull);
         }
 
         /// <summary>

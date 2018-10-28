@@ -79,7 +79,7 @@ namespace Models
             {
                 Ticks = expData.Ticks,
                 Jumps = expData.Jumps,
-                CurrentMission = expData.MissionData.FromDto()
+                CurrentMission = expData.MissionData == null ? null : expData.MissionData.FromDto()
             };
             state.CurrentExpedition = exp;
 
