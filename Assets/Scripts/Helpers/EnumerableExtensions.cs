@@ -19,7 +19,7 @@ namespace EnumerableExtensions
 
         public static T GetRandom<T>(this IEnumerable<T> source)
         {
-            return source.OrderBy(i => Guid.NewGuid()).First();
+            return source.OrderBy(i => Guid.NewGuid()).FirstOrDefault();
         }
 
         public static bool Rng(this float chance)

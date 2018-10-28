@@ -196,7 +196,7 @@ namespace Models.Factories
             }
 
             //  increase the difficulty of the exit by 2
-            return new RoomTemplate(template.PowerLevel + 2, nextRoomFlavor, entityFlavors);
+            return new RoomTemplate(Math.Max(template.PowerLevel + 2, 10), nextRoomFlavor, entityFlavors);
         }
 
         private List<IRoomActor> CalculateActors(RoomTemplate template)
