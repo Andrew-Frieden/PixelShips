@@ -37,10 +37,6 @@ namespace Models.RoomEntities.Mobs
                         
                     return ((Weapon) actor).GetAttackAction(room, this, room.PlayerShip);
                 }
-                else
-                {
-                    throw new NotImplementedException();
-                }
             }
 
             throw new NotImplementedException();

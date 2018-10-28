@@ -213,19 +213,17 @@ namespace Models.Factories
             
             if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
             {
-
                 var data = Mobs.Where(h => h.RoomFlavors.Contains(template.Flavor));
             
                 if (2 <= UnityEngine.Random.Range(0, 11))
                 {
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First(), template));
                 }
                 else
                 {
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First()));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First(), template));
+                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).First(), template));
                 }
-
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Town))
@@ -275,7 +273,7 @@ namespace Models.Factories
         }
 
         //Creates a Mob and its dependent weapon entities (with dependent Id's set)
-        private IEnumerable<IRoomActor> CreateMob(FlexData mobData)
+        private IEnumerable<IRoomActor> CreateMob(FlexData mobData, RoomTemplate template)
         {
             //Just for debugging
             var hasWeapon = false;
@@ -293,7 +291,7 @@ namespace Models.Factories
 
                     if (weaponFlexData != null)
                     {
-                        var weapon = (Weapon)weaponFlexData.FromFlexData();
+                        var weapon = (Weapon) weaponFlexData.FromFlexData();
                         weapon.IsHidden = true;
                         weapon.DependentActorId = mob.Id;
                         actors.Add(weapon);
@@ -304,6 +302,13 @@ namespace Models.Factories
                     }
                 }
             }
+            
+            //Give mob loot
+            var lootFlexData = Gatherables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
+            var loot = (BasicGatherable) lootFlexData.FromFlexData();
+            loot.IsHidden = true;
+            loot.DependentActorId = mob.Id;
+            actors.Add(loot);
 
             if (!hasWeapon)
             {
