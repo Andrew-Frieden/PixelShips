@@ -28,7 +28,13 @@ namespace Models.RoomEntities.Mobs
         {
             if (IsDestroyed)
             {
-                return new DropGatherableAction(this, new BasicGatherable("Kelp Fiber"));
+                foreach (var actor in room.FindDependentActors(Id))
+                {
+                    if (actor is BasicGatherable)
+                    {
+                        return new DropGatherableAction(this, (BasicGatherable) actor);
+                    }
+                }
             }
             return new DoNothingAction(this);
         }
