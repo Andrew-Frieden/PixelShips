@@ -1,4 +1,5 @@
 ﻿using Models.Actions;
+using Models.Dtos;
 using Models.Stats;
 using UnityEngine;
 
@@ -6,9 +7,11 @@ namespace Models.Actors
 {
     public abstract class TemporaryEntity : FlexEntity
     {
-        protected TemporaryEntity() : base()
-        {
-        }
+        public TemporaryEntity(FlexEntityDto dto) : base(dto) { }
+
+        public TemporaryEntity(FlexData data) : base(data) { }
+
+        protected TemporaryEntity() { }
 
         public override IRoomAction CleanupStep(IRoom room)
         {

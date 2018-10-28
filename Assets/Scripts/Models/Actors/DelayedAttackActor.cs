@@ -1,29 +1,92 @@
+using System.Linq;
 using Models.Actions;
 using Models.Dialogue;
+using Models.Dtos;
 using Models.Stats;
 
 namespace Models.Actors
 {
     public class DelayedAttackActor : TemporaryEntity
     {
-        private readonly IRoomActor _source;
-        private readonly IRoomActor _target;
-        private readonly int _damage;
-        private readonly string _name;
+        private IRoomActor _source;
+        private IRoomActor _target;
 
-        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int damage, string name) : base()
+        public string SourceId
         {
-            Stats[StatKeys.TimeToLive] = timeToLive;
-            _source = source;
-            _target = target;
-            _damage = damage;
-            _name = name;
+            get
+            {
+                return Values[ValueKeys.SourceId];
+            }
+            private set
+            {
+                Values[ValueKeys.SourceId] = value; 
+            }
+        }
+
+        public string TargetId
+        {
+            get
+            {
+                return Values[ValueKeys.TargetId];
+            }
+            private set
+            {
+                Values[ValueKeys.TargetId] = value; 
+            }
+        }
+
+        public int Damage
+        {
+            get
+            {
+                return Stats[StatKeys.BaseDamage];
+            }
+            private set
+            {
+                Stats[StatKeys.BaseDamage] = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return Values[ValueKeys.Name];
+            }
+            private set
+            {
+                Values[ValueKeys.Name] = value;
+            }
+        }
+
+        public int TimeToLive
+        {
+            get
+            {
+                return Stats[StatKeys.TimeToLive];
+            }
+            private set
+            {
+                Stats[StatKeys.TimeToLive] = value;
+            }
+        }
+
+        public DelayedAttackActor(FlexEntityDto dto) : base(dto) { }
+
+        public DelayedAttackActor(IRoomActor source, IRoomActor target, int timeToLive, int baseDamage, string name)
+        {
+            SourceId = source.Id;
+            TargetId = target.Id;
+            
+            TimeToLive = timeToLive;
+            Damage = baseDamage;
+            Name = name;
         }
 
         public override void CalculateDialogue(IRoom room)
         {
             DialogueContent = DialogueBuilder.Init()
-                 .AddMainText("The " + _name + " will strike in " + Stats[StatKeys.TimeToLive] + " turns.")
+                 .AddMainText("The " + Name + " will strike in " + Stats[StatKeys.TimeToLive] + " turns.")
                   .Build(room);
         }
 
@@ -32,22 +95,30 @@ namespace Models.Actors
             return new TagString();
         }
 
-        public override IRoomAction MainAction(IRoom s)
+        public override IRoomAction MainAction(IRoom room)
         {
-            if (Stats[StatKeys.TimeToLive] == 1)
+            if (_source == null || _target == null)
             {
-                Stats[StatKeys.TimeToLive]--;
-                return new AttackAction(_source, _target, _damage, _name, 0);
+                _source = room.FindEntity(SourceId) as IRoomActor;
+                _target = room.FindEntity(TargetId) as IRoomActor;
             }
             
-            return new DelayedAction($"A {_name} will hit {_target.GetLinkText()} ", Id);
+            // Changing TimeToLive is only Ok here because the actor is cleaned up on the same tick
+            if (TimeToLive == 1)
+            {
+                TimeToLive--;
+                
+                return new AttackAction(_source, _target, Damage, Name, 0);
+            }
+            
+            return new DelayedAction($"A {Name} will hit {_target.GetLinkText()} in {TimeToLive} ticks", Id);
         }
 
         public override IRoomAction CleanupStep(IRoom room)
         {
             base.CleanupStep(room);
 
-            if (_target.IsDestroyed)
+            if (_target != null && _target.IsDestroyed)
             {
                 IsDestroyed = true;
             }

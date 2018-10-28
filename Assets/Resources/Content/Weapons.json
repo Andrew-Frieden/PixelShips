@@ -335,5 +335,22 @@
     },
     "PowerLevel": 42,
     "EntityType": "Items.SelfHealWeapon"
+  },
+  {
+    "Values": {
+      "dialogue_text": "Def a torpedo",
+      "name": "Torpedo Launcher",
+      "weapon_id": "torpedoLauncher",
+      "look_text": "A <> drifts through space.",
+      "display_stats": "Base Damage: 15\\n Delay: 1\\n"
+    },
+    "Stats": {
+      "weapon_type": 1,
+      "energy": 1,
+      "base_damage": 15,
+	  "time_to_live": 1
+    },
+    "PowerLevel": 43,
+    "EntityType": "Items.CreateDelayedAttackActorWeapon"
   }
 ]

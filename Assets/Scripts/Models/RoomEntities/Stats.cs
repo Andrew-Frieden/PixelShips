@@ -90,6 +90,9 @@ namespace Models.Stats
         public const string NpcDealA = "npc_deal_a";
         public const string NpcDealB = "npc_deal_b";
 
+        public const string SourceId = "source_id";
+        public const string TargetId = "target_id";
+
         public static string DialogueStateText(string state)
         {
             return $"{DialogueText}_{state}";

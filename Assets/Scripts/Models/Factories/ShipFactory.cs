@@ -10,7 +10,7 @@ namespace Models.Factories
         {
             var ship = new CommandShip();
             ship.SwapWeapon(roomFactory.GetHealWeapon());
-            ship.SwapWeapon(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Heavy, 10));
+            ship.SwapWeapon(roomFactory.GetDelayedWeapon());
             return ship;
         }
     }
