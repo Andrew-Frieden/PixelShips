@@ -163,34 +163,21 @@ public class ScrollViewController : MonoBehaviour {
         _scrollViewPos = new Vector2(_scrollViewRectTransform.anchoredPosition.x,
                                      _scrollViewRectTransform.anchoredPosition.y);
             
-        InvokeRepeating(nameof(BeginShake), 0, 0.05f);
-        Invoke(nameof(StopShake), 1.0f);
+        InvokeRepeating(nameof(BeginShake), 0, 0.01f);
+        Invoke(nameof(StopShake), 0.33f);
     }
 
     private void BeginShake()
     {
         var scrollViewPos = _scrollViewRectTransform.anchoredPosition;
+        var shakeMagnitude = 2f + Random.value * 2;
+        var shakeAmount = Random.value * shakeMagnitude * 2 - shakeMagnitude;
 
-        var offsetX = Random.value * 5;
-        var offsetY = Random.value * 5;
+        scrollViewPos.x += shakeAmount;
 
-        if (Random.Range(0, 100) > 50)
-        {
-            scrollViewPos.x += offsetX;
-        }
-        else
-        {
-            scrollViewPos.x -= offsetX;
-        }
-            
-        if (Random.Range(0, 100) > 50)
-        {
-            scrollViewPos.y += offsetY;
-        }
-        else
-        {
-            scrollViewPos.y -= offsetY;
-        }
+        if (Random.value >= 0.5f)
+            shakeAmount *= -1;
+        scrollViewPos.y += shakeAmount;
 
         _scrollViewRectTransform.anchoredPosition = scrollViewPos;
     }
