@@ -105,7 +105,7 @@ Empty your cargo or we'll dust ya!")
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
-            var drop = new ScrapGatherable("Debris");
+            var drop = new BasicGatherable("Debris");
             room.Entities.Add(drop);
 
             var explosion = $"The <>'s hull explodes into dust!".Encode(Source, LinkColors.HostileEntity).Tag();

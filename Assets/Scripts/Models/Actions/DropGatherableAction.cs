@@ -6,9 +6,9 @@ namespace Models.Actions
 {
     public class DropGatherableAction : SimpleAction
     {
-        private readonly ScrapGatherable _gatherable;
+        private readonly BasicGatherable _gatherable;
         
-        public DropGatherableAction(IRoomActor src, ScrapGatherable gatherable)
+        public DropGatherableAction(IRoomActor src, BasicGatherable gatherable)
         {
             Source = src;
             _gatherable = gatherable;

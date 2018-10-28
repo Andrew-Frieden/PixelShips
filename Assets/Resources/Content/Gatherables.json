@@ -1,0 +1,28 @@
+[{
+    "Values": {
+      "dialogue_text": "It's scrap. Pick it up... or don't.",
+      "name": "Scrap",
+	  "resource_key": "scrap"
+    },
+    "Stats": {
+	  "smallest_amount": 2,
+	  "largest_amount": 4,
+    },
+	"RoomFlavors": [ 0, 1, 2, 3, 4, 5],
+	"PowerLevel": 0,
+    "EntityType": "Models.BasicGatherable"
+},
+{
+    "Values": {
+      "dialogue_text": "Some fibrous plant material.",
+      "name": "Kelp Fiber",
+	  "resource_key": "scrap"
+    },
+    "Stats": {
+	  "smallest_amount": 3,
+	  "largest_amount": 4,
+    },
+	"RoomFlavors": [ 1 ],
+	"PowerLevel": 0,
+    "EntityType": "Models.BasicGatherable"
+}]

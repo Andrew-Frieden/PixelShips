@@ -246,24 +246,10 @@ namespace Models.Factories
                 actors.AddRange(CreateNpc(npc));
             }
 
-            if (template.ActorFlavors.Contains(RoomActorFlavor.Gatherable))
+            if (true)//template.ActorFlavors.Contains(RoomActorFlavor.Gatherable)
             {
-                //  do something hacky for now
-                if (template.Flavor == RoomFlavor.Empty)
-                {
-                    if (0.5f.Rng())
-                    {
-                        actors.Add(new SingleUseGatherable("Shiny Comet"));
-                    }
-                    else
-                    {
-                        actors.Add(new ScrapGatherable());
-                    }
-                }
-                else if (template.Flavor == RoomFlavor.Kelp)
-                {
-                    actors.Add(new SingleUseGatherable("Kelp Fiber"));
-                }
+                var gatherable = Gatherables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
+                actors.Add(gatherable.FromFlexData());
             }
 
             if (template.PowerLevel == 10)

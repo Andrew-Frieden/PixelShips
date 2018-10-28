@@ -28,7 +28,7 @@ namespace Models.RoomEntities.Mobs
         {
             if (IsDestroyed)
             {
-                return new DropGatherableAction(this, new ScrapGatherable("Kelp Fiber"));
+                return new DropGatherableAction(this, new BasicGatherable("Kelp Fiber"));
             }
             return new DoNothingAction(this);
         }

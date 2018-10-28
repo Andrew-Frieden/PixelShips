@@ -34,17 +34,23 @@ namespace Models.Stats
         #endregion
 
         #region NPCs
+        
         public const string ScrapToResourcium = "scrap_to_resourcium";
+        
         #endregion
 
         #region Cargo
 
+        public const string Gathered = "gathered";
         public const string Credits = "credits";
         public const string Resourcium = "resourcium";
         public const string Scrap = "scrap";
         public const string Techanite = "techanite";
         public const string MachineParts = "machine_parts";
         public const string PulsarCoreFragments = "pulsar_core_fragment";
+        
+        public const string SmallestAmount = "smallest_amount";
+        public const string LargestAmount = "largest_amount";
             
         #endregion
         
@@ -92,6 +98,8 @@ namespace Models.Stats
 
         public const string SourceId = "source_id";
         public const string TargetId = "target_id";
+        
+        public const string ResourceKey = "resource_key";
 
         public static string DialogueStateText(string state)
         {
