@@ -29,6 +29,9 @@ namespace Controller
             
             var gatherablesJsonData =Resources.Load<TextAsset>(BaseFolderPath + GatherablesContentFilePath);
             var gatherables =  JsonConvert.DeserializeObject<List<FlexData>>(gatherablesJsonData.text);
+
+            if (gatherables == null)
+                gatherables = new List<FlexData>();
             
             var weaponsJsonData = Resources.Load<TextAsset>(BaseFolderPath + WeaponsContentFilePath);
             var weapons =  JsonConvert.DeserializeObject<List<FlexData>>(weaponsJsonData.text);

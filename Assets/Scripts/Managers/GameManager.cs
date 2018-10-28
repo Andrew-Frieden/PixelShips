@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
-	[SerializeField] private BaseViewController _baseViewController;
+	[SerializeField] private HomeViewController _baseViewController;
 
     private GamePhase _currentGamePhase = GamePhase.BOOT;
 	public GamePhase CurrentGamePhase => _currentGamePhase;
