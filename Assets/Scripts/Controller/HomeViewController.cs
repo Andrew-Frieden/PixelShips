@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using Models;
+using Models.Actions;
 using Models.Dtos;
 using TextEncoding;
+using TextSpace.Events;
 using TMPro;
 using UnityEngine;
 
@@ -10,18 +13,50 @@ namespace Controller
     {
         [SerializeField] private CommandViewController _commandViewController;
         [SerializeField] private TextMeshProUGUI DevToolsContentLoaded;
-        
-        public void SpawnNewShip()
+
+        [SerializeField] private TextMeshProUGUI PlanetName;
+        [SerializeField] private TextMeshProUGUI PlanetDescription;
+        [SerializeField] private TextMeshProUGUI PlanetStats;
+
+        private void Start()
         {
-            //This will re-write the game state
+            UIResponseBroadcaster.UIResponseTagTrigger += RespondToUIResponseTag;
+        }
+
+        private void RespondToUIResponseTag(UIResponseTag tag)
+        {
+            if (tag == UIResponseTag.UpdateHomeworld)
+                DisplayHomeworld();
+        }
+
+        private Homeworld _homeworld;
+        public void Init(Homeworld world)
+        {
+            _homeworld = world;
+            DisplayHomeworld();
+        }
+
+        public void StartNewExpedition()
+        {
             GameManager.Instance.StartNewExpedition();
-            _commandViewController.StartCommandView();
+        }
+
+        public void DisplayHomeworld()
+        {
+            if (_homeworld == null)
+                return;
+
+            PlanetName.text = _homeworld.PlanetName;
+            PlanetDescription.text = $"{_homeworld.Description} World";
+            PlanetStats.text = 
+                $"Conquest:\t\t{0}{Env.l}" +
+                $"Expeditions:\t{_homeworld.ExpeditionCount}";
         }
 
         public void InitContentLoadResults(GameContentDto content)
         {
             var flexDataLoadedText =
-                $"<b>FlexData Loaded:</b>{Env.l}" +
+                $"<b>FlexData Loaded</b>{Env.l}" +
                 $"Mobs:\t\t{content.Mobs.Count()}{Env.l}" +
                 $"Npcs:\t\t{content.Npcs.Count()}{Env.l}" +
                 $"Hazards:\t\t{content.Hazards.Count()}{Env.l}" +

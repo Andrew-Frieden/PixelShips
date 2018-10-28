@@ -93,11 +93,6 @@ namespace Models.Dtos
                     var simple = (SimpleAction)act;
                     contentDto.AddSimpleAction(simple.ToDto());
                 }
-                //else if (act is ComplexAction)
-                //{
-                //    var complex = (ComplexAction)act;
-                //    contentDto.AddComplexAction(complex.ToDto());
-                //}
                 else
                 {
                     throw new Exception($"ABContent.ToDto() => unable to convert action to dto: {act.GetType().ToString()} ada");
@@ -150,7 +145,9 @@ namespace Models.Dtos
             {
                 DeepestExpedition = home.DeepestExpedition,
                 HardestMonsterSlainScore = home.HardestMonsterSlainScore,
-                PlanetName = home.PlanetName
+                PlanetName = home.PlanetName,
+                ExpeditionCount = home.ExpeditionCount,
+                Description = home.Description
             };
         }
 
@@ -170,7 +167,9 @@ namespace Models.Dtos
             {
                 DeepestExpedition = dto.DeepestExpedition,
                 HardestMonsterSlainScore = dto.HardestMonsterSlainScore,
-                PlanetName = dto.PlanetName
+                PlanetName = dto.PlanetName,
+                ExpeditionCount = dto.ExpeditionCount,
+                Description = dto.Description
             };
         }
 

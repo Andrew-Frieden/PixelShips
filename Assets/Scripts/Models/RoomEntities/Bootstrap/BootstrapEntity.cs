@@ -56,7 +56,7 @@ namespace Models
                 case 0:
                 case 1:
                     var remember = DialogueBuilder.Init()
-                        .AddMainText("You feel pretty empty inside.")
+                        .AddMainText("You feel pretty empty.")
                         .AddOption("Try to remember your ancestry...", new DoNothingAction(this));
                     DialogueContent = remember.Build(room);
                     break;
@@ -97,7 +97,7 @@ namespace Models
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
-            GameManager.Instance.GameState.Home = World;
+            GameManager.Instance.SetHomeworld(World);
             return "".ToTagSet();
         }
     }
@@ -189,7 +189,7 @@ namespace Models
                         $"Your clan continues their ancient impetus.".Tag(),
                         ".".Tag(),
                         ".".Tag(),
-                        "<b>Visit your homeworld to start a new expedition.</b>".Tag(new[] { UIResponseTag.ShowNavBar })
+                        "<b>Visit your homeworld to start a new expedition.</b>".Tag(new[] { UIResponseTag.ShowNavBar, UIResponseTag.DisableCmdView })
                     };
                 default:
                     break;

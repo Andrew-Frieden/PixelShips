@@ -46,6 +46,10 @@ public class ScrollViewController : MonoBehaviour {
             case UIResponseTag.PlayerDamaged:
                 Shake();
                 break;
+            case UIResponseTag.DisableCmdView:
+                DisableInteractions();
+                break;
+
         }
     }
 

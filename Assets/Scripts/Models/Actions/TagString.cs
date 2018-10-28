@@ -46,6 +46,8 @@ namespace Models.Actions
         ShowHUD,
         ShowNavBar,
         HideHUD,
-        HideNavBar
+        HideNavBar,
+        UpdateHomeworld,
+        DisableCmdView
     }
 }

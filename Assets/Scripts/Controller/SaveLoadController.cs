@@ -1,13 +1,9 @@
-﻿using Common;
-using Models.Actions;
-using Models.Dtos;
+﻿using Models.Dtos;
 using Models.Factories;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using System.Linq;
 
 namespace Models
 {
@@ -58,50 +54,7 @@ namespace Models
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
         }
-
-        //  hack together a valid gamestate
-        public GameState CreateNewGameState()
-        {
-            return new GameState
-            {
-                CurrentExpedition = new Expedition
-                {
-                    CmdShip = GameManager.ShipFactory.GenerateCommandShip(GameManager.RoomFactory),
-                    Room = (Room) GameManager.RoomFactory.GenerateRoom(new RoomTemplate(10, RoomFlavor.Kelp)),
-                    CurrentMission = new Mission { MissionLevel = 1 },
-                    Ticks = 0,
-                    Jumps = 0
-                },
-                Home = new Homeworld
-                {
-                    PlanetName = "Galvanius",
-                    DeepestExpedition = 0,
-                    HardestMonsterSlainScore = 0
-                }
-            };
-        }
-
-        public GameState CreateBootstrapGameState(bool devSettingsEnabled)
-        {
-            return new GameState
-            {
-                CurrentExpedition = new Expedition
-                {
-                    CmdShip = GameManager.ShipFactory.GenerateCommandShip(GameManager.RoomFactory),
-                    Room = (Room)GameManager.RoomFactory.GenerateBootstrapRoom(!devSettingsEnabled),
-                    CurrentMission = new Mission { MissionLevel = 0 },
-                    Ticks = 0,
-                    Jumps = 0
-                },
-                Home = new Homeworld
-                {
-                    PlanetName = "",
-                    DeepestExpedition = 0,
-                    HardestMonsterSlainScore = 0
-                }
-            };
-        }
-
+        
         private SaveState BuildSaveStateFromGameState(GameState state)
         {
             var saveData = new SaveState
@@ -133,21 +86,6 @@ namespace Models
             exp.CmdShip = new CommandShip(expData.ShipData);
             exp.Room = new Room(expData.RoomData);
             exp.Room.SetPlayerShip(exp.CmdShip);
-
-            //  setup all the dialogue content which requires building actions that have references to entities
-            //exp.Room.DialogueContent = expData.RoomData.ContentDto.FromDto(exp.Room);
-            //foreach (var dto in expData.RoomData.Entities)
-            //{
-            //    var entity = exp.Room.Entities.Single(e => e.Id == dto.Id);
-            //    entity.DialogueContent = dto.ContentDto.FromDto(exp.Room);
-            //}
-
-            //exp.CmdShip.DialogueContent = expData.ShipData.ContentDto.FromDto(exp.Room);
-            //foreach (var dto in expData.ShipData.HardwareData)
-            //{
-            //    var hardware = exp.CmdShip.Hardware.Single(h => h.Id == dto.Id);
-            //    hardware.DialogueContent = dto.ContentDto.FromDto(exp.Room);
-            //}
 
             state.CurrentTime = DateTime.Now;
             return state;

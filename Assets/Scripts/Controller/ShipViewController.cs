@@ -14,15 +14,12 @@ namespace Controller
 		private void Start()
 		{
 			_tripleViewController.OnViewShown += HandleOnViewShown;
-			Render();
 		}
 
 		private void HandleOnViewShown(int view)
 		{
 			if (view == (int) TripleView.Right)
-			{
 				Render();
-			}
 		}
 
 		private void Render()
@@ -35,8 +32,19 @@ namespace Controller
 		{
             var ship = GameManager.Instance.GameState.CurrentExpedition.CmdShip;
 
-            if (ship == null)
-                return new[] { string.Empty.Tag() };
+            if (ship == null || ship == GameManager.BootstrapShip)
+                return new[] 
+                {
+                    "Searching...".Tag(),
+                    ".".Tag(),
+                    ".".Tag(),
+                    ".".Tag(),
+                    ".".Tag(),
+                    ".".Tag(),
+                    ".".Tag(),
+                    "No systems found.".Tag(),
+                    "Construct a starship at your homeworld.".Tag()
+                };
 
             var shipData = new List<TagString>
             {

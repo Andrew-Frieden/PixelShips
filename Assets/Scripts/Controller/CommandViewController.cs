@@ -40,9 +40,11 @@ namespace Controller
         public void StartCommandView()
         {
             InitFromGameState();
+
             UIResponseBroadcaster.Broadcast(UIResponseTag.ViewCmd);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowHUD);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowNavBar);
+
             _scrollView.AddCells(CalculateLookText(_room));
             StartCoroutine(Blink.BlinkLoop());
         }

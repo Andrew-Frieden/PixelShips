@@ -35,6 +35,7 @@ namespace Models
         public string Description;
         public int HardestMonsterSlainScore;
         public int DeepestExpedition;
+        public int ExpeditionCount;
     }
     
     public class Mission
