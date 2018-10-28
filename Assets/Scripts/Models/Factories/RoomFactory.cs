@@ -246,7 +246,7 @@ namespace Models.Factories
                 actors.AddRange(CreateNpc(npc));
             }
 
-            if (true)//template.ActorFlavors.Contains(RoomActorFlavor.Gatherable)
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Gatherable))
             {
                 var gatherable = Gatherables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
                 actors.Add(gatherable.FromFlexData());
