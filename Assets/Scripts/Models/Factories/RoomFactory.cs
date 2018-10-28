@@ -68,7 +68,24 @@ namespace Models.Factories
             return room;
         }
 
+        public IRoom GenerateHomeworldRoom(Homeworld world)
+        {
+            var room = GenerateRoom(new RoomTemplate(0, RoomFlavor.Empty), true);
+
+
+            //  developer hack to add hardware to starting room
+            var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
+            room.AddEntity(devHardware.FromFlexData());
+
+            return room;
+        }
+
         public IRoom GenerateRoom(RoomTemplate template)
+        {
+            return GenerateRoom(template, false);
+        }
+
+        public IRoom GenerateRoom(RoomTemplate template, bool empty)
         {
             //  first get the injectable flavor for the room
             var lookText = ExampleGameData.InjectableRoomLookTexts[template.Flavor].GetRandom();
@@ -83,7 +100,9 @@ namespace Models.Factories
             var exits = CalculateExits(template);
 
             //  add actors
-            var actors = CalculateActors(template);
+            var actors = new List<IRoomActor>();
+            if (!empty)
+                actors = CalculateActors(template);
 
             return new Room(roomInject, exits, actors);
         }
@@ -250,12 +269,6 @@ namespace Models.Factories
             {
                 var gatherable = Gatherables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
                 actors.Add(gatherable.FromFlexData());
-            }
-
-            if (template.PowerLevel == 10)
-            {
-                var devHardware = HardwareContent.Where(d => d.EntityType.ToLower().Contains("superdetector")).Single();
-                actors.Add(devHardware.FromFlexData());
             }
 
             return actors;
