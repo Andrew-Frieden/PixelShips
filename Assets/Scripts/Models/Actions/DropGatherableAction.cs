@@ -24,7 +24,8 @@ namespace Models.Actions
             {
                 return new List<TagString> { explosion };
             }
-            
+
+            _gatherable.IsHidden = false;
             room.Entities.Add(_gatherable);
             var dropped = $"Earthy <> spews from the wreckage.".Encode(_gatherable, LinkColors.Gatherable).Tag();
             return new List<TagString> { explosion, dropped };

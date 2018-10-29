@@ -50,16 +50,6 @@ namespace Models.Factories
         {
             return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type && w.Powerlevel <= powerLevel).GetRandom().FromFlexData();
         }
-
-        public Weapon GetHealWeapon()
-        {
-            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == 0 && w.Powerlevel == 42).GetRandom().FromFlexData();
-        }
-        
-        public Weapon GetDelayedWeapon()
-        {
-            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == 1 && w.Powerlevel == 43).GetRandom().FromFlexData();
-        }
         
         public IRoom GenerateBootstrapRoom(bool includeFTUE)
         {
@@ -195,8 +185,9 @@ namespace Models.Factories
                 }
             }
 
-            //  increase the difficulty of the exit by 2
-            return new RoomTemplate(Math.Max(template.PowerLevel + 2, 10), nextRoomFlavor, entityFlavors);
+            // When the game starts the homeworld is not set
+            return new RoomTemplate(GameManager.Instance.GameState != null ?
+                GameManager.Instance.GameState.Home.ExpeditionCount * 20 : 20, nextRoomFlavor, entityFlavors);
         }
 
         private List<IRoomActor> CalculateActors(RoomTemplate template)
@@ -219,12 +210,35 @@ namespace Models.Factories
             
                 if (2 <= UnityEngine.Random.Range(0, 11))
                 {
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).FirstOrDefault(), template));
+                    var mobData = data.Where(d => d.Powerlevel <= template.PowerLevel)
+                        .OrderByDescending(d => d.Powerlevel).FirstOrDefault();
+                    
+                    if (mobData == null)
+                    {
+                        Debug.Log("No suitable mobData found for template.");
+                        Debug.Log("Template Flavor: " + template.Flavor);
+                        Debug.Log("Template Powerlevel: " + template.PowerLevel);
+                    }
+                    
+                    actors.AddRange(CreateMob(mobData, template));
                 }
                 else
                 {
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).FirstOrDefault(), template));
-                    actors.AddRange(CreateMob(data.Where(d => d.Powerlevel <= template.PowerLevel).OrderByDescending(d => d.Powerlevel).FirstOrDefault(), template));
+                    var mobData = data.Where(d => d.Powerlevel <= template.PowerLevel)
+                        .OrderByDescending(d => d.Powerlevel);
+                    
+                    if (mobData.Count() < 2)
+                    {
+                        Debug.Log("Cannot find 2 suitable mobs for template.");
+                        Debug.Log("Template Flavor: " + template.Flavor);
+                        Debug.Log("Template Powerlevel: " + template.PowerLevel);
+                    }
+                    
+                    var mobData1 = mobData.ElementAt(1);
+                    var mobData2 = mobData.ElementAt(2);
+                    
+                    actors.AddRange(CreateMob(mobData1, template));
+                    actors.AddRange(CreateMob(mobData2, template));
                 }
             }
 

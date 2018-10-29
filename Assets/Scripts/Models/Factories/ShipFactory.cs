@@ -9,8 +9,8 @@ namespace Models.Factories
         public CommandShip GenerateCommandShip(RoomFactory roomFactory)
         {
             var ship = new CommandShip();
-            ship.SwapWeapon(roomFactory.GetHealWeapon());
-            ship.SwapWeapon(roomFactory.GetDelayedWeapon());
+            ship.SwapWeapon(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Light, 20));
+            ship.SwapWeapon(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Heavy, 20));
             return ship;
         }
     }
