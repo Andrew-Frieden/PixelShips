@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using EnumerableExtensions;
 using Helpers;
+using Items;
 using Models.Actions;
 using Models.Dialogue;
 using Models.Dtos;
 using Models.Stats;
 using TextEncoding;
-using UnityEngine;
 
 namespace Models
 {
-    public class BasicGatherable : FlexEntity
+    public partial class SimpleMineable : FlexEntity
     {
         private enum NpcState
         {
-            Full = 0
-            
+            Full = 0,
+            Empty = 1,
         }
         
         public string ResourceKey
@@ -54,34 +55,34 @@ namespace Models
             }
         }
         
-        public bool IsGathered
+        public int DepletionChance
         {
             get
             {
-                return Stats[StatKeys.Gathered] != 0;
+                return Stats[StatKeys.DepletionChance];
             }
             private set
             {
-                Stats[StatKeys.Gathered] = Convert.ToInt32(value);
+                Stats[StatKeys.DepletionChance] = value;
             }
         }
-
-        private Dictionary<NpcState, string> LookText = new Dictionary<NpcState, string>
+        
+        private readonly Dictionary<NpcState, string> _lookText = new Dictionary<NpcState, string>
         {
-            { NpcState.Full, "There is some floating <> nearby." }
+            { NpcState.Full, "Your scanners detect a nearby <>. Might be worth a look." },
+            { NpcState.Empty, "Your scanners detect a nearby <> but it is depleted." }
         };
-
-        public BasicGatherable(FlexData dto) : base(dto)
+        
+        public SimpleMineable(FlexEntityDto dto) : base(dto)
         {
-            IsGathered = false;
+        }
+        
+        public SimpleMineable(FlexData dto) : base(dto)
+        {
         }
 
-        public BasicGatherable(FlexEntityDto dto) : base(dto) { }
-        
-        public BasicGatherable(string name = "Scrap") : base()
+        public SimpleMineable() : base()
         {
-            Name = name;
-            IsGathered = false;
         }
 
         public override IRoomAction MainAction(IRoom room)
@@ -96,8 +97,13 @@ namespace Models
                 case (int)NpcState.Full:
                     DialogueContent = DialogueBuilder.Init()
                         .AddMainText(DialogueText)
-                        .AddTextA("Pick it up")
-                            .AddActionA(new LootAction(room.PlayerShip, this, ResourceKey.ResourceDisplayText(), ResourceKey, SmallestAmount, LargestAmount))
+                        .AddTextA("Attempt to extract resources")
+                            .AddActionA(new MiningLootAction(room.PlayerShip, this, ResourceKey.ResourceDisplayText(), ResourceKey, DepletionChance, SmallestAmount, LargestAmount))
+                        .Build(room);
+                    break;
+                case (int)NpcState.Empty:
+                    DialogueContent = DialogueBuilder.Init()
+                        .AddMainText($"The {Name} is depleted, it may take eons to grow back.")
                         .Build(room);
                     break;
                 default:
@@ -109,50 +115,59 @@ namespace Models
         {
             return new TagString()
             {
-                Text = LookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable)
+                Text = _lookText[(NpcState)CurrentState].Encode(Name, Id, LinkColors.Gatherable)
             };
         }
+    }
 
-        public override IRoomAction CleanupStep(IRoom room)
-        {
-            if (IsGathered)
-            {
-                IsDestroyed = true;
-            }
-
-            return new DoNothingAction(this);
-        }
-        
-        private class LootAction : SimpleAction
+    public partial class SimpleMineable
+    {
+        private class MiningLootAction : SimpleAction
         {
             private string _resourceKey;
+            private int _depletionChance;
             private int _smallest;
             private int _largest;
+
+            public MiningLootAction(SimpleActionDto dto, IRoom room) : base(dto, room)
+            {
+            }
             
-            public LootAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-            
-            public LootAction(IRoomActor src, IRoomActor target, string name, string resourceKey, int smallest, int largest)
+            public MiningLootAction(IRoomActor src, IRoomActor target, string name, string resourceKey, int depletionChance, int smallest, int largest)
             {
                 Source = src;
                 Target = target;
                 Name = name;
-                
+
+                _depletionChance = depletionChance;
                 _resourceKey = resourceKey;
                 _smallest = smallest;
                 _largest = largest;
             }
-            
+
             public override IEnumerable<TagString> Execute(IRoom room)
             {
                 var amount = UnityEngine.Random.Range(_smallest, _largest);
                 Source.Stats[_resourceKey] +=  amount;
-                Target.Stats[StatKeys.Gathered] = 1;
+                
+                if ((_depletionChance / 100f).Rng())
+                {
+                    Target.ChangeState((int) NpcState.Empty);
+                    
+                    return new List<TagString>()
+                    {
+                        new TagString()
+                        {
+                            Text = "You mined " + amount + " " + Name + ". It looks depleted."
+                        }
+                    };
+                }
                 
                 return new List<TagString>()
                 {
                     new TagString()
                     {
-                        Text = "You gathered " + amount + " " + Name + "."
+                        Text = "You mined " + amount + " " + Name + "."
                     }
                 };
             }

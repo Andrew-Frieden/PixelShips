@@ -20,6 +20,7 @@ namespace Models.Factories
         private float CHANCE_FOR_MOB = 0.66f;       // given the room is dangerous, what is the chance it contains a mob
         private float CHANCE_FOR_TOWN = 0.25f;
         private float CHANCE_FOR_GATHERABLE = 0.25f;
+        private float CHANCE_FOR_MINEABLE = 0.1f;
         private float CHANCE_FOR_NPC = 0.4f;
         private float CHANCE_FOR_LIGHT_WEAPON = 0.01f;
         private float CHANCE_FOR_HEAVY_WEAPON = 0.01f;
@@ -35,7 +36,8 @@ namespace Models.Factories
         public static IEnumerable<FlexData> Weapons { get; private set; }
         public static IEnumerable<FlexData> HardwareContent { get; private set; }
         public static IEnumerable<FlexData> NpcContent { get; private set; }
-
+        public static IEnumerable<FlexData> Mineables { get; private set; }
+        
         public RoomFactory(GameContentDto gameContent)
         {
             Hazards = gameContent.Hazards;
@@ -44,6 +46,7 @@ namespace Models.Factories
             Weapons = gameContent.Weapons;
             HardwareContent = gameContent.Hardware;
             NpcContent = gameContent.Npcs;
+            Mineables =  gameContent.Mineables;
         }
 
         public Weapon GetRandomWeapon(Weapon.WeaponTypes type, int powerLevel)
@@ -165,6 +168,9 @@ namespace Models.Factories
 
             if (CHANCE_FOR_GATHERABLE.Rng())
                 entityFlavors.Add(RoomActorFlavor.Gatherable);
+            
+            if (CHANCE_FOR_MINEABLE.Rng())
+                entityFlavors.Add(RoomActorFlavor.Mineable);
 
             //  keep the room flavor the same unless its a zone transition
             var nextRoomFlavor = template.Flavor;
@@ -282,6 +288,12 @@ namespace Models.Factories
             if (template.ActorFlavors.Contains(RoomActorFlavor.Gatherable))
             {
                 var gatherable = Gatherables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
+                actors.Add(gatherable.FromFlexData());
+            }
+            
+            if (template.ActorFlavors.Contains(RoomActorFlavor.Mineable))
+            {
+                var gatherable = Mineables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
                 actors.Add(gatherable.FromFlexData());
             }
 

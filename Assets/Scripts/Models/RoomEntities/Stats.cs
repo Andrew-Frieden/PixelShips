@@ -51,7 +51,9 @@ namespace Models.Stats
         
         public const string SmallestAmount = "smallest_amount";
         public const string LargestAmount = "largest_amount";
-            
+        
+        public const string DepletionChance = "depletion_chance";
+        
         #endregion
         
         #region Items

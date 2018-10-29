@@ -17,6 +17,7 @@ namespace Controller
         private const string WeaponsContentFilePath = "/Weapons";
         private const string HardwareContentFilePath = "/Hardware";
         private const string NpcContentFilePath = "/Npcs";
+        private const string MineablesContentFilePath = "/Mineables";
 
         //  may want to avoid loading all possible content into memory at once
         public GameContentDto Load()
@@ -30,9 +31,6 @@ namespace Controller
             var gatherablesJsonData =Resources.Load<TextAsset>(BaseFolderPath + GatherablesContentFilePath);
             var gatherables =  JsonConvert.DeserializeObject<List<FlexData>>(gatherablesJsonData.text);
 
-            if (gatherables == null)
-                gatherables = new List<FlexData>();
-            
             var weaponsJsonData = Resources.Load<TextAsset>(BaseFolderPath + WeaponsContentFilePath);
             var weapons =  JsonConvert.DeserializeObject<List<FlexData>>(weaponsJsonData.text);
 
@@ -41,8 +39,11 @@ namespace Controller
 
             var npcData = Resources.Load<TextAsset>(BaseFolderPath + NpcContentFilePath);
             var npcs = JsonConvert.DeserializeObject<List<FlexData>>(npcData.text);
+            
+            var mineableData = Resources.Load<TextAsset>(BaseFolderPath + MineablesContentFilePath);
+            var mineables = JsonConvert.DeserializeObject<List<FlexData>>(mineableData.text);
 
-            return new GameContentDto(hazards, mobs, gatherables, weapons, hardware, npcs);
+            return new GameContentDto(hazards, mobs, gatherables, weapons, hardware, npcs, mineables);
         }
     }
 }

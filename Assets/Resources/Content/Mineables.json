@@ -1,0 +1,15 @@
+[{
+    "Values": {
+      "dialogue_text": "Your mining scanners detect some serious resource in this bad boy.",
+      "name": "Resource-Rich Asteroid",
+	  "resource_key": "resourcium"
+    },
+    "Stats": {
+	  "smallest_amount": 1,
+	  "largest_amount": 2,
+	  "depletion_chance": 40
+    },
+	"RoomFlavors": [ 0, 1, 2, 3, 4, 5 ],
+	"PowerLevel": 0,
+    "EntityType": "Models.SimpleMineable"
+}]

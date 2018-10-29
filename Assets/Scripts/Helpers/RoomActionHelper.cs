@@ -10,7 +10,7 @@ namespace Helpers
         public static int TakeDamage(this IRoomActor actor, int damage)
         {
             var overflow = 0;
-            
+
             if (actor.Stats.ContainsKey(StatKeys.DamageMitigationStat))
             {
                 damage -= actor.Stats[StatKeys.DamageMitigationStat];
@@ -33,7 +33,7 @@ namespace Helpers
             {
                 overflow = damage;
             }
-            
+
             actor.Stats[StatKeys.Hull] -= overflow;
 
             if (actor.Stats[StatKeys.Hull] <= 0)
@@ -51,85 +51,28 @@ namespace Helpers
             {
                 heal = actor.Stats[StatKeys.MaxShields] - actor.Stats[StatKeys.Shields];
             }
+
             actor.Stats[StatKeys.Shields] += heal;
             return heal;
         }
 
-        public static Loot LootGatherable(this IRoomActor actor)
+        public static string ResourceDisplayText(this string resourceKey)
         {
-            var lootDrop = UnityEngine.Random.Range(0, 10);
-
-            string lootType;
-            int lootAmount = 0;
-
-            switch (lootDrop)
+            switch (resourceKey)
             {
-                case 0:
-                    lootType = StatKeys.Resourcium;
-                    lootAmount = 15;
-                    break;
-                case 1:
-                    lootType = StatKeys.Resourcium;
-                    lootAmount = 5;
-                    break;
-                case 2:
-                    lootType = StatKeys.Scrap;
-                    lootAmount = 15;
-                    break;
-                case 3:
-                    lootType = StatKeys.Resourcium;
-                    lootAmount = 25;
-                    break;
-                case 4:
-                    lootType = StatKeys.Scrap;
-                    lootAmount = 25;
-                    break;
-                case 5:
-                    lootType = StatKeys.Scrap;
-                    lootAmount = 50;
-                    break;
-                case 6:
-                    lootType = StatKeys.Scrap;
-                    lootAmount = 75;
-                    break;
-                case 7:
-                    lootType = StatKeys.Scrap;
-                    lootAmount = 100;
-                    break;
-                case 8:
-                    lootType = StatKeys.Resourcium;
-                    lootAmount = 1;
-                    break;        
+                case "scrap":
+                    return "Resourcium";
+                case "resourcium":
+                    return "Resourcium";
+                case "techanite":
+                    return "Resourcium";
+                case "machine_parts":
+                    return "Resourcium";
+                case "pulsar_core_fragment":
+                    return "Resourcium";
                 default:
-                    lootType = StatKeys.Scrap;
-                    lootAmount = 1;
-                    break;        
+                    throw new NotSupportedException();
             }
-
-            if (actor is CommandShip)
-            {
-                var cmdShip = (CommandShip) actor;
-                var boosters = cmdShip.GetHardware<GatheringBoost>();
-
-                foreach (var boost in boosters)
-                    boost.ApplyBoost(ref lootAmount);
-            }
-
-            actor.Stats[lootType] += lootAmount;
-
-            return new Loot(lootAmount, lootType);
-        }
-    }
-
-    public class Loot
-    {
-        public int Amount { get; }
-        public string Type { get; }
-        
-        public Loot(int amount, string type)
-        {
-            Amount = amount;
-            Type = type;
         }
     }
 }
