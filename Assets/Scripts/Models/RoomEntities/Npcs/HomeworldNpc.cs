@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Models;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
+using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
 using TextEncoding;
 
 public class HomeworldNpc : FlexEntity

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using EnumerableExtensions;
 using GameData;
-using Items;
-using Models.Dtos;
-using Models.RoomEntities.Mobs;
-using Models.Stats;
+using TextSpace.Items;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.RoomEntities.Mobs;
+using TextSpace.Models.Stats;
 using TextSpace.RoomEntities;
 using UnityEngine;
 
-namespace Models.Factories
+namespace TextSpace.Models.Factories
 {
     public class RoomFactory : IRoomFactory
     {

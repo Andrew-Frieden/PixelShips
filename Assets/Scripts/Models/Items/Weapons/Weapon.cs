@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Models;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 
-namespace Items
+namespace TextSpace.Items
 {
     public abstract class Weapon : FlexEntity
     {

@@ -1,7 +1,6 @@
 ﻿using System;
-using Items;
-using Models;
-using Models.Stats;
+using TextSpace.Models;
+using TextSpace.Models.Stats;
 
 namespace Helpers
 {

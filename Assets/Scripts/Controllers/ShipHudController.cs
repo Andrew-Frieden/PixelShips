@@ -1,13 +1,13 @@
 ﻿using System.Collections;
-using Models;
-using Models.Actions;
-using Models.Stats;
+using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Stats;
 using TextEncoding;
 using TextSpace.Events;
 using TMPro;
 using UnityEngine;
 
-namespace Controller
+namespace TextSpace.Controllers
 {
 	public class ShipHudController : MonoBehaviour
 	{

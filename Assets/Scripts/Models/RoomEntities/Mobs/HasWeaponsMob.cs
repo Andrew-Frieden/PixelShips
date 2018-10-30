@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Items;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.Stats;
-using UnityEngine;
+using TextSpace.Items;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 
-namespace Models.RoomEntities.Mobs
+namespace TextSpace.Models.RoomEntities.Mobs
 {
     public class HasWeaponsMob: Mob
     {

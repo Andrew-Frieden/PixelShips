@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Helpers;
-using Models;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.RoomEntities.Hazards;
-using TextEncoding;
-using Models.Stats;
+﻿using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.RoomEntities.Hazards;
+using TextSpace.Models.Stats;
 
 public class SometimesDamageHazard : Hazard
 {

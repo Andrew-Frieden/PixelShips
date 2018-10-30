@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Models.Dtos
+namespace TextSpace.Models.Dtos
 {
     public class ABContentDto
     {

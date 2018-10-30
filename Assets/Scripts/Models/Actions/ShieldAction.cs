@@ -1,4 +1,4 @@
-﻿namespace Models.Actions
+﻿namespace TextSpace.Models.Actions
 {
     public class ShieldAction
     {

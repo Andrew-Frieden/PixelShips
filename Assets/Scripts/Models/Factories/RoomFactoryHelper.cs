@@ -1,9 +1,9 @@
 ﻿using System;
 using EnumerableExtensions;
-using Models.Actions;
-using Models.Dtos;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
 
-namespace Models.Factories
+namespace TextSpace.Models.Factories
 {
     public static class RoomFactoryHelper
     {

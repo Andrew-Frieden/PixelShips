@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Models.Actions;
-using Models.Dialogue;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
 using TextEncoding;
 using UnityEngine;
 
-namespace Models
+namespace TextSpace.Models
 {
     public partial class BootstrapEntity : FlexEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Models.Stats;
+using TextSpace.Models.Stats;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class DelayedAction : SimpleAction
     {

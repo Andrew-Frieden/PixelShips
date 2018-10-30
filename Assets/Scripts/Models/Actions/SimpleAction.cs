@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using UnityEngine;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public abstract class SimpleAction : IRoomAction
     {

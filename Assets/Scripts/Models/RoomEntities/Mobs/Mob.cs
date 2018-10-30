@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Models.Actions;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 
-namespace Models.RoomEntities.Mobs
+namespace TextSpace.Models.RoomEntities.Mobs
 {
     public abstract class Mob : FlexEntity
     {

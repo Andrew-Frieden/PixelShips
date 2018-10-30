@@ -1,4 +1,4 @@
-﻿using Models.Actions;
+﻿using TextSpace.Models.Actions;
 
 public class NavSlideController : SlideResponseController {
 

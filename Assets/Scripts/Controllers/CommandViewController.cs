@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
-using Models;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.Factories;
-using Models.Stats;
+using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
 using TextEncoding;
 using TextSpace.Events;
+using TextSpace.Services;
 using UnityEngine;
 using Widgets.Scroller;
-using static Models.CommandShip;
 
-namespace Controller
+namespace TextSpace.Controllers
 {
     public class CommandViewController : MonoBehaviour
     {   
@@ -55,7 +52,7 @@ namespace Controller
         {
             InitFromGameState();
 
-            var text = RoomController.ResolveNextTick(_room, new DoNothingAction(_room.PlayerShip), _shipHudController, _scrollView);
+            var text = RoomService.ResolveNextTick(_room, new DoNothingAction(_room.PlayerShip));
             _scrollView.AddCells(text);
         }
 
@@ -65,7 +62,7 @@ namespace Controller
             _room.SetPlayerShip(GameManager.Instance.GameState.CurrentExpedition.CmdShip);
             _scrollView.ClearScreen();
             _shipHudController.InitializeShipHud(_room);
-            RoomController.StartNextRoom(_room, _room);
+            RoomService.StartNextRoom(_room, _room);
         }
 
         private IEnumerable<TagString> CalculateLookText(IRoom room, bool startingRoom = false)
@@ -105,7 +102,7 @@ namespace Controller
         {
             _scrollView.DimCells();
 
-            var text = RoomController.ResolveNextTick(_room, playerAction, _shipHudController, _scrollView);
+            var text = RoomService.ResolveNextTick(_room, playerAction);
             _scrollView.AddCells(text);
 
             //if Exit is populated -> player is warping
@@ -136,7 +133,7 @@ namespace Controller
             _scrollView.ClearScreen();
 
             var nextRoom = GameManager.RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
-            RoomController.StartNextRoom(nextRoom, _room);
+            RoomService.StartNextRoom(nextRoom, _room);
             _room = nextRoom;
 
             //  TODO find a better way to update the GameState's current room

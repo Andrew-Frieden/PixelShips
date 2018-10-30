@@ -1,13 +1,14 @@
-﻿using Models.Dtos;
-using Models.Factories;
+﻿using TextSpace.Models.Dtos;
+using TextSpace.Models.Factories;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using TextSpace.Models;
 
-namespace Models
+namespace TextSpace.Services
 {
-    public class SaveLoadController
+    public class SaveLoadService
     {
         public static string SaveFilePath = UnityEngine.Application.persistentDataPath + "/SaveData.json";
         public bool HasSaveData => File.Exists(SaveFilePath);

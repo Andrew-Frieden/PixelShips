@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public interface IRoomAction
     {

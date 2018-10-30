@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Stats;
 using TextEncoding;
 using System.Linq;
 using EnumerableExtensions;
-using Items;
-using UnityEngine;
-using Models.Dtos;
-using Models.Factories;
+using TextSpace.Items;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Factories;
 using TextSpace.Events;
 
-namespace Models
+namespace TextSpace.Models
 {
     public class CommandShip : IRoomActor
     {

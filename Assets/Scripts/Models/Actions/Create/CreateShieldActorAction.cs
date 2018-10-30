@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Models.Actors;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Actors;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class CreateShieldActorAction : SimpleAction
     {

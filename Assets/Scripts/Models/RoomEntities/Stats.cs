@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Models.Stats
+﻿namespace TextSpace.Models.Stats
 {
     public static partial class StatKeys
     {

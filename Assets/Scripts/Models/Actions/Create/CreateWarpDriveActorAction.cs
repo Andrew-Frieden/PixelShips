@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Models.Actors;
+using TextSpace.Models.Actors;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class CreateWarpDriveActorAction : SimpleAction
     {

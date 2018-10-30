@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Helpers;
-using Models.Actions;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 
-namespace Models.RoomEntities.Hazards
+namespace TextSpace.Models.RoomEntities.Hazards
 {
     public class TelegraphedDamageHazard : Hazard
     {

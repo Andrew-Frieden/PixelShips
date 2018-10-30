@@ -1,6 +1,6 @@
 [
     {
-      "EntityType": "Items.TownDetector",
+      "EntityType": "TextSpace.Items.TownDetector",
       "Values": {
         "name": "Cartographic Processor",
         "dialogue_text": "Quantum mapping device that identifies nearby space stations."
@@ -9,7 +9,7 @@
       }
     },
     {
-      "EntityType": "Items.HazardDetector",
+      "EntityType": "TextSpace.Items.HazardDetector",
       "Values": {
         "name": "Deep Field Scanner",
         "dialogue_text": "A sophisticated navigation device capable of detecting nearby hazards."
@@ -18,7 +18,7 @@
       }
     },
 	{
-      "EntityType": "Items.MobDetector",
+      "EntityType": "TextSpace.Items.MobDetector",
       "Values": {
         "name": "Signature Detector",
         "dialogue_text": "Standard-issue military hardware for detecting nearby weapon signatures."
@@ -27,7 +27,7 @@
       }
     },
 	{
-      "EntityType": "Items.SuperDetector",
+      "EntityType": "TextSpace.Items.SuperDetector",
       "Values": {
         "name": "Developer Scanner",
         "dialogue_text": "Super technology hacked together by some nerd. It detects everything."
@@ -36,7 +36,7 @@
       }
     },
 	{
-      "EntityType": "Items.GatheringBoost",
+      "EntityType": "TextSpace.Items.GatheringBoost",
       "Values": {
         "name": "Robotic Manipulator",
         "dialogue_text": "An advanced gathering tool capable of crushing rock."
@@ -45,7 +45,7 @@
       }
     },
 	{
-      "EntityType": "Items.HazardMitigation",
+      "EntityType": "TextSpace.Items.HazardMitigation",
       "Values": {
         "name": "Hazard Plating",
         "dialogue_text": "Advanced hull polarization that provides significant resistance to the hazards of space."
@@ -54,7 +54,7 @@
       }
     },
 	{
-      "EntityType": "Items.MaxHullPlating",
+      "EntityType": "TextSpace.Items.MaxHullPlating",
       "Values": {
         "name": "Armor Plating",
         "dialogue_text": "Hull plating that provides additional durability."
@@ -64,7 +64,7 @@
       }
     },
 	{
-      "EntityType": "Items.MaxHullPlating",
+      "EntityType": "TextSpace.Items.MaxHullPlating",
       "Values": {
         "name": "Super Armor Plating",
         "dialogue_text": "Hull plating that provides lots of additional durability."

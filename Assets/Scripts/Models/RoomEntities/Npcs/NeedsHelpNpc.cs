@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
 using TextEncoding;
 
-namespace Models
+namespace TextSpace.Models
 {
     public partial class NeedsHelpNpc : FlexEntity
     {

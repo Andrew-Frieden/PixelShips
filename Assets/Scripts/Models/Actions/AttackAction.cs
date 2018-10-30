@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Helpers;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class AttackAction : SimpleAction
     {

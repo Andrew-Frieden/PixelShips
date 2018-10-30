@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Items;
-using Models.Actions;
+using TextSpace.Items;
+using TextSpace.Models.Actions;
 
-namespace Models
+namespace TextSpace.Models
 {
     public interface IRoomActor : ITextEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Models.Dtos;
+using TextSpace.Models.Dtos;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class DoNothingAction : SimpleAction
     {

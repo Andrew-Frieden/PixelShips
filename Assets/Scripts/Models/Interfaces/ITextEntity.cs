@@ -1,6 +1,6 @@
-﻿using Models.Actions;
+﻿using TextSpace.Models.Actions;
 
-namespace Models
+namespace TextSpace.Models
 {
     public interface ITextEntity
     {

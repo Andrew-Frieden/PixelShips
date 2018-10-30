@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Models.Stats;
+using TextSpace.Models.Stats;
 using UnityEngine;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class PassiveRoomHealAction : SimpleAction
     {

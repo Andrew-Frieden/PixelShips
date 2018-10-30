@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Stats;
-using UnityEngine;
+using TextSpace.Models.Actions;
 using EnumerableExtensions;
 
-namespace Controller
+namespace TextSpace.Services
 {
-    public static class RoomController
+    public static class RoomService
     {
         public static void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
@@ -17,12 +14,13 @@ namespace Controller
             CalculateDialogues(nextRoom);
         }
 
-        public static IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction,
-            ShipHudController shipHudController, ScrollViewController scrollView)
+        public static IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction)
         {
             var resolveResults = new List<TagString>();
-            resolveResults.AddRange(ExecuteMainActions(room, playerAction, shipHudController, scrollView));
+            resolveResults.AddRange(ExecuteMainActions(room, playerAction));
             resolveResults.AddRange(ExecuteCleanupActions(room));
+
+            // do mission stuff
 
             CalculateDialogues(room);
             GameManager.Instance.GameState.Tick();
@@ -30,8 +28,7 @@ namespace Controller
             return resolveResults;
         }
 
-        private static IEnumerable<TagString> ExecuteMainActions(IRoom room, IRoomAction playerAction, 
-            ShipHudController shipHudController, ScrollViewController scrollView)
+        private static IEnumerable<TagString> ExecuteMainActions(IRoom room, IRoomAction playerAction)
         {
             var actionResults = new List<TagString>();
             var actionsToExecute = new List<IRoomAction>()
@@ -81,6 +78,7 @@ namespace Controller
             room.PlayerShip.HeavyWeapon.CalculateDialogue(room);
 
             //  calculate dialogue for the room itself
+            //  include mission stuff when calculating room navigation options
             room.CalculateDialogue();
         }
 

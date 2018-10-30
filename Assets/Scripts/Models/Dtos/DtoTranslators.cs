@@ -1,9 +1,9 @@
-﻿using Models.Actions;
-using Models.Factories;
+﻿using TextSpace.Models.Actions;
+using TextSpace.Models.Factories;
 using System;
 using System.Collections.Generic;
 
-namespace Models.Dtos
+namespace TextSpace.Models.Dtos
 {
     public static partial class DtoTranslators
     {

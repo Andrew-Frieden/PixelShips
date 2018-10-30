@@ -2,7 +2,7 @@
 using TextEncoding;
 using UnityEngine;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class DropGatherableAction : SimpleAction
     {

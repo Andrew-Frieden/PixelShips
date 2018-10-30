@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Models.Factories;
-using Controller;
-using Models.Dtos;
+using TextSpace.Models.Factories;
+using TextSpace.Models.Dtos;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class WarpAction : SimpleAction
     {

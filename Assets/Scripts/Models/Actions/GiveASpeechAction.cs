@@ -1,9 +1,9 @@
-﻿using Models.Dtos;
+﻿using TextSpace.Models.Dtos;
 using System.Collections.Generic;
 using System.Linq;
 using TextEncoding;
 
-namespace Models.Actions
+namespace TextSpace.Models.Actions
 {
     public class GiveASpeechAction : SimpleAction
     {

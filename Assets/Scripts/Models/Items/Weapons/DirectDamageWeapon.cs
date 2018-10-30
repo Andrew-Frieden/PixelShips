@@ -1,8 +1,8 @@
-﻿using Models;
-using Models.Actions;
-using Models.Dtos;
+﻿using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
 
-namespace Items
+namespace TextSpace.Items
 {
     public class DirectDamageWeapon : Weapon
     {

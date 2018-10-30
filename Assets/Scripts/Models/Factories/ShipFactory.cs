@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using Common;
-using Items;
+﻿using TextSpace.Items;
 
-namespace Models.Factories
+namespace TextSpace.Models.Factories
 {
     public class ShipFactory
     {

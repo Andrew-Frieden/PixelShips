@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Models.Dtos
+namespace TextSpace.Models.Dtos
 {
     public class FlexEntityDto
     {

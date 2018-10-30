@@ -1,7 +1,7 @@
-﻿using Models.Dtos;
+﻿using TextSpace.Models.Dtos;
 using System.Collections.Generic;
 
-namespace Models
+namespace TextSpace.Models
 {
     public class RoomTemplate
     {

@@ -1,9 +1,9 @@
-﻿using Models.Actions;
-using Models.Dtos;
-using Models.Stats;
+﻿using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using UnityEngine;
 
-namespace Models.Actors
+namespace TextSpace.Models.Actors
 {
     public abstract class TemporaryEntity : FlexEntity
     {

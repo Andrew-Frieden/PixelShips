@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using Models;
-using Models.Actions;
-using Models.Dtos;
+using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
 using TextEncoding;
 using TextSpace.Events;
 using TMPro;
 using UnityEngine;
 
-namespace Controller
+namespace TextSpace.Controllers
 {
     public class HomeViewController : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Models.Actions;
+using TextSpace.Models.Actions;
 
 namespace TextSpace.Events
 {

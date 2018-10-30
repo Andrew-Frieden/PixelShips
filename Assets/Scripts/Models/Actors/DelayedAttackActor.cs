@@ -1,10 +1,10 @@
 using System.Linq;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 
-namespace Models.Actors
+namespace TextSpace.Models.Actors
 {
     public class DelayedAttackActor : TemporaryEntity
     {

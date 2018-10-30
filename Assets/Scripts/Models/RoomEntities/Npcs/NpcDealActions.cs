@@ -1,8 +1,8 @@
-﻿using Items;
-using Models;
-using Models.Actions;
-using Models.Dtos;
-using Models.Stats;
+﻿using TextSpace.Items;
+using TextSpace.Models;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using System;
 using System.Collections.Generic;
 using TextEncoding;

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using Common;
-using Controller;
 using Events;
-using Models;
-using Models.Factories;
+using TextSpace.Models;
+using TextSpace.Models.Factories;
 using System.Collections.Generic;
 using TextSpace.Events;
-using Models.Actions;
+using TextSpace.Models.Actions;
+using TextSpace.Services;
+using TextSpace.Controllers;
 
 public class GameManager : Singleton<GameManager>, ISaveManager
 {
@@ -19,8 +20,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
 	public EventGameState OnGameStateChanged;
 
-	private SaveLoadController _saveLoadController;
-	private ContentLoadController _contentLoadController;
+	private SaveLoadService _saveLoadService;
+	private ContentLoadService _contentLoadService;
 
     //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
@@ -39,10 +40,10 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         // Disable screen dimming
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        _saveLoadController = new SaveLoadController();
-        _saveLoadController.Init();
+        _saveLoadService = new SaveLoadService();
+        _saveLoadService.Init();
 
-        var gameContentDto = new ContentLoadController().Load();
+        var gameContentDto = new ContentLoadService().Load();
         RoomFactory = new RoomFactory(gameContentDto);
         ShipFactory = new ShipFactory();
 
@@ -95,17 +96,17 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	}
 
     //  expose some save stuff for the main menu
-    public bool HasSaveFile =>_saveLoadController.HasSaveData;
-    public SaveState SaveFile => _saveLoadController.SaveData;
-    public string SavePath => SaveLoadController.SaveFilePath;
+    public bool HasSaveFile =>_saveLoadService.HasSaveData;
+    public SaveState SaveFile => _saveLoadService.SaveData;
+    public string SavePath => SaveLoadService.SaveFilePath;
     public void ResetSaveData()
     {
-        _saveLoadController.Delete();
+        _saveLoadService.Delete();
     }
 
     public void ContinueFromSave()
     {
-        GameState = _saveLoadController.Load();
+        GameState = _saveLoadService.Load();
         UpdateState(GamePhase.MISSION);
 
         //  TODO refactor this hacky thing. Should be event driven probs?
@@ -149,7 +150,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         //  attempt to save the game state if we are pausing and have a legit game state.
         //  we don't want to bother saving the FTUE / bootstrapping state
         if (pauseStatus && GameState != null && GameState.Home != BootstrapWorld)
-            _saveLoadController.Save(GameState);
+            _saveLoadService.Save(GameState);
     }
 
     private GameState CreateBootstrapGameState(bool devSettingsEnabled)

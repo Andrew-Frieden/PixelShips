@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Items;
-using Models.Actions;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Items;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 
-namespace Models
+namespace TextSpace.Models
 {
     public abstract class FlexEntity : IRoomActor
     {

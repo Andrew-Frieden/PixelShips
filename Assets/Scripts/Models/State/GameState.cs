@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Models
+namespace TextSpace.Models
 {
     public class GameState
     {

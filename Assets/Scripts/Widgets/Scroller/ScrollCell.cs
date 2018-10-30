@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using Widgets.Scroller;
 using System.Collections.Generic;
-using Models.Actions;
+using TextSpace.Models.Actions;
 using EnumerableExtensions;
 using TextSpace.Events;
 using System.Collections;

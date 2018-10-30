@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Models.Actions;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Stats;
 using TextEncoding;
 using UnityEngine;
 
-namespace Controller
+namespace TextSpace.Controllers
 {
 	public class ShipViewController : MonoBehaviour
 	{

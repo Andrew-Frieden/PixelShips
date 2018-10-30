@@ -11,5 +11,5 @@
     },
 	"RoomFlavors": [ 0, 1, 2, 3, 4, 5 ],
 	"PowerLevel": 0,
-    "EntityType": "Models.SimpleMineable"
+    "EntityType": "TextSpace.Models.SimpleMineable"
 }]

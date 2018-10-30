@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using Models;
-using Models.Dtos;
+using TextSpace.Models;
+using TextSpace.Models.Dtos;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Controller
+namespace TextSpace.Services
 {
-    public class ContentLoadController
+    public class ContentLoadService
     {
         private const string BaseFolderPath = "Content";
         

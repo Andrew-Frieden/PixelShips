@@ -1,8 +1,8 @@
 ﻿using System;
-using Models.Actions;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Stats;
 
-namespace Models.Actors
+namespace TextSpace.Models.Actors
 {
     public class ShieldActor : TemporaryEntity
     {

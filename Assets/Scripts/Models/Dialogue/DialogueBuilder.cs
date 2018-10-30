@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
-using Items;
-using Models.Actions;
+﻿using System.Linq;
+using TextSpace.Items;
+using TextSpace.Models.Actions;
 using TextEncoding;
 
-namespace Models.Dialogue
+namespace TextSpace.Models.Dialogue
 {
     public static class DialogueBuilder
     {
@@ -126,6 +125,7 @@ namespace Models.Dialogue
                 .Build(room);
         }
 
+        //  TODO create some navigation controller to encapsulte this stuff
         private static string GetRoomExitText(CommandShip ship, RoomTemplate t)
         {
             var text = $"Warp to {Room.GetNameForFlavor(t.Flavor)}{Env.ll}";

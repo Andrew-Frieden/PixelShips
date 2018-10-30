@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Helpers;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 using UnityEngine;
 
-namespace Models
+namespace TextSpace.Models
 {
     public class BasicGatherable : FlexEntity
     {

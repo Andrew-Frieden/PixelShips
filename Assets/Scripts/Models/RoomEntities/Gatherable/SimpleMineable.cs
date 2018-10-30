@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using EnumerableExtensions;
 using Helpers;
-using Items;
-using Models.Actions;
-using Models.Dialogue;
-using Models.Dtos;
-using Models.Stats;
+using TextSpace.Items;
+using TextSpace.Models.Actions;
+using TextSpace.Models.Dialogue;
+using TextSpace.Models.Dtos;
+using TextSpace.Models.Stats;
 using TextEncoding;
 
-namespace Models
+namespace TextSpace.Models
 {
     public partial class SimpleMineable : FlexEntity
     {
