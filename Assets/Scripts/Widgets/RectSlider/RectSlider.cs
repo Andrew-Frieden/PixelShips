@@ -2,7 +2,7 @@
 using TextSpace.Events;
 using UnityEngine;
 
-public class SlideResponseController : MonoBehaviour {
+public class RectSlider : MonoBehaviour {
 
     protected Vector2 TargetPosition;
     protected Vector2 OnScreen;

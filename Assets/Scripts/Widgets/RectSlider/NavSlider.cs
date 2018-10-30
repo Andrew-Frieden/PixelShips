@@ -1,6 +1,6 @@
 ﻿using TextSpace.Models.Actions;
 
-public class NavSlideController : SlideResponseController {
+public class NavSlider : RectSlider {
 
     new void Start()
     {

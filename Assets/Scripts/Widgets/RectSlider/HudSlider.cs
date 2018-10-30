@@ -1,6 +1,6 @@
 ﻿using TextSpace.Models.Actions;
 
-public class HudSlideController : SlideResponseController {
+public class HudSlider : RectSlider {
 
     new void Start()
     {
