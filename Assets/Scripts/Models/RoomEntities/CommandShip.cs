@@ -8,8 +8,8 @@ using System.Linq;
 using EnumerableExtensions;
 using TextSpace.Items;
 using TextSpace.Models.Dtos;
-using TextSpace.Models.Factories;
 using TextSpace.Events;
+using TextSpace.Services.Factories;
 
 namespace TextSpace.Models
 {

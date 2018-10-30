@@ -2,12 +2,12 @@
 using Common;
 using Events;
 using TextSpace.Models;
-using TextSpace.Models.Factories;
 using System.Collections.Generic;
 using TextSpace.Events;
 using TextSpace.Models.Actions;
 using TextSpace.Services;
 using TextSpace.Controllers;
+using TextSpace.Services.Factories;
 
 public class GameManager : Singleton<GameManager>, ISaveManager
 {
@@ -32,8 +32,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	
 	public GameState GameState { get; private set; }
 
-	public static RoomFactory RoomFactory;
-	public static ShipFactory ShipFactory;
+	public static RoomFactoryService RoomFactory;
+	public static ShipFactoryService ShipFactory;
 
 	private void Start()
 	{
@@ -44,8 +44,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         _saveLoadService.Init();
 
         var gameContentDto = new ContentLoadService().Load();
-        RoomFactory = new RoomFactory(gameContentDto);
-        ShipFactory = new ShipFactory();
+        RoomFactory = new RoomFactoryService(gameContentDto);
+        ShipFactory = new ShipFactoryService();
 
         _homeViewController.InitContentLoadResults(gameContentDto);
 

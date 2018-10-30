@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using TextSpace.Models.Actions;
 using TextSpace.Models.Dialogue;
 using TextSpace.Models.Dtos;
-using TextSpace.Models.Factories;
 using TextEncoding;
+using TextSpace.Services.Factories;
 
 namespace TextSpace.Models
 {

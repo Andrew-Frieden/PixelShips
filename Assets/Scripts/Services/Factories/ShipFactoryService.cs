@@ -1,10 +1,11 @@
 ﻿using TextSpace.Items;
+using TextSpace.Models;
 
-namespace TextSpace.Models.Factories
+namespace TextSpace.Services.Factories
 {
-    public class ShipFactory
+    public class ShipFactoryService
     {
-        public CommandShip GenerateCommandShip(RoomFactory roomFactory)
+        public CommandShip GenerateCommandShip(RoomFactoryService roomFactory)
         {
             var ship = new CommandShip();
             ship.SwapWeapon(roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Light, 20));

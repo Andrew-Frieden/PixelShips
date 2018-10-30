@@ -1,7 +1,7 @@
 ﻿using TextSpace.Models.Actions;
-using TextSpace.Models.Factories;
 using System;
 using System.Collections.Generic;
+using TextSpace.Services.Factories;
 
 namespace TextSpace.Models.Dtos
 {
