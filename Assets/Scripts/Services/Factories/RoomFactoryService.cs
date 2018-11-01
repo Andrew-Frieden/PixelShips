@@ -6,7 +6,6 @@ using GameData;
 using TextSpace.Framework;
 using TextSpace.Items;
 using TextSpace.Models;
-using TextSpace.Models.Dtos;
 using TextSpace.Models.RoomEntities.Mobs;
 using TextSpace.Models.Stats;
 using TextSpace.RoomEntities;
@@ -14,7 +13,7 @@ using UnityEngine;
 
 namespace TextSpace.Services.Factories
 {
-    public class RoomFactoryService : IRoomFactory, IResolvableService
+    public class RoomFactoryService : IResolvableService
     {
         //  these could get adjusted based on the mission or jump distance
         private float CHANCE_ROOM_DANGEROUS = 0.75f;
@@ -60,10 +59,10 @@ namespace TextSpace.Services.Factories
             return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type && w.Powerlevel <= powerLevel).GetRandom().FromFlexData();
         }
         
-        public IRoom GenerateBootstrapRoom(bool includeFTUE)
+        public IRoom GenerateBootstrapRoom(bool FTUE = true)
         {
             var room = GenerateRoom(new RoomTemplate(0, RoomFlavor.Empty));
-            room.AddEntity(new BootstrapEntity(includeFTUE));
+            room.AddEntity(new BootstrapEntity(FTUE));
             return room;
         }
 

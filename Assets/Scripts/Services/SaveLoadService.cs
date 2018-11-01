@@ -73,7 +73,7 @@ namespace TextSpace.Services
             var saveData = new SaveState
             {
                 HomeworldData = state.Home.ToDto(),
-                ExpeditionData = state.CurrentExpedition.ToDto(),
+                ExpeditionData = state.Expedition.ToDto(),
                 SaveTime = DateTime.Now,
                 CmdViewCellData = new List<string>()
             };
@@ -94,7 +94,7 @@ namespace TextSpace.Services
                 Jumps = expData.Jumps,
                 CurrentMission = expData.MissionData == null ? null : expData.MissionData.FromDto()
             };
-            state.CurrentExpedition = exp;
+            state.Expedition = exp;
 
             exp.CmdShip = new CommandShip(expData.ShipData);
             exp.Room = new Room(expData.RoomData);

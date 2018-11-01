@@ -6,30 +6,22 @@ namespace TextSpace.Services
 {
     public class BootstrapService : IResolvableService
     {
-        public BootstrapService(ShipFactoryService shipFactory, RoomFactoryService roomFactory)
+        public BootstrapService(ExpeditionFactoryService expService)
         {
             DevGameState = new GameState
             {
-                CurrentExpedition = new Expedition
-                {
-                    CmdShip = shipFactory.GenerateCommandShip(),
-                    Room = (Room)roomFactory.GenerateBootstrapRoom(false)
-                },
-                Home = new Homeworld() { PlanetName = "???", Description = "???" }
+                Expedition = expService.CreateBootstrapExpedition(FTUE: false),
+                Home = new Homeworld() { PlanetName = "Earth", Description = "Developer" }
             };
 
-            GameState = new GameState
+            FTUEGameState = new GameState
             {
-                CurrentExpedition = new Expedition
-                {
-                    CmdShip = shipFactory.GenerateCommandShip(),
-                    Room = (Room)roomFactory.GenerateBootstrapRoom(true)
-                },
+                Expedition = expService.CreateBootstrapExpedition(),
                 Home = new Homeworld() { PlanetName = "???", Description = "???" }
             };
         }
 
         public GameState DevGameState { get; private set; }
-        public GameState GameState { get; private set; }
+        public GameState FTUEGameState { get; private set; }
     }
 }

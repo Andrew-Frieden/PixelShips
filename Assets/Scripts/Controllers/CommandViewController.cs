@@ -16,17 +16,20 @@ using TextSpace.Services.Factories;
 namespace TextSpace.Controllers
 {
     public class CommandViewController : MonoBehaviour
-    {   
+    {
+        public Blink Blink;
         [SerializeField] private ScrollViewController _scrollView;
         [SerializeField] private ABDialogueController _abController;
         [SerializeField] private ShipHudController _shipHudController;
         
-        public Blink Blink;
-        private IRoom _room;
 
-        private CommandShip PlayerShip => _room.PlayerShip;
+        private CommandShip PlayerShip => Room.PlayerShip;
+        private Expedition CurrentExpedition => ServiceContainer.Resolve<IExpeditionProvider>().Expedition;
+        private IRoom Room => CurrentExpedition.Room;
+
 
         private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
+
 
         private bool _warpToNextRoom = false;
 
@@ -40,33 +43,32 @@ namespace TextSpace.Controllers
 
         public void StartCommandView()
         {
-            InitFromGameState();
+            StartRoom();
 
             UIResponseBroadcaster.Broadcast(UIResponseTag.ViewCmd);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowHUD);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowNavBar);
 
-            var startingRoom = _room.Entities.Where(n => n is HomeworldNpc).Any();
+            var startingRoom = Room.Entities.Where(n => n is HomeworldNpc).Any();
 
-            _scrollView.AddCells(CalculateLookText(_room, startingRoom));
+            _scrollView.AddCells(CalculateLookText(Room, startingRoom));
             StartCoroutine(Blink.BlinkLoop());
         }
 
         public void BootstrapView()
         {
-            InitFromGameState();
+            StartRoom();
 
-            var text = RoomService.ResolveNextTick(_room, new DoNothingAction(_room.PlayerShip));
+            var text = RoomService.ResolveNextTick(Room, new DoNothingAction(Room.PlayerShip));
             _scrollView.AddCells(text);
         }
 
-        private void InitFromGameState()
+        private void StartRoom()
         {
-            _room = GameManager.Instance.GameState.CurrentExpedition.Room;
-            _room.SetPlayerShip(GameManager.Instance.GameState.CurrentExpedition.CmdShip);
             _scrollView.ClearScreen();
-            _shipHudController.InitializeShipHud(_room);
-            RoomService.StartNextRoom(_room, _room);
+            _shipHudController.InitializeShipHud(Room);
+
+            RoomService.StartRoom(Room);
         }
 
         private IEnumerable<TagString> CalculateLookText(IRoom room, bool startingRoom = false)
@@ -97,8 +99,8 @@ namespace TextSpace.Controllers
 
         private void HandleLinkTouchedEvent(string guid)
         {
-            var entity = _room.FindEntity(guid);
-            var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue(_room);
+            var entity = Room.FindEntity(guid);
+            var content = entity != null ? entity.DialogueContent : DialogueBuilder.EmptyDialogue(Room);
             _abController.ShowControl(content);
         }
 
@@ -106,7 +108,7 @@ namespace TextSpace.Controllers
         {
             _scrollView.DimCells();
 
-            var text = RoomService.ResolveNextTick(_room, playerAction);
+            var text = RoomService.ResolveNextTick(Room, playerAction);
             _scrollView.AddCells(text);
 
             //if Exit is populated -> player is warping
@@ -137,15 +139,15 @@ namespace TextSpace.Controllers
             _scrollView.ClearScreen();
 
             var nextRoom = RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
-            RoomService.StartNextRoom(nextRoom, _room);
-            _room = nextRoom;
+            RoomService.StartNextRoom(nextRoom, Room);
 
             //  TODO find a better way to update the GameState's current room
-            GameManager.Instance.GameState.CurrentExpedition.Room = (Room)_room;
+            // do this in room service
+            CurrentExpedition.Room = (Room)nextRoom;
                 
-            _scrollView.AddCells(CalculateLookText(_room));
+            _scrollView.AddCells(CalculateLookText(Room));
 
-            _shipHudController.UpdateSector(_room);
+            _shipHudController.UpdateSector(Room);
         }
     }
 }

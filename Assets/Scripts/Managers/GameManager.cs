@@ -22,10 +22,8 @@ public class GameManager : Singleton<GameManager>
 	public EventGameState OnGameStateChanged;
 
     private SaveLoadService SaveLoadSvc => ServiceContainer.Resolve<SaveLoadService>();
-	private ContentLoadService ContentLoadSvc => ServiceContainer.Resolve<ContentLoadService>();
-    private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
-    private ShipFactoryService ShipFactory => ServiceContainer.Resolve<ShipFactoryService>();
     private BootstrapService BootStrapSvc => ServiceContainer.Resolve<BootstrapService>();
+    private ExpeditionFactoryService ExpSvc => ServiceContainer.Resolve<ExpeditionFactoryService>();
 
     //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
@@ -45,18 +43,18 @@ public class GameManager : Singleton<GameManager>
         }
         set
         {
-            _gameState.CurrentExpedition = value.CurrentExpedition;
+            _gameState.Expedition = value.Expedition;
             _gameState.Home = value.Home;
         }
     }
 
 	private void Start()
 	{
-        // Disable screen dimming
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
         ServiceContainer.AddDependency(GameState);
         ServiceContainer.Construct();
+
+        // Disable screen dimming
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         UpdateState(GamePhase.PREGAME);
     }
@@ -65,6 +63,8 @@ public class GameManager : Singleton<GameManager>
     private List<GameObject> Registrations = new List<GameObject>();
 
     private bool bootstrapping;
+
+
 
     public void RegisterStartup(GameObject obj)
     {
@@ -112,30 +112,23 @@ public class GameManager : Singleton<GameManager>
 
         //  TODO refactor this hacky thing. Should be event driven probs?
         _commandViewController.StartCommandView();
-        _homeViewController.Init(GameState.Home);
+        UIResponseBroadcaster.Broadcast(UIResponseTag.UpdateHomeworld);
+
+        //_homeViewController.Init(GameState.Home);
     }
 
     public void BootstrapNewGame(bool devSettingsEnabled = false)
 	{
         bootstrapping = true;
-        GameState = devSettingsEnabled ? BootStrapSvc.DevGameState : BootStrapSvc.GameState;
+        GameState = devSettingsEnabled ? BootStrapSvc.DevGameState : BootStrapSvc.FTUEGameState;
         UpdateState(GamePhase.MISSION);
-        _homeViewController.Init(GameState.Home);
+        //_homeViewController.Init(GameState.Home);
     }
 
     public void StartNewExpedition()
     {
-        //  for the quick dev start, replace the bootstrapping world with a placeholder dev one
-        if (GameState.Home == BootStrapSvc.DevGameState.Home)
-            SetHomeworld(new Homeworld() { PlanetName = "Earth", Description = "Developer" });
-
         GameState.Home.ExpeditionCount++;
-        GameState.CurrentExpedition = new Expedition
-        {
-            CmdShip = ShipFactory.GenerateCommandShip(),
-            Room = (Room)RoomFactory.GenerateHomeworldRoom(GameState.Home),
-            CurrentMission = null
-        };
+        GameState.Expedition = ExpSvc.CreateNewExpedition();
         _commandViewController.StartCommandView();
         UIResponseBroadcaster.Broadcast(UIResponseTag.UpdateHomeworld);
     }
@@ -143,14 +136,13 @@ public class GameManager : Singleton<GameManager>
     public void SetHomeworld(Homeworld world)
     {
         GameState.Home = world;
-        _homeViewController.Init(GameState.Home);
+        //_homeViewController.Init(GameState.Home);
     }
 
     void OnApplicationPause(bool pauseStatus)
     {
-        //  attempt to save the game state if we are pausing and have a legit game state.
         //  we don't want to bother saving the FTUE / bootstrapping state
-        if (pauseStatus && GameState != null && GameState.Home != BootStrapSvc.DevGameState.Home)
+        if (pauseStatus)
             SaveLoadSvc.Save(GameState);
     }
 }

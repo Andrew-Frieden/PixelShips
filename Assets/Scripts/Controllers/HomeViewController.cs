@@ -13,9 +13,7 @@ namespace TextSpace.Controllers
 {
     public class HomeViewController : MonoBehaviour
     {
-        [SerializeField] private CommandViewController _commandViewController;
         [SerializeField] private TextMeshProUGUI DevToolsContentLoaded;
-
         [SerializeField] private TextMeshProUGUI PlanetName;
         [SerializeField] private TextMeshProUGUI PlanetDescription;
         [SerializeField] private TextMeshProUGUI PlanetStats;
@@ -26,19 +24,13 @@ namespace TextSpace.Controllers
         {
             UIResponseBroadcaster.UIResponseTagTrigger += RespondToUIResponseTag;
             InitContentLoadResults();
+            DisplayHomeworld();
         }
 
         private void RespondToUIResponseTag(UIResponseTag tag)
         {
             if (tag == UIResponseTag.UpdateHomeworld)
                 DisplayHomeworld();
-        }
-
-        private Homeworld _homeworld;
-        public void Init(Homeworld world)
-        {
-            _homeworld = world;
-            DisplayHomeworld();
         }
 
         public void StartNewExpedition()
@@ -48,8 +40,7 @@ namespace TextSpace.Controllers
 
         public void DisplayHomeworld()
         {
-            if (_homeworld == null)
-                return;
+            var _homeworld = ServiceContainer.Resolve<IHomeworldProvider>().Home;
 
             PlanetName.text = _homeworld.PlanetName;
             PlanetDescription.text = $"{_homeworld.Description} World";

@@ -1,23 +1,30 @@
 ﻿using System;
+using TextSpace.Framework;
 
 namespace TextSpace.Models
 {
-    public class GameState
+    public class GameState : IExpeditionProvider, IHomeworldProvider
     {
-        public DateTime CurrentTime;
+        public DateTime CurrentTime { get; set; }
+        public Expedition Expedition { get; set; }
+        public Homeworld Home { get ; set; }
 
-        public Expedition CurrentExpedition;
-        public Homeworld Home;
-        
-        public int GetTicks()
-        {
-            return CurrentExpedition.Ticks;
-        }
+        public int Ticks => Expedition.Ticks;
         
         public void Tick()
         {
-            CurrentExpedition.Ticks++;
+            Expedition.Ticks++;
         }
+    }
+
+    public interface IExpeditionProvider : IResolvableService
+    {
+        Expedition Expedition { get; }
+    }
+
+    public interface IHomeworldProvider : IResolvableService
+    {
+        Homeworld Home { get; }
     }
     
     public class Expedition
@@ -27,6 +34,15 @@ namespace TextSpace.Models
         public Mission CurrentMission;
         public CommandShip CmdShip;
         public Room Room;
+
+        public Expedition() { }
+
+        public Expedition(CommandShip ship, IRoom room)
+        {
+            CmdShip = ship;
+            Room = (Room)room;
+            Room.SetPlayerShip(CmdShip);
+        }
     }
     
     public class Homeworld

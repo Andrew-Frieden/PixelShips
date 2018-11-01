@@ -7,11 +7,16 @@ namespace TextSpace.Services
 {
     public static class RoomService
     {
+        public static void StartRoom(IRoom room)
+        {
+            room.PlayerShip.WarpTarget = null;
+            CalculateDialogues(room);
+        }
+
         public static void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
         {
             nextRoom.SetPlayerShip(previousRoom.PlayerShip);
-            nextRoom.PlayerShip.WarpTarget = null;
-            CalculateDialogues(nextRoom);
+            StartRoom(nextRoom);
         }
 
         public static IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction)
@@ -28,6 +33,7 @@ namespace TextSpace.Services
             return resolveResults;
         }
 
+
         private static IEnumerable<TagString> ExecuteMainActions(IRoom room, IRoomAction playerAction)
         {
             var actionResults = new List<TagString>();
@@ -36,7 +42,7 @@ namespace TextSpace.Services
                 playerAction
             };
             
-            if (GameManager.Instance.GameState.GetTicks() > 0 && GameManager.Instance.GameState.GetTicks() % 5 == 0 && !(playerAction is WarpAction))
+            if (GameManager.Instance.GameState.Ticks > 0 && GameManager.Instance.GameState.Ticks % 5 == 0 && !(playerAction is WarpAction))
             {
                 //  TODO: one corner case here is that you will heal enemy ships in a room even if they haven't existed for 5 ticks (if you entered the room after a few ticks passed) 
                 actionsToExecute.Add(new PassiveRoomHealAction());

@@ -98,7 +98,7 @@ namespace TextSpace.Models
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             GameManager.Instance.SetHomeworld(World);
-            return "".ToTagSet();
+            return "".ToTagSet(new[]{ UIResponseTag.UpdateHomeworld});
         }
     }
 

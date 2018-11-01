@@ -34,9 +34,9 @@ namespace TextSpace.Controllers
 
 		private IEnumerable<TagString> GetShipData()
 		{
-            var ship = GameManager.Instance.GameState.CurrentExpedition.CmdShip;
+            var ship = GameManager.Instance.GameState.Expedition.CmdShip;
 
-            if (ship == null || ship == BootStrapSvc.GameState.CurrentExpedition.CmdShip)
+            if (ship == null || ship == BootStrapSvc.FTUEGameState.Expedition.CmdShip)
                 return new[] 
                 {
                     "Searching...".Tag(),
