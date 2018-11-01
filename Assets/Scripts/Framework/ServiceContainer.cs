@@ -68,9 +68,15 @@ namespace TextSpace.Framework.IoC
             _constructed = true;
         }
 
+        private static Dictionary<Type, object> ResolveMap = new Dictionary<Type, object>();
         public static T Resolve<T>() where T : IResolvableService
         {
-            return (T)Dependencies.First(d => d is T);
+            if (ResolveMap.ContainsKey(typeof(T)))
+                return (T)ResolveMap[typeof(T)];
+
+            var svc = Dependencies.First(d => d is T);
+            ResolveMap[typeof(T)] = svc;
+            return (T)svc;
         }
     }
 }

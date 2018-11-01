@@ -180,32 +180,6 @@ namespace TextSpace.Models.Dtos
                 MissionLevel = dto.MissionLevel
             };
         }
-
-        /// <summary>
-        /// this requires the room to already contain all room entities
-        /// </summary>
-        public static ABDialogueContent FromDto(this ABContentDto dto, IRoom room)
-        {
-            IRoomAction actionA = null;
-            IRoomAction actionB = null;
-
-            if (dto.OptionAActionSimple != null)
-                actionA = dto.OptionAActionSimple.FromDto(room);
-
-            if (dto.OptionBActionSimple != null)
-                actionB = dto.OptionBActionSimple.FromDto(room);
-
-            var content = new ABDialogueContent
-            {
-                MainText = dto.MainText,
-                OptionAText = dto.OptionAText,
-                OptionBText = dto.OptionBText,
-                OptionAAction = actionA,
-                OptionBAction = actionB
-            };
-            content.CalculateMode();
-            return content;
-        }
         #endregion
     }
 }
