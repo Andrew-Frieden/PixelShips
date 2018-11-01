@@ -25,8 +25,6 @@ namespace TextSpace.Models.Actions
             };
         }
 
-        public GiveASpeechAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         private string GetSpeechText()
         {
             return SpeechTexts.OrderBy(t => System.Guid.NewGuid()).First();

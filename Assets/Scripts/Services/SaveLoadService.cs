@@ -98,7 +98,6 @@ namespace TextSpace.Services
 
             exp.CmdShip = new CommandShip(expData.ShipData);
             exp.Room = new Room(expData.RoomData);
-            exp.Room.SetPlayerShip(exp.CmdShip);
 
             state.CurrentTime = DateTime.Now;
             return state;

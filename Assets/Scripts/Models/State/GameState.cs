@@ -19,14 +19,14 @@ namespace TextSpace.Models
 
     public interface IExpeditionProvider : IResolvableService
     {
-        Expedition Expedition { get; }
+        Expedition Expedition { get; set; }
     }
 
     public interface IHomeworldProvider : IResolvableService
     {
-        Homeworld Home { get; }
+        Homeworld Home { get; set; }
     }
-    
+
     public class Expedition
     {
         public int Ticks;
@@ -41,7 +41,6 @@ namespace TextSpace.Models
         {
             CmdShip = ship;
             Room = (Room)room;
-            Room.SetPlayerShip(CmdShip);
         }
     }
     

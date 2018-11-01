@@ -129,10 +129,6 @@ namespace TextSpace.Models
             private int _smallest;
             private int _largest;
 
-            public MiningLootAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-            {
-            }
-            
             public MiningLootAction(IRoomActor src, IRoomActor target, string name, string resourceKey, int depletionChance, int smallest, int largest)
             {
                 Source = src;

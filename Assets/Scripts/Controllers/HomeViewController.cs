@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using TextSpace.Models;
 using TextSpace.Models.Actions;
-using TextSpace.Models.Dtos;
 using TextEncoding;
 using TextSpace.Events;
 using TMPro;
@@ -19,6 +18,7 @@ namespace TextSpace.Controllers
         [SerializeField] private TextMeshProUGUI PlanetStats;
 
         private ContentLoadService contentLoadSvc => ServiceContainer.Resolve<ContentLoadService>();
+        private Homeworld homeworld => ServiceContainer.Resolve<IHomeworldProvider>().Home;
 
         private void Start()
         {
@@ -40,13 +40,11 @@ namespace TextSpace.Controllers
 
         public void DisplayHomeworld()
         {
-            var _homeworld = ServiceContainer.Resolve<IHomeworldProvider>().Home;
-
-            PlanetName.text = _homeworld.PlanetName;
-            PlanetDescription.text = $"{_homeworld.Description} World";
+            PlanetName.text = homeworld.PlanetName;
+            PlanetDescription.text = $"{homeworld.Description} World";
             PlanetStats.text = 
                 $"Conquest:\t\t{0}{Env.l}" +
-                $"Expeditions:\t{_homeworld.ExpeditionCount}";
+                $"Expeditions:\t{homeworld.ExpeditionCount}";
         }
 
         private void InitContentLoadResults()

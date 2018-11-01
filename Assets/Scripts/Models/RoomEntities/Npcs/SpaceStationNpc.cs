@@ -69,8 +69,6 @@ public class SpaceStationNpc : FlexEntity
             Profit = profit;
         }
 
-        public TradeCommoditiesAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             var ship = (CommandShip)Source;

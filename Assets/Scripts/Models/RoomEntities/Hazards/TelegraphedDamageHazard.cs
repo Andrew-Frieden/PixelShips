@@ -37,10 +37,6 @@ namespace TextSpace.Models.RoomEntities.Hazards
         {
             private readonly string _telegraphText;
 
-            public TelegraphedDamageAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-            {
-            }
-
             public TelegraphedDamageAction(IRoomActor source, IRoomActor target, string telegraphText)
             {
                 Source = source;

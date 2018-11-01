@@ -11,8 +11,6 @@ namespace TextSpace.Models.Actions
             Source = source;
         }
 
-        public WarpDriveReadyAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-        
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             ((CommandShip) Source).WarpDriveReady = true;

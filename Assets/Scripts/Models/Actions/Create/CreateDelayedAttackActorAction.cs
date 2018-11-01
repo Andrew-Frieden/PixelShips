@@ -19,8 +19,6 @@ namespace TextSpace.Models.Actions
             Energy = energy;
         }
 
-        public CreateDelayedAttackActorAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-        
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             base.Execute(room);

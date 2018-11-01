@@ -6,6 +6,7 @@ using TextEncoding;
 using TextSpace.Events;
 using TMPro;
 using UnityEngine;
+using TextSpace.Framework.IoC;
 
 namespace TextSpace.Controllers
 {
@@ -27,7 +28,9 @@ namespace TextSpace.Controllers
             }
         }
 
-		private CommandShip PlayerShip { get; set; }
+        private IExpeditionProvider _expProvider => ServiceContainer.Resolve<IExpeditionProvider>();
+        private CommandShip PlayerShip => _expProvider.Expedition.CmdShip;
+        private IRoom Room => _expProvider.Expedition.Room;
 
 		//These track the ships 'current' before any actions/tick changes the values
         private int CurrentHull { get; set; }
@@ -35,10 +38,8 @@ namespace TextSpace.Controllers
 		private int CurrentShield { get; set; }
 		private int CurrentEnergy { get; set; }
 
-		public void InitializeShipHud(IRoom room)
+		public void InitializeShipHud()
 		{
-			PlayerShip = room.PlayerShip;
-
 			CurrentHull = PlayerShip.Hull;
             CurrentMaxHull = PlayerShip.MaxHull;
 			CurrentShield = PlayerShip.Stats[StatKeys.Shields];
@@ -48,7 +49,7 @@ namespace TextSpace.Controllers
 			_hull.text = "Hull: " + PlayerShip.Hull + "/" + PlayerShip.MaxHull;
 			_energy.text = "Energy: " + PlayerShip.Stats[StatKeys.Energy] + "/" + PlayerShip.Stats[StatKeys.MaxEnergy];
 
-            UpdateSector(room);
+            UpdateSector();
 		}
 
         private void Start()
@@ -94,9 +95,9 @@ namespace TextSpace.Controllers
 			StartCoroutine(UpdateEnergyText());
 		}
 
-        public void UpdateSector(IRoom room)
+        public void UpdateSector()
         {
-            _sectorName.text = "<>".Encode(room.GetLinkText(), room.Id, LinkColors.Room);
+            _sectorName.text = "<>".Encode(Room.GetLinkText(), Room.Id, LinkColors.Room);
             sectorTyper.TypeText();
         }
 

@@ -29,8 +29,6 @@ namespace TextSpace.Models.Actions
             Target = target;
         }
 
-        public CreateShieldActorAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-        
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             room.Entities.Add(new ShieldActor(Source, Target, TimeToLive, DamageReduction));

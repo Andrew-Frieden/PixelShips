@@ -129,8 +129,6 @@ namespace TextSpace.Models
             private int _smallest;
             private int _largest;
             
-            public LootAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-            
             public LootAction(IRoomActor src, IRoomActor target, string name, string resourceKey, int smallest, int largest)
             {
                 Source = src;

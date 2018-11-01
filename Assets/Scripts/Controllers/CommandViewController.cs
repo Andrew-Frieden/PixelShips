@@ -23,13 +23,11 @@ namespace TextSpace.Controllers
         [SerializeField] private ShipHudController _shipHudController;
         
 
-        private CommandShip PlayerShip => Room.PlayerShip;
         private Expedition CurrentExpedition => ServiceContainer.Resolve<IExpeditionProvider>().Expedition;
+        private CommandShip PlayerShip => CurrentExpedition.CmdShip;
         private IRoom Room => CurrentExpedition.Room;
-
-
         private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
-
+        private RoomService RoomService => ServiceContainer.Resolve<RoomService>();
 
         private bool _warpToNextRoom = false;
 
@@ -48,6 +46,7 @@ namespace TextSpace.Controllers
             UIResponseBroadcaster.Broadcast(UIResponseTag.ViewCmd);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowHUD);
             UIResponseBroadcaster.Broadcast(UIResponseTag.ShowNavBar);
+            UIResponseBroadcaster.Broadcast(UIResponseTag.UpdateHomeworld);
 
             var startingRoom = Room.Entities.Where(n => n is HomeworldNpc).Any();
 
@@ -59,16 +58,16 @@ namespace TextSpace.Controllers
         {
             StartRoom();
 
-            var text = RoomService.ResolveNextTick(Room, new DoNothingAction(Room.PlayerShip));
+            var text = RoomService.ResolveNextTick(Room, new DoNothingAction(PlayerShip));
             _scrollView.AddCells(text);
         }
 
         private void StartRoom()
         {
             _scrollView.ClearScreen();
-            _shipHudController.InitializeShipHud(Room);
+            _shipHudController.InitializeShipHud();
 
-            RoomService.StartRoom(Room);
+            RoomService.StartRoom();
         }
 
         private IEnumerable<TagString> CalculateLookText(IRoom room, bool startingRoom = false)
@@ -77,11 +76,11 @@ namespace TextSpace.Controllers
 
             if (startingRoom)
             {
-                lookResults.Add("Your <> rests in-system, ready to take on the void.".Encode("starship", room.PlayerShip.Id, LinkColors.Player).Tag());
+                lookResults.Add("Your <> rests in-system, ready to take on the void.".Encode("starship", PlayerShip.Id, LinkColors.Player).Tag());
             }
             else
             {
-                lookResults.Add(room.PlayerShip.GetLookText());
+                lookResults.Add(PlayerShip.GetLookText());
             }
 
             lookResults.Add(room.GetLookText());
@@ -136,18 +135,11 @@ namespace TextSpace.Controllers
         {
             yield return new WaitForSecondsRealtime(1.0f);
              
+            RoomService.StartRoom();
+
             _scrollView.ClearScreen();
-
-            var nextRoom = RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
-            RoomService.StartNextRoom(nextRoom, Room);
-
-            //  TODO find a better way to update the GameState's current room
-            // do this in room service
-            CurrentExpedition.Room = (Room)nextRoom;
-                
             _scrollView.AddCells(CalculateLookText(Room));
-
-            _shipHudController.UpdateSector(Room);
+            _shipHudController.UpdateSector();
         }
     }
 }

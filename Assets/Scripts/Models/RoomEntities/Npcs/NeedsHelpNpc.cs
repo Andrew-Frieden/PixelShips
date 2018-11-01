@@ -78,10 +78,6 @@ namespace TextSpace.Models
     {
         private class HelpRiskyAction : SimpleAction
         {
-            public HelpRiskyAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-            {
-            }
-            
             public HelpRiskyAction(IRoomActor src, IRoomActor target)
             {
                 Source = src;
@@ -133,10 +129,6 @@ namespace TextSpace.Models
         
         private class HelpSafeAction : SimpleAction
         {
-            public HelpSafeAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-            {
-            }
-            
             public HelpSafeAction(IRoomActor src, IRoomActor target)
             {
                 Source = src;

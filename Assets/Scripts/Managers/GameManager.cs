@@ -18,16 +18,14 @@ public class GameManager : Singleton<GameManager>
 		PREGAME,
 		MISSION
 	}
-
 	public EventGameState OnGameStateChanged;
 
     private SaveLoadService SaveLoadSvc => ServiceContainer.Resolve<SaveLoadService>();
     private BootstrapService BootStrapSvc => ServiceContainer.Resolve<BootstrapService>();
     private ExpeditionFactoryService ExpSvc => ServiceContainer.Resolve<ExpeditionFactoryService>();
 
-    //  TODO refactor this hacky thing. should be event driven?
+    //  TODO refactor this so we don't need a manual reference?
     [SerializeField] private CommandViewController _commandViewController;
-	[SerializeField] private HomeViewController _homeViewController;
 
     private GamePhase _currentGamePhase = GamePhase.BOOT;
 	public GamePhase CurrentGamePhase => _currentGamePhase;
@@ -61,11 +59,6 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] List<GameObject> StartupDependencies = new List<GameObject>();
     private List<GameObject> Registrations = new List<GameObject>();
-
-    private bool bootstrapping;
-
-
-
     public void RegisterStartup(GameObject obj)
     {
         Registrations.Add(obj);
@@ -101,7 +94,6 @@ public class GameManager : Singleton<GameManager>
 				Debug.Log("Invalid Game State");
 				break;
 		}
-		
 		OnGameStateChanged.Invoke(_currentGamePhase, previousGameState);
 	}
 
@@ -110,19 +102,16 @@ public class GameManager : Singleton<GameManager>
         GameState = SaveLoadSvc.Load();
         UpdateState(GamePhase.MISSION);
 
-        //  TODO refactor this hacky thing. Should be event driven probs?
+        //  TODO make this event driven?
         _commandViewController.StartCommandView();
-        UIResponseBroadcaster.Broadcast(UIResponseTag.UpdateHomeworld);
-
-        //_homeViewController.Init(GameState.Home);
     }
 
+    private bool bootstrapping;
     public void BootstrapNewGame(bool devSettingsEnabled = false)
 	{
         bootstrapping = true;
         GameState = devSettingsEnabled ? BootStrapSvc.DevGameState : BootStrapSvc.FTUEGameState;
         UpdateState(GamePhase.MISSION);
-        //_homeViewController.Init(GameState.Home);
     }
 
     public void StartNewExpedition()
@@ -130,18 +119,10 @@ public class GameManager : Singleton<GameManager>
         GameState.Home.ExpeditionCount++;
         GameState.Expedition = ExpSvc.CreateNewExpedition();
         _commandViewController.StartCommandView();
-        UIResponseBroadcaster.Broadcast(UIResponseTag.UpdateHomeworld);
-    }
-
-    public void SetHomeworld(Homeworld world)
-    {
-        GameState.Home = world;
-        //_homeViewController.Init(GameState.Home);
     }
 
     void OnApplicationPause(bool pauseStatus)
     {
-        //  we don't want to bother saving the FTUE / bootstrapping state
         if (pauseStatus)
             SaveLoadSvc.Save(GameState);
     }

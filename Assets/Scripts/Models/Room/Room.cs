@@ -5,6 +5,7 @@ using TextSpace.Models.Dialogue;
 using TextSpace.Models.Dtos;
 using TextEncoding;
 using TextSpace.Services.Factories;
+using TextSpace.Framework.IoC;
 
 namespace TextSpace.Models
 {
@@ -12,22 +13,29 @@ namespace TextSpace.Models
     {
         public string Name;
         public string LookText;
-        private string description;
-
         public string Id { get; private set; }
-        public string Description { get { return description; } }
-
+        public string Description { get; private set; }
         public IEnumerable<RoomTemplate> Exits { get; private set; }
-        public CommandShip PlayerShip { get; private set; }
         public RoomFlavor Flavor { get; }
         public List<IRoomActor> Entities { get; private set; }
         public ABDialogueContent DialogueContent { get; set; }
+
+        private CommandShip _cmdShip;
+        public CommandShip PlayerShip
+        {
+            get
+            {
+                if (_cmdShip == null)
+                    _cmdShip = ServiceContainer.Resolve<IExpeditionProvider>().Expedition.CmdShip;
+                return _cmdShip;
+            }
+        }
 
         public Room(RoomInjectable inject, IEnumerable<RoomTemplate> exits, List<IRoomActor> entities)
         {
             Id = Guid.NewGuid().ToString();
             Name = GetNameForFlavor(inject.Flavor);
-            description = inject.Description;
+            Description = inject.Description;
             LookText = inject.LookText;
             Exits = exits;
             Entities = entities;
@@ -36,7 +44,7 @@ namespace TextSpace.Models
         public Room(RoomDto dto)
         {
             Id = dto.Id;
-            description = dto.Description;
+            Description = dto.Description;
             LookText = dto.LookText;
             Name = dto.Name;
             Flavor = dto.Flavor;
@@ -47,11 +55,6 @@ namespace TextSpace.Models
             var roomExits = new List<RoomTemplate>();
             dto.ExitDtos.ForEach(x => roomExits.Add(new RoomTemplate(x)));
             Exits = roomExits;
-        }
-
-        public void SetPlayerShip(CommandShip ship)
-        {
-            PlayerShip = ship;
         }
 
         public void AddEntity(IRoomActor actor)

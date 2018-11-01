@@ -110,17 +110,17 @@ namespace TextSpace.Models.Actions
             return null;
         }
         
-        public SimpleAction(SimpleActionDto dto, IRoom room)
-        {
-            if (!string.IsNullOrEmpty(dto.SourceId))
-                Source = (IRoomActor)room.FindEntity(dto.SourceId);
+        //public SimpleAction(SimpleActionDto dto, IRoom room)
+        //{
+        //    if (!string.IsNullOrEmpty(dto.SourceId))
+        //        Source = (IRoomActor)room.FindEntity(dto.SourceId);
 
-            if (!string.IsNullOrEmpty(dto.TargetId))
-                Target = (IRoomActor)room.FindEntity(dto.TargetId);
+        //    if (!string.IsNullOrEmpty(dto.TargetId))
+        //        Target = (IRoomActor)room.FindEntity(dto.TargetId);
 
-            Stats = dto.Stats;
-            Values = dto.Values;
-        }
+        //    Stats = dto.Stats;
+        //    Values = dto.Values;
+        //}
 
         protected SimpleAction()
         {

@@ -44,6 +44,7 @@ namespace TextSpace.Services.Factories
         public RoomFactoryService(ContentLoadService contentService)
         {
             contentLoadSvc = contentService;
+
             var gameContent = contentLoadSvc.Content;
             Hazards = gameContent.Hazards;
             Mobs = gameContent.Mobs;

@@ -180,8 +180,6 @@ namespace TextSpace.Items
 
     public class DropHardwareAction : SimpleAction
     {
-        public DropHardwareAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public DropHardwareAction(IRoomActor src, IRoomActor target)
         {
             if (target is Hardware)
@@ -209,8 +207,6 @@ namespace TextSpace.Items
 
     public class PickupHardwareAction : SimpleAction
     {
-        public PickupHardwareAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public PickupHardwareAction(IRoomActor src, IRoomActor target)
         {
             if (target is Hardware)

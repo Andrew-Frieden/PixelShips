@@ -34,22 +34,6 @@ namespace TextSpace.Models.RoomEntities.Hazards
         
         protected class HazardDamageAction : SimpleAction
         {
-            private int BaseDamage
-            {
-                get
-                {
-                    return Stats[StatKeys.BaseDamage];
-                }
-                set
-                {
-                    Stats[StatKeys.BaseDamage] = value;
-                }
-            }
-
-            public HazardDamageAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-            {
-            }
-
             public HazardDamageAction(IRoomActor source, IRoomActor target, int amount, string flavorText)
             {
                 Source = source;

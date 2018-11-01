@@ -24,8 +24,6 @@ namespace TextSpace.Models.Actions
 
         private int BaseHeal;
 
-        public SelfHealAttackAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public SelfHealAttackAction(IRoomActor source, IRoomActor target, int damage, int heal, string weapon, int energy)
         {
             Source = source;

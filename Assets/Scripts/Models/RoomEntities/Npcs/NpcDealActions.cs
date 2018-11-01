@@ -38,8 +38,6 @@ namespace TextSpace.RoomEntities
             Cost = cost;
         }
 
-        public RepairAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             var ship = (CommandShip)Source;
@@ -79,8 +77,6 @@ namespace TextSpace.RoomEntities
             Target = target;
             Resourcium = price;
         }
-
-        public SellItemAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
@@ -170,8 +166,6 @@ namespace TextSpace.RoomEntities
             Target = target;
             ScrapToResourcium = scrapToResourcium;
         }
-
-        public SellScrapAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {

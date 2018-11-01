@@ -116,10 +116,6 @@ Empty your cargo or we'll dust ya!")
 
     private class BecomeHostileIfNeutralAction : SimpleAction
     {
-        public BecomeHostileIfNeutralAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-        {
-        }
-
         public BecomeHostileIfNeutralAction(IRoomActor src)
         {
             Source = src;
@@ -158,10 +154,6 @@ Empty your cargo or we'll dust ya!")
             {
                 Stats[SmoothTalkDcKey] = value;
             }
-        }
-
-        public SmoothTalkAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-        {
         }
 
         public SmoothTalkAction(IRoomActor src, IRoomActor target, int dc)
@@ -219,10 +211,6 @@ Empty your cargo or we'll dust ya!")
             {
                 Stats[MobbedAmountKey] = value;
             }
-        }
-
-        public GetRobbedAction(SimpleActionDto dto, IRoom room) : base(dto, room)
-        {
         }
 
         public GetRobbedAction(IRoomActor src, IRoomActor target, int amount)

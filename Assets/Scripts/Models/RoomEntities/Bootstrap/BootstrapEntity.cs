@@ -5,6 +5,7 @@ using TextSpace.Models.Actions;
 using TextSpace.Models.Dialogue;
 using TextEncoding;
 using UnityEngine;
+using TextSpace.Framework.IoC;
 
 namespace TextSpace.Models
 {
@@ -88,16 +89,16 @@ namespace TextSpace.Models
 
     public class SetWorldAction : SimpleAction
     {
-        private Homeworld World;
+        private Homeworld _world;
 
         public SetWorldAction(Homeworld world)
         {
-            World = world;
+            _world = world;
         }
 
         public override IEnumerable<TagString> Execute(IRoom room)
         {
-            GameManager.Instance.SetHomeworld(World);
+            ServiceContainer.Resolve<IHomeworldProvider>().Home = _world;
             return "".ToTagSet(new[]{ UIResponseTag.UpdateHomeworld});
         }
     }

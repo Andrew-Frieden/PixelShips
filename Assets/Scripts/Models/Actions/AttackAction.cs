@@ -22,8 +22,6 @@ namespace TextSpace.Models.Actions
             }
         }
 
-        public AttackAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public AttackAction(IRoomActor source, IRoomActor target, int damage, string weapon, int energy)
         {
             Source = source;

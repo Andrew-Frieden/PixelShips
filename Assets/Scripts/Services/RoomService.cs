@@ -2,24 +2,35 @@
 using System.Linq;
 using TextSpace.Models.Actions;
 using EnumerableExtensions;
+using TextSpace.Models;
+using TextSpace.Framework;
+using TextSpace.Services.Factories;
 
 namespace TextSpace.Services
 {
-    public static class RoomService
+    public class RoomService : IResolvableService
     {
-        public static void StartRoom(IRoom room)
+        private readonly RoomFactoryService _roomFactory;
+        private readonly IExpeditionProvider _expProvider;
+        private Expedition Expedition => _expProvider.Expedition;
+        private Room Room => Expedition.Room;
+
+        public RoomService(RoomFactoryService roomFactory, IExpeditionProvider expProvider)
         {
-            room.PlayerShip.WarpTarget = null;
-            CalculateDialogues(room);
+            _roomFactory = roomFactory;
+            _expProvider = expProvider;
         }
 
-        public static void StartNextRoom(IRoom nextRoom, IRoom previousRoom)
+        public void StartRoom()
         {
-            nextRoom.SetPlayerShip(previousRoom.PlayerShip);
-            StartRoom(nextRoom);
+            var warpTarget = Expedition.CmdShip.WarpTarget;
+            if (warpTarget != null)
+                Expedition.Room = (Room)_roomFactory.GenerateRoom(warpTarget);
+            Expedition.CmdShip.WarpTarget = null;
+            CalculateDialogues(Expedition.Room);
         }
 
-        public static IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction)
+        public IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction)
         {
             var resolveResults = new List<TagString>();
             resolveResults.AddRange(ExecuteMainActions(room, playerAction));
@@ -33,8 +44,7 @@ namespace TextSpace.Services
             return resolveResults;
         }
 
-
-        private static IEnumerable<TagString> ExecuteMainActions(IRoom room, IRoomAction playerAction)
+        private IEnumerable<TagString> ExecuteMainActions(IRoom room, IRoomAction playerAction)
         {
             var actionResults = new List<TagString>();
             var actionsToExecute = new List<IRoomAction>()
@@ -72,7 +82,7 @@ namespace TextSpace.Services
             return actionResults;
         }
 
-        private static void CalculateDialogues(IRoom room)
+        private void CalculateDialogues(IRoom room)
         {
             //  calculate dialogues for every entity in the room
             room.Entities.ForEach(n => n.CalculateDialogue(room));
@@ -88,7 +98,7 @@ namespace TextSpace.Services
             room.CalculateDialogue();
         }
 
-        private static IEnumerable<TagString> ExecuteCleanupActions(IRoom room)
+        private IEnumerable<TagString> ExecuteCleanupActions(IRoom room)
         {
             //  run all cleanup steps and collect any cleanup actions to execute
             var actions = new List<IRoomAction>()

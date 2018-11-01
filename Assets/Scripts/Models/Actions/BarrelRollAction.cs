@@ -13,8 +13,6 @@ namespace TextSpace.Models.Actions
             Stats = new Dictionary<string, int>();
         }
 
-        public BarrellRollAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public override IEnumerable<TagString> Execute(IRoom room)
         {
             return new List<TagString>()

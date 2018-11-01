@@ -91,8 +91,6 @@ namespace TextSpace.Items
 
     public class PickupWeaponAction : SimpleAction
     {
-        public PickupWeaponAction(SimpleActionDto dto, IRoom room) : base(dto, room) { }
-
         public PickupWeaponAction(IRoomActor src, IRoomActor target)
         {
             if (target is Weapon)
