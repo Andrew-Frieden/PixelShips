@@ -25,6 +25,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	private ContentLoadService ContentLoadSvc => ServiceContainer.Resolve<ContentLoadService>();
     private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
     private ShipFactoryService ShipFactory => ServiceContainer.Resolve<ShipFactoryService>();
+    private BootstrapService BootStrapSvc => ServiceContainer.Resolve<BootstrapService>();
 
     //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
@@ -32,26 +33,33 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     private GamePhase _currentGamePhase = GamePhase.BOOT;
 	public GamePhase CurrentGamePhase => _currentGamePhase;
-	
-	public GameState GameState { get; private set; }
 
+    private GameState _gameState;
+	public GameState GameState
+    {
+        get
+        {
+            if (_gameState == null)
+                _gameState = new GameState();
+            return _gameState;
+        }
+        set
+        {
+            _gameState.CurrentExpedition = value.CurrentExpedition;
+            _gameState.Home = value.Home;
+        }
+    }
 
 	private void Start()
 	{
         // Disable screen dimming
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        //ServiceContainer.AddDependency(GameState);
+        ServiceContainer.AddDependency(GameState);
         ServiceContainer.Construct();
 
-
         ServiceContainer.Resolve<SaveLoadService>().Init();
-        var content = ServiceContainer.Resolve<ContentLoadService>().Content;
-        _homeViewController.InitContentLoadResults(content);
-
-
-        _bootstrapShip = ShipFactory.GenerateCommandShip();
-
+        _homeViewController.InitContentLoadResults();
 
         UpdateState(GamePhase.PREGAME);
     }
@@ -122,7 +130,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     public void BootstrapNewGame(bool devSettingsEnabled = false)
 	{
         bootstrapping = true;
-        GameState = CreateBootstrapGameState(devSettingsEnabled);
+        GameState = devSettingsEnabled ? BootStrapSvc.DevGameState : BootStrapSvc.GameState;
         UpdateState(GamePhase.MISSION);
         _homeViewController.Init(GameState.Home);
     }
@@ -130,7 +138,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     public void StartNewExpedition()
     {
         //  for the quick dev start, replace the bootstrapping world with a placeholder dev one
-        if (GameState.Home == BootstrapWorld)
+        if (GameState.Home == BootStrapSvc.DevGameState.Home)
             SetHomeworld(new Homeworld() { PlanetName = "Earth", Description = "Developer" });
 
         GameState.Home.ExpeditionCount++;
@@ -154,32 +162,12 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     {
         //  attempt to save the game state if we are pausing and have a legit game state.
         //  we don't want to bother saving the FTUE / bootstrapping state
-        if (pauseStatus && GameState != null && GameState.Home != BootstrapWorld)
+        if (pauseStatus && GameState != null && GameState.Home != BootStrapSvc.DevGameState.Home)
             SaveLoadSvc.Save(GameState);
     }
-
-    private GameState CreateBootstrapGameState(bool devSettingsEnabled)
-    {
-        return new GameState
-        {
-            CurrentExpedition = new Expedition
-            {
-                CmdShip = BootstrapShip,
-                Room = (Room)RoomFactory.GenerateBootstrapRoom(!devSettingsEnabled),
-                CurrentMission = null,
-            },
-            Home = BootstrapWorld
-        };
-    }
-
-    private Homeworld _bootstrapWorld;
-    private Homeworld BootstrapWorld => _bootstrapWorld
-        ?? (_bootstrapWorld = new Homeworld() { PlanetName = "???", Description = "???" });
-
-    public static CommandShip _bootstrapShip;
-    public static CommandShip BootstrapShip => _bootstrapShip;
-        //?? (_bootstrapShip = ShipFactory.GenerateCommandShip());
 }
+
+
 
 public interface ISaveManager
 {

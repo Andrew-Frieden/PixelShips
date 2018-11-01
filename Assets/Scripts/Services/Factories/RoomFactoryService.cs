@@ -197,9 +197,7 @@ namespace TextSpace.Services.Factories
                 }
             }
 
-            // When the game starts the homeworld is not set
-            return new RoomTemplate(GameManager.Instance.GameState != null ?
-                GameManager.Instance.GameState.Home.ExpeditionCount * 20 : 20, nextRoomFlavor, entityFlavors);
+            return new RoomTemplate(Math.Max(20, template.PowerLevel + 2), nextRoomFlavor, entityFlavors);
         }
 
         private List<IRoomActor> CalculateActors(RoomTemplate template)

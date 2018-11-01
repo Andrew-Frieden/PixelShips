@@ -6,6 +6,8 @@ using TextEncoding;
 using TextSpace.Events;
 using TMPro;
 using UnityEngine;
+using TextSpace.Services;
+using TextSpace.Framework.IoC;
 
 namespace TextSpace.Controllers
 {
@@ -17,6 +19,8 @@ namespace TextSpace.Controllers
         [SerializeField] private TextMeshProUGUI PlanetName;
         [SerializeField] private TextMeshProUGUI PlanetDescription;
         [SerializeField] private TextMeshProUGUI PlanetStats;
+
+        private ContentLoadService contentLoadSvc => ServiceContainer.Resolve<ContentLoadService>();
 
         private void Start()
         {
@@ -53,8 +57,9 @@ namespace TextSpace.Controllers
                 $"Expeditions:\t{_homeworld.ExpeditionCount}";
         }
 
-        public void InitContentLoadResults(GameContentDto content)
+        public void InitContentLoadResults()
         {
+            var content = contentLoadSvc.Content;
             var flexDataLoadedText =
                 $"<b>FlexData Loaded</b>{Env.l}" +
                 $"Mobs:\t\t{content.Mobs.Count()}{Env.l}" +

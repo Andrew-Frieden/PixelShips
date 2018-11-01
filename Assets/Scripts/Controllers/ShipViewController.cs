@@ -3,6 +3,8 @@ using TextSpace.Models.Actions;
 using TextSpace.Models.Stats;
 using TextEncoding;
 using UnityEngine;
+using TextSpace.Services;
+using TextSpace.Framework.IoC;
 
 namespace TextSpace.Controllers
 {
@@ -10,6 +12,8 @@ namespace TextSpace.Controllers
 	{
 		[SerializeField] private TripleViewController _tripleViewController;
 		[SerializeField] private ScrollViewController _shipScrollViewController;
+
+        private BootstrapService BootStrapSvc => ServiceContainer.Resolve<BootstrapService>();
 	
 		private void Start()
 		{
@@ -32,7 +36,7 @@ namespace TextSpace.Controllers
 		{
             var ship = GameManager.Instance.GameState.CurrentExpedition.CmdShip;
 
-            if (ship == null || ship == GameManager.BootstrapShip)
+            if (ship == null || ship == BootStrapSvc.GameState.CurrentExpedition.CmdShip)
                 return new[] 
                 {
                     "Searching...".Tag(),
