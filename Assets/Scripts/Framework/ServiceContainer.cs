@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TextSpace.Framework
+namespace TextSpace.Framework.IoC
 {
     public static class ServiceContainer
     {
@@ -26,7 +26,7 @@ namespace TextSpace.Framework
 
             var registeredTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(x => x.GetTypes())
-                .Where(x => typeof(IRegisteredService).IsAssignableFrom(x) && x.GetConstructors().Any())
+                .Where(x => typeof(IResolvableService).IsAssignableFrom(x) && x.GetConstructors().Any())
                             .Select(x => x);
             RegisteredTypes.AddRange(registeredTypes);
 
@@ -68,7 +68,7 @@ namespace TextSpace.Framework
             _constructed = true;
         }
 
-        public static T Resolve<T>() where T : IRegisteredService
+        public static T Resolve<T>() where T : IResolvableService
         {
             return (T)Dependencies.First(d => d is T);
         }

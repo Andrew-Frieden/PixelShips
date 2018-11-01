@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using TextSpace.Models;
+using TextSpace.Framework;
 
 namespace TextSpace.Services
 {
-    public class SaveLoadService
+    public class SaveLoadService : IResolvableService
     {
         public static string SaveFilePath = UnityEngine.Application.persistentDataPath + "/SaveData.json";
         public bool HasSaveData => File.Exists(SaveFilePath);

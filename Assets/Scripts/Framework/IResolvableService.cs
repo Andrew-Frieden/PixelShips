@@ -1,6 +1,6 @@
 ﻿namespace TextSpace.Framework
 {
-    public interface IRegisteredService
+    public interface IResolvableService
     {
     }
 }

@@ -8,6 +8,7 @@ using TextSpace.Models.Actions;
 using TextSpace.Services;
 using TextSpace.Controllers;
 using TextSpace.Services.Factories;
+using TextSpace.Framework.IoC;
 
 public class GameManager : Singleton<GameManager>, ISaveManager
 {
@@ -20,8 +21,10 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
 	public EventGameState OnGameStateChanged;
 
-	private SaveLoadService _saveLoadService;
-	private ContentLoadService _contentLoadService;
+    private SaveLoadService SaveLoadSvc => ServiceContainer.Resolve<SaveLoadService>();
+	private ContentLoadService ContentLoadSvc => ServiceContainer.Resolve<ContentLoadService>();
+    private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
+    private ShipFactoryService ShipFactory => ServiceContainer.Resolve<ShipFactoryService>();
 
     //  TODO refactor this hacky thing. should be event driven?
     [SerializeField] private CommandViewController _commandViewController;
@@ -32,28 +35,30 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	
 	public GameState GameState { get; private set; }
 
-	public static RoomFactoryService RoomFactory;
-	public static ShipFactoryService ShipFactory;
 
 	private void Start()
 	{
         // Disable screen dimming
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        _saveLoadService = new SaveLoadService();
-        _saveLoadService.Init();
+        //ServiceContainer.AddDependency(GameState);
+        ServiceContainer.Construct();
 
-        var gameContentDto = new ContentLoadService().Load();
-        RoomFactory = new RoomFactoryService(gameContentDto);
-        ShipFactory = new ShipFactoryService();
 
-        _homeViewController.InitContentLoadResults(gameContentDto);
+        ServiceContainer.Resolve<SaveLoadService>().Init();
+        var content = ServiceContainer.Resolve<ContentLoadService>().Content;
+        _homeViewController.InitContentLoadResults(content);
+
+
+        _bootstrapShip = ShipFactory.GenerateCommandShip();
+
 
         UpdateState(GamePhase.PREGAME);
     }
 
     [SerializeField] List<GameObject> StartupDependencies = new List<GameObject>();
     private List<GameObject> Registrations = new List<GameObject>();
+
     private bool bootstrapping;
 
     public void RegisterStartup(GameObject obj)
@@ -96,17 +101,17 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 	}
 
     //  expose some save stuff for the main menu
-    public bool HasSaveFile =>_saveLoadService.HasSaveData;
-    public SaveState SaveFile => _saveLoadService.SaveData;
+    public bool HasSaveFile =>SaveLoadSvc.HasSaveData;
+    public SaveState SaveFile => SaveLoadSvc.SaveData;
     public string SavePath => SaveLoadService.SaveFilePath;
     public void ResetSaveData()
     {
-        _saveLoadService.Delete();
+        SaveLoadSvc.Delete();
     }
 
     public void ContinueFromSave()
     {
-        GameState = _saveLoadService.Load();
+        GameState = SaveLoadSvc.Load();
         UpdateState(GamePhase.MISSION);
 
         //  TODO refactor this hacky thing. Should be event driven probs?
@@ -131,7 +136,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         GameState.Home.ExpeditionCount++;
         GameState.CurrentExpedition = new Expedition
         {
-            CmdShip = ShipFactory.GenerateCommandShip(RoomFactory),
+            CmdShip = ShipFactory.GenerateCommandShip(),
             Room = (Room)RoomFactory.GenerateHomeworldRoom(GameState.Home),
             CurrentMission = null
         };
@@ -150,7 +155,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         //  attempt to save the game state if we are pausing and have a legit game state.
         //  we don't want to bother saving the FTUE / bootstrapping state
         if (pauseStatus && GameState != null && GameState.Home != BootstrapWorld)
-            _saveLoadService.Save(GameState);
+            SaveLoadSvc.Save(GameState);
     }
 
     private GameState CreateBootstrapGameState(bool devSettingsEnabled)
@@ -167,13 +172,13 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         };
     }
 
-    private static Homeworld _bootstrapWorld;
-    private static Homeworld BootstrapWorld => _bootstrapWorld
+    private Homeworld _bootstrapWorld;
+    private Homeworld BootstrapWorld => _bootstrapWorld
         ?? (_bootstrapWorld = new Homeworld() { PlanetName = "???", Description = "???" });
 
-    private static CommandShip _bootstrapShip;
-    public static CommandShip BootstrapShip => _bootstrapShip
-        ?? (_bootstrapShip = ShipFactory.GenerateCommandShip(RoomFactory));
+    public static CommandShip _bootstrapShip;
+    public static CommandShip BootstrapShip => _bootstrapShip;
+        //?? (_bootstrapShip = ShipFactory.GenerateCommandShip());
 }
 
 public interface ISaveManager

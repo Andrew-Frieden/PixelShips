@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EnumerableExtensions;
 using GameData;
+using TextSpace.Framework;
 using TextSpace.Items;
 using TextSpace.Models;
 using TextSpace.Models.Dtos;
@@ -13,7 +14,7 @@ using UnityEngine;
 
 namespace TextSpace.Services.Factories
 {
-    public class RoomFactoryService : IRoomFactory
+    public class RoomFactoryService : IRoomFactory, IResolvableService
     {
         //  these could get adjusted based on the mission or jump distance
         private float CHANCE_ROOM_DANGEROUS = 0.75f;
@@ -38,9 +39,13 @@ namespace TextSpace.Services.Factories
         public static IEnumerable<FlexData> HardwareContent { get; private set; }
         public static IEnumerable<FlexData> NpcContent { get; private set; }
         public static IEnumerable<FlexData> Mineables { get; private set; }
-        
-        public RoomFactoryService(GameContentDto gameContent)
+
+        private readonly ContentLoadService contentLoadSvc;
+
+        public RoomFactoryService(ContentLoadService contentService)
         {
+            contentLoadSvc = contentService;
+            var gameContent = contentLoadSvc.Content;
             Hazards = gameContent.Hazards;
             Mobs = gameContent.Mobs;
             Gatherables = gameContent.Gatherables;

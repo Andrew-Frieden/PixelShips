@@ -3,10 +3,11 @@ using TextSpace.Models;
 using TextSpace.Models.Dtos;
 using Newtonsoft.Json;
 using UnityEngine;
+using TextSpace.Framework;
 
 namespace TextSpace.Services
 {
-    public class ContentLoadService
+    public class ContentLoadService : IResolvableService
     {
         private const string BaseFolderPath = "Content";
         
@@ -18,8 +19,19 @@ namespace TextSpace.Services
         private const string NpcContentFilePath = "/Npcs";
         private const string MineablesContentFilePath = "/Mineables";
 
+        private GameContentDto _content;
+        public GameContentDto Content 
+        {
+            get
+            {
+                if (_content == null)
+                    Load();
+                return _content;
+            }
+        }
+
         //  may want to avoid loading all possible content into memory at once
-        public GameContentDto Load()
+        public void Load()
         {
             var hazardsJsonData = Resources.Load<TextAsset>(BaseFolderPath + HazardsContentFilePath);
             var hazards =  JsonConvert.DeserializeObject<List<FlexData>>(hazardsJsonData.text);
@@ -42,7 +54,7 @@ namespace TextSpace.Services
             var mineableData = Resources.Load<TextAsset>(BaseFolderPath + MineablesContentFilePath);
             var mineables = JsonConvert.DeserializeObject<List<FlexData>>(mineableData.text);
 
-            return new GameContentDto(hazards, mobs, gatherables, weapons, hardware, npcs, mineables);
+            _content = new GameContentDto(hazards, mobs, gatherables, weapons, hardware, npcs, mineables);
         }
     }
 }

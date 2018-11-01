@@ -10,6 +10,8 @@ using TextSpace.Events;
 using TextSpace.Services;
 using UnityEngine;
 using Widgets.Scroller;
+using TextSpace.Framework.IoC;
+using TextSpace.Services.Factories;
 
 namespace TextSpace.Controllers
 {
@@ -23,6 +25,8 @@ namespace TextSpace.Controllers
         private IRoom _room;
 
         private CommandShip PlayerShip => _room.PlayerShip;
+
+        private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
 
         private bool _warpToNextRoom = false;
 
@@ -129,10 +133,10 @@ namespace TextSpace.Controllers
         private IEnumerator WaitAndStartNextRoom()
         {
             yield return new WaitForSecondsRealtime(1.0f);
-            
+             
             _scrollView.ClearScreen();
 
-            var nextRoom = GameManager.RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
+            var nextRoom = RoomFactory.GenerateRoom(PlayerShip.WarpTarget);
             RoomService.StartNextRoom(nextRoom, _room);
             _room = nextRoom;
 
