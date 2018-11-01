@@ -8,32 +8,44 @@ using TextSpace.Framework;
 
 namespace TextSpace.Services
 {
-    public class SaveLoadService : IResolvableService
+    public interface ISaveManager : IResolvableService
     {
-        public static string SaveFilePath = UnityEngine.Application.persistentDataPath + "/SaveData.json";
-        public bool HasSaveData => File.Exists(SaveFilePath);
-        public SaveState SaveData;
+        bool HasSaveFile { get; }
+        SaveState SaveFile { get; }
+        string SaveFilePath { get; }
+        void Delete();
+    }
 
-        public void Init()
+    public class SaveLoadService : ISaveManager
+    {
+        public string SaveFilePath => UnityEngine.Application.persistentDataPath + "/SaveData.json";
+        public bool HasSaveFile => File.Exists(SaveFilePath);
+        public SaveState SaveFile { get; private set; }
+
+        public SaveLoadService()
         {
-            if (HasSaveData)
+            DeserializeData();
+        }
+
+        private void DeserializeData()
+        {
+            if (HasSaveFile)
             {
                 var jsonData = File.ReadAllText(SaveFilePath);
                 try
                 {
-                    SaveData = JsonConvert.DeserializeObject<SaveState>(jsonData);
+                    SaveFile = JsonConvert.DeserializeObject<SaveState>(jsonData);
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
-                    //  deserialize failed
-                    SaveData = new InvalidSaveState();
+                    SaveFile = new InvalidSaveState();
                 }
             }
         }
 
         public void Delete()
         {
-            if (HasSaveData)
+            if (HasSaveFile)
             {
                 File.Delete(SaveFilePath);
 
@@ -45,7 +57,7 @@ namespace TextSpace.Services
 
         public GameState Load()
         {
-            return BuildGameStateFromSaveState(SaveData);
+            return BuildGameStateFromSaveState(SaveFile);
         }
         
         public void Save(GameState state)

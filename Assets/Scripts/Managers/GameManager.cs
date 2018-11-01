@@ -10,7 +10,7 @@ using TextSpace.Controllers;
 using TextSpace.Services.Factories;
 using TextSpace.Framework.IoC;
 
-public class GameManager : Singleton<GameManager>, ISaveManager
+public class GameManager : Singleton<GameManager>
 {
 	public enum GamePhase
 	{
@@ -58,9 +58,6 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         ServiceContainer.AddDependency(GameState);
         ServiceContainer.Construct();
 
-        ServiceContainer.Resolve<SaveLoadService>().Init();
-        _homeViewController.InitContentLoadResults();
-
         UpdateState(GamePhase.PREGAME);
     }
 
@@ -107,15 +104,6 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 		
 		OnGameStateChanged.Invoke(_currentGamePhase, previousGameState);
 	}
-
-    //  expose some save stuff for the main menu
-    public bool HasSaveFile =>SaveLoadSvc.HasSaveData;
-    public SaveState SaveFile => SaveLoadSvc.SaveData;
-    public string SavePath => SaveLoadService.SaveFilePath;
-    public void ResetSaveData()
-    {
-        SaveLoadSvc.Delete();
-    }
 
     public void ContinueFromSave()
     {
@@ -165,14 +153,4 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         if (pauseStatus && GameState != null && GameState.Home != BootStrapSvc.DevGameState.Home)
             SaveLoadSvc.Save(GameState);
     }
-}
-
-
-
-public interface ISaveManager
-{
-    bool HasSaveFile { get; }
-    SaveState SaveFile { get; }
-    string SavePath { get; }
-    void ResetSaveData();
 }

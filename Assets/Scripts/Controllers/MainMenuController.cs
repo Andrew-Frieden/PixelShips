@@ -2,6 +2,8 @@
 using System;
 using TMPro;
 using UnityEngine;
+using TextSpace.Framework.IoC;
+using TextSpace.Services;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -10,28 +12,27 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Reset;
     [SerializeField] private TextMeshProUGUI SaveData;
 
-    private ISaveManager saveManager;
+    private ISaveManager SaveManager => ServiceContainer.Resolve<ISaveManager>();
 
     private void Start () 
 	{
-        saveManager = GameManager.Instance;
         SetupMenu();
 	}
 
     private void SetupMenu()
     {
-        if (saveManager.HasSaveFile)
+        if (SaveManager.HasSaveFile)
         {
             StartOrContinue.text = "[Continue]";
 
-            if (saveManager.SaveFile is InvalidSaveState)
+            if (SaveManager.SaveFile is InvalidSaveState)
             {
                 SaveData.text = "Invalid Save File Found.";
             }
             else
             {
-                var save = saveManager.SaveFile;
-                SaveData.text = $"Current Save:{Environment.NewLine}Time:{save.SaveTime}{Environment.NewLine}Path:{saveManager.SavePath}";
+                var save = SaveManager.SaveFile;
+                SaveData.text = $"Current Save:{Environment.NewLine}Time:{save.SaveTime}{Environment.NewLine}Path:{SaveManager.SaveFilePath}";
             }
         }
         else
@@ -43,9 +44,9 @@ public class MainMenuController : MonoBehaviour
 	
     public void StartOrContinueClick()
     {
-        if (saveManager.HasSaveFile)
+        if (SaveManager.HasSaveFile)
         {
-            if (saveManager.SaveFile is InvalidSaveState)
+            if (SaveManager.SaveFile is InvalidSaveState)
             {
                 GameManager.Instance.BootstrapNewGame();
             }
@@ -72,7 +73,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ResetClick()
     {
-        saveManager.ResetSaveData();
+        SaveManager.Delete();
         SetupMenu();
     }
 

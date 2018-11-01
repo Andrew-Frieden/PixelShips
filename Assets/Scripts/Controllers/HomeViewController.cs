@@ -25,6 +25,7 @@ namespace TextSpace.Controllers
         private void Start()
         {
             UIResponseBroadcaster.UIResponseTagTrigger += RespondToUIResponseTag;
+            InitContentLoadResults();
         }
 
         private void RespondToUIResponseTag(UIResponseTag tag)
@@ -57,7 +58,7 @@ namespace TextSpace.Controllers
                 $"Expeditions:\t{_homeworld.ExpeditionCount}";
         }
 
-        public void InitContentLoadResults()
+        private void InitContentLoadResults()
         {
             var content = contentLoadSvc.Content;
             var flexDataLoadedText =
