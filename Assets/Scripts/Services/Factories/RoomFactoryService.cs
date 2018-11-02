@@ -34,30 +34,25 @@ namespace TextSpace.Services.Factories
         public static IEnumerable<FlexData> Hazards { get; private set; }
         public static IEnumerable<FlexData> Mobs { get; private set; }
         public static IEnumerable<FlexData> Gatherables { get; private set; }
-        public static IEnumerable<FlexData> Weapons { get; private set; }
         public static IEnumerable<FlexData> HardwareContent { get; private set; }
         public static IEnumerable<FlexData> NpcContent { get; private set; }
         public static IEnumerable<FlexData> Mineables { get; private set; }
 
         private readonly ContentLoadService contentLoadSvc;
+        private readonly WeaponFactoryService weaponFactorySvc;
 
-        public RoomFactoryService(ContentLoadService contentService)
+        public RoomFactoryService(ContentLoadService contentService, WeaponFactoryService weaponFactory)
         {
             contentLoadSvc = contentService;
+            weaponFactorySvc = weaponFactory;
 
             var gameContent = contentLoadSvc.Content;
             Hazards = gameContent.Hazards;
             Mobs = gameContent.Mobs;
             Gatherables = gameContent.Gatherables;
-            Weapons = gameContent.Weapons;
             HardwareContent = gameContent.Hardware;
             NpcContent = gameContent.Npcs;
             Mineables =  gameContent.Mineables;
-        }
-
-        public Weapon GetRandomWeapon(Weapon.WeaponTypes type, int powerLevel)
-        {
-            return (Weapon) Weapons.Where(w => w.Stats[StatKeys.WeaponType] == (int) type && w.Powerlevel <= powerLevel).GetRandom().FromFlexData();
         }
         
         public IRoom GenerateBootstrapRoom(bool FTUE = true)
@@ -206,12 +201,12 @@ namespace TextSpace.Services.Factories
 
             if (CHANCE_FOR_LIGHT_WEAPON.Rng())
             {
-                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Light, template.PowerLevel));
+                actors.Add(weaponFactorySvc.GetRandomWeapon(Weapon.WeaponTypes.Light, template.PowerLevel));
             }
             
             if (CHANCE_FOR_HEAVY_WEAPON.Rng())
             {
-                actors.Add(GetRandomWeapon(Weapon.WeaponTypes.Heavy, template.PowerLevel));
+                actors.Add(weaponFactorySvc.GetRandomWeapon(Weapon.WeaponTypes.Heavy, template.PowerLevel));
             }
             
             if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
@@ -319,19 +314,10 @@ namespace TextSpace.Services.Factories
                 {
                     hasWeapon = true;
 
-                    var weaponFlexData = Weapons.First(wpn => wpn.Values[ValueKeys.WeaponId] == mob.Values[weaponKey]);
-
-                    if (weaponFlexData != null)
-                    {
-                        var weapon = (Weapon) weaponFlexData.FromFlexData();
-                        weapon.IsHidden = true;
-                        weapon.DependentActorId = mob.Id;
-                        actors.Add(weapon);
-                    }
-                    else
-                    {
-                        Debug.Log($"Error: No weapon found for key on mob: {mob.Values[ValueKeys.Name]}");
-                    }
+                    var weapon = weaponFactorySvc.GetWeapon(mob.Values[weaponKey]);
+                    weapon.IsHidden = true;
+                    weapon.DependentActorId = mob.Id;
+                    actors.Add(weapon);
                 }
             }
             
@@ -368,7 +354,6 @@ namespace TextSpace.Services.Factories
 
                 var dependents = new List<FlexData>();
                 dependents.AddRange(parent.FindHardwareDependents(HardwareContent));
-                dependents.AddRange(parent.FindWeaponDependents(Weapons));
 
                 foreach (var d in dependents)
                 {
@@ -377,6 +362,8 @@ namespace TextSpace.Services.Factories
                     dependent.DependentActorId = npc.Id;
                     actors.Add(dependent);
                 }
+
+                actors.AddRange(weaponFactorySvc.GetWeaponDependents(parent));
             }
 
             return actors;

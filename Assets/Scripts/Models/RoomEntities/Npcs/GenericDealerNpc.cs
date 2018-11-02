@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace TextSpace.RoomEntities
 {
-    public interface IHaveDependents
+    public interface IHaveDependents : IRoomActor
     {
         IEnumerable<FlexData> FindHardwareDependents(IEnumerable<FlexData> data);
         IEnumerable<FlexData> FindWeaponDependents(IEnumerable<FlexData> data);

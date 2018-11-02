@@ -6,18 +6,18 @@ namespace TextSpace.Services.Factories
 {
     public class ShipFactoryService : IResolvableService
     {
-        private readonly RoomFactoryService _roomFactory;
+        private readonly WeaponFactoryService _weaponFactory;
 
-        public ShipFactoryService(RoomFactoryService roomFactory)
+        public ShipFactoryService(WeaponFactoryService weaponFactory)
         {
-            _roomFactory = roomFactory;
+            _weaponFactory = weaponFactory;
         }
 
         public CommandShip GenerateCommandShip()
         {
             var ship = new CommandShip();
-            ship.SwapWeapon(_roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Light, 20));
-            ship.SwapWeapon(_roomFactory.GetRandomWeapon(Weapon.WeaponTypes.Heavy, 20));
+            ship.SwapWeapon(_weaponFactory.GetRandomWeapon(Weapon.WeaponTypes.Light, 20));
+            ship.SwapWeapon(_weaponFactory.GetRandomWeapon(Weapon.WeaponTypes.Heavy, 20));
             return ship;
         }
     }
