@@ -102,55 +102,6 @@ namespace TextSpace.Models.Dialogue
                     .Build(room);
         }
 
-        public static ABDialogueContent PlayerNavigateDialogue(IRoom room)
-        {
-            if (room.PlayerShip.WarpDriveReady)
-            {
-                var templateA = room.Exits.First();
-                var templateB = room.Exits.Last();
-                var aText = GetRoomExitText(room.PlayerShip, templateA);
-                var bText = GetRoomExitText(room.PlayerShip, templateB);
-
-                return Init()
-                    .AddMainText($"{room.Description}{Env.ll}Your warp drive is fully charged.")
-                    .AddOption(aText, new WarpAction(templateA))
-                    .AddOption(bText, new WarpAction(templateB))
-                    .Build(room);
-            }
-
-            return Init()
-                .AddMainText($"{room.Description}{Env.ll}Your warp drive is cold.")
-                .AddTextA("Spin up warp drive.")
-                .AddActionA(new WarpDriveReadyAction(room.PlayerShip))
-                .Build(room);
-        }
-
-        //  TODO create some navigation controller to encapsulte this stuff
-        private static string GetRoomExitText(CommandShip ship, RoomTemplate t)
-        {
-            var text = $"Warp to {Room.GetNameForFlavor(t.Flavor)}{Env.ll}";
-
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard) 
-                && (ship.CheckHardware<HazardDetector>() || ship.CheckHardware<SuperDetector>()))
-            {
-                text += "Hazard Detected" + Env.l;
-            }
-
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Mob)
-                && (ship.CheckHardware<MobDetector>() || ship.CheckHardware<SuperDetector>()))
-            {
-                text += "Hostile Detected" + Env.l;
-            }
-
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Town)
-                && (ship.CheckHardware<TownDetector>() || ship.CheckHardware<SuperDetector>()))
-            {
-                text += "Starport Detected" + Env.l;
-            }
-
-            return text;
-        }
-
         public static ABDialogueContent EmptyDialogue(IRoom room)
         {
             return Init()

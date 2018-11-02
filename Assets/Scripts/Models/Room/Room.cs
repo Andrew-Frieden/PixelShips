@@ -6,6 +6,7 @@ using TextSpace.Models.Dtos;
 using TextEncoding;
 using TextSpace.Services.Factories;
 using TextSpace.Framework.IoC;
+using TextSpace.Services;
 
 namespace TextSpace.Models
 {
@@ -77,7 +78,7 @@ namespace TextSpace.Models
 
         public void CalculateDialogue()
         {
-            DialogueContent = DialogueBuilder.PlayerNavigateDialogue(this);
+            DialogueContent = ServiceContainer.Resolve<NavigationService>().NavigationDialogue();
         }
 
         public static string GetNameForFlavor(RoomFlavor flavor)
