@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using TextSpace.Models;
 using TextSpace.Framework;
+using UnityEngine;
 
 namespace TextSpace.Services
 {
@@ -64,12 +65,22 @@ namespace TextSpace.Services
         {
             //  TODO don't save the bootstraping state
             var saveState = BuildSaveStateFromGameState(state);
+
+            if (saveState == null)
+                return;
+
             var jsonData = JsonConvert.SerializeObject(saveState);
             File.WriteAllText(SaveFilePath, jsonData);
         }
         
         private SaveState BuildSaveStateFromGameState(GameState state)
         {
+            if (state.Home == null)
+            {
+                Debug.Log("Tried to save invalid GameState");
+                return null;
+            }
+
             var saveData = new SaveState
             {
                 HomeworldData = state.Home.ToDto(),

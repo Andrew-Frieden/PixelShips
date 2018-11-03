@@ -24,10 +24,13 @@ namespace TextSpace.Framework.IoC
             if (_constructed)
                 throw new Exception("ServiceContainer already constructed");
 
+            var existingDependencyTypes = Dependencies.Select(d => d.GetType());
+
             var registeredTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(x => x.GetTypes())
-                .Where(x => typeof(IResolvableService).IsAssignableFrom(x) && x.GetConstructors().Any())
-                            .Select(x => x);
+                .Where(x => typeof(IInjectableDependency).IsAssignableFrom(x)
+                        && x.GetConstructors().Any()
+                        && !existingDependencyTypes.Contains(x));
             RegisteredTypes.AddRange(registeredTypes);
 
             while (RegisteredTypes.Any())
