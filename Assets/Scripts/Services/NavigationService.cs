@@ -10,13 +10,16 @@ namespace TextSpace.Services
 {
     public class NavigationService : IResolvableService
     {
-        readonly IExpeditionProvider ExpeditionProvider;
-        private Room Room => ExpeditionProvider.Expedition.Room;
-        private CommandShip PlayerShip => ExpeditionProvider.Expedition.CmdShip;
-    
-        public NavigationService(IExpeditionProvider expProvider)
+        private IShipProvider ShipProvider;
+        private IRoomProvider RoomProvider;
+
+        private Room Room => RoomProvider.Room;
+        private CommandShip PlayerShip => ShipProvider.Ship;
+
+        public NavigationService(IShipProvider shipProvider, IRoomProvider roomProvider)
         {
-            ExpeditionProvider = expProvider;
+            ShipProvider = shipProvider;
+            RoomProvider = roomProvider;
         }
     
         public ABDialogueContent NavigationDialogue()

@@ -201,6 +201,8 @@ namespace TextSpace.Items
             room.AddEntity(hardware);
             hardware.ChangeState((int)Hardware.HardwareState.Unequipped);
 
+            hardware.IsHidden = false;
+
             return $"<> is dropped into space.".Encode(Target, LinkColors.Gatherable).ToTagSet(new[] { UIResponseTag.ViewCmd });
         }
     }

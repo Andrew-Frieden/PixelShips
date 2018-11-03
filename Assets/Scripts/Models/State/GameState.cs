@@ -3,12 +3,19 @@ using TextSpace.Framework;
 
 namespace TextSpace.Models
 {
-    public class GameState : IExpeditionProvider, IHomeworldProvider
+    public class GameState : IRoomProvider, IShipProvider, IHomeworldProvider
     {
         public DateTime CurrentTime { get; set; }
         public Expedition Expedition { get; set; }
         public Homeworld Home { get ; set; }
 
+        public Room Room
+        {
+            get { return Expedition.Room; }
+            set { Expedition.Room = value; }
+        }
+
+        public CommandShip Ship => Expedition.CmdShip;
         public int Ticks => Expedition.Ticks;
         
         public void Tick()
@@ -17,14 +24,21 @@ namespace TextSpace.Models
         }
     }
 
-    public interface IExpeditionProvider : IResolvableService
-    {
-        Expedition Expedition { get; set; }
-    }
-
     public interface IHomeworldProvider : IResolvableService
     {
+        //  TODO refactor setter here
         Homeworld Home { get; set; }
+    }
+
+    public interface IRoomProvider : IResolvableService
+    {   
+        //  TODO refactor setter here
+        Room Room { get; set; }
+    }
+
+    public interface IShipProvider : IResolvableService
+    {
+        CommandShip Ship { get; }
     }
 
     public class Expedition

@@ -25,7 +25,7 @@ public static class RoomHelpers
         if (string.IsNullOrEmpty(id))
             return null;
 
-        var playerShip = ServiceContainer.Resolve<IExpeditionProvider>().Expedition.CmdShip;
+        var playerShip = ServiceContainer.Resolve<IShipProvider>().Ship;
 
         //  include all the places we should look for entities
         var entities = new List<ITextEntity>() { room, playerShip };

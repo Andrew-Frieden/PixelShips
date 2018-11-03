@@ -23,9 +23,9 @@ namespace TextSpace.Controllers
         [SerializeField] private ShipHudController _shipHudController;
         
 
-        private Expedition CurrentExpedition => ServiceContainer.Resolve<IExpeditionProvider>().Expedition;
-        private CommandShip PlayerShip => CurrentExpedition.CmdShip;
-        private IRoom Room => CurrentExpedition.Room;
+        private CommandShip PlayerShip => ServiceContainer.Resolve<IShipProvider>().Ship;
+        private IRoom Room => ServiceContainer.Resolve<IRoomProvider>().Room;
+
         private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
         private RoomService RoomService => ServiceContainer.Resolve<RoomService>();
 

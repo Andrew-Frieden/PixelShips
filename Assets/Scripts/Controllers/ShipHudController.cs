@@ -28,9 +28,8 @@ namespace TextSpace.Controllers
             }
         }
 
-        private Expedition Expedition => ServiceContainer.Resolve<IExpeditionProvider>().Expedition;
-        private CommandShip PlayerShip => Expedition.CmdShip;
-        private IRoom Room => Expedition.Room;
+        private CommandShip PlayerShip => ServiceContainer.Resolve<IShipProvider>().Ship;
+        private IRoom Room => ServiceContainer.Resolve<IRoomProvider>().Room;
 
 		//These track the ships 'current' before any actions/tick changes the values
         private int CurrentHull { get; set; }

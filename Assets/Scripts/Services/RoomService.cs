@@ -10,24 +10,27 @@ namespace TextSpace.Services
 {
     public class RoomService : IResolvableService
     {
-        private readonly RoomFactoryService _roomFactory;
-        private readonly IExpeditionProvider _expProvider;
-        private Expedition Expedition => _expProvider.Expedition;
-        private Room Room => Expedition.Room;
+        private readonly RoomFactoryService RoomFactory;
+        private readonly IShipProvider ShipProvider;
+        private readonly IRoomProvider RoomProvider;
 
-        public RoomService(RoomFactoryService roomFactory, IExpeditionProvider expProvider)
+        private Room Room => RoomProvider.Room;
+        private CommandShip PlayerShip => ShipProvider.Ship;
+
+        public RoomService(RoomFactoryService roomFactory, IShipProvider shipProvider, IRoomProvider roomProvider)
         {
-            _roomFactory = roomFactory;
-            _expProvider = expProvider;
+            RoomFactory = roomFactory;
+            ShipProvider = shipProvider;
+            RoomProvider = roomProvider;
         }
 
         public void StartRoom()
         {
-            var warpTarget = Expedition.CmdShip.WarpTarget;
+            var warpTarget = PlayerShip.WarpTarget;
             if (warpTarget != null)
-                Expedition.Room = (Room)_roomFactory.GenerateRoom(warpTarget);
-            Expedition.CmdShip.WarpTarget = null;
-            CalculateDialogues(Expedition.Room);
+                RoomProvider.Room = (Room)RoomFactory.GenerateRoom(warpTarget);
+            PlayerShip.WarpTarget = null;
+            CalculateDialogues(Room);
         }
 
         public IEnumerable<TagString> ResolveNextTick(IRoom room, IRoomAction playerAction)

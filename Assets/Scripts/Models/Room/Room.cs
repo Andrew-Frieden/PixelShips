@@ -27,7 +27,7 @@ namespace TextSpace.Models
             get
             {
                 if (_cmdShip == null)
-                    _cmdShip = ServiceContainer.Resolve<IExpeditionProvider>().Expedition.CmdShip;
+                    _cmdShip = ServiceContainer.Resolve<IShipProvider>().Ship;
                 return _cmdShip;
             }
         }
