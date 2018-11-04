@@ -48,7 +48,7 @@ namespace TextSpace.Framework.IoC
                         var paramType = param.ParameterType;
                         var dep = Dependencies.FirstOrDefault(d => d.GetType() == paramType || paramType.IsInstanceOfType(d));
 
-                        if (dep == null)    //  couldn't find a dependency, break out of the loop and try the next object
+                        if (dep == null)    //  couldn't find a dependency, stop checking constructor params
                         {
                             dependenciesAvailable = false;
                             break;
@@ -56,8 +56,8 @@ namespace TextSpace.Framework.IoC
                         ctorArgs.Add(dep);
                     }
 
-                    if (!dependenciesAvailable)
-                        continue;
+                    if (!dependenciesAvailable) // dependencies not available, break out of the loop and try the next object
+                        continue; 
 
                     var resolvedObject = ctor.Invoke(ctorArgs.ToArray());
                     Dependencies.Add(resolvedObject);

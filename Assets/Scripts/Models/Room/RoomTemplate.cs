@@ -39,6 +39,7 @@ namespace TextSpace.Models
         Gatherable = 3,
         Town = 4,   //  these are npcs but usually/always have repair and trade actions
         Npc = 5,    //  might eventually want to break this up into more specific kinds of npcs
-        Mineable = 6
+        Mineable = 6,
+        Mission = 7
     }
 }

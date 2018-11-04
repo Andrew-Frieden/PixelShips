@@ -180,6 +180,11 @@ namespace TextSpace.Models.Dtos
                 MissionLevel = dto.MissionLevel
             };
         }
+
+        public static IRoomActor FromDto(this FlexEntityDto dto)
+        {
+            return (IRoomActor)Activator.CreateInstance(Type.GetType(dto.EntityType), new object[] { dto });
+        }
         #endregion
     }
 }

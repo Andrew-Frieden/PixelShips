@@ -3,7 +3,7 @@ using TextSpace.Framework;
 
 namespace TextSpace.Models
 {
-    public class GameState : IRoomProvider, IShipProvider, IHomeworldProvider
+    public class GameState : IRoomProvider, IShipProvider, IHomeworldProvider, IMissionProvider
     {
         public DateTime CurrentTime { get; set; }
         public Expedition Expedition { get; set; }
@@ -15,24 +15,26 @@ namespace TextSpace.Models
             set { Expedition.Room = value; }
         }
 
+        public Mission Mission
+        {
+            get { return Expedition.CurrentMission; }
+            set { Expedition.CurrentMission = value; }
+        }
+
         public CommandShip Ship => Expedition.CmdShip;
         public int Ticks => Expedition.Ticks;
-        
-        public void Tick()
-        {
-            Expedition.Ticks++;
-        }
+        public void Tick() { Expedition.Ticks++; }
     }
 
     public interface IHomeworldProvider : IResolvableService
     {
-        //  TODO refactor setter here
+        //  TODO refactor setter
         Homeworld Home { get; set; }
     }
 
     public interface IRoomProvider : IResolvableService
-    {   
-        //  TODO refactor setter here
+    {
+        //  TODO refactor setter
         Room Room { get; set; }
     }
 
@@ -40,6 +42,23 @@ namespace TextSpace.Models
     {
         CommandShip Ship { get; }
     }
+
+    //  TODO refactor setter
+    public interface IMissionProvider : IResolvableService
+    {
+        Mission Mission { get; set; }
+    }
+
+    ////  maybe something like this?
+    //public interface IHomeworldShaper : IResolvableService
+    //{
+    //    void SetHomeworld(Homeworld world);
+    //}
+
+    //public interface IRoomShaper : IResolvableService
+    //{
+    //    void SetRoom(Room room);
+    //}
 
     public class Expedition
     {
@@ -69,8 +88,20 @@ namespace TextSpace.Models
     
     public class Mission
     {
-        public int MissionLevel;
-        public int JumpsLeft;
 
+
+        public RoomFlavor RoomFlavor;
+        public MissionType MissionType;
+        public IRoomActor Objective;
+
+        public int MissionLevel;
+        public int MaximumMissionJumps;
+
+    }
+
+    public enum MissionType
+    {
+        Interact = 0,
+        DestroyMob = 1
     }
 }

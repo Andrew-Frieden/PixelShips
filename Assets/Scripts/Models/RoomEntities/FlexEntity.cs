@@ -178,15 +178,4 @@ namespace TextSpace.Models
             return new DoNothingAction(this);
         }
     }
-
-    public class FlexData
-    {
-        public string EntityType;
-        public int Powerlevel;
-        public IEnumerable<RoomFlavor> RoomFlavors;
-        public IEnumerable<RoomActorFlavor> ActorFlavors;
-
-        public Dictionary<string, int> Stats;
-        public Dictionary<string, string> Values;
-    }
 }

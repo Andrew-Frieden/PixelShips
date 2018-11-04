@@ -48,9 +48,16 @@ namespace TextSpace.Services
         private string GetRoomExitText(RoomTemplate t)
         {
             var text = $"Warp to {Room.GetNameForFlavor(t.Flavor)}{Env.ll}";
+            text += GetDetectionText(t);
+            return text;
+        }
 
-            if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard) 
-                && (PlayerShip.CheckHardware<HazardDetector>() || PlayerShip.CheckHardware<SuperDetector>()))
+        private string GetDetectionText(RoomTemplate t)
+        {
+            var text = string.Empty;
+
+            if (t.ActorFlavors.Contains(RoomActorFlavor.Hazard)
+              && (PlayerShip.CheckHardware<HazardDetector>() || PlayerShip.CheckHardware<SuperDetector>()))
             {
                 text += "Hazard Detected" + Env.l;
             }

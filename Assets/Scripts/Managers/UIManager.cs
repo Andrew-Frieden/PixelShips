@@ -25,11 +25,11 @@ public class UIManager : Singleton<UIManager>
         
         switch (currentPhase)
         {
-            case GameManager.GamePhase.PREGAME:
+            case GameManager.GamePhase.MAINMENU:
                 MainMenu.gameObject.SetActive(true);
                 TripleView.gameObject.SetActive(false);
                 break;
-            case GameManager.GamePhase.MISSION:
+            case GameManager.GamePhase.GAME:
                 TripleView.gameObject.SetActive(true);
                 MainMenu.gameObject.SetActive(false);
                 break;

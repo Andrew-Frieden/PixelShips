@@ -3,8 +3,6 @@ using Common;
 using Events;
 using TextSpace.Models;
 using System.Collections.Generic;
-using TextSpace.Events;
-using TextSpace.Models.Actions;
 using TextSpace.Services;
 using TextSpace.Controllers;
 using TextSpace.Services.Factories;
@@ -15,8 +13,8 @@ public class GameManager : Singleton<GameManager>
 	public enum GamePhase
 	{
 		BOOT,
-		PREGAME,
-		MISSION
+		MAINMENU,
+		GAME
 	}
 	public EventGameState OnGameStateChanged;
 
@@ -54,7 +52,7 @@ public class GameManager : Singleton<GameManager>
         // Disable screen dimming
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        UpdateState(GamePhase.PREGAME);
+        UpdateState(GamePhase.MAINMENU);
     }
 
     [SerializeField] List<GameObject> StartupDependencies = new List<GameObject>();
@@ -86,9 +84,9 @@ public class GameManager : Singleton<GameManager>
 
 		switch (_currentGamePhase)
 		{
-			case GamePhase.PREGAME:
+			case GamePhase.MAINMENU:
 				break;
-			case GamePhase.MISSION:
+			case GamePhase.GAME:
 				break;
 			default:
 				Debug.Log("Invalid Game State");
@@ -100,7 +98,7 @@ public class GameManager : Singleton<GameManager>
     public void ContinueFromSave()
     {
         GameState = SaveLoadSvc.Load();
-        UpdateState(GamePhase.MISSION);
+        UpdateState(GamePhase.GAME);
 
         //  TODO make this event driven?
         _commandViewController.StartCommandView();
@@ -111,7 +109,7 @@ public class GameManager : Singleton<GameManager>
 	{
         bootstrapping = true;
         GameState = devSettingsEnabled ? BootStrapSvc.DevGameState : BootStrapSvc.FTUEGameState;
-        UpdateState(GamePhase.MISSION);
+        UpdateState(GamePhase.GAME);
     }
 
     public void StartNewExpedition()

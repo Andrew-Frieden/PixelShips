@@ -6,6 +6,7 @@ using GameData;
 using TextSpace.Framework;
 using TextSpace.Items;
 using TextSpace.Models;
+using TextSpace.Models.Dtos;
 using TextSpace.Models.RoomEntities.Mobs;
 using TextSpace.Models.Stats;
 using TextSpace.RoomEntities;
@@ -40,11 +41,13 @@ namespace TextSpace.Services.Factories
 
         private readonly ContentLoadService contentLoadSvc;
         private readonly WeaponFactoryService weaponFactorySvc;
+        private readonly MobFactoryService mobFactorySvc;
 
-        public RoomFactoryService(ContentLoadService contentService, WeaponFactoryService weaponFactory)
+        public RoomFactoryService(ContentLoadService contentService, WeaponFactoryService weaponFactory, MobFactoryService mobFactory)
         {
             contentLoadSvc = contentService;
             weaponFactorySvc = weaponFactory;
+            mobFactorySvc = mobFactory;
 
             var gameContent = contentLoadSvc.Content;
             Hazards = gameContent.Hazards;
@@ -211,45 +214,11 @@ namespace TextSpace.Services.Factories
             
             if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
             {
-                var data = Mobs.Where(h => h.RoomFlavors.Contains(template.Flavor));
-            
-                if (2 <= UnityEngine.Random.Range(0, 11))
-                {
-                    var mobData = data.Where(d => d.Powerlevel <= template.PowerLevel)
-                        .OrderByDescending(d => d.Powerlevel).FirstOrDefault();
-                    
-                    if (mobData == null)
-                    {
-                        Debug.Log("No suitable mobData found for template.");
-                        Debug.Log("Template Flavor: " + template.Flavor);
-                        Debug.Log("Template Powerlevel: " + template.PowerLevel);
-                    }
-                    
-                    actors.AddRange(CreateMob(mobData, template));
-                }
-                else
-                {
-                    var mobData = data.Where(d => d.Powerlevel <= template.PowerLevel)
-                        .OrderByDescending(d => d.Powerlevel);
-                    
-                    if (mobData.Count() < 2)
-                    {
-                        Debug.Log("Cannot find 2 suitable mobs for template.");
-                        Debug.Log("Template Flavor: " + template.Flavor);
-                        Debug.Log("Template Powerlevel: " + template.PowerLevel);
-                    }
-                    
-                    var mobData1 = mobData.ElementAt(1);
-                    var mobData2 = mobData.ElementAt(2);
-                    
-                    actors.AddRange(CreateMob(mobData1, template));
-                    actors.AddRange(CreateMob(mobData2, template));
-                }
+                actors.AddRange(mobFactorySvc.BuildMob(template));
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Town))
             {
-                //actors.Add(new SpaceStationNpc());
                 var townData = NpcContent
                         .Where(c => c.ActorFlavors.Contains(RoomActorFlavor.Town))
                         .Where(t => t.RoomFlavors.Contains(template.Flavor) || t.RoomFlavors.Contains(RoomFlavor.Empty))
@@ -296,49 +265,6 @@ namespace TextSpace.Services.Factories
                 actors.Add(gatherable.FromFlexData());
             }
 
-            return actors;
-        }
-
-        //Creates a Mob and its dependent weapon entities (with dependent Id's set)
-        private IEnumerable<IRoomActor> CreateMob(FlexData mobData, RoomTemplate template)
-        {
-            //Just for debugging
-            var hasWeapon = false;
-            
-            var actors = new List<IRoomActor>();
-            var mob = mobData.FromFlexData();
-           
-            foreach (var weaponKey in ValueKeys.WeaponIds)
-            {
-                if (mob.Values.ContainsKey(weaponKey))
-                {
-                    hasWeapon = true;
-
-                    var weapon = weaponFactorySvc.GetWeapon(mob.Values[weaponKey]);
-                    weapon.IsHidden = true;
-                    weapon.DependentActorId = mob.Id;
-                    actors.Add(weapon);
-                }
-            }
-            
-            //Give mob loot
-            var lootFlexData = Gatherables.Where(h => h.RoomFlavors.Contains(template.Flavor) && h.Powerlevel <= template.PowerLevel).GetRandom();
-            var loot = (BasicGatherable) lootFlexData.FromFlexData();
-            loot.IsHidden = true;
-            loot.DependentActorId = mob.Id;
-            actors.Add(loot);
-
-            if (!hasWeapon)
-            {
-                Debug.Log("Warning: Mob created with no weapons.");
-            }
-
-            if (!(mob is Mob))
-            {
-                throw new InvalidCastException("FlexData is not an instance of Mob");
-            }
-            
-            actors.Add(mob);
             return actors;
         }
 
