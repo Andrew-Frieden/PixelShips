@@ -21,14 +21,16 @@ namespace TextSpace.Services.Factories
             weaponFactoryService = weaponFactory;
         }
 
-        public IEnumerable<IRoomActor> BuildMob(RoomTemplate template)
+        public IEnumerable<IRoomActor> BuildMob(RoomFlavor flavor, int powerLevel)
         {
             var actors = new List<IRoomActor>();
 
             var mob = MobData
-                .Where(d => d.RoomFlavors.Contains(template.Flavor))
-                .OrderBy(d => Math.Abs(template.PowerLevel - d.Powerlevel))
+                .Where(d => d.RoomFlavors.Contains(flavor))
+                .OrderBy(d => Math.Abs(powerLevel - d.Powerlevel))
                 .First().FromFlexData();
+
+            actors.Add(mob);
 
             foreach (var weaponKey in ValueKeys.WeaponIds)
             {
@@ -41,13 +43,12 @@ namespace TextSpace.Services.Factories
                 }
             }
 
-            var loot = GatherableData.Where(h => h.RoomFlavors.Contains(template.Flavor) 
-                            && h.Powerlevel <= template.PowerLevel).GetRandom().FromFlexData();
+            var loot = GatherableData.Where(h => h.RoomFlavors.Contains(flavor) 
+                            && h.Powerlevel <= powerLevel).GetRandom().FromFlexData();
             loot.IsHidden = true;
             loot.DependentActorId = mob.Id;
             actors.Add(loot);
 
-            actors.Add(mob);
             return actors;
         }
     }

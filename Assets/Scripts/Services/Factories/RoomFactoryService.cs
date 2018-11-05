@@ -29,8 +29,8 @@ namespace TextSpace.Services.Factories
 
         private int ROOM_ACTOR_CAPACITY = 4;
 
-        private float CHANCE_TRANSITION_FROM_EMPTY = 0.7f; //  the chance that at least one of the exits of a room in empty space will lead to a non-empty flavor room
-        private float CHANCE_TRANSITION_TO_EMPTY = 0.2f;    //  the chance that at least one of the exits in a non-empty flavored room will lead to empty space
+        private float CHANCE_TRANSITION_FROM_EMPTY = 0.9f; //  the chance that at least one of the exits of a room in empty space will lead to a non-empty flavor room
+        private float CHANCE_TRANSITION_TO_EMPTY = 0.25f;    //  the chance that at least one of the exits in a non-empty flavored room will lead to empty space
         
         public static IEnumerable<FlexData> Hazards { get; private set; }
         public static IEnumerable<FlexData> Mobs { get; private set; }
@@ -42,12 +42,17 @@ namespace TextSpace.Services.Factories
         private readonly ContentLoadService contentLoadSvc;
         private readonly WeaponFactoryService weaponFactorySvc;
         private readonly MobFactoryService mobFactorySvc;
+        private readonly MissionService missionSvc;
 
-        public RoomFactoryService(ContentLoadService contentService, WeaponFactoryService weaponFactory, MobFactoryService mobFactory)
+        public RoomFactoryService(ContentLoadService contentService,
+            WeaponFactoryService weaponFactory, 
+            MobFactoryService mobFactory,
+            MissionService missionService)
         {
             contentLoadSvc = contentService;
             weaponFactorySvc = weaponFactory;
             mobFactorySvc = mobFactory;
+            missionSvc = missionService;
 
             var gameContent = contentLoadSvc.Content;
             Hazards = gameContent.Hazards;
@@ -81,7 +86,8 @@ namespace TextSpace.Services.Factories
 
         public IRoom GenerateRoom(RoomTemplate template)
         {
-            return GenerateRoom(template, false);
+            var room = GenerateRoom(template, false);
+            return room;
         }
 
         public IRoom GenerateRoom(RoomTemplate template, bool forceEmpty)
@@ -109,33 +115,28 @@ namespace TextSpace.Services.Factories
         private IEnumerable<RoomTemplate> CalculateExits(RoomTemplate template)
         {
             var exits = new List<RoomTemplate>();
+            exits.Add(BuildRoomExit(template, false));
 
-            if (template.Flavor == RoomFlavor.Empty)
+            var missionFound = exits.Any(e => e.IsMission);
+            if (template.Flavor == RoomFlavor.Empty ?
+                CHANCE_TRANSITION_FROM_EMPTY.Rng() : CHANCE_TRANSITION_TO_EMPTY.Rng())
             {
-                exits.Add(BuildRoomExit(template, false));
-
-                if (CHANCE_TRANSITION_FROM_EMPTY.Rng())
-                    exits.Add(BuildRoomExit(template, true));
-                else
-                    exits.Add(BuildRoomExit(template, false));
+                exits.Add(BuildRoomExit(template, true, missionFound));
             }
             else
             {
-                exits.Add(BuildRoomExit(template, false));
-
-                if (CHANCE_TRANSITION_TO_EMPTY.Rng())
-                    exits.Add(BuildRoomExit(template, true));
-                else
-                    exits.Add(BuildRoomExit(template, false));
+                exits.Add(BuildRoomExit(template, false, missionFound));
             }
 
             return exits;
         }
 
-        private RoomTemplate BuildRoomExit(RoomTemplate template, bool IsZoneTransition)
+        private RoomTemplate BuildRoomExit(RoomTemplate template, bool IsZoneTransition, bool missionFound = false)
         {
             //  figure out what kind of actors will be in adjacent rooms
             var entityFlavors = new List<RoomActorFlavor>();
+
+            var isMission = missionSvc.ShouldFindMissionExit(template) && !missionFound;
 
             if (CHANCE_FOR_TOWN.Rng())
             {
@@ -195,7 +196,7 @@ namespace TextSpace.Services.Factories
                 }
             }
 
-            return new RoomTemplate(Math.Max(20, template.PowerLevel + 2), nextRoomFlavor, entityFlavors);
+            return new RoomTemplate(Math.Max(20, template.PowerLevel + 2), nextRoomFlavor, entityFlavors, isMission);
         }
 
         private List<IRoomActor> CalculateActors(RoomTemplate template)
@@ -211,10 +212,15 @@ namespace TextSpace.Services.Factories
             {
                 actors.Add(weaponFactorySvc.GetRandomWeapon(Weapon.WeaponTypes.Heavy, template.PowerLevel));
             }
-            
+
+            if (template.IsMission)
+            {
+                actors.AddRange(missionSvc.GetMissionActors());
+            }
+
             if (template.ActorFlavors.Contains(RoomActorFlavor.Mob))
             {
-                actors.AddRange(mobFactorySvc.BuildMob(template));
+                actors.AddRange(mobFactorySvc.BuildMob(template.Flavor, template.PowerLevel));
             }
 
             if (template.ActorFlavors.Contains(RoomActorFlavor.Town))

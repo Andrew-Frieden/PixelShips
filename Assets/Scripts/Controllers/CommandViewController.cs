@@ -103,12 +103,33 @@ namespace TextSpace.Controllers
             _abController.ShowControl(content);
         }
 
+        private List<TagString> nextRoomText;
+
+        private List<TagString> AdditionalRoomText()
+        {
+            var text = new List<TagString>();
+            var navService = ServiceContainer.Resolve<NavigationService>();
+            var navText = navService.GetNavigationUpdates().FirstOrDefault();
+            if (!string.IsNullOrEmpty(navText))
+            {
+                text.Add(navText.Tag());
+                Debug.Log($"CmdView AdditionalRoomText {navText}");
+            }
+            return text;
+        }
+
         private void HandlePlayerChoseAction(IRoomAction playerAction)
         {
             _scrollView.DimCells();
 
-            var text = RoomService.ResolveNextTick(Room, playerAction);
-            _scrollView.AddCells(text);
+            nextRoomText = new List<TagString>();
+            var actionText = RoomService.ResolveNextTick(Room, playerAction);
+            var addedText = AdditionalRoomText();
+            nextRoomText.AddRange(addedText);
+            nextRoomText.AddRange(actionText);
+
+            //  add mission text (success, accepted, failed)
+            _scrollView.AddCells(nextRoomText);
 
             //if Exit is populated -> player is warping
             if (PlayerShip.WarpTarget != null)

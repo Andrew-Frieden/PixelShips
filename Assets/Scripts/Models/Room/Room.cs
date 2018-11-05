@@ -40,6 +40,7 @@ namespace TextSpace.Models
             LookText = inject.LookText;
             Exits = exits;
             Entities = entities;
+            Flavor = inject.Flavor;
         }
 
         public Room(RoomDto dto)

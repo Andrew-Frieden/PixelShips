@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TextSpace.Framework;
 
 namespace TextSpace.Models
@@ -17,7 +18,12 @@ namespace TextSpace.Models
 
         public Mission Mission
         {
-            get { return Expedition.CurrentMission; }
+            get
+            {
+                if (Expedition == null)
+                    return null;
+                return Expedition.CurrentMission;
+            }
             set { Expedition.CurrentMission = value; }
         }
 
@@ -88,15 +94,14 @@ namespace TextSpace.Models
     
     public class Mission
     {
-
-
         public RoomFlavor RoomFlavor;
         public MissionType MissionType;
         public IRoomActor Objective;
+        public IEnumerable<IRoomActor> Entities;
 
         public int MissionLevel;
         public int MaximumMissionJumps;
-
+        public int ZoneJumps;
     }
 
     public enum MissionType
