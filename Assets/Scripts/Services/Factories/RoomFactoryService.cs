@@ -106,6 +106,27 @@ namespace TextSpace.Services.Factories
             return new Room(roomInject, exits, actors);
         }
 
+        public List<FlexData> GetFlexData(GameContentFilterDto gameContentFilterDto)
+        {
+            switch (gameContentFilterDto.RoomActorFlavor)
+            {
+                case RoomActorFlavor.None:
+                    return new List<FlexData>();
+                case RoomActorFlavor.Mob:
+                    return Mobs.Where(m => m.RoomFlavors.Contains(gameContentFilterDto.RoomFlavor)).ToList();
+                case RoomActorFlavor.Hazard:
+                    return Hazards.Where(h => h.RoomFlavors.Contains(gameContentFilterDto.RoomFlavor)).ToList();
+                case RoomActorFlavor.Gatherable:
+                    return Gatherables.Where(h => h.RoomFlavors.Contains(gameContentFilterDto.RoomFlavor)).ToList();
+                case RoomActorFlavor.Npc:
+                    return NpcContent.Where(h => h.RoomFlavors.Contains(gameContentFilterDto.RoomFlavor)).ToList();
+                case RoomActorFlavor.Mineable:
+                    return Mineables.Where(h => h.RoomFlavors.Contains(gameContentFilterDto.RoomFlavor)).ToList();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         private IEnumerable<RoomTemplate> CalculateExits(RoomTemplate template)
         {
             var exits = new List<RoomTemplate>();
