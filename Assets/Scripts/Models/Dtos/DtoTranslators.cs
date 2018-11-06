@@ -122,7 +122,7 @@ namespace TextSpace.Models.Dtos
                 Id = entity.Id,
                 Values = entity.Values,
                 Stats = entity.Stats,
-                ContentDto = entity.DialogueContent?.ToDto()
+                //ContentDto = entity.DialogueContent?.ToDto()
             };
         }
 

@@ -7,13 +7,15 @@ namespace TextSpace.Models
     {
         public int PowerLevel { get; }
         public RoomFlavor Flavor { get; }
+        public bool IsMission { get; }
         public IEnumerable<RoomActorFlavor> ActorFlavors { get; }
 
-        public RoomTemplate(int powerlevel, RoomFlavor flavor, IEnumerable<RoomActorFlavor> actorFlavors)
+        public RoomTemplate(int powerlevel, RoomFlavor flavor, IEnumerable<RoomActorFlavor> actorFlavors, bool isMission)
         {
             PowerLevel = powerlevel;
             Flavor = flavor;
             ActorFlavors = actorFlavors;
+            IsMission = isMission;
         }
 
         public RoomTemplate(int powerlevel, RoomFlavor flavor)
@@ -39,7 +41,6 @@ namespace TextSpace.Models
         Gatherable = 3,
         Town = 4,   //  these are npcs but usually/always have repair and trade actions
         Npc = 5,    //  might eventually want to break this up into more specific kinds of npcs
-        Mineable = 6,
-        Mission = 7
+        Mineable = 6
     }
 }

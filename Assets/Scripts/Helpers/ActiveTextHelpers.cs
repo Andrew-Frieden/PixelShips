@@ -3,6 +3,8 @@ using TextSpace.Models;
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using TextSpace.Framework.IoC;
+using TextSpace.Services;
 
 namespace TextEncoding
 {
@@ -25,7 +27,10 @@ namespace TextEncoding
 
         public static string Encode(this string text, string link, string id, string color)
         {
-            return Regex.Replace(text, "<.*?>", GetLink($"[{link}]", id, color));
+            var missionService = ServiceContainer.Resolve<MissionService>();
+            var isObjective = missionService.IsMissionObjective(id);
+            var linkText = isObjective ? $"[*{link}*]" : $"[{link}]";
+            return Regex.Replace(text, "<.*?>", GetLink(linkText, id, color));
         }
     }
 

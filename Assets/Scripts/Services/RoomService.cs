@@ -39,8 +39,6 @@ namespace TextSpace.Services
             resolveResults.AddRange(ExecuteMainActions(room, playerAction));
             resolveResults.AddRange(ExecuteCleanupActions(room));
 
-            // do mission stuff
-
             CalculateDialogues(room);
             GameManager.Instance.GameState.Tick();
 
