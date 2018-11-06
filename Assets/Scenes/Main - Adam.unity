@@ -2427,91 +2427,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114871246089868360, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871246089868360, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114424896079805956, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114424896079805956, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114116385079901816, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114116385079901816, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114778778063840342, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114778778063840342, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114198493277924274, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114198493277924274, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114409346246816346, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114409346246816346, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114409346246816346, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_inputSource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114337162439138098, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114337162439138098, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910554398230272, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910554398230272, guid: 318a8c0cf72cf294c8e4d97f5b0ed007,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 318a8c0cf72cf294c8e4d97f5b0ed007, type: 2}
   m_IsPrefabAsset: 0
@@ -5335,8 +5250,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7.700012, y: -99.974976}
-  m_SizeDelta: {x: -124.6, y: -199.95}
+  m_AnchoredPosition: {x: 7.700012, y: 51}
+  m_SizeDelta: {x: -124.6, y: -502}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1295361343
 MonoBehaviour:
@@ -6837,8 +6752,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030755997, y: -97.57507}
-  m_SizeDelta: {x: 955.4, y: 1915.2}
+  m_AnchoredPosition: {x: 0.000030755997, y: -310.5}
+  m_SizeDelta: {x: 955.4, y: 2039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650362073
 MonoBehaviour:

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TextSpace.Models.Stats;
 
 namespace TextSpace.Models
 {
@@ -18,7 +19,17 @@ namespace TextSpace.Models
     {
         public static IRoomActor FromFlexData(this FlexData data)
         {
-            return (IRoomActor)Activator.CreateInstance(Type.GetType(data.EntityType), new object[] { data });
+            try
+            {
+                return (IRoomActor) Activator.CreateInstance(Type.GetType(data.EntityType), new object[] { data });
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(data);
+                Console.WriteLine(data.Values[ValueKeys.Name]);
+                Console.WriteLine(data.EntityType);
+                throw;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TextSpace.Framework.IoC;
 using TextSpace.Models;
 using TextSpace.Models.Dtos;
@@ -12,7 +13,11 @@ namespace TextSpace.Controllers
 {
 	public class RoomGeneratorController : MonoBehaviour
 	{
+		private List<IRoomActor> _actors = new List<IRoomActor>(); 
+			
 		private GameContentFilterDto _filter;
+
+		private Dictionary<int, FlexData> _flexDataLookup;
 
 		private RoomFlavor _selectedRoomFlavor;
 		private RoomActorFlavor _selectedRoomActorFlavor;
@@ -23,11 +28,15 @@ namespace TextSpace.Controllers
 		[SerializeField] private TMP_Dropdown _flavorFilterDropdown;
 		[SerializeField] private TMP_Dropdown _contentTypeFilterDropdown;
 		[SerializeField] private TMP_Dropdown _entityChooserDropdown;
+
+		[SerializeField] private TMP_InputField _roomTemplateInputField;
 		
 		private RoomFactoryService RoomFactory => ServiceContainer.Resolve<RoomFactoryService>();
 		
 		void Start()
 		{
+			_flexDataLookup = new Dictionary<int, FlexData>();
+			
 			var flavorFilterOptions = new List<TMP_Dropdown.OptionData>();
 			var contentTypeFilterOptions = new List<TMP_Dropdown.OptionData>();
 
@@ -77,7 +86,7 @@ namespace TextSpace.Controllers
 		{
 			var gameContentFilterDto = new GameContentFilterDto(_selectedRoomFlavor, _selectedRoomActorFlavor);
 			var flexData = RoomFactory.GetFlexData(gameContentFilterDto);
-
+			
 			if (_entityChooserDropdown.options != null)
 			{
 				_entityChooserDropdown.ClearOptions();
@@ -85,18 +94,34 @@ namespace TextSpace.Controllers
 			
 			var entityChooserOptions = new List<TMP_Dropdown.OptionData>();
 			
-			foreach (var entity in flexData)
+			for (var i = 0; i < flexData.Count(); i++)
 			{
 				entityChooserOptions.Add(new TMP_Dropdown.OptionData()
 				{
-					text = entity.Values[ValueKeys.Name]
+					text = flexData[i].Values[ValueKeys.Name]
 				});
+				
+				_flexDataLookup.Add(i, flexData[i]);
 			}
 
 			_entityChooserDropdown.options = entityChooserOptions;
 		}
 
 		public void AddToRoom()
+		{
+			_actors.Add(_flexDataLookup[_entityChooserDropdown.value].FromFlexData());
+
+			var roomContent = "";
+
+			foreach (var actor in _actors)
+			{
+				roomContent += actor.Values[ValueKeys.Name] + "\n";
+			}
+
+			_roomTemplateInputField.text = roomContent;
+		}
+
+		public void GenerateRoom()
 		{
 			
 		}

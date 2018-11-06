@@ -84,6 +84,11 @@ namespace TextSpace.Services.Factories
             return GenerateRoom(template, false);
         }
 
+        public IRoom GenerateRoom(RoomInjectable injectable, List<IRoomActor> actors, IEnumerable<RoomTemplate> exits)
+        {
+            return new Room(injectable, exits, actors);
+        }
+
         public IRoom GenerateRoom(RoomTemplate template, bool forceEmpty)
         {
             //  first get the injectable flavor for the room
